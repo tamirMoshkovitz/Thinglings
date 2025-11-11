@@ -37,6 +37,8 @@ namespace EladSketch
         [SerializeField]
         [Range(1, 200)] private float baseSpeed;
         
+        [SerializeField] private ParticleSystem boxParticles;
+        
         private float _currentSpeed;
         
         private EladInputSystem _inputSystem;
@@ -49,6 +51,7 @@ namespace EladSketch
         [SerializeField] [Range(0,3)] private float checkDirectionBuffer;
         private Vector2 _currentDirection;
         [SerializeField] [Range(0,20)] private float bufferSpeedCollision;
+        private ParticleSystem.MainModule _particleMain;
 
 
         private void Awake()
@@ -58,7 +61,8 @@ namespace EladSketch
             wallFilter.useTriggers = false;
             wallFilter.SetLayerMask(wallLayer);
             wallFilter.useLayerMask = true;
-            
+            _particleMain = boxParticles.main;
+
         }
 
         private void OnEnable()
@@ -93,6 +97,11 @@ namespace EladSketch
                 {
                     rb.MovePosition(_targetPosition);
                 }
+                else
+                {
+                    if (log) Debug.Log("Drag target is inside wall. Launching!");
+                    LaunchPlayer();
+                }
             }
         }
         
@@ -101,10 +110,12 @@ namespace EladSketch
 
         private void OnClickStarted(InputAction.CallbackContext ctx)
         {
+            
             Vector2 screenPos = Mouse.current.position.ReadValue();
             Vector3 worldPos = cam.ScreenToWorldPoint(screenPos);
             var hit = Physics2D.Raycast(worldPos, Vector2.zero, 0f, playerLayer);
             if (hit.collider == null) return;
+            _particleMain.startColor = Color.red;
             _lastCheckedPosition = transform.position;
             _targetPosition = new Vector2(worldPos.x, worldPos.y);
             _direction = (new Vector2(_targetPosition.x,_targetPosition.y ) - _lastCheckedPosition).normalized;
@@ -126,6 +137,7 @@ namespace EladSketch
         private void LaunchPlayer()
         {
             _isDragging = false;
+            _particleMain.startColor = Color.white;
             var launchDirection = (Vector2)transform.position - _lastCheckedPosition; 
             var stretch = launchDirection.magnitude; 
             var speed = Mathf.Min(baseSpeed * (1 + stretch * stretchMagnifier), maxSpeed);
@@ -178,6 +190,14 @@ namespace EladSketch
             _isDragging = false;
             if (collision.collider.CompareTag("FlipX") && rb.linearVelocity.magnitude > bufferSpeedCollision)
             {
+                ContactPoint2D contact = collision.GetContact(0);
+                Vector2 normal = contact.normal;
+                float dot = Vector2.Dot(rb.linearVelocity, normal);
+                if (dot > 0)
+                {
+                    Debug.Log("ignore Collsiion");
+                    return;
+                }
                 Debug.Log($"Collision entered: {collision.gameObject.name}");
                 Vector2 currentVelocity = rb.linearVelocity;
                 Vector2 newVelocity = new Vector2(-currentVelocity.x, currentVelocity.y);
@@ -185,11 +205,20 @@ namespace EladSketch
             }
             else if (collision.collider.CompareTag("FlipY") && rb.linearVelocity.magnitude > bufferSpeedCollision)
             {
+                ContactPoint2D contact = collision.GetContact(0);
+                Vector2 normal = contact.normal;
+                float dot = Vector2.Dot(rb.linearVelocity, normal);
+                if (dot > 0)
+                {
+                    Debug.Log("ignore Collsiion");
+                    return;
+                }
                 Debug.Log($"Collision entered: {collision.gameObject.name}");
                 Vector2 currentVelocity = rb.linearVelocity;
                 Vector2 newVelocity = new Vector2(currentVelocity.x, -currentVelocity.y);
                 rb.linearVelocity = newVelocity;
             }
+            else Debug.Log("ignore Collsiion");
         }
     }
 }
