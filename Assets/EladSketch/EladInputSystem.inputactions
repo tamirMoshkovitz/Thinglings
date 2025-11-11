@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "EladInputSystem",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "bc13b9cc-6c4d-4045-b463-ecda7dcd9c12",
+            "actions": [
+                {
+                    "name": "LeftClick",
+                    "type": "Button",
+                    "id": "f961d955-024e-4a18-bfd5-05f1fa68dbc9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "314ca54c-95a8-4b91-919c-94fecf55eb58",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
