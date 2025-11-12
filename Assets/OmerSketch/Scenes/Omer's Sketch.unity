@@ -295,7 +295,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CenterMovement
   inputScheme: 1
   speed: 5
-  _rb: {fileID: 0}
 --- !u!1 &86080916
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +471,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CenterMovement
   inputScheme: 0
   speed: 5
-  _rb: {fileID: 0}
 --- !u!1 &156110982
 GameObject:
   m_ObjectHideFlags: 0
