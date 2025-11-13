@@ -131,7 +131,8 @@ GameObject:
   - component: {fileID: 72935628}
   - component: {fileID: 72935627}
   - component: {fileID: 72935626}
-  - component: {fileID: 72935630}
+  - component: {fileID: 72935632}
+  - component: {fileID: 72935631}
   m_Layer: 0
   m_Name: Left Center
   m_TagString: Untagged
@@ -281,7 +282,7 @@ Transform:
   - {fileID: 1162172650}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &72935630
+--- !u!114 &72935631
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -290,11 +291,56 @@ MonoBehaviour:
   m_GameObject: {fileID: 72935625}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6d214c0849629345945e469f9ac50e2, type: 3}
+  m_Script: {fileID: 11500000, guid: f801d11ecfba444458f53ae7c9849fc7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CenterMovement
-  inputScheme: 1
-  speed: 5
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  moveSpeed: 5
+--- !u!114 &72935632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72935625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: 0a28be0a909f79748a81bf66ee8d89d4, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 72935631}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ce32391a-c194-4257-ad9a-1abee025c1ea
+    m_ActionName: 'Movement/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Movement
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &86080916
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,6 +353,7 @@ GameObject:
   - component: {fileID: 86080920}
   - component: {fileID: 86080919}
   - component: {fileID: 86080918}
+  - component: {fileID: 86080923}
   - component: {fileID: 86080922}
   m_Layer: 0
   m_Name: Right Center
@@ -466,11 +513,56 @@ MonoBehaviour:
   m_GameObject: {fileID: 86080916}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6d214c0849629345945e469f9ac50e2, type: 3}
+  m_Script: {fileID: 11500000, guid: f801d11ecfba444458f53ae7c9849fc7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CenterMovement
-  inputScheme: 0
-  speed: 5
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  moveSpeed: 5
+--- !u!114 &86080923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86080916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: 7dc1dbd54177ba745a4eb95faa05de52, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 86080922}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 24379377-687a-4727-8f20-2c225bb7e803
+    m_ActionName: 'Movement/Right Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Movement
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &156110982
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,7 +633,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.3891726
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 1.5
 --- !u!231 &156110985
 SpringJoint2D:
@@ -562,7 +654,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.6783623
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 3
 --- !u!231 &156110986
 SpringJoint2D:
@@ -583,7 +675,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 2.1185374
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 2
 --- !u!232 &156110987
 DistanceJoint2D:
@@ -734,7 +826,7 @@ SpringJoint2D:
   m_AutoConfigureDistance: 1
   m_Distance: 1.4122677
   m_DampingRatio: 0
-  m_Frequency: 1.5
+  m_Frequency: 0.5
 --- !u!1 &224069149
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,7 +1033,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.4257978
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 2
 --- !u!231 &458498006
 SpringJoint2D:
@@ -1183,7 +1275,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.2677538
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 3
 --- !u!231 &780991739
 SpringJoint2D:
@@ -1204,7 +1296,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.3277426
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 1.5
 --- !u!231 &780991740
 SpringJoint2D:
@@ -1225,7 +1317,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.4280404
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 2
 --- !u!232 &780991741
 DistanceJoint2D:
@@ -1425,7 +1517,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.6
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 3
 --- !u!231 &857357504
 SpringJoint2D:
@@ -1656,8 +1748,8 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.4122677
-  m_DampingRatio: 0
-  m_Frequency: 1.5
+  m_DampingRatio: 1
+  m_Frequency: 0.5
 --- !u!231 &916985947
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -1677,7 +1769,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.864618
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 3
 --- !u!231 &916985948
 SpringJoint2D:
@@ -1698,7 +1790,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.9936149
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 2
 --- !u!231 &916985949
 SpringJoint2D:
@@ -1719,7 +1811,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.4257978
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 2
 --- !u!232 &916985950
 DistanceJoint2D:
@@ -1931,7 +2023,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.2677538
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 3
 --- !u!231 &1037646674
 SpringJoint2D:
@@ -2173,7 +2265,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.4013207
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 3
 --- !u!231 &1162172645
 SpringJoint2D:
@@ -2194,7 +2286,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.3206059
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 2
 --- !u!231 &1162172646
 SpringJoint2D:
@@ -2215,7 +2307,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.4280404
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 2
 --- !u!232 &1162172647
 DistanceJoint2D:
@@ -2415,7 +2507,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.2466354
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 2
 --- !u!231 &1166448737
 SpringJoint2D:
@@ -2657,7 +2749,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.3509257
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 2
 --- !u!231 &1722014472
 SpringJoint2D:
@@ -2678,7 +2770,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.3553227
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 3
 --- !u!231 &1722014473
 SpringJoint2D:
@@ -2699,7 +2791,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.3891726
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 1.5
 --- !u!232 &1722014474
 DistanceJoint2D:
@@ -2887,7 +2979,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.3598899
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 3
 --- !u!231 &1790040416
 SpringJoint2D:
@@ -2908,7 +3000,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.3206059
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 3
 --- !u!231 &1790040417
 SpringJoint2D:
@@ -2929,7 +3021,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.3509257
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 3
 --- !u!232 &1790040418
 DistanceJoint2D:
@@ -3142,7 +3234,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.3277426
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 1.5
 --- !u!231 &1834047299
 SpringJoint2D:
@@ -3163,7 +3255,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.747484
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 3
 --- !u!231 &1834047300
 SpringJoint2D:
@@ -3184,7 +3276,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 2.1185374
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 2
 --- !u!232 &1834047301
 DistanceJoint2D:
@@ -3335,7 +3427,7 @@ SpringJoint2D:
   m_AutoConfigureDistance: 1
   m_Distance: 1.3405968
   m_DampingRatio: 0
-  m_Frequency: 1.5
+  m_Frequency: 0.5
 --- !u!1 &1884515900
 GameObject:
   m_ObjectHideFlags: 0
@@ -3467,7 +3559,7 @@ Transform:
   m_GameObject: {fileID: 1884515900}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5939, y: -4.43, z: 0}
+  m_LocalPosition: {x: -0.7, y: -6.43, z: 0}
   m_LocalScale: {x: 12.505258, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3544,7 +3636,7 @@ SpringJoint2D:
   m_AutoConfigureDistance: 1
   m_Distance: 1.3405968
   m_DampingRatio: 0
-  m_Frequency: 1.5
+  m_Frequency: 0.5
 --- !u!231 &1897263937
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -3564,7 +3656,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.6697605
-  m_DampingRatio: 0
+  m_DampingRatio: 1
   m_Frequency: 3
 --- !u!231 &1897263938
 SpringJoint2D:
