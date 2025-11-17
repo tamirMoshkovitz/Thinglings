@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -138,6 +139,7 @@ public class ConnectingJoint : MonoBehaviour
         }
         
         // TODO: Elad or tamir add an event here to notify connection removed - sound and vibration
+        // GameEvents.SlimeTears?.Invoke();
     }
 
     private void ClearConnections()
