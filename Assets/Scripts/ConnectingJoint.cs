@@ -1,9 +1,6 @@
 using System.Collections.Generic;
-using Audio;
-using DefaultNamespace;
 using Player;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class ConnectingJoint : MonoBehaviour
 {
