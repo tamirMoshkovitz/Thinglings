@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Player;
 using Player.Interfaces;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public class SlimeBehavior : MonoBehaviour
     [SerializeField] internal float maxStretch = 20f;
     [SerializeField] internal float connectionDistance = 2f;
     [SerializeField] private ControllerRumble controllerRumble;
+    [SerializeField] private SlimeStretchCameraShake slimeStretchCameraShake;
 
     private SlimeData _slimeData;
     private readonly List<ISlimeBehaviorComponent> _components = new List<ISlimeBehaviorComponent>();
@@ -18,6 +20,7 @@ public class SlimeBehavior : MonoBehaviour
         _slimeData = new SlimeData(this);
         _components.Add(controllerRumble.Awake(_slimeData));
         _components.Add(new SlimeAudio().Awake(_slimeData));
+        _components.Add(slimeStretchCameraShake.Awake(_slimeData));
     }
 
     private void OnEnable()
@@ -44,7 +47,6 @@ public class SlimeBehavior : MonoBehaviour
                 OnSlimeTears();
                 return;
             }
-            
             UpdateStretch();
         }
     }
