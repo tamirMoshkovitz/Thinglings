@@ -27,8 +27,9 @@ public class SlimeBehavior : MonoBehaviour
     {
         GameEvents.PauseGame += OnPauseGame;
         GameEvents.ResumeGame += OnResumeGame;
+        GameEvents.slimeConnected += OnSlimeConnected;
     }
-    
+
     private void OnDisable()
     {
         GameEvents.PauseGame -= OnPauseGame;
@@ -51,6 +52,14 @@ public class SlimeBehavior : MonoBehaviour
         }
     }
 
+    private void OnSlimeConnected()
+    {
+        foreach (var component in _components)
+        {
+            component.OnSlimeConnected();
+        }
+    }
+
     private void OnSlimeTears()
     {
         foreach (var component in _components)
@@ -59,7 +68,7 @@ public class SlimeBehavior : MonoBehaviour
         }
         Invoke(nameof(OnTearFinished), controllerRumble.tearRumbleDuration);
     }
-    
+
     private void OnTearFinished()
     {
         foreach (var component in _components)
@@ -91,43 +100,4 @@ public class SlimeBehavior : MonoBehaviour
             component.OnResumeGame();
         }
     }
-}
-
-public class SlimeData
-{
-    private SlimeBehavior slime;
-    private static bool reachedMaxStretch = true;
-    
-    public SlimeData(SlimeBehavior slime)
-    {
-        this.slime = slime;
-    }
-    
-    public float MaxStretch => slime.maxStretch;
-    public float ConnectionDistance => slime.connectionDistance;
-
-    public bool ReachedMaxStretch 
-    {
-        get => reachedMaxStretch;
-        set => reachedMaxStretch = value;
-    }
-
-    public bool Connected
-    {
-        get
-        {
-            if (!ReachedMaxStretch ||
-                Vector3.Distance(slime.leftCenter.position, slime.rightCenter.position) < slime.connectionDistance)
-            {
-                ReachedMaxStretch = false;
-                return true;
-            }
-
-            return false;
-        }
-    }
-
-    public float Distance => Vector3.Distance(slime.leftCenter.position, slime.rightCenter.position);
-
-    public float StretchRatio => Distance / slime.maxStretch;
 }

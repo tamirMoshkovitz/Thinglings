@@ -57,7 +57,9 @@ public class ControllerRumble : ISlimeBehaviorComponent
         _slimeData.ReachedMaxStretch = false;
         TearRumble(tearRumbleLowFrequency, tearRumbleHighFrequency);
     }
-    
+
+    public void OnSlimeConnected() { }
+
     public void OnDestroy()
     {
         Gamepad.current?.ResetHaptics();

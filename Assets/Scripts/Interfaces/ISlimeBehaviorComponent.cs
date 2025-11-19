@@ -6,6 +6,7 @@ namespace Player.Interfaces
         void OnDestroy();
         void UpdateStretch();
         void OnSlimeTears();
+        void OnSlimeConnected();
         void OnTearFinished();
         void OnPauseGame();
         void OnResumeGame();
