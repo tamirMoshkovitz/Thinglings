@@ -17,6 +17,7 @@ public class ConnectingJoint : MonoBehaviour
     
     [SerializeField] private GameObject _lineRendererPrefab;
     [SerializeField] private Transform _linesParent;
+    
     private float _checkConnectionTimer;
     private Rigidbody2D _rb;
     private CircleCollider2D _circleCollider;
