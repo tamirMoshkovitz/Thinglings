@@ -31,7 +31,7 @@ namespace Player
             public Vector3 FromLocalPos, ToLocalPos;
 
             public Segment Seg;
-            // public BoxCollider2D BoxCollider;
+            public BoxCollider2D BoxCollider;
         }
         
 
@@ -42,32 +42,32 @@ namespace Player
 
 
         // [InspectorButton]
-        // private void UpdateBoxCollider()
-        // {
-        //     if (trailData?.FromT == null || trailData?.ToT == null)
-        //     {
-        //         Debug.LogWarning("Cannot update box collider: FromT or ToT is null.");
-        //         return;
-        //     }
-        //
-        //     Vector2 fromPos = trailData.FromT.position;
-        //     Vector2 toPos = trailData.ToT.position;
-        //     Vector2 direction = (toPos - fromPos).normalized;
-        //     float distance = Vector2.Distance(fromPos, toPos);
-        //
-        //     trailData.BoxCollider.size = new Vector2(distance, trailData.Lr.endWidth);
-        //     trailData.BoxCollider.transform.position = (fromPos + toPos) * 0.5f;
-        //     trailData.BoxCollider.offset = Vector2.zero;
-        //
-        //     float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        //     trailData.BoxCollider.transform.rotation = Quaternion.Euler(0, 0, angle);
-        // }
+        private void UpdateBoxCollider()
+        {
+            if (trailData?.FromT == null || trailData?.ToT == null)
+            {
+                Debug.LogWarning("Cannot update box collider: FromT or ToT is null.");
+                return;
+            }
+        
+            Vector2 fromPos = trailData.FromT.position;
+            Vector2 toPos = trailData.ToT.position;
+            Vector2 direction = (toPos - fromPos).normalized;
+            float distance = Vector2.Distance(fromPos, toPos);
+        
+            trailData.BoxCollider.size = new Vector2(distance, trailData.Lr.endWidth);
+            trailData.BoxCollider.transform.position = (fromPos + toPos) * 0.5f;
+            trailData.BoxCollider.offset = Vector2.zero;
+        
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            trailData.BoxCollider.transform.rotation = Quaternion.Euler(0, 0, angle);
+        }
 
 
         public void LateUpdate()
         {
             UpdatePositionAndVisuals();
-            // UpdateBoxCollider();
+            UpdateBoxCollider();
         }
         
         
@@ -112,7 +112,7 @@ namespace Player
 
                 trailData.Lr.colorGradient = gradient;
                 
-                waveHeight += Time.deltaTime * 2.0f; 
+                waveHeight += Time.deltaTime * 10.0f; 
 
                 yield return null;
             }
@@ -177,11 +177,11 @@ namespace Player
             var lr = lineObject.GetComponent<LineRenderer>();
             if (lr == null)
                 lr = lineObject.AddComponent<LineRenderer>();
-            // var box = lineObject.GetComponentInChildren<BoxCollider2D>();
-            // if (box == null)
-            //     Debug.LogError(new Exception("No BoxCollider2D component attached to a child."));
-            // box.offset = Vector2.zero;
-            // box.size = Vector2.zero;
+            var box = lineObject.GetComponentInChildren<BoxCollider2D>();
+            if (box == null)
+                Debug.LogError(new Exception("No BoxCollider2D component attached to a child."));
+            box.offset = Vector2.zero;
+            box.size = Vector2.zero;
             lr.useWorldSpace = true;
             lr.positionCount = 2;
 
@@ -201,8 +201,8 @@ namespace Player
                 ToT = toT,
                 FromLocalPos = fromLocal,
                 ToLocalPos = toLocal,
-                Seg = seg
-                // BoxCollider = box,
+                Seg = seg,
+                BoxCollider = box,
             };
 
             return seg.trailData;
