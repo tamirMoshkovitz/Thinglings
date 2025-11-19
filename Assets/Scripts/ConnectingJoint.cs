@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using DefaultNamespace;
+using Audio;
+using Player;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -16,12 +17,14 @@ public class ConnectingJoint : MonoBehaviour
     [SerializeField] private float dampingRatio = 0.2f;
     #endregion
     
-
+    [SerializeField] private GameObject _lineRendererPrefab;
+    [SerializeField] private Transform _linesParent;
     private float _checkConnectionTimer;
     private Rigidbody2D _rb;
     private CircleCollider2D _circleCollider;
     private List<SpringJoint2D> _joints;
     private List<GameObject> _connectedObjects;
+    private Dictionary<GameObject,Segment.TrailSegment> segments = new Dictionary<GameObject, Segment.TrailSegment>();
 
     private void Awake()
     {
@@ -36,7 +39,7 @@ public class ConnectingJoint : MonoBehaviour
         _joints = new List<SpringJoint2D>(maxConnections);
         _connectedObjects = new List<GameObject>(maxConnections);
     }
-
+    
     private void Update()
     {
         _checkConnectionTimer += Time.deltaTime;
@@ -81,13 +84,18 @@ public class ConnectingJoint : MonoBehaviour
 
         var joint = gameObject.AddComponent<SpringJoint2D>();
         joint.connectedBody = targetRb;
-        joint.autoConfigureDistance = true;
+        //joint.autoConfigureDistance = true;
+        joint.distance = 0f;
+        joint.autoConfigureDistance = false;
         joint.dampingRatio = dampingRatio;
         joint.frequency = frequency;
         joint.breakForce = maxBreakForce;
 
         _joints.Add(joint);
         _connectedObjects.Add(target);
+        
+         var s = Segment.CreateSegment(_lineRendererPrefab,_linesParent,gameObject,target);
+        segments[target] = s;
         return true;
     }
     
@@ -131,15 +139,23 @@ public class ConnectingJoint : MonoBehaviour
 
         var joint = _joints[idx];
         _joints.RemoveAt(idx);
+        var connectedObject = _connectedObjects[idx];
         _connectedObjects.RemoveAt(idx);
-
+        
+        if (segments.TryGetValue(connectedObject, out Segment.TrailSegment lr_connected))
+        {
+            if (lr_connected != null && lr_connected.Lr != null)
+                lr_connected.Seg.BreakConnection();
+            segments.Remove(connectedObject);
+        }
+        
         if (destroyJoint && joint != null)
         {
             Destroy(joint);
         }
         
         // TODO: Elad or tamir add an event here to notify connection removed - sound and vibration
-        // GameEvents.SlimeTears?.Invoke();
+        GameEvents.SlimeTears?.Invoke();
     }
 
     private void ClearConnections()
