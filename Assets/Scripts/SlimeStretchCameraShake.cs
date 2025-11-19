@@ -41,6 +41,8 @@ namespace Player
             mainCamera.transform.DOShakePosition(shakeDuration, tearShakeStrength);
         }
 
+        public void OnSlimeConnected() { }
+
         public void OnTearFinished() { }
 
         public void OnPauseGame() { }

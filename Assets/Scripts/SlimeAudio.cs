@@ -16,7 +16,6 @@ public class SlimeAudio : ISlimeBehaviorComponent
         return this;
     }
 
-
     public void OnSlimeTears()
     {
         _stretchSoundObject?.audioSource.Stop();
@@ -24,6 +23,12 @@ public class SlimeAudio : ISlimeBehaviorComponent
         {
             _tearSoundObject = AudioManager.Instance.Play(AudioName.SlimeTear, Vector3.zero, true);
         }
+    }
+
+    public void OnSlimeConnected()
+    {
+        Debug.Log("Slime Connected Sound");
+        AudioManager.Instance.Play(AudioName.SlimeConnect, Vector3.zero, true);
     }
 
     public void UpdateStretch()

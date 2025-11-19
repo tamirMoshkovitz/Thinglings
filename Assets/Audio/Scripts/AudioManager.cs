@@ -125,6 +125,7 @@ namespace Audio
     {
         SlimeTear,
         SlimeStretch,
-        BgSound
+        BgSound,
+        SlimeConnect,
     }
 }
