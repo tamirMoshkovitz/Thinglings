@@ -77,50 +77,29 @@ namespace Player
             StartCoroutine(AnimateTear());
         }
         
-        private IEnumerator AnimateTear()
+        private void DrawWaveOnLine(LineRenderer lr, Vector3 p1, Vector3 p2, float currentWaveHeight)
         {
-            isBreaking = true;
-            float timer = 0f;
-
+          
+            float dist = Vector3.Distance(p1, p2);
             
-            Gradient originalGradient = trailData.Lr.colorGradient; 
-            Color baseColor = originalGradient.colorKeys[0].color; 
-
-            while (timer < tearDuration)
+            
+            lr.positionCount = pointsCount; 
+            
+            for (int i = 0; i < pointsCount; i++)
             {
-                timer += Time.deltaTime;
-                float progress = timer / tearDuration; // 0 עד 1
+                float t = (float)i / (pointsCount - 1);
+                Vector3 basePosition = Vector3.Lerp(p1, p2, t);
+
+                float waveOffset = Mathf.Sin(t * waveFrequency + Time.time * waveSpeed) * currentWaveHeight;
+                float noise = Mathf.PerlinNoise(t * 10f, Time.time * waveSpeed) * currentWaveHeight * 0.5f;
+                float maskEdge = Mathf.Sin(t * Mathf.PI);
 
                 
-                Gradient gradient = new Gradient();
-
-                
-                gradient.SetKeys(
-                    new GradientColorKey[] { new GradientColorKey(baseColor, 0.0f), new GradientColorKey(baseColor, 1.0f) },
-                    
-                    
-                    new GradientAlphaKey[] 
-                    {
-                        new GradientAlphaKey(1.0f, 0.0f), // התחלה (נראה)
-                        new GradientAlphaKey(1.0f, 0.5f - (progress * 0.5f)), // עד איפה רואים מצד שמאל
-                        new GradientAlphaKey(0.0f, 0.5f - (progress * 0.5f) + 0.01f), // תחילת החור השקוף
-                        new GradientAlphaKey(0.0f, 0.5f + (progress * 0.5f) - 0.01f), // סוף החור השקוף
-                        new GradientAlphaKey(1.0f, 0.5f + (progress * 0.5f)), // חזרה לראות מצד ימין
-                        new GradientAlphaKey(1.0f, 1.0f)  // סוף (נראה)
-                    }
-                );
-
-                trailData.Lr.colorGradient = gradient;
-                
-                waveHeight += Time.deltaTime * 10.0f; 
-
-                yield return null;
+                Vector3 liquidOffset = new Vector3(0, (waveOffset + noise) * maskEdge, 0);
+                lr.SetPosition(i, basePosition + liquidOffset);
             }
-
-            
-            Destroy(gameObject);
         }
-
+        
         
         private void UpdatePositionAndVisuals()
         {
@@ -133,34 +112,74 @@ namespace Player
             
             trailData.Lr.startWidth = currentWidth;
             trailData.Lr.endWidth = currentWidth;
+
             
-            trailData.Lr.positionCount = pointsCount;
-            
-            for (int i = 0; i < pointsCount; i++)
-            {
-              
-                float t = (float)i / (pointsCount - 1);
-
-                
-                Vector3 basePosition = Vector3.Lerp(startPos, endPos, t);
-
-                
-                float waveOffset = Mathf.Sin(t * waveFrequency + Time.time * waveSpeed) * waveHeight;
-                float noise = Mathf.PerlinNoise(t * 10f, Time.time * waveSpeed) * waveHeight * 0.5f;
-                
-               
-                float maskEdge = Mathf.Sin(t * Mathf.PI);
-
-             
-                Vector3 liquidOffset = new Vector3(0, (waveOffset + noise) * maskEdge, 0);
-
-                
-                trailData.Lr.SetPosition(i, basePosition + liquidOffset);
-            }
-            
+            DrawWaveOnLine(trailData.Lr, startPos, endPos, waveHeight);
         }
 
+        
+        private IEnumerator AnimateTear()
+        {
+            isBreaking = true;
+            if (trailData.BoxCollider != null) trailData.BoxCollider.enabled = false;
 
+            Vector3 startPos = trailData.FromT.TransformPoint(trailData.FromLocalPos);
+            Vector3 endPos = trailData.ToT.TransformPoint(trailData.ToLocalPos);
+            Vector3 midPoint = (startPos + endPos) * 0.5f;
+
+            
+            LineRenderer lineA = CreateBrokenLinePart("LinePartA");
+            LineRenderer lineB = CreateBrokenLinePart("LinePartB");
+
+            trailData.Lr.enabled = false; // הסתרת הקו המקורי
+
+            float timer = 0f;
+
+            while (timer < tearDuration)
+            {
+                timer += Time.deltaTime;
+                float progress = timer / tearDuration; 
+                float easeProgress = progress * progress; // תנועה מואצת
+
+               
+                Vector3 currentEndA = Vector3.Lerp(midPoint, startPos, easeProgress);
+                Vector3 currentEndB = Vector3.Lerp(midPoint, endPos, easeProgress);
+
+                
+                float currentWaveHeight = waveHeight * (1 + progress);
+                
+                DrawWaveOnLine(lineA, startPos, currentEndA, currentWaveHeight);
+                DrawWaveOnLine(lineB, endPos, currentEndB, currentWaveHeight); 
+
+                yield return null;
+            }
+
+            if(lineA != null) Destroy(lineA.gameObject);
+            if(lineB != null) Destroy(lineB.gameObject);
+            Destroy(gameObject);
+        }
+
+        private LineRenderer CreateBrokenLinePart(string name)
+        {
+            GameObject go = new GameObject(name);
+            // חשוב: שים אותו תחת אותו הורה אם צריך, או בעולם
+            go.transform.position = Vector3.zero; 
+            
+            LineRenderer newLr = go.AddComponent<LineRenderer>();
+            LineRenderer original = trailData.Lr;
+            
+            newLr.material = original.material;
+            newLr.widthMultiplier = original.widthMultiplier;
+            newLr.startWidth = original.startWidth;
+            newLr.endWidth = original.endWidth;
+            newLr.colorGradient = original.colorGradient;
+            newLr.numCapVertices = 60; 
+            newLr.numCornerVertices = 5;
+            newLr.alignment = original.alignment;
+            newLr.useWorldSpace = true;
+
+            return newLr;
+        }
         public static TrailSegment CreateSegment(GameObject linePrefab, Transform parent, GameObject fromGo,
             GameObject toGo)
         {
