@@ -25,6 +25,7 @@ namespace Audio
         private void Awake()
         {
             _lastSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            Play(AudioName.BgSound, Vector3.zero);
         }
 
         /// <summary>
@@ -123,6 +124,7 @@ namespace Audio
     public enum AudioName
     {
         SlimeTear,
-        SlimeStretch
+        SlimeStretch,
+        BgSound
     }
 }
