@@ -48,11 +48,23 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Backgroung
+    uniqueID: 2258453009
+    locked: 0
+  - name: Enemies
+    uniqueID: 2736570989
+    locked: 0
   - name: Stage
     uniqueID: 327413617
     locked: 0
-  - name: TextObject
-    uniqueID: 622952551
+  - name: Slime
+    uniqueID: 1318477715
+    locked: 0
+  - name: Projectiles
+    uniqueID: 3138996977
+    locked: 0
+  - name: UI
+    uniqueID: 206129999
     locked: 0
   m_RenderingLayers:
   - Default
