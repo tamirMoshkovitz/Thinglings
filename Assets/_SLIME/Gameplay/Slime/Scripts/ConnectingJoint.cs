@@ -175,7 +175,7 @@ public class ConnectingJoint : MonoBehaviour
     private void ClearConnections()
     {
         foreach (var j in _joints)
-            if (j != null) Destroy(j);
+            if (j) Destroy(j);
         _joints.Clear();
         _connectedObjects.Clear();
     }

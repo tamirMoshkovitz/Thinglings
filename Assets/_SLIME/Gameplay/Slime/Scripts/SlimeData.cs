@@ -9,7 +9,7 @@ public class SlimeData
     
     private  SlimeData(SlimeBehavior slime)
     {
-        this._slime = slime;
+        _slime = slime;
     }
 
     public static SlimeData Instance(SlimeBehavior slime)
