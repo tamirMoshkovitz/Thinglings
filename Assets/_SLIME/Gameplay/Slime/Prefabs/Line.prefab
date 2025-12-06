@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -8114559344370865485}
   - component: {fileID: 3557338533180410048}
   - component: {fileID: -8642173703105438883}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Line
   m_TagString: Line
   m_Icon: {fileID: 0}
@@ -240,7 +240,7 @@ SortingGroup:
   m_GameObject: {fileID: 7469158195929653497}
   m_Enabled: 1
   m_SortingLayerID: 327413617
-  m_SortingLayer: 1
+  m_SortingLayer: 3
   m_SortingOrder: 10
   m_SortAtRoot: 0
 --- !u!1 &8667293416243625141
@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 9049315306508122419}
   - component: {fileID: 2878837238394387546}
   - component: {fileID: 396986669492158017}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: LineCollider
   m_TagString: Line
   m_Icon: {fileID: 0}

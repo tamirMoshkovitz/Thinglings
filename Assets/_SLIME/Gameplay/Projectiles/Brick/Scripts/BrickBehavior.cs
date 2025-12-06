@@ -66,7 +66,7 @@ namespace Player.Brick
             if (!_wasShot && _wasCaught)
             {
                 Shoot();
-                gameObject.layer = LayerMask.NameToLayer("Shot Bricks");
+                gameObject.layer = LayerMask.NameToLayer("Player Projectiles");
             }
         }
 
