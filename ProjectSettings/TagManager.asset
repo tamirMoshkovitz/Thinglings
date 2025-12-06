@@ -7,6 +7,10 @@ TagManager:
   - FlipX
   - FlipY
   - Connectable
+  - Wall
+  - Line
+  - FallingItem
+  - Hand
   layers:
   - Default
   - TransparentFX
@@ -16,11 +20,11 @@ TagManager:
   - UI
   - player
   - Wall
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Lines
+  - Boss
+  - Falling Bricks
+  - Boss Hit Point
+  - Shot Bricks
   - 
   - 
   - 
@@ -43,6 +47,12 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Stage
+    uniqueID: 327413617
+    locked: 0
+  - name: TextObject
+    uniqueID: 622952551
     locked: 0
   m_RenderingLayers:
   - Default

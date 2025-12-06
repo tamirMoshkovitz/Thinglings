@@ -2,22 +2,41 @@ using UnityEngine;
 
 public class SlimeData
 {
-    private SlimeBehavior slime;
-    private static bool reachedMaxStretch = true;
+    private readonly SlimeBehavior _slime;
+    private static bool _reachedMaxStretch = true;
     private bool _connected;
+    private static SlimeData _instance;
     
-    public SlimeData(SlimeBehavior slime)
+    private  SlimeData(SlimeBehavior slime)
     {
-        this.slime = slime;
+        this._slime = slime;
+    }
+
+    public static SlimeData Instance(SlimeBehavior slime)
+    {
+        if (_instance == null)
+        {
+            _instance = new SlimeData(slime);
+        }
+        return _instance;
+    }
+
+    public static SlimeData Instance()
+    {
+        if (_instance == null)
+        {
+            Debug.LogError("SlimeData instance is not initialized. Call Instance(SlimeBehavior slime) first.");
+        }
+        return _instance;
     }
     
-    public float MaxStretch => slime.maxStretch;
-    public float ConnectionDistance => slime.connectionDistance;
+    public float MaxStretch => _slime.maxStretch;
+    public float ConnectionDistance => _slime.connectionDistance;
 
     public bool ReachedMaxStretch 
     {
-        get => reachedMaxStretch;
-        set => reachedMaxStretch = value;
+        get => _reachedMaxStretch;
+        set => _reachedMaxStretch = value;
     }
 
     public bool Connected
@@ -25,7 +44,7 @@ public class SlimeData
         get
         {
             if (!ReachedMaxStretch ||
-                Vector3.Distance(slime.leftCenter.position, slime.rightCenter.position) < slime.connectionDistance)
+                Vector3.Distance(_slime.leftCenter.position, _slime.rightCenter.position) < _slime.connectionDistance)
             {
                 Connected = true;
                 ReachedMaxStretch = false;
@@ -46,7 +65,18 @@ public class SlimeData
         }
     }
 
-    public float Distance => Vector3.Distance(slime.leftCenter.position, slime.rightCenter.position);
+    public float Distance => Vector3.Distance(_slime.leftCenter.position, _slime.rightCenter.position);
 
-    public float StretchRatio => Distance / slime.maxStretch;
+    public float StretchRatio => Distance / _slime.maxStretch;
+    
+    public Vector2 GetShotDirection(Vector2 position)
+    {
+        Vector2 a = _slime.leftCenter.position;
+        Vector2 b = _slime.rightCenter.position;
+        Vector2 ab = b - a;
+        float t = Vector2.Dot(position - a, ab) / ab.sqrMagnitude;
+        t = Mathf.Clamp01(t);
+        Vector2 closestPoint = a + ab * t;
+        return (position - closestPoint);
+    }
 }

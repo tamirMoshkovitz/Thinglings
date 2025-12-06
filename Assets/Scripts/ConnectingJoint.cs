@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Player;
 using UnityEngine;
@@ -38,7 +39,21 @@ public class ConnectingJoint : MonoBehaviour
         _joints = new List<SpringJoint2D>(maxConnections);
         _connectedObjects = new List<GameObject>(maxConnections);
     }
-    
+
+    private void OnEnable()
+    {
+        GameEvents.BrickShot += OnBrickShot;
+        GameEvents.ResetButtonPressed += OnResetButtonPressed;
+        GameEvents.SlimeTears += OnSlimeTears;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.BrickShot -= OnBrickShot;
+        GameEvents.ResetButtonPressed -= OnResetButtonPressed;
+        GameEvents.SlimeTears -= OnSlimeTears;
+    }
+
     private void Update()
     {
         _checkConnectionTimer += Time.deltaTime;
@@ -143,12 +158,12 @@ public class ConnectingJoint : MonoBehaviour
         
         if (segments.TryGetValue(connectedObject, out Segment.TrailSegment lr_connected))
         {
-            if (lr_connected != null && lr_connected.Lr != null)
+            if (lr_connected != null && lr_connected.Lr)
                 lr_connected.Seg.BreakConnection();
             segments.Remove(connectedObject);
         }
         
-        if (destroyJoint && joint != null)
+        if (destroyJoint && joint)
         {
             Destroy(joint);
         }
@@ -167,6 +182,22 @@ public class ConnectingJoint : MonoBehaviour
 
     private void OnDestroy()
     {
+        ClearConnections();
+    }
+    
+    private void OnBrickShot()
+    {
+        Invoke(nameof(ClearConnections), .3f);
+    }
+
+    private void OnResetButtonPressed()
+    {
+        Invoke(nameof(ClearConnections), .3f);
+    }
+
+    private void OnSlimeTears()
+    {
+        CleanupBrokenJoints();
         ClearConnections();
     }
 }

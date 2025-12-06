@@ -16,6 +16,7 @@ public class SlimeAudio : ISlimeBehaviorComponent
         return this;
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public void OnSlimeTears()
     {
         _stretchSoundObject?.audioSource.Stop();
@@ -25,12 +26,13 @@ public class SlimeAudio : ISlimeBehaviorComponent
         }
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public void OnSlimeConnected()
     {
-        Debug.Log("Slime Connected Sound");
         AudioManager.Instance.Play(AudioName.SlimeConnect, Vector3.zero, true);
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public void UpdateStretch()
     {
         if (!_stretchSoundObject || !_stretchSoundObject.audioSource.isPlaying)

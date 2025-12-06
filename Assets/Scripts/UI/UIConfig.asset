@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a886798ac46443fba87f8c7570fa893, type: 3}
+  m_Name: UIConfig
+  m_EditorClassIdentifier: Assembly-CSharp::PopUpConfiguration
+  bossHealthPopUp:
+    text: 1
+    textPrefab: {fileID: 1354147292826987889, guid: 09fe0f7ca13204d3b8d690e65acf17c6, type: 3}
+    moveUp: 1
+    moveUpDistance: 0.2
+    fadeOut: 1
+    fadeTime: 0.2
+    TimeUntilDispawn: 2.57

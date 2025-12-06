@@ -1,5 +1,6 @@
 using System;
 using Player.Interfaces;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -62,7 +63,7 @@ public class ControllerRumble : ISlimeBehaviorComponent
     public void OnDestroy()
     {
         Gamepad.current?.ResetHaptics();
-    }
+    } 
 
     public void OnResumeGame()
     {

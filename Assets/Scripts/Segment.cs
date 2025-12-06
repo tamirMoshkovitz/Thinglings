@@ -1,231 +1,380 @@
 using System;
 using System.Collections;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Player
 {
     public class Segment : MonoBehaviour
     {
+        [Header("Goo / Cheese Settings")]
+        public float maxThickness = 0.5f;
+        public float minThickness = 0.1f;
+        public AnimationCurve widthProfile;
         
-        [Header("Dynamic Thickness Settings")]
-        public float maxThickness = 0.5f;    
-        public float minThickness = 0.05f;   
+        [Header("Slingshot Physics")]
+        public float stiffness = 50f;
+        public float damping = 3f;
+        public float connectionRange = 0.5f;
+        
+        [Header("Performance")]
+        [Tooltip("Higher = Smoother visuals, but more CPU.")]
+        public int visualResolution = 40; 
+        [Tooltip("Lower = Much faster physics. Keep this low (5-10).")]
+        public int physicsResolution = 8; 
+
+        [Header("General Settings")]
+        public LayerMask catchableLayer;
+        public float gravitySag = 1.0f;
         public float closeDistance = 1.0f;
         public float farDistance = 10.0f;
+        public float tearDuration = 0.4f;
 
-        [Header("Liquid Wave Settings")]
-        public int pointsCount = 50;         
-        public float waveHeight = 0.2f;      
-        public float waveSpeed = 5.0f;       
-        public float waveFrequency = 10.0f;
-        
-        [Header("Tear Effect Settings")]
-        public float tearDuration = 0.5f;
-        
+        // --- Internal Data ---
         public class TrailSegment
         {
             public LineRenderer Lr;
+            public EdgeCollider2D EdgeCol;
             public Transform FromT, ToT;
             public Vector3 FromLocalPos, ToLocalPos;
-
             public Segment Seg;
-            public BoxCollider2D BoxCollider;
         }
-        
+
+        private class CaughtObject
+        {
+            public Rigidbody2D Rb;
+            public Transform Trans; // Cache transform access
+            public float CaptureT; 
+        }
 
         private TrailSegment trailData;
         private bool isBreaking = false;
-
+        private List<CaughtObject> caughtObjects = new List<CaughtObject>();
         
-
-
-        // [InspectorButton]
-        private void UpdateBoxCollider()
+        // --- OPTIMIZATION: Pre-allocated memory ---
+        private Vector3[] m_LinePositions;     // For LineRenderer
+        private List<Vector2> m_ColPositions;  // For EdgeCollider
+        
+        private void Start()
         {
-            if (trailData?.FromT == null || trailData?.ToT == null)
-            {
-                Debug.LogWarning("Cannot update box collider: FromT or ToT is null.");
-                return;
-            }
-        
-            Vector2 fromPos = trailData.FromT.position;
-            Vector2 toPos = trailData.ToT.position;
-            Vector2 direction = (toPos - fromPos).normalized;
-            float distance = Vector2.Distance(fromPos, toPos);
-        
-            trailData.BoxCollider.size = new Vector2(distance, trailData.Lr.endWidth);
-            trailData.BoxCollider.transform.position = (fromPos + toPos) * 0.5f;
-            trailData.BoxCollider.offset = Vector2.zero;
-        
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            trailData.BoxCollider.transform.rotation = Quaternion.Euler(0, 0, angle);
+            if (widthProfile == null || widthProfile.length == 0)
+                widthProfile = new AnimationCurve(new Keyframe(0, 1), new Keyframe(0.5f, 0.3f), new Keyframe(1, 1));
+
+            // Pre-allocate arrays to stop Garbage Collection lag
+            m_LinePositions = new Vector3[visualResolution];
+            m_ColPositions = new List<Vector2>(physicsResolution);
         }
 
+        private void OnEnable()
+        {
+            GameEvents.BrickShot += OnBrickShot;
+            GameEvents.ResetButtonPressed += OnResetButtonPressed;
+            GameEvents.SlimeTears += BreakConnection;
+        }
+        
+        private void OnDisable()
+        {
+            GameEvents.BrickShot -= OnBrickShot;
+            GameEvents.ResetButtonPressed -= OnResetButtonPressed;
+            GameEvents.SlimeTears -= BreakConnection;
+        }
+
+        private void FixedUpdate()
+        {
+            if (isBreaking || trailData == null) return;
+            ApplySpringForces();
+        }
 
         public void LateUpdate()
         {
-            UpdatePositionAndVisuals();
-            UpdateBoxCollider();
+            if (isBreaking || trailData == null) return;
+            UpdateSegmentVisualsAndPhysics();
         }
-        
-        
-        public void BreakConnection()
+
+        // ----------------------------------------------------------------
+        // 1. PHYSICS FORCES
+        // ----------------------------------------------------------------
+        private void ApplySpringForces()
         {
-            if (isBreaking) return; 
-            StartCoroutine(AnimateTear());
-        }
-        
-        private void DrawWaveOnLine(LineRenderer lr, Vector3 p1, Vector3 p2, float currentWaveHeight)
-        {
-          
-            float dist = Vector3.Distance(p1, p2);
+            // Cache positions once per frame
+            Vector3 start = trailData.FromT.TransformPoint(trailData.FromLocalPos);
+            Vector3 end = trailData.ToT.TransformPoint(trailData.ToLocalPos);
             
-            
-            lr.positionCount = pointsCount; 
-            
-            for (int i = 0; i < pointsCount; i++)
+            float dist = Vector3.Distance(start, end);
+            float tension = Mathf.InverseLerp(closeDistance, farDistance, dist);
+            // Pre-calculate sag scalar
+            float tensionInv = Mathf.Lerp(1f, 0f, tension);
+
+            for (int i = caughtObjects.Count - 1; i >= 0; i--)
             {
-                float t = (float)i / (pointsCount - 1);
-                Vector3 basePosition = Vector3.Lerp(p1, p2, t);
+                var obj = caughtObjects[i];
+                if (!obj.Rb)
+                {
+                    caughtObjects.RemoveAt(i);
+                    continue;
+                }
 
-                float waveOffset = Mathf.Sin(t * waveFrequency + Time.time * waveSpeed) * currentWaveHeight;
-                float noise = Mathf.PerlinNoise(t * 10f, Time.time * waveSpeed) * currentWaveHeight * 0.5f;
-                float maskEdge = Mathf.Sin(t * Mathf.PI);
+                // Optimization: Inline calculations
+                Vector3 anchorPos = Vector3.Lerp(start, end, obj.CaptureT);
+                float sagOffset = 4 * obj.CaptureT * (1 - obj.CaptureT) * gravitySag; 
+                anchorPos.y -= sagOffset * tensionInv;
 
+                Vector2 currentPos = obj.Rb.position;
+                Vector2 displacement = currentPos - (Vector2)anchorPos;
                 
-                Vector3 liquidOffset = new Vector3(0, (waveOffset + noise) * maskEdge, 0);
-                lr.SetPosition(i, basePosition + liquidOffset);
+                // Forces
+                Vector2 force = -displacement * stiffness;
+                Vector2 damper = -obj.Rb.linearVelocity * damping;
+
+                obj.Rb.AddForce(force + damper);
             }
         }
-        
-        
-        private void UpdatePositionAndVisuals()
+
+        // ----------------------------------------------------------------
+        // 2. VISUALS & COLLIDER (Merged for loop efficiency)
+        // ----------------------------------------------------------------
+        private void UpdateSegmentVisualsAndPhysics()
         {
             Vector3 startPos = trailData.FromT.TransformPoint(trailData.FromLocalPos);
             Vector3 endPos = trailData.ToT.TransformPoint(trailData.ToLocalPos);
             
             float distance = Vector3.Distance(startPos, endPos);
-            float tWidth = Mathf.InverseLerp(closeDistance, farDistance, distance);
-            float currentWidth = Mathf.Lerp(maxThickness, minThickness, tWidth);
-            
-            trailData.Lr.startWidth = currentWidth;
-            trailData.Lr.endWidth = currentWidth;
+            float tension = Mathf.InverseLerp(closeDistance, farDistance, distance);
+            float currentSag = Mathf.Lerp(gravitySag, 0f, tension);
 
-            
-            DrawWaveOnLine(trailData.Lr, startPos, endPos, waveHeight);
+            // Update Line Properties
+            trailData.Lr.widthMultiplier = Mathf.Lerp(maxThickness, minThickness, tension);
+            trailData.Lr.widthCurve = widthProfile;
+            trailData.Lr.positionCount = visualResolution;
+
+            // --- A. CALCULATE VISUALS (High Resolution) ---
+            for (int i = 0; i < visualResolution; i++)
+            {
+                float t = (float)i / (visualResolution - 1);
+                m_LinePositions[i] = CalculatePoint(t, startPos, endPos, currentSag);
+            }
+            // Zero-Alloc array pass
+            trailData.Lr.SetPositions(m_LinePositions);
+
+
+            // --- B. CALCULATE COLLIDER (Low Resolution) ---
+            // Only recalculate collider if we have to. Doing this at lower res saves massive CPU.
+            m_ColPositions.Clear();
+            for (int i = 0; i < physicsResolution; i++)
+            {
+                float t = (float)i / (physicsResolution - 1);
+                Vector3 worldPt = CalculatePoint(t, startPos, endPos, currentSag);
+                
+                // Since Segment is at 0,0,0, World Point == Local Point.
+                // We skipped Transform.InverseTransformPoint completely.
+                m_ColPositions.Add(worldPt); 
+            }
+            trailData.EdgeCol.SetPoints(m_ColPositions);
         }
 
-        
-        private IEnumerator AnimateTear()
+        // Shared Math Logic extracted for optimization
+        private Vector3 CalculatePoint(float t, Vector3 start, Vector3 end, float sag)
+        {
+            Vector3 pos = Vector3.Lerp(start, end, t);
+            pos.y -= 4 * t * (1 - t) * sag;
+
+            // Object Distortion Logic
+            int count = caughtObjects.Count;
+            if (count > 0)
+            {
+                for (int j = 0; j < count; j++)
+                {
+                    var obj = caughtObjects[j];
+                    if (!obj.Trans) continue;
+
+                    float distFromCapture = t > obj.CaptureT ? t - obj.CaptureT : obj.CaptureT - t; // Faster Abs
+                    
+                    if (distFromCapture < connectionRange)
+                    {
+                        float influence = 1f - (distFromCapture / connectionRange);
+                        influence = influence * influence * (3f - 2f * influence); // SmoothStep manually (faster)
+
+                        Vector3 neutralPos = Vector3.Lerp(start, end, t);
+                        neutralPos.y -= 4 * t * (1 - t) * sag;
+
+                        Vector3 offset = obj.Trans.position - neutralPos;
+                        pos += offset * influence;
+                    }
+                }
+            }
+            return pos;
+        }
+
+        // ----------------------------------------------------------------
+        // 3. CATCHING LOGIC
+        // ----------------------------------------------------------------
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("Boss"))
+            {
+                GameEvents.SlimeTears?.Invoke();
+                BreakConnection();
+            }            
+            if (isBreaking) return;
+            if (((1 << other.gameObject.layer) & catchableLayer) == 0) return;
+            if (caughtObjects.Exists(x => x.Rb == other.attachedRigidbody)) return;
+
+            Rigidbody2D rb = other.attachedRigidbody;
+            if (rb != null)
+            {
+                CatchObject(rb);
+            }
+        }
+
+        private void CatchObject(Rigidbody2D rb)
+        {
+            Vector3 start = trailData.FromT.TransformPoint(trailData.FromLocalPos);
+            Vector3 end = trailData.ToT.TransformPoint(trailData.ToLocalPos);
+            
+            Vector3 lineDir = end - start;
+            Vector3 hitVec = rb.transform.position - start;
+            float t = Vector3.Dot(hitVec, lineDir) / lineDir.sqrMagnitude;
+            
+            caughtObjects.Add(new CaughtObject
+            {
+                Rb = rb,
+                Trans = rb.transform, // Cache transform
+                CaptureT = Mathf.Clamp01(t)
+            });
+            
+            rb.linearVelocity *= 0.5f; 
+        }
+
+        public void FlingAllObjects()
+        {
+            // Optimization: Cache standard positions outside loop
+            Vector3 start = trailData.FromT.TransformPoint(trailData.FromLocalPos);
+            Vector3 end = trailData.ToT.TransformPoint(trailData.ToLocalPos);
+
+            foreach (var obj in caughtObjects)
+            {
+                if (obj.Rb)
+                {
+                    Vector3 anchor = Vector3.Lerp(start, end, obj.CaptureT);
+                    Vector2 dir = (obj.Trans.position - anchor).normalized;
+                    obj.Rb.AddForce(dir * (stiffness * 2f), ForceMode2D.Impulse);
+                }
+            }
+            caughtObjects.Clear();
+        }
+
+        public void BreakConnection()
+        {
+            if (isBreaking) return;
+            FlingAllObjects(); 
+            StartCoroutine(AnimateSnap());
+        }
+        public void BreakConnectionNoFling()
+        {
+            if (isBreaking) return;
+            StartCoroutine(AnimateSnap());
+        }
+
+        private IEnumerator AnimateSnap()
         {
             isBreaking = true;
-            if (trailData.BoxCollider != null) trailData.BoxCollider.enabled = false;
+            trailData.EdgeCol.enabled = false;
+            trailData.Lr.enabled = false;
 
             Vector3 startPos = trailData.FromT.TransformPoint(trailData.FromLocalPos);
             Vector3 endPos = trailData.ToT.TransformPoint(trailData.ToLocalPos);
             Vector3 midPoint = (startPos + endPos) * 0.5f;
-
             
-            LineRenderer lineA = CreateBrokenLinePart("LinePartA");
-            LineRenderer lineB = CreateBrokenLinePart("LinePartB");
-
-            trailData.Lr.enabled = false; // הסתרת הקו המקורי
+            // Create parts
+            LineRenderer lineA = CreateBrokenLinePart("CheesePartA");
+            LineRenderer lineB = CreateBrokenLinePart("CheesePartB");
+            
+            // Optimization: Cache positions for loop
+            Vector3[] tempPositions = new Vector3[2]; 
 
             float timer = 0f;
-
             while (timer < tearDuration)
             {
                 timer += Time.deltaTime;
-                float progress = timer / tearDuration; 
-                float easeProgress = progress * progress; // תנועה מואצת
+                float t = timer / tearDuration; 
+                float retractionT = t * t; 
 
-               
-                Vector3 currentEndA = Vector3.Lerp(midPoint, startPos, easeProgress);
-                Vector3 currentEndB = Vector3.Lerp(midPoint, endPos, easeProgress);
+                Vector3 currentEndA = Vector3.Lerp(midPoint, startPos, retractionT);
+                Vector3 currentEndB = Vector3.Lerp(midPoint, endPos, retractionT);
+                
+                float snapWidth = Mathf.Lerp(trailData.Lr.widthMultiplier, 0f, t);
+                lineA.widthMultiplier = snapWidth;
+                lineB.widthMultiplier = snapWidth;
 
-                
-                float currentWaveHeight = waveHeight * (1 + progress);
-                
-                DrawWaveOnLine(lineA, startPos, currentEndA, currentWaveHeight);
-                DrawWaveOnLine(lineB, endPos, currentEndB, currentWaveHeight); 
+                // Set positions without allocating new arrays
+                lineA.SetPosition(0, startPos); lineA.SetPosition(1, currentEndA);
+                lineB.SetPosition(0, endPos); lineB.SetPosition(1, currentEndB);
 
                 yield return null;
             }
 
-            if(lineA != null) Destroy(lineA.gameObject);
-            if(lineB != null) Destroy(lineB.gameObject);
+            if(lineA) Destroy(lineA.gameObject);
+            if(lineB) Destroy(lineB.gameObject);
             Destroy(gameObject);
         }
-
+        
+        // ReSharper disable Unity.PerformanceAnalysis
         private LineRenderer CreateBrokenLinePart(string name)
         {
             GameObject go = new GameObject(name);
-            // חשוב: שים אותו תחת אותו הורה אם צריך, או בעולם
             go.transform.position = Vector3.zero; 
-            
             LineRenderer newLr = go.AddComponent<LineRenderer>();
             LineRenderer original = trailData.Lr;
-            
             newLr.material = original.material;
+            newLr.widthCurve = original.widthCurve;
             newLr.widthMultiplier = original.widthMultiplier;
-            newLr.startWidth = original.startWidth;
-            newLr.endWidth = original.endWidth;
             newLr.colorGradient = original.colorGradient;
-            newLr.numCapVertices = 60; 
-            newLr.numCornerVertices = 5;
-            newLr.alignment = original.alignment;
             newLr.useWorldSpace = true;
-
             return newLr;
         }
-        public static TrailSegment CreateSegment(GameObject linePrefab, Transform parent, GameObject fromGo,
-            GameObject toGo)
+
+        public static TrailSegment CreateSegment(GameObject linePrefab, Transform parent, GameObject fromGo, GameObject toGo)
         {
-            // Instantiate the prefab and parent it
             var lineObject = Instantiate(linePrefab);
-            lineObject.name = fromGo.name + " TO " + toGo.name;
+            lineObject.name = "SlingshotSeg";
+            lineObject.transform.position = Vector3.zero; // Keeps Local Space == World Space
 
-            // Optionally reset local transform
-            lineObject.transform.localPosition = Vector3.zero;
-            lineObject.transform.localRotation = Quaternion.identity;
-            lineObject.transform.localScale = Vector3.one;
-
-            // Ensure LineRenderer
             var lr = lineObject.GetComponent<LineRenderer>();
-            if (lr == null)
-                lr = lineObject.AddComponent<LineRenderer>();
-            var box = lineObject.GetComponentInChildren<BoxCollider2D>();
-            if (box == null)
-                Debug.LogError(new Exception("No BoxCollider2D component attached to a child."));
-            box.offset = Vector2.zero;
-            box.size = Vector2.zero;
-            lr.useWorldSpace = true;
-            lr.positionCount = 2;
+            if (lr == null) lr = lineObject.AddComponent<LineRenderer>();
+            
+            var edge = lineObject.GetComponentInChildren<EdgeCollider2D>();
+            if (edge == null) edge = lineObject.AddComponent<EdgeCollider2D>();
+            edge.isTrigger = true; 
+            edge.edgeRadius = 0.2f;
 
-            // Set positions
+            lr.useWorldSpace = true;
+
             var fromT = fromGo.transform;
             var toT = toGo.transform;
-            Vector3 fromLocal = fromT.InverseTransformPoint(fromT.position);
-            Vector3 toLocal = toT.InverseTransformPoint(toT.position);
 
-            lr.SetPosition(0, fromT.position);
-            lr.SetPosition(1, toT.position);
             var seg = lineObject.GetComponent<Segment>();
             seg.trailData = new TrailSegment
             {
                 Lr = lr,
+                EdgeCol = edge,
                 FromT = fromT,
                 ToT = toT,
-                FromLocalPos = fromLocal,
-                ToLocalPos = toLocal,
-                Seg = seg,
-                BoxCollider = box,
+                FromLocalPos = fromT.InverseTransformPoint(fromT.position),
+                ToLocalPos = toT.InverseTransformPoint(toT.position),
+                Seg = seg
             };
-
             return seg.trailData;
         }
 
+        private void OnBrickShot()
+        {
+            Invoke(nameof(BreakConnectionNoFling), .3f);
+        }
+
+        private void OnResetButtonPressed()
+        {
+            isBreaking = false;
+            BreakConnection();
+        }
     }
 }

@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using Player;
 using Player.Interfaces;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SlimeBehavior : MonoBehaviour
 {
@@ -13,11 +15,15 @@ public class SlimeBehavior : MonoBehaviour
     [SerializeField] private SlimeStretchCameraShake slimeStretchCameraShake;
 
     private SlimeData _slimeData;
-    private readonly List<ISlimeBehaviorComponent> _components = new List<ISlimeBehaviorComponent>();
+    private PlayerMovement _rightCenterPlayerMovement, _leftCenterPlayerMovement;
+    private readonly List<ISlimeBehaviorComponent> _components = new ();
     
     private void Awake()
     {
-        _slimeData = new SlimeData(this);
+        _rightCenterPlayerMovement = rightCenter.GetComponent<PlayerMovement>();
+        _leftCenterPlayerMovement = leftCenter.GetComponent<PlayerMovement>();
+        
+        _slimeData = SlimeData.Instance(this);
         _components.Add(controllerRumble.Awake(_slimeData));
         _components.Add(new SlimeAudio().Awake(_slimeData));
         _components.Add(slimeStretchCameraShake.Awake(_slimeData));
@@ -28,16 +34,26 @@ public class SlimeBehavior : MonoBehaviour
         GameEvents.PauseGame += OnPauseGame;
         GameEvents.ResumeGame += OnResumeGame;
         GameEvents.slimeConnected += OnSlimeConnected;
+        GameEvents.SlimeTears += OnSlimeTears;
+        GameEvents.BrickShot += OnBrickShot;
     }
 
     private void OnDisable()
     {
         GameEvents.PauseGame -= OnPauseGame;
         GameEvents.ResumeGame -= OnResumeGame;
+        GameEvents.slimeConnected -= OnSlimeConnected;
+        GameEvents.SlimeTears -= OnSlimeTears;
+        GameEvents.BrickShot -= OnBrickShot;
     }
 
     private void Update()
     {
+        if (_rightCenterPlayerMovement.MovementLocked && _leftCenterPlayerMovement.MovementLocked)
+        {
+            Debug.Log("You lost");
+        }
+        
         if (_slimeData.ReachedMaxStretch && _slimeData.Connected) return;
 
         if (_slimeData.Connected)
@@ -45,10 +61,18 @@ public class SlimeBehavior : MonoBehaviour
             // Stretch rumble based on distance between left and right centers
             if (_slimeData.StretchRatio >= 1)
             {
-                OnSlimeTears();
+                GameEvents.SlimeTears?.Invoke();
                 return;
             }
             UpdateStretch();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        foreach (var component in _components)
+        {
+            component.OnDestroy();
         }
     }
 
@@ -67,6 +91,11 @@ public class SlimeBehavior : MonoBehaviour
             component.OnSlimeTears();
         }
         Invoke(nameof(OnTearFinished), controllerRumble.tearRumbleDuration);
+    }
+
+    private void OnBrickShot()
+    {
+        Invoke(nameof(OnSlimeTears), .3f);
     }
 
     private void OnTearFinished()

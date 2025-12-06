@@ -6,4 +6,11 @@ public static class GameEvents
     public static Action PauseGame;
     public static Action ResumeGame;
     public static Action slimeConnected;
+    public static Action BrickShot;
+    public static Action ResetButtonPressed;
+    
+    public static void RaiseResetGame()
+    {
+        ResetButtonPressed?.Invoke();
+    }
 }
