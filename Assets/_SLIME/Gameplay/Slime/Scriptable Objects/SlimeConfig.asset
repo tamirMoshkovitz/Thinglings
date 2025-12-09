@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1055c9d57372411c942e9b7fc8a1a9eb, type: 3}
+  m_Name: SlimeConfig
+  m_EditorClassIdentifier: Assembly-CSharp::Player.new_scripts.SlimeConfiguration
+  slimeConfiguration:
+    isConnectedAtStart: 0
+    moveSpeed: 10
+    maxHealth: 100
+    maxStretch: 60
+    connectionFrequency: 0.5
+    connectionDampingRatio: 0.5
+  LineDefaultSettings:
+    linePrefab: {fileID: 7469158195929653497, guid: 8a68228252b0e442ba267d892a357a98, type: 3}
+    visualResolution: 40
+    maxSag: 1
+    maxThickness: 0.8
+    minThickness: 0.2
+    closeDistance: 1
+    farDistance: 5
+    tearDuration: 0.2
+    tearDropOfLines: 0.2

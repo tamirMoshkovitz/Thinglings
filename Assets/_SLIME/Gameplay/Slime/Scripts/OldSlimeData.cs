@@ -1,27 +1,27 @@
 using UnityEngine;
 
-public class SlimeData
+public class OldSlimeData
 {
     private readonly SlimeBehavior _slime;
     private static bool _reachedMaxStretch = true;
     private bool _connected;
-    private static SlimeData _instance;
+    private static OldSlimeData _instance;
     
-    private  SlimeData(SlimeBehavior slime)
+    private  OldSlimeData(SlimeBehavior slime)
     {
         _slime = slime;
     }
 
-    public static SlimeData Instance(SlimeBehavior slime)
+    public static OldSlimeData Instance(SlimeBehavior slime)
     {
         if (_instance == null)
         {
-            _instance = new SlimeData(slime);
+            _instance = new OldSlimeData(slime);
         }
         return _instance;
     }
 
-    public static SlimeData Instance()
+    public static OldSlimeData Instance()
     {
         if (_instance == null)
         {

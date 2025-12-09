@@ -6,11 +6,11 @@ TagManager:
   tags:
   - FlipX
   - FlipY
-  - Connectable
   - Wall
-  - Line
   - FallingItem
   - Hand
+  - Smasher
+  - Line
   layers:
   - Default
   - TransparentFX
@@ -22,7 +22,7 @@ TagManager:
   - Player Projectiles
   - Player Body
   - Obstacles
-  - Enemy Prijectiles
+  - Enemy Projectiles
   - Enemy Hit Point
   - Enemy Body
   - Player Connections

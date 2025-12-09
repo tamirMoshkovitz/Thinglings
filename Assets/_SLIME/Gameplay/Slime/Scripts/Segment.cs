@@ -335,7 +335,7 @@ namespace Player
 
         public static TrailSegment CreateSegment(GameObject linePrefab, Transform parent, GameObject fromGo, GameObject toGo)
         {
-            var lineObject = Instantiate(linePrefab);
+            var lineObject = Instantiate(linePrefab,parent);
             lineObject.name = "SlingshotSeg";
             lineObject.transform.position = Vector3.zero; // Keeps Local Space == World Space
 

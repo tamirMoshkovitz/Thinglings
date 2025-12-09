@@ -1,103 +1,85 @@
-using System;
+using _SLIME.Gameplay.Slime.Scripts.new_scripts;
 using Player.Interfaces;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[Serializable]
-public class ControllerRumble : ISlimeBehaviorComponent
+namespace _SLIME.Gameplay.Slime.Scripts.SlimeComponents
 {
-    [Header("Controller Type Name")]
-    [SerializeField] String controllerTypeName;
-    
-    [Header("Tear Rumble Settings")]
-    [SerializeField] private bool addTearRumble = true;
-    [SerializeField] public float tearRumbleDuration= .2f;
-    [SerializeField][Range(0, 1)] private float tearRumbleLowFrequency = .2f;
-    [SerializeField][Range(0, 1)] private float tearRumbleHighFrequency = 1f;
-    
-    [Header("Stretch Rumble Settings")]
-    [SerializeField][Range(0, 1)] private float stretchRumbleLowFrequency = .5f;
-    [SerializeField][Range(0, 1)] private float stretchRumbleHighFrequency = .5f;
-    [SerializeField] private float rumbleChangeThreshold = 0.02f;
-    
-    private float _prevLow;
-
-    private float _prevHigh;
-
-    private SlimeData _slimeData;
-
-    public ISlimeBehaviorComponent Awake(SlimeData slimeData)
+    public class ControllerRumble : ISlimeBehaviorComponent
     {
-        _slimeData = slimeData;
-        return this;
-    }
+        private readonly ConrollerRumbleConfiguration _configuration;
+        private SlimeData _slimeData;
+        private float _prevLow;
+        private float _prevHigh;
 
-    public void UpdateStretch()
-    {
-        float lowFrequency = CalculateStretchRumble(stretchRumbleLowFrequency);
-        float highFrequency = CalculateStretchRumble(stretchRumbleHighFrequency);
-        if (Mathf.Abs(lowFrequency - _prevLow) > rumbleChangeThreshold ||
-            Mathf.Abs(highFrequency - _prevHigh) > rumbleChangeThreshold)
+        public ControllerRumble(ConrollerRumbleConfiguration configuration, SlimeData slimeData)
         {
-            Gamepad.current?.SetMotorSpeeds(lowFrequency, highFrequency);
-            _prevLow = lowFrequency;
-            _prevHigh = highFrequency;
+            _configuration = configuration;
+            _slimeData = slimeData;
         }
-    }
 
-    public void OnPauseGame()
-    {
-        StopRumble();
-    }
-
-    public void OnSlimeTears()
-    {
-        StopRumble();
-        _slimeData.ReachedMaxStretch = false;
-        TearRumble(tearRumbleLowFrequency, tearRumbleHighFrequency);
-    }
-
-    public void OnSlimeConnected() { }
-
-    public void OnDestroy()
-    {
-        Gamepad.current?.ResetHaptics();
-    } 
-
-    public void OnResumeGame()
-    {
-        Gamepad.current?.ResumeHaptics();
-    }
-
-    private void TearRumble(float lowFrequency, float highFrequency)
-    {
-        if (_slimeData.ReachedMaxStretch) return;
-
-        _slimeData.ReachedMaxStretch = true;
-        StopRumble();
-        if (addTearRumble)
+        public void UpdateStretch()
         {
-            Gamepad.current?.SetMotorSpeeds(lowFrequency, highFrequency);
+            float lowFrequency = CalculateStretchRumble(_configuration.StretchRumbleLowFrequency);
+            float highFrequency = CalculateStretchRumble(_configuration.StretchRumbleHighFrequency);
+            if (Mathf.Abs(lowFrequency - _prevLow) > _configuration.RumbleChangeThreshold ||
+                Mathf.Abs(highFrequency - _prevHigh) > _configuration.RumbleChangeThreshold)
+            {
+                Gamepad.current?.SetMotorSpeeds(lowFrequency, highFrequency);
+                _prevLow = lowFrequency;
+                _prevHigh = highFrequency;
+            }
         }
-    }
 
-    public void OnTearFinished()
-    {
-        StopRumble();
-    }
+        public void OnPauseGame()
+        {
+            StopRumble();
+        }
 
-    private void StopRumble()
-    {
-        Gamepad.current?.ResetHaptics();  
-        Gamepad.current?.SetMotorSpeeds(0f, 0f);
+        public void OnSlimeTears()
+        {
+            StopRumble();
+            TearRumble(_configuration.TearRumbleLowFrequency, _configuration.TearRumbleHighFrequency);
+        }
 
-        _slimeData.ReachedMaxStretch = true;
-    }
+        public void OnSlimeConnected() { }
 
-    private float CalculateStretchRumble(float baseFrequency)
-    {
-        float normalized = Mathf.Clamp01(_slimeData.StretchRatio);
-        return (Mathf.Pow(normalized, 2f)) * baseFrequency; ;
+        public void OnDestroy()
+        {
+            Gamepad.current?.ResetHaptics();
+        } 
+
+        public void OnResumeGame()
+        {
+            Gamepad.current?.ResumeHaptics();
+        }
+
+        private void TearRumble(float lowFrequency, float highFrequency)
+        {
+            if (_slimeData.ReachedMaxStretch) return;
+
+            StopRumble();
+            if (_configuration.AddTearRumble)
+            {
+                Gamepad.current?.SetMotorSpeeds(lowFrequency, highFrequency);
+            }
+        }
+
+        public void OnTearFinished()
+        {
+            StopRumble();
+        }
+
+        private void StopRumble()
+        {
+            Gamepad.current?.ResetHaptics();  
+            Gamepad.current?.SetMotorSpeeds(0f, 0f);
+        }
+
+        private float CalculateStretchRumble(float baseFrequency)
+        {
+            float normalized = Mathf.Clamp01(_slimeData.StretchRatio);
+            return (Mathf.Pow(normalized, 2f)) * baseFrequency; ;
+        }
     }
 }

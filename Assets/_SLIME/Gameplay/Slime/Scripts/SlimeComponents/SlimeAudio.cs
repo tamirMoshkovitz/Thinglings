@@ -1,4 +1,5 @@
 using System;
+using _SLIME.Gameplay.Slime.Scripts.new_scripts;
 using Audio;
 using Player.Interfaces;
 using Unity.VisualScripting;
@@ -6,17 +7,15 @@ using UnityEngine;
 
 public class SlimeAudio : ISlimeBehaviorComponent
 {
+    private readonly SlimeData _slimeData;
     private SoundObject _tearSoundObject;
     private SoundObject _stretchSoundObject;
-    private SlimeData _slimeData;
-    
-    public ISlimeBehaviorComponent Awake(SlimeData slimeData)
+
+    public SlimeAudio(SlimeData slimeData)
     {
         _slimeData = slimeData;
-        return this;
     }
 
-    // ReSharper disable Unity.PerformanceAnalysis
     public void OnSlimeTears()
     {
         _stretchSoundObject?.audioSource.Stop();
@@ -26,13 +25,11 @@ public class SlimeAudio : ISlimeBehaviorComponent
         }
     }
 
-    // ReSharper disable Unity.PerformanceAnalysis
     public void OnSlimeConnected()
     {
         AudioManager.Instance.Play(AudioName.SlimeConnect, Vector3.zero, true);
     }
 
-    // ReSharper disable Unity.PerformanceAnalysis
     public void UpdateStretch()
     {
         if (!_stretchSoundObject || !_stretchSoundObject.audioSource.isPlaying)
@@ -40,7 +37,7 @@ public class SlimeAudio : ISlimeBehaviorComponent
             _stretchSoundObject = AudioManager.Instance.Play(AudioName.SlimeStretch, Vector3.zero);
         }
 
-        _stretchSoundObject.audioSource.pitch = _slimeData?.StretchRatio ?? 1f;
+        _stretchSoundObject.audioSource.pitch = _slimeData.StretchRatio;
     }
 
     public void OnPauseGame()

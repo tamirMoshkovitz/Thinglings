@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using _SLIME.Gameplay.Slime.Scripts.SlimeComponents;
 using Player;
 using Player.Interfaces;
 using UnityEngine;
@@ -11,22 +12,22 @@ public class SlimeBehavior : MonoBehaviour
     [SerializeField] internal Transform leftCenter;
     [SerializeField] internal float maxStretch = 20f;
     [SerializeField] internal float connectionDistance = 2f;
-    [SerializeField] private ControllerRumble controllerRumble;
-    [SerializeField] private SlimeStretchCameraShake slimeStretchCameraShake;
+    // [SerializeField] private ControllerRumble controllerRumble;
+    // [SerializeField] private SlimeStretchCameraShake slimeStretchCameraShake;
 
-    private SlimeData _slimeData;
-    private PlayerMovement _rightCenterPlayerMovement, _leftCenterPlayerMovement;
+    private OldSlimeData _oldSlimeData;
+    // private PlayerMovement _rightCenterPlayerMovement, _leftCenterPlayerMovement;
     private readonly List<ISlimeBehaviorComponent> _components = new ();
     
     private void Awake()
     {
-        _rightCenterPlayerMovement = rightCenter.GetComponent<PlayerMovement>();
-        _leftCenterPlayerMovement = leftCenter.GetComponent<PlayerMovement>();
-        
-        _slimeData = SlimeData.Instance(this);
-        _components.Add(controllerRumble.Awake(_slimeData));
-        _components.Add(new SlimeAudio().Awake(_slimeData));
-        _components.Add(slimeStretchCameraShake.Awake(_slimeData));
+        // _rightCenterPlayerMovement = rightCenter.GetComponent<PlayerMovement>();
+        // _leftCenterPlayerMovement = leftCenter.GetComponent<PlayerMovement>();
+        //
+        // _oldSlimeData = OldSlimeData.Instance(this);
+        // _components.Add(controllerRumble.Awake());
+        // _components.Add(new SlimeAudio().Awake());
+        // _components.Add(slimeStretchCameraShake.Awake());
     }
 
     private void OnEnable()
@@ -49,17 +50,17 @@ public class SlimeBehavior : MonoBehaviour
 
     private void Update()
     {
-        if (_rightCenterPlayerMovement.MovementLocked && _leftCenterPlayerMovement.MovementLocked)
-        {
-            Debug.Log("You lost");
-        }
+        // if (_rightCenterPlayerMovement.MovementLocked && _leftCenterPlayerMovement.MovementLocked)
+        // {
+        //     Debug.Log("You lost");
+        // }
         
-        if (_slimeData.ReachedMaxStretch && _slimeData.Connected) return;
+        if (_oldSlimeData.ReachedMaxStretch && _oldSlimeData.Connected) return;
 
-        if (_slimeData.Connected)
+        if (_oldSlimeData.Connected)
         {
             // Stretch rumble based on distance between left and right centers
-            if (_slimeData.StretchRatio >= 1)
+            if (_oldSlimeData.StretchRatio >= 1)
             {
                 GameEvents.SlimeTears?.Invoke();
                 return;
@@ -90,7 +91,7 @@ public class SlimeBehavior : MonoBehaviour
         {
             component.OnSlimeTears();
         }
-        Invoke(nameof(OnTearFinished), controllerRumble.tearRumbleDuration);
+        // Invoke(nameof(OnTearFinished), controllerRumble.tearRumbleDuration);
     }
 
     private void OnBrickShot()

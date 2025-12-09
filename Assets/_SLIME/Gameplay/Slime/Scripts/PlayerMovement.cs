@@ -14,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
     
     public bool MovementLocked { get; set; } = false;
     
-
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -72,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
             _moveInput = Vector2.zero;
             slimeEyes.SetActive(false);
         }
+        
     }
     
     private void OnSlimeConnected()

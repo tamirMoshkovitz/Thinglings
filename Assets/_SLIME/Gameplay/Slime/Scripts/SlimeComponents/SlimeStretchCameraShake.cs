@@ -1,26 +1,22 @@
-using System;
+using _SLIME.Gameplay.Slime.Scripts.new_scripts;
 using DG.Tweening;
 using Player.Interfaces;
 using UnityEngine;
 
 namespace Player
 {
-    [Serializable]
     public class SlimeStretchCameraShake : ISlimeBehaviorComponent
     {
-        [SerializeField] Camera mainCamera;
-        [SerializeField] float shakeDuration = 0.5f;
-        [SerializeField] float tearShakeStrength = 0.5f;
-        [SerializeField] float stretchShakeStrength = 0.05f;
-        [SerializeField] float shakeUpdateFrequency = 0.1f;
-        
+        private readonly SlimeStretchCameraShakeConfiguration _configuration;
         private SlimeData _slimeData;
+        private readonly Camera _mainCamera;
         private float _shakeTimer;
-        
-        public ISlimeBehaviorComponent Awake(SlimeData slimeData)
+
+        public SlimeStretchCameraShake(SlimeStretchCameraShakeConfiguration configuration, SlimeData slimeData, Camera mainCamera)
         {
+            _configuration = configuration;
             _slimeData = slimeData;
-            return this;
+            _mainCamera = mainCamera;
         }
 
         public void OnDestroy() { }
@@ -28,17 +24,17 @@ namespace Player
         public void UpdateStretch()
         {
             _shakeTimer += Time.deltaTime;
-            if (!(_shakeTimer >= shakeUpdateFrequency)) return;
+            if (!(_shakeTimer >= _configuration.ShakeUpdateFrequency)) return;
             
-            float currentStrength = stretchShakeStrength * Mathf.Pow(_slimeData.Distance, 2f);
-            mainCamera.transform.DOShakePosition(shakeUpdateFrequency, currentStrength);
+            float currentStrength = _configuration.StretchShakeStrength * Mathf.Pow(_slimeData.Distance, 2f);
+            _mainCamera.transform.DOShakePosition(_configuration.ShakeUpdateFrequency, currentStrength);
             _shakeTimer = 0f;
             
         }
 
         public void OnSlimeTears()
         {
-            mainCamera.transform.DOShakePosition(shakeDuration, tearShakeStrength);
+            _mainCamera.transform.DOShakePosition(_configuration.ShakeDuration, _configuration.TearShakeStrength);
         }
 
         public void OnSlimeConnected() { }
