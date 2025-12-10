@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5509054928050799676}
   - component: {fileID: 7622098485694722740}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Square (3)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3382373228120647743}
   - component: {fileID: 1624487781918741540}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: table
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 484965532122411483}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3250234998411908661}
   - component: {fileID: 5171384665982421737}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Square
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4716460128962367933}
   - component: {fileID: 7642402851261379553}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Reference_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7699442282622941638}
   - component: {fileID: 486138008758926506}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Square (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +423,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8428076760848955853}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Envirement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -460,7 +460,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4960684023803544720}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -496,7 +496,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4020666582959599051}
   - component: {fileID: 919332685139790556}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Square (2)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -575,7 +575,7 @@ GameObject:
   - component: {fileID: 4663656552770759373}
   - component: {fileID: 2932087192870450431}
   - component: {fileID: 6388798494828400443}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5412,7 +5412,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2287895271084916936}
   - component: {fileID: 4719298096544886799}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5429,8 +5429,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -24.97, y: -2.0173, z: 0}
-  m_LocalScale: {x: 2.143583, y: 3.48418, z: 2.143583}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8428076760848955853}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5481,7 +5481,7 @@ SpriteRenderer:
   m_SortingLayerID: -2036514287
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: d72c12fabb622ef4182dc44c4754098a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cca62c3bced6648d8a648f64bcf15c4c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5502,7 +5502,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5804139919630146775}
   - component: {fileID: 1644994122550692906}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
