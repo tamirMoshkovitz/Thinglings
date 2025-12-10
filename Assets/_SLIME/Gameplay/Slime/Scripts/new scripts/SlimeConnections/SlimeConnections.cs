@@ -6,6 +6,10 @@ using UnityEngine;
 
 namespace Player
 {
+    public struct ConnectionsComponents
+    {
+        public EdgeCollider2D edgeColliderConnections;
+    }
     public class SlimeConnections
     {
         private Dictionary<NewConnectingJoint, List<NewConnectingJoint>> _objectsConnections =
@@ -16,13 +20,15 @@ namespace Player
         private SlimeData _slimeData;
         private readonly SlimeConnectionPyshics _slimeConnectionPyshics;
         private readonly SlimeConnectionsVisuals _slimeConnectionVisuals;
+        private readonly ConnectionsComponents _connectionsComponents;
 
-        public SlimeConnections(SlimeConfiguration slimeConfiguration, SlimeData slimeData)
+        public SlimeConnections(SlimeConfiguration slimeConfiguration, SlimeData slimeData, ConnectionsComponents connectionsComponents)
         {
             _slimeConfig = slimeConfiguration;
             _slimeData = slimeData;
-            _slimeConnectionPyshics = new SlimeConnectionPyshics(_slimeConfig);
-            _slimeConnectionVisuals = new SlimeConnectionsVisuals(_slimeConfig);
+            _slimeConnectionPyshics = new SlimeConnectionPyshics(_slimeConfig, _slimeData, connectionsComponents);
+            _slimeConnectionVisuals = new SlimeConnectionsVisuals(_slimeConfig, connectionsComponents);
+            _connectionsComponents = connectionsComponents;
         }
 
         public void TryAddConnection(NewConnectingJoint connectorOne, NewConnectingJoint connectorTwo)
@@ -72,10 +78,6 @@ namespace Player
             {
                 _objectsConnections[pair.Item1].Remove(pair.Item2);
                 _slimeConnectionVisuals.RemoveSegment(pair.Item1, pair.Item2);
-                if (!_objectsConnections[pair.Item2].Contains(pair.Item1))
-                {
-                    // We need to remove the segment.
-                }
             }
         }
 
@@ -97,6 +99,8 @@ namespace Player
                 SlimeEvents.SlimeTears?.Invoke();
                 _slimeData.Connected = false;
             }
+            
+            _slimeData.SpringJointCount = counter;
         }
 
         public void FixedUpdate()
@@ -107,6 +111,7 @@ namespace Player
         public void LateUpdate()
         {
             _slimeConnectionVisuals.LateUpdate();
+            _slimeConnectionPyshics.LateUpdate();
         }
     }
 }

@@ -20,8 +20,8 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             float currentSag = Mathf.Lerp(lineSettings.maxSag, 0f, t);
             components.lr.widthMultiplier = Mathf.Lerp(lineSettings.maxThickness, lineSettings.minThickness, t);
             LineUtils.ApplyParabolaInterpolation(
-                components,
-                lineSettings, 
+                ref components.linePositions,
+                lineSettings.visualResolution, 
                 anchorPos,      
                 currentTipPos,  
                 currentSag      

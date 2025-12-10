@@ -8,12 +8,14 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         public struct SlimeSideFormat
         {
             public GameObject GameObject;
+            public Transform TopTransform;
             public float MoveSpeed;
             public int MaxHealth;
 
-            public SlimeSideFormat(GameObject game, float moveSpeed, int maxHealth)
+            public SlimeSideFormat(GameObject game, Transform topTransform, float moveSpeed, int maxHealth)
             {
                 GameObject = game;
+                TopTransform = topTransform;
                 MoveSpeed = moveSpeed;
                 MaxHealth = maxHealth;
             }
@@ -26,7 +28,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         public SlimeSide(SlimeSideFormat format)
         {
             _gameObject = format.GameObject;
-            
+            TopPosition = format.TopTransform;
             _movement = new SlimeSideMovement(new SlimeSideMovement.SlimeSideMovementFormat(
                 this,
                 format.GameObject.GetComponent<Rigidbody2D>(),
@@ -40,7 +42,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         }
         
         public Vector3 Position => _gameObject.transform.position;
-        
+        public Transform TopPosition { get; private set; }
         public bool IsDead => _health.IsDead;
         
         public void OnEnable()
@@ -70,6 +72,20 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         public void OnMove(InputAction.CallbackContext context)
         {
             _movement.OnMove(context);
+        }
+
+        public float Mass
+        {
+            get
+            {
+                float mass = 0;
+                foreach (var rb in _gameObject.GetComponentsInChildren<Rigidbody2D>())
+                {
+                    mass += rb.mass;
+                }
+
+                return mass;
+            }
         }
     }
 }

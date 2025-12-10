@@ -1,11 +1,12 @@
 using System.Collections;
 using _SLIME.Gameplay.Slime.Scripts.SlimeComponents;
+using _SLIME.Gameplay.Slime.SlimePowers;
 using Audio;
 using Player;
 using Player.new_scripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
-    
+
 namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
 {
     [RequireComponent(typeof(PlayerInput))]
@@ -13,7 +14,12 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
     {
         [SerializeField] private SlimeConfiguration slimeConfiguration;
         [SerializeField] private GameObject slimeLeftSide; // Only for reference in the inspector - do not use in code!
+        [SerializeField] private Transform slimeLeftSideAnchor; // Only for reference in the inspector - do not use in code!
+        
         [SerializeField] private GameObject slimeRightSide; // Only for reference in the inspector - do not use in code!
+        [SerializeField] private Transform slimeRightSideAnchor; // Only for reference in the inspector - do not use in code!
+        [SerializeField] private EdgeCollider2D edgeColliderConnections;
+        [SerializeField] private TriggerSensor edgeColliderSensor;
         [SerializeField] private float controlSwitchDelay = 0.5f;
         [SerializeField] private float controlSwitchThreshold = 0.5f;
         
@@ -26,7 +32,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         private SlimeData _slimeData;
         private SlimeFeelManager _feelManager;
         private SlimeSide _leftSide, _rightSide;
-        private SlimePowers _slimePowers;
+        private Slime.SlimePowers.SlimePowers _slimePowers;
         private SlimeConnections _slimeConnections;
         
         private bool _isMoveLeftCancelled = true, _isMoveRightCancelled = true;
@@ -61,8 +67,8 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             _slimeConnections.Update();
             _leftSide.Update();
             _rightSide.Update();
-            
             _feelManager.Update();
+            _slimePowers.Update();
         }
 
         private void FixedUpdate()
@@ -84,22 +90,30 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
 
         private void InitializeFields()
         {
-            _slimeData = new SlimeData();
-            
             _rightSide = new SlimeSide(new SlimeSide.SlimeSideFormat(
                 slimeRightSide,
+                slimeRightSideAnchor,
                 slimeConfiguration.MoveSpeed,
                 slimeConfiguration.MaxHealth
             ));
             
             _leftSide = new SlimeSide(new SlimeSide.SlimeSideFormat(
                 slimeLeftSide,
+                slimeLeftSideAnchor,
                 slimeConfiguration.MoveSpeed,
                 slimeConfiguration.MaxHealth
             ));
             
-            _slimePowers = new SlimePowers();
-            _slimeConnections = new SlimeConnections(slimeConfiguration, _slimeData);
+            _slimeData = new SlimeData(_rightSide, _leftSide);
+            
+            _slimePowers = new Slime.SlimePowers.SlimePowers(slimeConfiguration,new PowerComponents
+            {
+                connectionsTriggerSensor = edgeColliderSensor
+            } );
+            _slimeConnections = new SlimeConnections(slimeConfiguration,_slimeData, new ConnectionsComponents
+            {
+                edgeColliderConnections = edgeColliderConnections,
+            } );
             
             _feelManager = new SlimeFeelManager(this, controllerRumbleConfiguration,
                 slimeStretchCameraShakeConfiguration, mainCamera, shotTearConnectionDelay);
@@ -173,17 +187,17 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         private void InitializeSlimeData()
         {
             _slimeData.Connected = slimeConfiguration.IsConnectedAtStart;
-            _slimeData.MaxStretch = slimeConfiguration.MaxStretch;
-        }
-
-        private void UpdateSlimeData()
-        {
-            _slimeData.Distance = Vector3.Distance(_rightSide.Position, _leftSide.Position);
         }
 
         private void OnTearFinished() // Called by the FeelManager via Invoke
         {
             _feelManager.OnTearFinished();
+        }
+        
+        private void UpdateSlimeData()
+        {
+            _slimeData.TopLineConnectionPositionLeft = _leftSide.TopPosition.position;
+            _slimeData.TopLineConnectionPositionRight = _rightSide.TopPosition.position;
         }
     }
 }

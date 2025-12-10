@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
 
 namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
@@ -13,10 +14,13 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             new Dictionary<(NewConnectingJoint, NewConnectingJoint), (LineVisualizer,LineVisualizer,LineVisualizer)>();
 
         private List<LineVisualizer> _breakingLines;
+        private readonly ConnectionsComponents _connectionsComponents;
 
-        public SlimeConnectionsVisuals(SlimeConfiguration slimeConfiguration)
+        public SlimeConnectionsVisuals(SlimeConfiguration slimeConfiguration,
+            ConnectionsComponents connectionsComponents)
         {
             _slimeConfig = slimeConfiguration;
+            _connectionsComponents = connectionsComponents;
             _linesFather = new GameObject("LinesFather");
             _lineVisual = new NormalLineVisual();
             _breakingLines = new List<LineVisualizer>();
@@ -49,7 +53,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
                 e.Value.Item3.FixedUpdate();  
             }
         }
-
+        
         public void LateUpdate()
         {
             foreach (var e in _lineVisualizers)
@@ -57,7 +61,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
                 e.Value.Item1.LateUpdate();  
                 e.Value.Item2.LateUpdate();  
                 e.Value.Item3.LateUpdate();   
-            } 
+            }
             
             
             for (int i = _breakingLines.Count - 1; i >= 0; i--)
@@ -70,7 +74,10 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
                 }
             }
             
+            
         }
+
+        
 
         public void RemoveSegment(NewConnectingJoint connectorOne, NewConnectingJoint connectorTwo)
         {

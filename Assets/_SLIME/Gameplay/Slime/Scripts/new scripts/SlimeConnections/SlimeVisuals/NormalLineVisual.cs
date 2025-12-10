@@ -12,11 +12,12 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             float distance = Vector3.Distance(startPos, endPos);
             
             float tension = Mathf.InverseLerp(lineSettings.closeDistance, lineSettings.farDistance, distance);
+            float baseSag = Mathf.Lerp(lineSettings.maxSag, 0f, tension);
             
-            float currentSag = Mathf.Lerp(lineSettings.maxSag, 0f, tension);
+            float finalSag = baseSag + components.currentVibrationOffset;
             components.lr.widthMultiplier = Mathf.Lerp(lineSettings.maxThickness, lineSettings.minThickness, tension);
             
-            LineUtils.ApplyParabolaInterpolation(components, lineSettings, startPos, endPos, currentSag);
+            LineUtils.ApplyParabolaInterpolation(ref components.linePositions, lineSettings.visualResolution, startPos, endPos, finalSag);
             
             components.lr.SetPositions(components.linePositions);
             return false;
@@ -44,7 +45,6 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             
 
             List<LineVisualizer> newParts = new List<LineVisualizer>();
-            
             
             
             newParts.Add(new LineVisualizer(

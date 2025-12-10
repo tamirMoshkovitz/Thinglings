@@ -996,6 +996,7 @@ Transform:
   - {fileID: 6336384079388306125}
   - {fileID: 8163740226605076593}
   - {fileID: 4254027681904016654}
+  - {fileID: 4202063518585629668}
   m_Father: {fileID: 4837370760412639827}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &7392577513779578006
@@ -1024,7 +1025,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &5954497588773648562
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1091,7 +1092,7 @@ SpriteShapeRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 590626563016348507}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 0
@@ -1649,6 +1650,7 @@ Transform:
   - {fileID: 8159073154205292673}
   - {fileID: 8151703709816282130}
   - {fileID: 4903473193683872267}
+  - {fileID: 5178392793009059931}
   m_Father: {fileID: 4837370760412639827}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &2418027174437749949
@@ -1677,7 +1679,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &1399323244736115734
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1767,7 +1769,7 @@ SpriteShapeRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 793601271816119973}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 0
@@ -2466,6 +2468,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 527226893382387907}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1531482825402133960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4202063518585629668}
+  m_Layer: 8
+  m_Name: TopPointAnchorForConnections
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4202063518585629668
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531482825402133960}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7219174985340982713}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1558051136013404444
 GameObject:
   m_ObjectHideFlags: 0
@@ -2790,7 +2823,7 @@ MonoBehaviour:
   state: 0
   brain: {fileID: 3524386366124774228}
   maxConnections: 1
-  matchingConnection: {fileID: 0}
+  matchingConnection: {fileID: 7721599653053594189}
   top: {fileID: 5778399837032013605}
   mid: {fileID: 7588006459689297751}
   bottom: {fileID: 6854243895232951018}
@@ -2861,6 +2894,95 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8412904071544052636}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2484037145348218577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4930641240551980387}
+  - component: {fileID: 4862461708991908865}
+  - component: {fileID: 6874304855154268082}
+  m_Layer: 13
+  m_Name: ConnectionsCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4930641240551980387
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2484037145348218577}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4837370760412639827}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!68 &4862461708991908865
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2484037145348218577}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 10.554117, y: 9.638651}
+  - {x: -12.576212, y: 9.773457}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
+--- !u!114 &6874304855154268082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2484037145348218577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2bd27544d04404a9b2059f3a76b128, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Gameplay.Slime.Scripts.new_scripts.TriggerSensor
+  collider: {fileID: 4862461708991908865}
 --- !u!1 &2612875568339285220
 GameObject:
   m_ObjectHideFlags: 0
@@ -2891,6 +3013,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9130313947284047220}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2801892120953516528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5178392793009059931}
+  m_Layer: 8
+  m_Name: TopPointAnchorForConnections
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5178392793009059931
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2801892120953516528}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5770468431943715506}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2971753586017671158
 GameObject:
@@ -3510,6 +3663,7 @@ Transform:
   - {fileID: 7219174985340982713}
   - {fileID: 5770468431943715506}
   - {fileID: 3455996637749868327}
+  - {fileID: 4930641240551980387}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &6493539019131866479
@@ -3538,8 +3692,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player.new_scripts.SlimeBrain
   slimeConfiguration: {fileID: 11400000, guid: c89e33f70e12e4a3ea6da460fb955f08, type: 2}
   slimeLeftSide: {fileID: 590626563016348507}
+  slimeLeftSideAnchor: {fileID: 4202063518585629668}
   slimeRightSide: {fileID: 793601271816119973}
-  controlSwitchDelay: 1
+  slimeRightSideAnchor: {fileID: 5178392793009059931}
+  edgeColliderConnections: {fileID: 4862461708991908865}
+  edgeColliderSensor: {fileID: 6874304855154268082}
+  controlSwitchDelay: 0.5
   controlSwitchThreshold: 0.5
   controllerRumbleConfiguration: {fileID: 11400000, guid: 5f485f8d6660e4091aede26db1cfced1, type: 2}
   slimeStretchCameraShakeConfiguration: {fileID: 11400000, guid: a1cf7dba4bdbc4a818d462a52dfeab15, type: 2}
@@ -3869,7 +4027,7 @@ MonoBehaviour:
   state: 0
   brain: {fileID: 3524386366124774228}
   maxConnections: 1
-  matchingConnection: {fileID: 0}
+  matchingConnection: {fileID: 5609624882280583798}
   top: {fileID: 7608988216449316245}
   mid: {fileID: 8808986594665527533}
   bottom: {fileID: 3665091548595414014}
@@ -4827,7 +4985,7 @@ MonoBehaviour:
   state: 1
   brain: {fileID: 3524386366124774228}
   maxConnections: 1
-  matchingConnection: {fileID: 0}
+  matchingConnection: {fileID: 8612438704227727265}
   top: {fileID: 3994596536949534097}
   mid: {fileID: 2600059899731945669}
   bottom: {fileID: 5842794309123459088}
@@ -5129,7 +5287,7 @@ MonoBehaviour:
   state: 1
   brain: {fileID: 3524386366124774228}
   maxConnections: 1
-  matchingConnection: {fileID: 0}
+  matchingConnection: {fileID: 647230655595116052}
   top: {fileID: 5529633273571669090}
   mid: {fileID: 2641421988500508638}
   bottom: {fileID: 1076888086800996989}
@@ -6120,7 +6278,7 @@ MonoBehaviour:
   state: 0
   brain: {fileID: 3524386366124774228}
   maxConnections: 1
-  matchingConnection: {fileID: 0}
+  matchingConnection: {fileID: 3489780312306140929}
   top: {fileID: 3999570739568344624}
   mid: {fileID: 6504581762045245984}
   bottom: {fileID: 8847729249997846115}
@@ -7006,7 +7164,7 @@ MonoBehaviour:
   state: 1
   brain: {fileID: 3524386366124774228}
   maxConnections: 1
-  matchingConnection: {fileID: 0}
+  matchingConnection: {fileID: 4238249483313720668}
   top: {fileID: 8025938738786078432}
   mid: {fileID: 498874231239820875}
   bottom: {fileID: 537990199562918535}
@@ -7828,7 +7986,7 @@ MonoBehaviour:
   state: 0
   brain: {fileID: 3524386366124774228}
   maxConnections: 1
-  matchingConnection: {fileID: 0}
+  matchingConnection: {fileID: 4772590844268633225}
   top: {fileID: 7100484672988681866}
   mid: {fileID: 9032574065727558566}
   bottom: {fileID: 8446852208819521462}
@@ -9439,7 +9597,7 @@ MonoBehaviour:
   state: 1
   brain: {fileID: 3524386366124774228}
   maxConnections: 1
-  matchingConnection: {fileID: 0}
+  matchingConnection: {fileID: 3352516188449150311}
   top: {fileID: 2349823277913187036}
   mid: {fileID: 375028864553779195}
   bottom: {fileID: 5574430611751744620}

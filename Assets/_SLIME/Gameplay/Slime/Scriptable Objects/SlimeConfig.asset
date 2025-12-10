@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SlimeConfig
   m_EditorClassIdentifier: Assembly-CSharp::Player.new_scripts.SlimeConfiguration
   slimeConfiguration:
-    isConnectedAtStart: 0
+    isConnectedAtStart: 1
     moveSpeed: 10
     maxHealth: 100
-    maxStretch: 60
+    breakForce: 60
     connectionFrequency: 0.5
     connectionDampingRatio: 0.5
   LineDefaultSettings:
@@ -29,3 +29,11 @@ MonoBehaviour:
     farDistance: 5
     tearDuration: 0.2
     tearDropOfLines: 0.2
+    vibrationSpeed: 50
+    vibrationDecay: 2
+    vibrationStrength: 0.8
+  TrampolinePowerSettings:
+    slimeProjectileLayer:
+      serializedVersion: 2
+      m_Bits: 128
+    trampolinePower: 200
