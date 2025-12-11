@@ -6,8 +6,6 @@ using EventType = UI.EventType;
 public class DamageRelay : MonoBehaviour
 {
     public BossController bossBrain; 
-
-    // Note: We don't need "isLeft" anymore because the health is shared!
     
     public void TakeDamage(float amount)
     {
@@ -23,13 +21,6 @@ public class DamageRelay : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("took damage from " + other.name + " from Layer " + LayerMask.LayerToName(other.gameObject.layer));
         TakeDamage(1f);
-    }
-
-    // Test Clicker
-    private void OnMouseDown()
-    {
-        TakeDamage(10);
     }
 }

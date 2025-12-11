@@ -13,13 +13,9 @@ public class BossController : MonoBehaviour
     private float _currentHealth;
     private bool _isDead;
 
-    [Header("Eye References")]
-    public Transform leftEyeRoot;
-    public Collider2D leftCollider;
-    public EyeFollow leftTracker;
-    public Transform rightEyeRoot;
-    public Collider2D rightCollider;
-    public EyeFollow rightTracker;
+    [Header("Boss References")]
+    public Transform bossRoot;       // The main parent object of the enemy
+    public Collider2D bossCollider;  // The main collider for taking damage
     
     [Header("Attacks")]
     public HandController leftHand;  
@@ -28,7 +24,7 @@ public class BossController : MonoBehaviour
     public Transform spawnAreaLeft;
     public Transform spawnAreaRight;
 
-    [Header("Eyes Movement & Timing")]
+    [Header("Movement & Timing")]
     public float verticalOffset = 15f;
     public float moveSpeed = 1f;
     public float timeOpen = 5f;
@@ -38,25 +34,22 @@ public class BossController : MonoBehaviour
     public float spawnSpeed = 3f;
     public float smashInterval = 1.5f;  
     
-    private Tween _leftHoverTween;
-    private Tween _rightHoverTween;
+    private Tween _bossHoverTween;
     private Coroutine _currentAttackRoutine; 
     
-    // NEW: We need to remember where the eyes started to reset them correctly
-    private Vector3 _initialLeftPos;
-    private Vector3 _initialRightPos;
+    private Vector3 _attackPos;
+    private Vector3 _hiddenPos;
     
     void Start()
     {
-        // 1. Setup Health
         _currentHealth = maxHealth;
         if (bossHealthBar != null) bossHealthBar.fillAmount = 1f;
 
-        // 2. Setup Eyes
-        PrepareEye(leftEyeRoot, leftCollider, true);
-        PrepareEye(rightEyeRoot, rightCollider, false);
+        _attackPos = bossRoot.position;
+        _hiddenPos = _attackPos + (Vector3.up * verticalOffset);
 
-        // 3. Start Loop
+        PrepareBossInitially();
+
         StartCoroutine(BossRoutine());
     }
 
@@ -70,33 +63,21 @@ public class BossController : MonoBehaviour
         GameEvents.ResetButtonPressed -= OnResetButtonPressed;
     }
 
-    // Updated to cache positions
-    void PrepareEye(Transform eye, Collider2D col, bool isLeft)
+    void PrepareBossInitially()
     {
-        // Save the position BEFORE we move it up, so we have a reference point
-        if (isLeft) _initialLeftPos = eye.position; 
-        else _initialRightPos = eye.position;
-
-        // Move it up to the hidden position
-        eye.position += Vector3.up * verticalOffset;
-        col.enabled = false;
+        bossRoot.position = _hiddenPos;
+        bossCollider.enabled = false;
     }
 
     IEnumerator BossRoutine()
     {
         yield return new WaitForSeconds(1f);
 
-        // Recalculate targets based on the current (Hidden) position
-        Vector3 leftTarget = leftEyeRoot.position - (Vector3.up * verticalOffset);
-        Vector3 rightTarget = rightEyeRoot.position - (Vector3.up * verticalOffset);
-
         while (!_isDead)
         {
-            MoveEyeDown(leftEyeRoot, leftTarget, leftCollider, leftTracker, true);
-            MoveEyeDown(rightEyeRoot, rightTarget, rightCollider, rightTracker, false);
+            MoveBossDown();
 
-            float choice = Random.value; // Fixed: Random.value returns 0.0 to 1.0
-            
+            float choice = Random.value;
             _currentAttackRoutine = StartCoroutine(choice < 0.5f ? SpawnItemsRoutine() : MultiSmashRoutine());
 
             yield return new WaitForSeconds(moveSpeed + timeOpen);
@@ -107,8 +88,8 @@ public class BossController : MonoBehaviour
                 _currentAttackRoutine = null;
             }
             
-            HideEye(leftEyeRoot, leftTarget + (Vector3.up * verticalOffset), leftCollider, leftTracker, true);
-            HideEye(rightEyeRoot, rightTarget + (Vector3.up * verticalOffset), rightCollider, rightTracker, false);
+            // --- PHASE 3: HIDE ---
+            HideBoss();
 
             yield return new WaitForSeconds(moveSpeed + timeClosed);
         }
@@ -122,7 +103,6 @@ public class BossController : MonoBehaviour
             float fixedY = spawnAreaLeft.position.y;
             GameObject item = Instantiate(fallingItemPrefab, new Vector2(randomX, fixedY), Quaternion.identity);
             
-            // Optional: Destroy item after 5 seconds so they don't pile up forever
             Destroy(item, 5f); 
             
             yield return new WaitForSeconds(spawnSpeed); 
@@ -141,22 +121,27 @@ public class BossController : MonoBehaviour
         }
     }
 
-    void MoveEyeDown(Transform eye, Vector3 targetPos, Collider2D col, EyeFollow tracker, bool isLeft)
+    void MoveBossDown()
     {
-        col.enabled = true;      
-        tracker.enabled = true;  
-        eye.DOMove(targetPos, moveSpeed).SetEase(Ease.OutBack).OnComplete(() => 
+        bossCollider.enabled = true;
+        
+        bossRoot.DOMove(_attackPos, moveSpeed).SetEase(Ease.OutBack).OnComplete(() => 
         {
-            Tween hover = eye.DOMoveY(targetPos.y + 0.5f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
-            if (isLeft) _leftHoverTween = hover; else _rightHoverTween = hover;
+            // Hover animation while vulnerable
+            _bossHoverTween = bossRoot.DOMoveY(_attackPos.y + 0.5f, 1f)
+                .SetLoops(-1, LoopType.Yoyo)
+                .SetEase(Ease.InOutSine);
         });
     }
 
-    void HideEye(Transform eye, Vector3 hiddenPos, Collider2D col, EyeFollow tracker, bool isLeft)
+    void HideBoss()
     {
-        if (isLeft && _leftHoverTween != null) _leftHoverTween.Kill();
-        if (!isLeft && _rightHoverTween != null) _rightHoverTween.Kill();
-        eye.DOMove(hiddenPos, moveSpeed).SetEase(Ease.InBack).OnComplete(() => { col.enabled = false; });
+        if (_bossHoverTween != null) _bossHoverTween.Kill();
+        
+        bossRoot.DOMove(_hiddenPos, moveSpeed).SetEase(Ease.InBack).OnComplete(() => 
+        { 
+            bossCollider.enabled = false;
+        });
     }
 
     public void TakeDamage(float amount)
@@ -164,60 +149,43 @@ public class BossController : MonoBehaviour
         if (_isDead) return;
         _currentHealth -= amount;
         if(bossHealthBar != null) bossHealthBar.fillAmount = _currentHealth / maxHealth;
+        
         if (_currentHealth <= 0) Die();
     }
 
     void Die()
     {
         _isDead = true;
-        StopAllAttackCoroutines(); // Helper method
-        
-        KillEyeTweens(); // Helper method
+        StopAllAttackCoroutines(); 
+        KillTweens();
 
-        leftEyeRoot.DOScale(Vector3.zero, 0.5f);
-        rightEyeRoot.DOScale(Vector3.zero, 0.5f);
-        leftCollider.enabled = false;
-        rightCollider.enabled = false;
+        bossRoot.DOScale(Vector3.zero, 0.5f);
+        bossCollider.enabled = false;
     }
 
     // --- RESET LOGIC ---
 
     public void OnResetButtonPressed()
     {
-        // 1. Stop Everything
         StopAllCoroutines();
         StopAllAttackCoroutines();
-        KillEyeTweens();
+        KillTweens();
 
-        // 2. Reset Variables
         _isDead = false;
         _currentHealth = maxHealth;
         if (bossHealthBar != null) bossHealthBar.fillAmount = 1f;
 
-        // 3. Reset Transforms (Snap them back to the hidden position immediately)
-        // Note: _initialPos is the "Low" position, so we add verticalOffset to get "High"
-        leftEyeRoot.position = _initialLeftPos + (Vector3.up * verticalOffset);
-        rightEyeRoot.position = _initialRightPos + (Vector3.up * verticalOffset);
-        
-        leftEyeRoot.localScale = Vector3.one;
-        rightEyeRoot.localScale = Vector3.one;
+        bossRoot.position = _hiddenPos;
+        bossRoot.localScale = Vector3.one;
 
-        // 4. Reset Components
-        leftCollider.enabled = false;
-        rightCollider.enabled = false;
-        leftTracker.enabled = false;
-        rightTracker.enabled = false;
+        bossCollider.enabled = false;
 
-        // 5. Cleanup scene (Optional: Destroy existing falling items)
-        var items = GameObject.FindGameObjectsWithTag($"FallingItem"); // Ensure prefab has this tag
+        var items = GameObject.FindGameObjectsWithTag($"FallingItem"); 
         foreach (var item in items) Destroy(item);
 
-        // 6. Restart the logic
         StartCoroutine(BossRoutine());
     }
 
-    // --- HELPER FUNCTIONS ---
-    
     private void StopAllAttackCoroutines()
     {
         if (_currentAttackRoutine != null) 
@@ -227,14 +195,9 @@ public class BossController : MonoBehaviour
         }
     }
 
-    private void KillEyeTweens()
+    private void KillTweens()
     {
-        // Kill specific hover tweens
-        if (_leftHoverTween != null) _leftHoverTween.Kill();
-        if (_rightHoverTween != null) _rightHoverTween.Kill();
-        
-        // Kill any movement tweens directly on the transforms
-        leftEyeRoot.DOKill();
-        rightEyeRoot.DOKill();
+        if (_bossHoverTween != null) _bossHoverTween.Kill();
+        bossRoot.DOKill();
     }
 }
