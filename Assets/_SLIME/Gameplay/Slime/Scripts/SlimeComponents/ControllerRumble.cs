@@ -59,8 +59,6 @@ namespace _SLIME.Gameplay.Slime.Scripts.SlimeComponents
 
         private void TearRumble(float lowFrequency, float highFrequency)
         {
-            if (_slimeData.ReachedMaxStretch) return;
-
             StopRumble();
             if (_configuration.AddTearRumble)
             {
