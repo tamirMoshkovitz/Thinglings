@@ -29,9 +29,6 @@ namespace _SLIME.Gameplay.Slime.Scripts.SlimeComponents
                 _prevLow = lowFrequency;
                 _prevHigh = highFrequency;
             }
-            
-            Debug.Log("stretch precentage: " + _slimeData.StretchRatio + " low freq: " + lowFrequency + " high freq: " + highFrequency + "\n" +
-                      "distance / maxStretchDistace: " + _slimeData.Distance + " / " + _slimeData.MaxStretchDistance);
         }
 
         public void OnPauseGame()
