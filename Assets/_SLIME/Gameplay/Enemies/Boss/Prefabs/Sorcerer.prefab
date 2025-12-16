@@ -169,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HandController
   player: {fileID: 0}
   centerBound: {fileID: 1877635657824001111}
+  mainCamera: {fileID: 0}
   hoverY: 23
   prepareY: 23
   floorY: 2
@@ -178,7 +179,6 @@ MonoBehaviour:
   trackSpeed: 2
   dropDuration: 0.5
   riseDuration: 0.5
-  mainCamera: {fileID: 0}
   shakeDuration: 0.8
   shakeStrength: 0.3
   shakeVibrato: 10
@@ -985,21 +985,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f034bf001803ddf4cb8e080d5dc74a98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossController
-  maxHealth: 20
-  bossHealthBar: {fileID: 0}
   bossRoot: {fileID: 7152152988328611950}
   bossCollider: {fileID: 571334746212737473}
-  leftHand: {fileID: 5620581068041182610}
-  rightHand: {fileID: 2557913006124745982}
+  leftHandAnimator: {fileID: 8403614891810237724}
+  rightHandAnimator: {fileID: 8403614891810237724}
   fallingItemPrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
   spawnAreaLeft: {fileID: 671653929157809193}
   spawnAreaRight: {fileID: 4939076224726718476}
   verticalOffset: -25
-  moveSpeed: 4
-  timeOpen: 5
-  timeClosed: 2
-  spawnSpeed: 3
-  smashInterval: 1.5
+  maxHealth: 20
+  bossHealthBar: {fileID: 0}
 --- !u!1 &5126877978806694487
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,6 +1102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HandController
   player: {fileID: 0}
   centerBound: {fileID: 8827372832029883958}
+  mainCamera: {fileID: 0}
   hoverY: 26
   prepareY: 24
   floorY: 2
@@ -1116,7 +1112,6 @@ MonoBehaviour:
   trackSpeed: 2
   dropDuration: 0.5
   riseDuration: 0.5
-  mainCamera: {fileID: 0}
   shakeDuration: 0.8
   shakeStrength: 0.3
   shakeVibrato: 10
@@ -1380,6 +1375,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7152152988328611950}
   - component: {fileID: 9017859891702742785}
+  - component: {fileID: 8403614891810237724}
   m_Layer: 0
   m_Name: sorcerer
   m_TagString: Untagged
@@ -1465,6 +1461,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &8403614891810237724
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7019578151914729216}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c1111035fb504474cbf3f9381d2af10f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7647884465638828271
 GameObject:
   m_ObjectHideFlags: 0

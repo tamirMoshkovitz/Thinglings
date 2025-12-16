@@ -74,7 +74,7 @@ namespace Player.Brick
         {
             _wasShot = true;
             Unfreeze();
-            _rb.AddForce(OldSlimeData.Instance().GetShotDirection(transform.position) * force, ForceMode2D.Impulse);
+            // _rb.AddForce(OldSlimeData.Instance().GetShotDirection(transform.position) * force, ForceMode2D.Impulse);
             GameEvents.BrickShot?.Invoke();
         }
     }

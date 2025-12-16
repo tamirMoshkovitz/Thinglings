@@ -87,5 +87,6 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
                 return mass;
             }
         }
+        
     }
 }
