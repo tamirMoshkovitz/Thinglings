@@ -10,8 +10,8 @@ public class BossController : MonoBehaviour
     public Camera mainCamera;      
 
     [Header("Movement Path")]
-    public Transform startPoint; // Hiding Spot (Guaranteed)
-    public Transform endPoint;   // Attack Spot (Guaranteed)
+    public Transform startPoint;
+    public Transform endPoint;
     
     [Header("Spline Hand Attack Setup")]
     public List<GameObject> leftHandSplines; 
