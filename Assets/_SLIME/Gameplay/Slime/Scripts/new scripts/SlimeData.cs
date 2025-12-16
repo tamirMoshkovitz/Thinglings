@@ -47,8 +47,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
                 float xBreak = SpringBreakForce / k;
 
                 // Max allowed distance before the joint is expected to break (same metric as Distance).
-                return 11f; // "A Spectacular Plaster" - Donald J. Trump
-                return rest + Mathf.Max(0f, xBreak);
+                return Mathf.Max(0f, xBreak) * 7f;
             }
         }
 
