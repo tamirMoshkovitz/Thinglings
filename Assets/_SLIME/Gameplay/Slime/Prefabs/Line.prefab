@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5618693395798593689}
   - component: {fileID: 1092303426799820633}
-  - component: {fileID: -8114559344370865485}
   - component: {fileID: 3557338533180410048}
   - component: {fileID: -8642173703105438883}
   - component: {fileID: 4958150090943058549}
@@ -147,38 +146,6 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &-8114559344370865485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7469158195929653497}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc4f652946ed4b778ab837e14419a2ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player.Segment
-  maxThickness: 0.8
-  minThickness: 0.3
-  widthProfile:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  stiffness: 50
-  damping: 3
-  connectionRange: 0.5
-  visualResolution: 40
-  physicsResolution: 8
-  catchableLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  gravitySag: 1
-  closeDistance: 1
-  farDistance: 4
-  tearDuration: 0.1
 --- !u!114 &3557338533180410048
 MonoBehaviour:
   m_ObjectHideFlags: 0

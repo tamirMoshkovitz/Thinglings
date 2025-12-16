@@ -9,8 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/_SLIME/Scenes/Connecting Points.unity
+    path: Assets/_SLIME/Scenes/SketchScenes/Connecting Points.unity
     guid: 8b25e68563907af4d99228d5aabfd3f2
+  - enabled: 1
+    path: Assets/_SLIME/Scenes/SketchScenes/Halel.unity
+    guid: 2a8ee58e69806464887b5a3274ee8307
+  - enabled: 1
+    path: Assets/_SLIME/Scenes/FirstScene.unity
+    guid: dc5fb15ddd2997d4ca73ef2fe89b5e06
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: f2b1ac02ae4ee4786b675ee5ed3fec90, type: 3}
   m_UseUCBPForAssetBundles: 0

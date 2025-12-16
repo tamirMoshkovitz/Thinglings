@@ -30,8 +30,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.SlimeComponents
                 _prevHigh = highFrequency;
             }
             
-            Debug.Log("stretch precentage: " + _slimeData.StretchRatio + " low freq: " + lowFrequency + " high freq: " + highFrequency + "\n" +
-                      "distance / maxStretchDistace: " + _slimeData.Distance + " / " + _slimeData.MaxStretchDistance);
+            Debug.Log("stretch ratio: " + _slimeData.StretchRatio);
         }
 
         public void OnPauseGame()
@@ -73,7 +72,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.SlimeComponents
 
         private void StopRumble()
         {
-            Gamepad.current?.ResetHaptics();  
+            Gamepad.current?.ResetHaptics();
             Gamepad.current?.SetMotorSpeeds(0f, 0f);
         }
 

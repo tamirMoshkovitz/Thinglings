@@ -17,6 +17,6 @@ MonoBehaviour:
     tearRumbleDuration: 0.2
     tearRumbleLowFrequency: 0.125
     tearRumbleHighFrequency: 0.5
-    stretchRumbleLowFrequency: 0.004
-    stretchRumbleHighFrequency: 0.005
-    rumbleChangeThreshold: 0.001
+    stretchRumbleLowFrequency: 0.005
+    stretchRumbleHighFrequency: 0.05
+    rumbleChangeThreshold: 0.0001

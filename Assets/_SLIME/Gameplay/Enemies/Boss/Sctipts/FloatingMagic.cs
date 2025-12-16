@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class FloatingObject : MonoBehaviour
+public class FloatingMagic : MonoBehaviour
 {
     public float floatDistance = 0.5f; // How high relative to start
     public float duration = 1.5f;

@@ -18,33 +18,36 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         public float Distance => Mathf.Max(0, Vector3.Distance(_sideA.Position, _sideB.Position) - 1f); //TODO: REFACTOR!! the -1 is because the slime radius is 0.5f for both sides
 
         public bool ReachedMaxStretch => Distance >= MaxStretchDistance;
-        public float StretchRatio => (Distance + 1f) / MaxStretchDistance; //Mathf.Clamp01(Distance / MaxStretchDistance);
+        public float StretchRatio => Distance / MaxStretchDistance;
         public float MaxStretchDistance // Physics by chatGPT thank you very much
         {
             get
             {
-                // Effective (reduced) mass of two-body system
-                var mEff = (SlimeMassA * SlimeMassB) / (SlimeMassA + SlimeMassB);
-                
-                // If frequency or mass is invalid, just fall back to the rest distance (no extra stretch).
-                if (SpringFrequency <= 0f || mEff <= 0f)
-                    return RestDistance;
-                
-                // Angular frequency (rad/s)
-                var omega = 2f * Mathf.PI * SpringFrequency;
-                
-                // Spring stiffness k = m_eff * (2πf)^2
-                var k = omega * omega * mEff;
+                // Approximate single-spring break distance using a mass-spring model.
+                // Distance metric in this class is (center distance - 1f), so RestDistance should be in the same metric.
+                // If RestDistance was never initialized, fall back to the current Distance as the relaxed baseline.
+                float rest = RestDistance > 0f ? RestDistance : Distance;
+
+                // Reduced (effective) mass for two-body spring.
+                float denom = SlimeMassA + SlimeMassB;
+                if (denom <= 0f || SpringFrequency <= 0f)
+                    return rest;
+
+                float mEff = (SlimeMassA * SlimeMassB) / denom;
+                if (mEff <= 0f)
+                    return rest;
+
+                // Convert frequency (Hz) to angular frequency (rad/s) and compute stiffness k ≈ mEff * (2πf)^2.
+                float omega = 2f * Mathf.PI * SpringFrequency;
+                float k = omega * omega * mEff;
                 if (k <= 0f)
-                    return RestDistance;
-                
-                // For identical springs in parallel, each spring sees the same extension x,
-                // and it breaks when its own force reaches SpringBreakForce:
-                // x_break = F_break / k
-                var xBreak = SpringBreakForce / k;
-                
-                // Max distance between the two slime centers before any spring breaks
-                return RestDistance + xBreak;
+                    return rest;
+
+                // Break when spring force F = kx reaches breakForce -> xBreak = breakForce / k.
+                float xBreak = SpringBreakForce / k;
+
+                // Max allowed distance before the joint is expected to break (same metric as Distance).
+                return Mathf.Max(0f, xBreak) * 7f;
             }
         }
 
