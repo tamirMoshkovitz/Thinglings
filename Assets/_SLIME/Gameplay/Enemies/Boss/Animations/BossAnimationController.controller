@@ -375,7 +375,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a2dde0db12988c46a5f5802a5d2b102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  smashesToPreform: 3
+  smashesToPerform: 5
+  isHardMode: 1
 --- !u!114 &1798663188940238713
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -402,7 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d31fb1fcfaa97034485a13bf118e0dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossDecideBehaviour
-  smashProbability: 0
+  smashProbability: 1
 --- !u!1101 &2584304176885970846
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

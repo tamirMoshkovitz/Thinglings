@@ -987,14 +987,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossController
   bossRoot: {fileID: 7152152988328611950}
   bossCollider: {fileID: 571334746212737473}
-  leftHandAnimator: {fileID: 8403614891810237724}
-  rightHandAnimator: {fileID: 8403614891810237724}
+  mainCamera: {fileID: 0}
+  startPoint: {fileID: 0}
+  endPoint: {fileID: 0}
+  playerLeftSlime: {fileID: 0}
+  playerRightSlime: {fileID: 0}
+  leftHand: {fileID: 3257202844994634893}
+  rightHand: {fileID: 7346593228572995212}
+  prepareHeight: 8
+  floorHeight: -2
+  hoverHeight: 5
+  riseDuration: 0.5
+  trackDuration: 1
+  smashDuration: 0.2
+  recoverDuration: 1
+  trackSpeed: 10
+  moveSpeed: 10
+  hoverStrength: 0.5
+  hoverDuration: 3
   fallingItemPrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
   spawnAreaLeft: {fileID: 671653929157809193}
   spawnAreaRight: {fileID: 4939076224726718476}
-  verticalOffset: -25
-  maxHealth: 20
   bossHealthBar: {fileID: 0}
+  maxHealth: 20
+  currentHealth: 0
+  animator: {fileID: 1778635086524914802}
 --- !u!1 &5126877978806694487
 GameObject:
   m_ObjectHideFlags: 0
@@ -1375,7 +1392,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7152152988328611950}
   - component: {fileID: 9017859891702742785}
-  - component: {fileID: 8403614891810237724}
+  - component: {fileID: 1778635086524914802}
   m_Layer: 0
   m_Name: sorcerer
   m_TagString: Untagged
@@ -1461,7 +1478,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &8403614891810237724
+--- !u!95 &1778635086524914802
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0

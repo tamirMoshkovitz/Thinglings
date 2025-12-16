@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,26 +12,16 @@ public class BossController : MonoBehaviour
     [Header("Movement Path")]
     public Transform startPoint; // Hiding Spot (Guaranteed)
     public Transform endPoint;   // Attack Spot (Guaranteed)
-
-    [Header("Player Targets")]
-    public Transform playerLeftSlime;  
-    public Transform playerRightSlime; 
-
-    [Header("The Hands")]
-    public Transform leftHand;  
-    public Transform rightHand; 
-
-    [Header("Hand Smash Settings")]
-    public float prepareHeight = 8f;   
-    public float floorHeight = -2f;    
-    public float hoverHeight = 5f;     
     
-    [Header("Timing")]
-    public float riseDuration = 0.5f;
-    public float trackDuration = 1.0f; 
-    public float smashDuration = 0.2f;
-    public float recoverDuration = 1.0f;
-    public float trackSpeed = 10f;
+    [Header("Spline Hand Attack Setup")]
+    public List<GameObject> leftHandSplines; 
+    public List<GameObject> rightHandSplines;
+    
+    [Tooltip("How long the hand takes to complete the path")]
+    public float handAttackDuration = 3.0f; 
+    
+    [Tooltip("Wait time between individual smashes")]
+    public float handCooldown = 0.5f;
 
     [Header("Movement Settings")]
     public float moveSpeed = 10f;       
@@ -47,13 +38,15 @@ public class BossController : MonoBehaviour
     public float maxHealth = 100f;
     [HideInInspector] public float currentHealth;
     
+    [Header("Animation")]
+    [SerializeField] private Animator animator;
+    
     void Start()
     {
         if (mainCamera == null) mainCamera = Camera.main;
         currentHealth = maxHealth;
-
-        Animator anim = GetComponent<Animator>();
-        var allBehaviours = anim.GetBehaviours<BossBaseBehaviour>();
+        
+        var allBehaviours = animator.GetBehaviours<BossBaseBehaviour>();
         foreach (var behaviour in allBehaviours)
         {
             behaviour.Initialize(this);
