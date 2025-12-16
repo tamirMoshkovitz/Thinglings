@@ -33,6 +33,7 @@ namespace Player
 
         public void TryAddConnection(NewConnectingJoint connectorOne, NewConnectingJoint connectorTwo)
         {
+            //TODO : return if there are MAX_CONNECTIONS already
             if (CheckIfConnected(connectorOne, connectorTwo) || CheckIfMaxedConnections(connectorOne)
                                                              || CheckIfMaxedConnections(connectorTwo)) return;
             _slimeConnectionPyshics.AddJoint(connectorOne, connectorTwo);
