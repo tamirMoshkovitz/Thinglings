@@ -1,112 +1,103 @@
 using UnityEngine;
-using DG.Tweening;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 public class BossHandsAttackBehaviour : BossBaseBehaviour
 {
-    [Header("Smash Settings")]
-    public int smashesToPreform = 3;
+    [Header("State Specific Settings")]
+    [SerializeField] private int smashesToPerform = 5;
+    [SerializeField] private bool isHardMode = false;
     
-    private Sequence _smashSequence;
-    private Transform _activeHand;
-    private Transform _activeTarget;
-    private int _smashCounter;
-    private Animator _animator;
+    private static readonly int Hide = Animator.StringToHash("Hide");
+    private Coroutine _smashRoutine;
+    private List<HandWrapper> _leftHands;
+    private List<HandWrapper> _rightHands;
+    private readonly List<HandWrapper> _activeHands = new List<HandWrapper>();
 
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    private class HandWrapper
+    {
+        private GameObject Root { get; set; }
+        private readonly BossHandLogic _bossHandLogicScript;
+
+        public HandWrapper(GameObject obj)
+        {
+            Root = obj;
+            _bossHandLogicScript = obj.GetComponentInChildren<BossHandLogic>();
+        }
+
+        public void Activate(float duration)
+        {
+            if (_bossHandLogicScript) _bossHandLogicScript.SetDuration(duration);
+            Root.SetActive(true);
+        }
+
+        public void Deactivate() => Root.SetActive(false);
+    }
+
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        
-        _animator = animator;
-        _smashCounter = 0;
 
-        StartNextSmash();
+        _leftHands = data.leftHandSplines.Select(h => new HandWrapper(h)).ToList();
+        _rightHands = data.rightHandSplines.Select(h => new HandWrapper(h)).ToList();
+
+        DisableAllHands();
+        _smashRoutine = data.StartCoroutine(SmashRoutine(animator));
     }
 
-    private void StartNextSmash()
+    private IEnumerator SmashRoutine(Animator animator)
     {
-        if (_smashCounter >= smashesToPreform)
+        for (int i = 0; i < smashesToPerform; i++)
         {
-            _animator.SetTrigger("Hide");
-            return;
+            _activeHands.Clear();
+
+            if (isHardMode)
+            {
+                AddRandomHand(_leftHands);
+                AddRandomHand(_rightHands);
+            }
+            else
+            {
+                bool isLeft = Random.value > 0.5f;
+                AddRandomHand(isLeft ? _leftHands : _rightHands);
+            }
+
+            foreach (var hand in _activeHands)
+            {
+                hand.Activate(data.handAttackDuration);
+            }
+
+            yield return new WaitForSeconds(data.handAttackDuration);
+
+            foreach (var hand in _activeHands)
+            {
+                hand.Deactivate();
+            }
+
+            if (i < smashesToPerform - 1)
+            {
+                yield return new WaitForSeconds(data.handCooldown);
+            }
         }
 
-        bool isLeft = Random.value > 0.5f;
-        if (isLeft)
-        {
-            _activeHand = data.leftHand;
-            _activeTarget = data.playerLeftSlime;
-        }
-        else
-        {
-            _activeHand = data.rightHand;
-            _activeTarget = data.playerRightSlime;
-        }
-
-        _activeHand.DOKill();
-
-        CreateSmashSequence();
-    }
-
-    private void CreateSmashSequence()
-    {
-        _smashSequence = DOTween.Sequence();
-        
-        _smashSequence.Append(
-            _activeHand.DOMoveY(data.prepareHeight, data.riseDuration)
-            .SetEase(Ease.OutBack)
-        );
-        
-        _smashSequence.Append(
-            DOVirtual.Float(0, 1, data.trackDuration, (v) => {})
-            .OnUpdate(TrackTargetFrame)
-        );
-
-        _smashSequence.Append(
-            _activeHand.DOShakePosition(0.3f, 0.5f, 20, 90)
-        );
-
-        _smashSequence.Append(
-            _activeHand.DOMoveY(data.floorHeight, data.smashDuration)
-            .SetEase(Ease.InExpo)
-        );
-        
-        _smashSequence.AppendCallback(() => {
-            if (data.mainCamera) data.mainCamera.DOShakePosition(0.3f, 0.5f, 20);
-        });
-        
-        _smashSequence.AppendInterval(0.5f);
-        
-        _smashSequence.Append(
-            _activeHand.DOMoveY(data.hoverHeight, data.recoverDuration)
-            .SetEase(Ease.InOutQuad)
-        );
-        
-        _smashSequence.OnComplete(() => 
-        {
-            _smashCounter++;
-            StartNextSmash();
-        });
-    }
-
-    private void TrackTargetFrame()
-    {
-        if (_activeTarget == null || _activeHand == null) return;
-
-        Vector3 pos = _activeHand.position;
-        float targetX = _activeTarget.position.x;
-        
-        pos.x = Mathf.Lerp(pos.x, targetX, Time.deltaTime * data.trackSpeed);
-        pos.y = data.prepareHeight; 
-        
-        _activeHand.position = pos;
+        animator.SetTrigger(Hide);
     }
     
-
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    private void AddRandomHand(List<HandWrapper> list)
     {
-        if (_smashSequence != null && _smashSequence.IsActive())
-        {
-            _smashSequence.Kill();
-        }
+        if (list == null || list.Count == 0) return;
+        _activeHands.Add(list[Random.Range(0, list.Count)]);
+    }
+
+    private void DisableAllHands()
+    {
+        _leftHands?.ForEach(h => h.Deactivate());
+        _rightHands?.ForEach(h => h.Deactivate());
+    }
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if (_smashRoutine != null) data.StopCoroutine(_smashRoutine);
+        DisableAllHands();
     }
 }
