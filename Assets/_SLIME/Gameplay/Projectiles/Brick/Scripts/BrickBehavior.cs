@@ -1,4 +1,6 @@
 using System;
+using Audio;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,76 +8,56 @@ namespace Player.Brick
 {
     public class BrickBehavior: MonoBehaviour
     {
-        [SerializeField] private float force = 20f;
+        [SerializeField] private float damage = 20f;
+        [SerializeField] private float lifeTime = 3f;
+        
+        private static readonly int dissolveId = Shader.PropertyToID("_Dissolve");
+        private MaterialPropertyBlock _propBlock;
         
         private Rigidbody2D _rb;
+        private Renderer _renderer;
         private InputAction _shootAction;
         private bool _wasShot;
-        private bool _wasCaught;
+        private float _lifetimeTimer = 0f;
         
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
-            
-            _shootAction = new InputAction("Shoot");
-            _shootAction.AddBinding("<Keyboard>/space");
-            _shootAction.AddBinding("<Gamepad>/rightTrigger");
+            _renderer = GetComponent<Renderer>();
+            _propBlock = new MaterialPropertyBlock();
         }
 
-        private void OnEnable()
+        private void Update()
         {
-            _shootAction.performed += OnShoot;
-            _shootAction.Enable();
-            GameEvents.SlimeTears += Unfreeze;
-        }
-
-        private void Unfreeze()
-        {
-            if (_rb == null)
+            if (_wasShot)
             {
-                GameEvents.SlimeTears -= Unfreeze;
-                return;
-            }
-
-            _rb.constraints = RigidbodyConstraints2D.None;
-            GameEvents.SlimeTears -= Unfreeze;
-        }
-
-        private void OnDisable()
-        {
-            _shootAction.performed -= OnShoot;
-            _shootAction.Disable();
-            GameEvents.SlimeTears -= Unfreeze;
-        }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (_wasShot || _wasCaught) return;
-            if (other.gameObject.CompareTag("Line"))
-            {
-                _wasCaught = true;
-                _rb.constraints = RigidbodyConstraints2D.FreezeAll;
-                Debug.Log("Brick catched!");
-            }
-        }
-        
-        private void OnShoot(InputAction.CallbackContext ctx)
-        {
-            if (!ctx.performed) return;
-            
-            if (!_wasShot && _wasCaught)
-            {
-                Shoot();
-                gameObject.layer = LayerMask.NameToLayer("Player Projectiles");
+                if (_lifetimeTimer >= lifeTime)
+                {
+                    Destroy(gameObject);
+                }
+                
+                _lifetimeTimer += Time.deltaTime;
+                
+                float dissolveAmount = Mathf.Lerp(0f, dissolveId, Mathf.Clamp01(_lifetimeTimer / lifeTime));
+                _renderer.GetPropertyBlock(_propBlock);
+                _propBlock.SetFloat(dissolveId, dissolveAmount);
+                _renderer.SetPropertyBlock(_propBlock);
             }
         }
 
-        private void Shoot()
+        public void Shoot(float stretchForce)
         {
             _wasShot = true;
-            Unfreeze();
-            // _rb.AddForce(OldSlimeData.Instance().GetShotDirection(transform.position) * force, ForceMode2D.Impulse);
+            damage *= stretchForce;
             GameEvents.BrickShot?.Invoke();
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            // if (collision.gameObject.TryGetComponent(typeof(ProjectMonoBehavior), out Component projectBehavior))
+            // {
+            //     
+            // }
         }
     }
 }

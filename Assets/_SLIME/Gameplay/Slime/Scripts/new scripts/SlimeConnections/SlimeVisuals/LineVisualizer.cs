@@ -40,9 +40,10 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         private LineVisualizerComponents _components;
         private LineSettings _lineSettings;
         private IVisualStrategy _visualStrategy;
+        private SlimeData _slimeData;
 
         public LineVisualizer(LineSettings lineSettings, Transform linesFather,
-            Transform start, Transform end, IVisualStrategy visualStrategy, string name = "")
+            Transform start, Transform end, IVisualStrategy visualStrategy, SlimeData slimeData, string name = "")
         {
             InitCommon(lineSettings, linesFather, name, visualStrategy);
 
@@ -52,6 +53,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             _components.lineStartLocalPos = start.InverseTransformPoint(start.position); 
             _components.lineEndLocalPos = end.InverseTransformPoint(end.position);
             SlimeEvents.TrampolineActivated += TriggerBounce;
+            _slimeData = slimeData;
         }
 
         public LineVisualizer(LineSettings lineSettings, Transform linesFather,
@@ -115,7 +117,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         {
             _vibrationTimer += Time.deltaTime;
 
-            float oscillation = Mathf.Sin(_vibrationTimer * _lineSettings.vibrationSpeed);
+            float oscillation = Mathf.Sin(_vibrationTimer * _lineSettings.vibrationSpeed * _slimeData.StretchRatio);
 
             
             _components.currentVibrationOffset = oscillation * _currentVibrationAmplitude;

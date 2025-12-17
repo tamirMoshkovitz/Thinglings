@@ -109,7 +109,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             _slimePowers = new Slime.SlimePowers.SlimePowers(slimeConfiguration,new PowerComponents
             {
                 connectionsTriggerSensor = edgeColliderSensor
-            } );
+            } , _slimeData);
             _slimeConnections = new SlimeConnections(slimeConfiguration,_slimeData, new ConnectionsComponents
             {
                 edgeColliderConnections = edgeColliderConnections,

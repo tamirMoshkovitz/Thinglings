@@ -27,7 +27,7 @@ namespace Player
             _slimeConfig = slimeConfiguration;
             _slimeData = slimeData;
             _slimeConnectionPyshics = new SlimeConnectionPyshics(_slimeConfig, _slimeData, connectionsComponents);
-            _slimeConnectionVisuals = new SlimeConnectionsVisuals(_slimeConfig, connectionsComponents);
+            _slimeConnectionVisuals = new SlimeConnectionsVisuals(_slimeConfig, _slimeData, connectionsComponents);
             _connectionsComponents = connectionsComponents;
         }
 
