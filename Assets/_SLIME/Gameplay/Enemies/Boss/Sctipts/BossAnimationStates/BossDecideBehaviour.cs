@@ -1,23 +1,44 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class BossDecideBehaviour : BossBaseBehaviour
 {
-    [Header("Decision Settings")]
-    [Range(0, 1)] public float smashProbability = 0.5f;
+    public enum BossAttackType
+    {
+        Smash,
+        Spawn,
+        Laser
+    }
+
+    [Header("Configuration")]
+    // Add the specific attacks you want this boss to be able to use here
+    public List<BossAttackType> availableAttacks;
+
+    // Cache hashes for performance
+    private static readonly int DoSmash = Animator.StringToHash("DoSmash");
+    private static readonly int DoSpawn = Animator.StringToHash("DoSpawn");
+    private static readonly int DoLaser = Animator.StringToHash("DoLaser");
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
 
-        float rng = Random.value;
+        if (availableAttacks.Count == 0) return;
 
-        if (rng < smashProbability)
+        int index = Random.Range(0, availableAttacks.Count);
+        BossAttackType selectedAttack = availableAttacks[index];
+
+        switch (selectedAttack)
         {
-            animator.SetTrigger("DoSmash");
-        }
-        else
-        {
-            animator.SetTrigger("DoSpawn");
+            case BossAttackType.Smash:
+                animator.SetTrigger(DoSmash);
+                break;
+            case BossAttackType.Spawn:
+                animator.SetTrigger(DoSpawn);
+                break;
+            case BossAttackType.Laser:
+                animator.SetTrigger(DoLaser);
+                break;
         }
     }
 }

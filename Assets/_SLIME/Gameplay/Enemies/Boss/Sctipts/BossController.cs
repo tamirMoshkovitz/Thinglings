@@ -4,6 +4,12 @@ using UnityEngine.UI;
 
 public class BossController : MonoBehaviour
 {
+    // TODO: Move to an independent Scriptable Object for the boss 
+
+    #region Boss Settings - Move to scriptable object
+    
+    private static readonly int Die = Animator.StringToHash("Die");
+    
     [Header("Core References")]
     public Transform bossRoot;       
     public Collider2D bossCollider;
@@ -41,6 +47,18 @@ public class BossController : MonoBehaviour
     [Header("Animation")]
     [SerializeField] private Animator animator;
     
+    [Header("Laser Array Attack Setup")]
+    public LaserAttackLogic laserArrayScript; 
+    public float laserRotationSpeed = 50f;
+    public float laserStaggerDelay = 0.2f;
+    public float laserActiveDuration = 3.0f;
+    public LaserAttackLogic.AnimationProfile laserGrowProfile;
+    public LaserAttackLogic.AnimationProfile laserDissolveProfile;
+    
+    #endregion
+    
+    // TODO: Move to an independent Scriptable Object for the boss 
+    
     void Start()
     {
         if (mainCamera == null) mainCamera = Camera.main;
@@ -57,7 +75,7 @@ public class BossController : MonoBehaviour
     {
         currentHealth -= amount;
         if(bossHealthBar != null) bossHealthBar.fillAmount = currentHealth / maxHealth;
-        if (currentHealth <= 0) GetComponent<Animator>().SetTrigger("Die");
+        if (currentHealth <= 0) GetComponent<Animator>().SetTrigger(Die);
     }
 
     private void OnDrawGizmos()
@@ -73,12 +91,10 @@ public class BossController : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(endPoint.position, 1f);
 
-        if (spawnAreaLeft != null && spawnAreaRight != null)
-        {
-            Gizmos.color = Color.green;
-            Vector3 center = (spawnAreaLeft.position + spawnAreaRight.position) / 2;
-            Vector3 size = new Vector3(Mathf.Abs(spawnAreaRight.position.x - spawnAreaLeft.position.x), 1f, 1f);
-            Gizmos.DrawWireCube(center, size);
-        }
+        if (spawnAreaLeft == null || spawnAreaRight == null) return;
+        Gizmos.color = Color.green;
+        Vector3 center = (spawnAreaLeft.position + spawnAreaRight.position) / 2;
+        Vector3 size = new Vector3(Mathf.Abs(spawnAreaRight.position.x - spawnAreaLeft.position.x), 1f, 1f);
+        Gizmos.DrawWireCube(center, size);
     }
 }

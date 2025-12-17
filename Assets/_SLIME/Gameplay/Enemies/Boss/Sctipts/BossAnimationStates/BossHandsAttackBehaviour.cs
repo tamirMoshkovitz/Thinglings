@@ -5,6 +5,8 @@ using System.Linq;
 
 public class BossHandsAttackBehaviour : BossBaseBehaviour
 {
+    
+    // TODO: Add to the boss scriptable 
     [Header("State Specific Settings")]
     [SerializeField] private int smashesToPerform = 5;
     [SerializeField] private bool isHardMode = false;
@@ -18,17 +20,17 @@ public class BossHandsAttackBehaviour : BossBaseBehaviour
     private class HandWrapper
     {
         private GameObject Root { get; set; }
-        private readonly BossHandLogic _bossHandLogicScript;
+        private readonly BossHandAttackLogic _bossHandAttackLogicScript;
 
         public HandWrapper(GameObject obj)
         {
             Root = obj;
-            _bossHandLogicScript = obj.GetComponentInChildren<BossHandLogic>();
+            _bossHandAttackLogicScript = obj.GetComponentInChildren<BossHandAttackLogic>();
         }
 
         public void Activate(float duration)
         {
-            if (_bossHandLogicScript) _bossHandLogicScript.SetDuration(duration);
+            if (_bossHandAttackLogicScript) _bossHandAttackLogicScript.SetDuration(duration);
             Root.SetActive(true);
         }
 

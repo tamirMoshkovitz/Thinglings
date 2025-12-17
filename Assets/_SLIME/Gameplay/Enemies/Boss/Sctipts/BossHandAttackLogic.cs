@@ -2,24 +2,20 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Splines;
 
-public class BossHandLogic : MonoBehaviour
+public class BossHandAttackLogic : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private SplineAnimate splineAnimate;
 
-    [Header("Settings")]
+    [Header("Animation Settings")]
     [SerializeField] private float duration = 3f;
     [SerializeField] private AnimationCurve easeCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
     
-    [Header("Rotation")]
+    [Header("Rotation Settings")]
     [SerializeField] private bool useRefinedRotation = true; 
     [SerializeField] private Vector3 startRotation = new Vector3(0, 0, 0);
     [SerializeField] private Vector3 endRotation = new Vector3(0, 180, 0);
 
-    public void SetDuration(float totalDuration)
-    {
-        this.duration = totalDuration;
-    }
     private void Awake()
     {
         splineAnimate.PlayOnAwake = false;
@@ -55,5 +51,10 @@ public class BossHandLogic : MonoBehaviour
         }
         splineAnimate.NormalizedTime = 1f;
         if (useRefinedRotation) transform.rotation = rotationTo;
+    }
+    
+    public void SetDuration(float totalDuration)
+    {
+        duration = totalDuration;
     }
 }
