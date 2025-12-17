@@ -12,7 +12,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         private readonly SlimeConfiguration _slimeConfig;
         private readonly SlimeData _slimeData;
 
-        private readonly Dictionary<SpringJoint2D, (NewConnectingJoint, NewConnectingJoint)> _joints =
+        private static readonly Dictionary<SpringJoint2D, (NewConnectingJoint, NewConnectingJoint)> _joints =
             new Dictionary<SpringJoint2D, (NewConnectingJoint, NewConnectingJoint)>();
         
         private readonly ConnectionsComponents _connectionsComponents;
@@ -40,6 +40,18 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             joint.dampingRatio = _slimeConfig.ConnectionDampingRatio;
             _joints[joint] = (source, target);
         }
+
+        public static void ChangeJointsAttributes(float frequency, float breakForce)
+        {
+            Debug.Log("change joints attributes " + frequency + " to " + breakForce);
+            foreach (var j in _joints.Keys)
+            {
+                j.breakForce = breakForce;
+                j.frequency = frequency;
+            }
+        }
+        
+        
 
 
         public List<(NewConnectingJoint, NewConnectingJoint)> CheckForBrokenConnections()

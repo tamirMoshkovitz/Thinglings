@@ -38,7 +38,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             if (perpendicular.y > 0) perpendicular *= -1;
             midPointWorld += perpendicular * lineSettings.tearDropOfLines;
             LineSettings brokenSettings = lineSettings;
-            brokenSettings.maxSag = brokenSettings.maxSag/2; 
+            brokenSettings.maxSag /= 2; 
             brokenSettings.maxThickness = components.lr.widthMultiplier; 
             Transform father = components.lineObject.gameObject.transform.parent;
             components.lr.enabled = false;

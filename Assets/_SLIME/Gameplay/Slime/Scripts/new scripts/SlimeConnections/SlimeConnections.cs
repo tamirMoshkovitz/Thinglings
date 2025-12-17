@@ -21,6 +21,7 @@ namespace Player
         private readonly SlimeConnectionPyshics _slimeConnectionPyshics;
         private readonly SlimeConnectionsVisuals _slimeConnectionVisuals;
         private readonly ConnectionsComponents _connectionsComponents;
+        private int _numOfSlimeConnections;
 
         public SlimeConnections(SlimeConfiguration slimeConfiguration, SlimeData slimeData, ConnectionsComponents connectionsComponents)
         {
@@ -35,13 +36,31 @@ namespace Player
         {
             //TODO : return if there are MAX_CONNECTIONS already
             if (CheckIfConnected(connectorOne, connectorTwo) || CheckIfMaxedConnections(connectorOne)
-                                                             || CheckIfMaxedConnections(connectorTwo)) return;
+                                                             || CheckIfMaxedConnections(connectorTwo) ||
+                                                             CheckSlimeMaxConnections(connectorOne,connectorTwo)) return;
             _slimeConnectionPyshics.AddJoint(connectorOne, connectorTwo);
             _slimeConnectionVisuals.AddVisualLine(connectorOne, connectorTwo);
             _slimeConnectionPyshics.AddJoint(connectorTwo, connectorOne);
             _slimeConnectionVisuals.AddVisualLine(connectorTwo, connectorOne);
             AddConnectionToDict(connectorOne, connectorTwo);
             AddConnectionToDict(connectorTwo, connectorOne);
+            UpdateConnectionOfSlime(connectorOne, connectorTwo);
+        }
+
+        private void UpdateConnectionOfSlime(NewConnectingJoint connectorOne, NewConnectingJoint connectorTwo, int numOfConnections = 1)
+        {
+            if ((connectorOne.State == ConnectorState.FirstSlime && connectorTwo.State == ConnectorState.SecondSlime) ||
+                (connectorTwo.State == ConnectorState.SecondSlime && connectorOne.State == ConnectorState.FirstSlime))
+                _numOfSlimeConnections += numOfConnections;
+        }
+
+        private bool CheckSlimeMaxConnections(NewConnectingJoint connectorOne, NewConnectingJoint connectorTwo)
+        {
+            if ((connectorOne.State == ConnectorState.FirstSlime && connectorTwo.State == ConnectorState.SecondSlime) ||
+                (connectorTwo.State == ConnectorState.SecondSlime && connectorOne.State == ConnectorState.FirstSlime))
+                return _numOfSlimeConnections  >= _slimeConfig.MaxConnectionsOfSlime;
+            
+            return false;
         }
 
         private void AddConnectionToDict(NewConnectingJoint source, NewConnectingJoint target)
@@ -77,7 +96,9 @@ namespace Player
                 = _slimeConnectionPyshics.CheckForBrokenConnections();
             foreach (var pair in toRemoveObjects)
             {
+                UpdateConnectionOfSlime(pair.Item1, pair.Item2,-1);
                 _objectsConnections[pair.Item1].Remove(pair.Item2);
+                
                 _slimeConnectionVisuals.RemoveSegment(pair.Item1, pair.Item2);
             }
         }
