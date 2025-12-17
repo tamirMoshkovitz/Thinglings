@@ -61,7 +61,7 @@ public class BossController : MonoBehaviour
     
     void Start()
     {
-        if (mainCamera == null) mainCamera = Camera.main;
+        if (!mainCamera) mainCamera = Camera.main;
         currentHealth = maxHealth;
         
         var allBehaviours = animator.GetBehaviours<BossBaseBehaviour>();
@@ -74,8 +74,9 @@ public class BossController : MonoBehaviour
     public void TakeDamage(float amount)
     {
         currentHealth -= amount;
-        if(bossHealthBar != null) bossHealthBar.fillAmount = currentHealth / maxHealth;
-        if (currentHealth <= 0) GetComponent<Animator>().SetTrigger(Die);
+        if(bossHealthBar) bossHealthBar.fillAmount = currentHealth / maxHealth;
+        // if (currentHealth <= 0)
+        //     GetComponent<Animator>().SetTrigger(Die);
     }
 
     private void OnDrawGizmos()
