@@ -871,6 +871,7 @@ GameObject:
   - component: {fileID: 7219174985340982713}
   - component: {fileID: 7392577513779578006}
   - component: {fileID: 5954497588773648562}
+  - component: {fileID: 2948719119373563179}
   - component: {fileID: 3270315983557251515}
   - component: {fileID: 4768536376600472458}
   - component: {fileID: 7487284664680715124}
@@ -971,6 +972,28 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.6
+--- !u!95 &2948719119373563179
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590626563016348507}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0d04a94fba87f4e7d8f309347abf524e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &3270315983557251515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1529,6 +1552,7 @@ GameObject:
   - component: {fileID: 5635337142021641901}
   - component: {fileID: 7740630892784465821}
   - component: {fileID: 7413063486520142136}
+  - component: {fileID: 5638132142207919089}
   m_Layer: 8
   m_Name: SecondSlime
   m_TagString: Untagged
@@ -1797,6 +1821,28 @@ MonoBehaviour:
   m_Modifiers: []
   m_ColliderSegment: []
   m_ShadowSegment: []
+--- !u!95 &5638132142207919089
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793601271816119973}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0d04a94fba87f4e7d8f309347abf524e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1128021109959432332
 GameObject:
   m_ObjectHideFlags: 0
@@ -2240,7 +2286,7 @@ SpriteRenderer:
   m_SortingLayerID: 1318477715
   m_SortingLayer: 4
   m_SortingOrder: 4
-  m_Sprite: {fileID: 21300000, guid: 5bca41db422ed4d60b0485307ef531a2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ff96e7ff1d0d4436cbb24ff430691393, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3529,7 +3575,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 06c0dc47-2a3c-4111-a94d-e20050b6ede3
-    m_ActionName: 'Slime/Move Right[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
+    m_ActionName: Slime/Move Right[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3524386366124774228}
@@ -3545,7 +3591,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: ecc01ad2-5f25-4ae9-a41a-274b99e48f6a
-    m_ActionName: 'Slime/Move Left[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+    m_ActionName: Slime/Move Left[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Slime
@@ -6944,7 +6990,7 @@ SpriteRenderer:
   m_SortingLayerID: 1318477715
   m_SortingLayer: 4
   m_SortingOrder: 4
-  m_Sprite: {fileID: 21300000, guid: 5bca41db422ed4d60b0485307ef531a2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ff96e7ff1d0d4436cbb24ff430691393, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
