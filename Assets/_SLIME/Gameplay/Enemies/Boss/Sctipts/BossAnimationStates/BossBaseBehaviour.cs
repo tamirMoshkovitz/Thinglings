@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BossBaseBehaviour : StateMachineBehaviour
 {
-    protected BossController data; // We call it 'data' because that's all it is now
+    protected BossController data; // Todo: Swap to scriptable
 
     public void Initialize(BossController controller)
     {
