@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Splines;
 
 namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
 {
@@ -12,24 +13,29 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             public float MoveSpeed;
             public int MaxHealth;
             public GameObject PlayerHitPoint;
+            public SlimeData SlimeData;
 
-            public SlimeSideFormat(GameObject game, Transform topTransform, float moveSpeed, int maxHealth, GameObject playerHitPoint)
+            public SlimeSideFormat(GameObject gameObject, Transform topTransform, float moveSpeed, int maxHealth, GameObject playerHitPoint, SlimeData slimeData)
             {
-                GameObject = game;
+                GameObject = gameObject;
                 TopTransform = topTransform;
                 MoveSpeed = moveSpeed;
                 MaxHealth = maxHealth;
                 PlayerHitPoint = playerHitPoint;
+                SlimeData = slimeData;
             }
         }
         
         private GameObject _gameObject;
         private SlimeSideMovement _movement;
         private SlimeSideHealth _health;
+        private SlimeData _slimeData;
+        private SlimeAnimatorController _animatorController;
         
         public SlimeSide(SlimeSideFormat format)
         {
             _gameObject = format.GameObject;
+            _animatorController = new SlimeAnimatorController(_gameObject.GetComponent<Animator>());
             TopPosition = format.TopTransform;
             _movement = new SlimeSideMovement(new SlimeSideMovement.SlimeSideMovementFormat(
                 this,
@@ -40,8 +46,11 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             _health = new SlimeSideHealth(new SlimeSideHealth.SlimeSideHealthFormat(
                 this,
                 format.MaxHealth,
-                format.PlayerHitPoint
+                format.PlayerHitPoint,
+                new SlimeAnimatorController(_gameObject.GetComponent<Animator>())
             ));
+
+            _slimeData = format.SlimeData;
         }
         
         public Vector3 Position => _gameObject.transform.position;
@@ -64,6 +73,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         {
             _movement.Update();
             _health.Update();
+            _animatorController.Update(_movement.IsMoving, _slimeData.IsStrained);
         }
         
         public void FixedUpdate()

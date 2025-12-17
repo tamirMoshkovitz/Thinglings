@@ -7,7 +7,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         private SlimeSide _sideA;
         private SlimeSide _sideB;
         
-        public SlimeData(SlimeSide sideA, SlimeSide sideB)
+        public void Initialize(SlimeSide sideA, SlimeSide sideB)
         {
             _sideA = sideA;
             _sideB = sideB;
@@ -83,6 +83,6 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         public Vector2 TopLineConnectionPositionRight { get; set; }
         public Vector2 TopLineConnectionPositionLeft { get; set; }
 
-        
+        public bool IsStrained => StretchRatio > .66f && Connected;
     }
 }

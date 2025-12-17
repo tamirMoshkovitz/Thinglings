@@ -10,24 +10,48 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             public SlimeSide Parent;
             public float MaxHealth;
             public GameObject PlayerHitPoint;
+            public SlimeAnimatorController AnimatorController;
             
-            public SlimeSideHealthFormat(SlimeSide parent, float maxHealth, GameObject playerHitPoint)
+            public SlimeSideHealthFormat(SlimeSide parent, float maxHealth, GameObject playerHitPoint, SlimeAnimatorController animatorController)
             {
                 Parent = parent;
                 MaxHealth = maxHealth;
                 PlayerHitPoint = playerHitPoint;
+                AnimatorController = animatorController;
             }
         }
         
         #region Properties
         public float CurrentHealth { get; private set; }
-        public bool IsDead { get; private set; }
+        private bool _isDead = false;
+
+        public bool IsDead
+        {
+            get => _isDead;
+            private set
+            {
+                if (IsDead != value)
+                {
+                    _isDead = value;
+                    if (_isDead)
+                    {
+                        _animatorController?.SetHit();
+                    }
+                    else // heal
+                    {
+                        _animatorController?.SetHeal();
+                    }
+                }
+            }
+        }
+
         #endregion
         
         #region Private Fields
         private SlimeSide _parent;
         private GameObject _playerHitPoint;
         private readonly float _maxHealth;
+        private SlimeAnimatorController _animatorController;
         #endregion
         
         public SlimeSideHealth(SlimeSideHealthFormat format)
@@ -36,6 +60,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             _maxHealth = format.MaxHealth;
             _playerHitPoint = format.PlayerHitPoint;
             CurrentHealth = _maxHealth;
+            _animatorController = format.AnimatorController;
         }
 
         public void OnEnable()

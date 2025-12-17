@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using _SLIME.Gameplay.Slime.Scripts.SlimeComponents;
 using _SLIME.Gameplay.Slime.SlimePowers;
@@ -52,7 +53,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             InitializeFields();
             InitializeSlimeData();
         }
-        
+
         private void OnEnable()
         {
             _leftSide.OnEnable();
@@ -103,12 +104,14 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
 
         private void InitializeFields()
         {
+            _slimeData = new SlimeData();
             _rightSide = new SlimeSide(new SlimeSide.SlimeSideFormat(
                 slimeRightSide,
                 slimeRightSideAnchor,
                 slimeConfiguration.MoveSpeed,
                 slimeConfiguration.MaxHealth,
-                rightSideHitPoint
+                rightSideHitPoint,
+                _slimeData
             ));
             
             _leftSide = new SlimeSide(new SlimeSide.SlimeSideFormat(
@@ -116,10 +119,11 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
                 slimeLeftSideAnchor,
                 slimeConfiguration.MoveSpeed,
                 slimeConfiguration.MaxHealth,
-                leftSideHitPoint
+                leftSideHitPoint,
+                _slimeData
             ));
             
-            _slimeData = new SlimeData(_rightSide, _leftSide);
+            _slimeData.Initialize(_rightSide, _leftSide);
             
             _slimePowers = new Slime.SlimePowers.SlimePowers(slimeConfiguration,new PowerComponents
             {
