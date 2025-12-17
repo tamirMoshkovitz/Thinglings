@@ -100,5 +100,39 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             
             _connectionsComponents.edgeColliderConnections.points = newPoints;
         }
+
+        /// <summary>
+        /// Force-breaks all existing connections immediately and returns the connection pairs that were removed.
+        /// This is useful when other systems (e.g., visuals) need to know exactly which connections were torn.
+        /// </summary>
+        public List<(NewConnectingJoint, NewConnectingJoint)> TearAllConnections()
+        {
+            var removed = new List<(NewConnectingJoint, NewConnectingJoint)>();
+
+            if (_joints.Count == 0)
+                return removed;
+
+            // Capture the connection data for visuals BEFORE we clear/destroy.
+            removed.AddRange(_joints.Values);
+
+            // Copy keys to avoid modifying the dictionary while iterating.
+            var jointsToDestroy = new List<SpringJoint2D>(_joints.Keys);
+
+            foreach (var joint in jointsToDestroy)
+            {
+                if (joint)
+                {
+                    // Destroying the joint component breaks the connection.
+                    Object.Destroy(joint);
+                }
+            }
+
+            _joints.Clear();
+
+            // If the rest of the system uses this flag to drive visuals/colliders, update it.
+            _slimeData.Connected = false;
+
+            return removed;
+        }
     }
 }

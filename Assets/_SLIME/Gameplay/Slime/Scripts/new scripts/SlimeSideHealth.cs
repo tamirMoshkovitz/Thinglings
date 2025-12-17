@@ -9,11 +9,13 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         {
             public SlimeSide Parent;
             public float MaxHealth;
+            public GameObject PlayerHitPoint;
             
-            public SlimeSideHealthFormat(SlimeSide parent, float maxHealth)
+            public SlimeSideHealthFormat(SlimeSide parent, float maxHealth, GameObject playerHitPoint)
             {
                 Parent = parent;
                 MaxHealth = maxHealth;
+                PlayerHitPoint = playerHitPoint;
             }
         }
         
@@ -24,6 +26,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         
         #region Private Fields
         private SlimeSide _parent;
+        private GameObject _playerHitPoint;
         private readonly float _maxHealth;
         #endregion
         
@@ -31,6 +34,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         {
             _parent = format.Parent;
             _maxHealth = format.MaxHealth;
+            _playerHitPoint = format.PlayerHitPoint;
             CurrentHealth = _maxHealth;
         }
 
@@ -38,23 +42,17 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         {
             SlimeEvents.SlimeConnected += OnSlimeConnected;
             SlimeEvents.SlimeTears += OnSlimeTear;
+            SlimeEvents.SlimeGetHit += OnSlimeGetHit;
         }
 
         public void OnDisable()
         {
             SlimeEvents.SlimeConnected -= OnSlimeConnected;
             SlimeEvents.SlimeTears -= OnSlimeTear;
+            SlimeEvents.SlimeGetHit -= OnSlimeGetHit;
         }
 
         public void Update() { }
-
-        public void FixedUpdate()
-        {
-            if (!IsDead)
-            {
-                CheckIfSmashed();
-            }
-        }
 
         public void TakeDamage(float damage)
         {
@@ -73,23 +71,19 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             IsDead = false;
         }
 
-        private void CheckIfSmashed()
-        {
-            // raycast up and down to check hand from above and floor from below
-            RaycastHit2D hitUp = Physics2D.Raycast(_parent.Position, Vector2.up * 1.5f, LayerMask.NameToLayer("Enemy Projectiles"));
-        
-            if (hitUp.collider && hitUp.collider.CompareTag("Smasher")) // TODO: replace with relevant layer or tag
-            {
-                IsDead = true;
-                // slimeEyes.SetActive(false); TODO: Notify parent SlimeSide that it is dead
-            }
-        }
-
         private void OnSlimeConnected()
         {
             Resurrect();
         }
 
         private void OnSlimeTear() { }
+
+        private void OnSlimeGetHit(GameObject hitSide)
+        {
+            if (hitSide ==_playerHitPoint)
+            {
+                IsDead = true;
+            }
+        }
     }
 }

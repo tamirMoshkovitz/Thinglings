@@ -455,7 +455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   smashesToPerform: 5
-  isHardMode: 1
+  isHardMode: 0
 --- !u!114 &1798663188940238713
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -551,7 +551,7 @@ AnimatorStateMachine:
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
   m_EntryPosition: {x: -40, y: 110, z: 0}
-  m_ExitPosition: {x: 800, y: 120, z: 0}
+  m_ExitPosition: {x: 450, y: 280, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 8901507440252238383}
 --- !u!1102 &6248050520300791780

@@ -11,13 +11,15 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             public Transform TopTransform;
             public float MoveSpeed;
             public int MaxHealth;
+            public GameObject PlayerHitPoint;
 
-            public SlimeSideFormat(GameObject game, Transform topTransform, float moveSpeed, int maxHealth)
+            public SlimeSideFormat(GameObject game, Transform topTransform, float moveSpeed, int maxHealth, GameObject playerHitPoint)
             {
                 GameObject = game;
                 TopTransform = topTransform;
                 MoveSpeed = moveSpeed;
                 MaxHealth = maxHealth;
+                PlayerHitPoint = playerHitPoint;
             }
         }
         
@@ -37,7 +39,8 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             
             _health = new SlimeSideHealth(new SlimeSideHealth.SlimeSideHealthFormat(
                 this,
-                format.MaxHealth
+                format.MaxHealth,
+                format.PlayerHitPoint
             ));
         }
         
@@ -66,7 +69,6 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         public void FixedUpdate()
         {
             _movement.FixedUpdate();
-            _health.FixedUpdate();
         }
         
         public void OnMove(InputAction.CallbackContext context)

@@ -12,9 +12,6 @@ namespace _SLIME.Gameplay.Slime
         OutsidePoint,
     }
     
-    
-
-    
     public class NewConnectingJoint: ProjectMonoBehavior
     {
         [SerializeField] private ConnectorState state;
@@ -24,6 +21,11 @@ namespace _SLIME.Gameplay.Slime
         [SerializeField] private Transform top;
         [SerializeField] private Transform mid;
         [SerializeField] private Transform bottom;
+        
+        private static float _cooldownTime = .5f; 
+        private static bool _canConnect = true;
+        private float _deathCooldownTimer;
+        
         public int MaxConnections => maxConnections;
         public Transform Top => top;
         public Transform Mid => mid;
@@ -35,14 +37,39 @@ namespace _SLIME.Gameplay.Slime
                GetInstanceID() < matchingConnection.GetInstanceID()) brain.TryAddConnectionAtStart(matchingConnection, this);
         }
 
+        private void OnEnable()
+        {
+            SlimeEvents.SlimeGetHit += OnSlimeGetHit;
+        }
+
+        private void Update()
+        {
+            if (_deathCooldownTimer >= _cooldownTime)
+            {
+                _deathCooldownTimer = 0;
+                _canConnect = true;
+            }
+            else if (_canConnect == false)
+            {
+                _deathCooldownTimer += Time.deltaTime;
+            }
+        }
+
         public void OnTriggerEnter2D(Collider2D other)
         {
+            if (!_canConnect) return;
+            
             var otherJoint = other.GetComponent<NewConnectingJoint>();
             if (otherJoint != null && GetInstanceID() < otherJoint.GetInstanceID()
                 && state != otherJoint.state)
             {
                 brain.TryAddConnection(otherJoint, this);
             }
+        }
+
+        private void OnSlimeGetHit(GameObject other)
+        {
+            _canConnect = false;
         }
     }
 }

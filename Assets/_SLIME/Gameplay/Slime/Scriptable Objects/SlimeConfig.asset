@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player.new_scripts.SlimeConfiguration
   slimeConfiguration:
     isConnectedAtStart: 1
-    moveSpeed: 10
+    moveSpeed: 20
     maxHealth: 100
     breakForce: 60
     connectionFrequency: 0.5

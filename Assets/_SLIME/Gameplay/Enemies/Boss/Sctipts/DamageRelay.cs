@@ -18,9 +18,4 @@ public class DamageRelay : MonoBehaviour
             OnFinish = null
         });
     }
-
-    public void OnTriggerEnter2D(Collider2D other)
-    {
-        TakeDamage(1f);
-    }
 }

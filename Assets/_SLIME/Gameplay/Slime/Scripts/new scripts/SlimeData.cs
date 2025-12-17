@@ -12,8 +12,24 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             _sideA = sideA;
             _sideB = sideB;
         }
-        
-        public bool Connected { get; set; }
+
+        private bool _connected = false;
+        public bool Connected
+        {
+            get => _connected;
+            set
+            {
+                if (_connected && !value)
+                {
+                    SlimeEvents.SlimeTears?.Invoke();
+                }
+                else if (!_connected && value)
+                {
+                    SlimeEvents.SlimeConnected?.Invoke();
+                }
+                _connected = value;
+            }
+        }
 
         public float Distance => Mathf.Max(0, Vector3.Distance(_sideA.Position, _sideB.Position) - 1f); //TODO: REFACTOR!! the -1 is because the slime radius is 0.5f for both sides
 

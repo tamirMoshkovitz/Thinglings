@@ -8,7 +8,7 @@ namespace Player.Brick
 {
     public class BrickBehavior: MonoBehaviour
     {
-        [SerializeField] private float damage = 20f;
+        [SerializeField] private int damage = 20;
         [SerializeField] private float lifeTime = 3f;
         
         private static readonly int dissolveId = Shader.PropertyToID("_Dissolve");
@@ -48,16 +48,17 @@ namespace Player.Brick
         public void Shoot(float stretchForce)
         {
             _wasShot = true;
-            damage *= stretchForce;
+            damage = (int)(damage * stretchForce);
             GameEvents.BrickShot?.Invoke();
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            // if (collision.gameObject.TryGetComponent(typeof(ProjectMonoBehavior), out Component projectBehavior))
-            // {
-            //     
-            // }
+            if (collision.collider.gameObject.TryGetComponent(typeof(DamageRelay), out Component boss))
+            {
+                ((DamageRelay)boss).TakeDamage(damage);
+                Debug.Log($"<color=yellow>{gameObject.name}</color>");
+            }
         }
     }
 }

@@ -21,6 +21,7 @@ namespace Player
         private readonly SlimeConnectionPyshics _slimeConnectionPyshics;
         private readonly SlimeConnectionsVisuals _slimeConnectionVisuals;
         private readonly ConnectionsComponents _connectionsComponents;
+        private bool _slimeDied;
         private int _numOfSlimeConnections;
 
         public SlimeConnections(SlimeConfiguration slimeConfiguration, SlimeData slimeData, ConnectionsComponents connectionsComponents)
@@ -30,6 +31,35 @@ namespace Player
             _slimeConnectionPyshics = new SlimeConnectionPyshics(_slimeConfig, _slimeData, connectionsComponents);
             _slimeConnectionVisuals = new SlimeConnectionsVisuals(_slimeConfig, _slimeData, connectionsComponents);
             _connectionsComponents = connectionsComponents;
+        }
+
+        public void OnEnable()
+        {
+            SlimeEvents.SlimeConnected += OnSlimeConnected;
+            SlimeEvents.SlimeGetHit += OnSlimeGotHit;
+        }
+
+        public void OnDisable()
+        {
+            SlimeEvents.SlimeConnected -= OnSlimeConnected;
+            SlimeEvents.SlimeGetHit -= OnSlimeGotHit;
+        }
+
+        public void Update()
+        {
+            UpdateConnections();
+            UpdateSlimeData();
+        }
+
+        public void FixedUpdate()
+        {
+            _slimeConnectionVisuals.FixedUpdate();
+        }
+
+        public void LateUpdate()
+        {
+            _slimeConnectionVisuals.LateUpdate();
+            _slimeConnectionPyshics.LateUpdate();
         }
 
         public void TryAddConnection(NewConnectingJoint connectorOne, NewConnectingJoint connectorTwo)
@@ -84,21 +114,24 @@ namespace Player
         }
 
 
-        public void Update()
-        {
-            UpdateConnections();
-            UpdateSlimeData();
-        }
-
         private void UpdateConnections()
         {
-            List<(NewConnectingJoint, NewConnectingJoint)> toRemoveObjects
-                = _slimeConnectionPyshics.CheckForBrokenConnections();
+            List<(NewConnectingJoint, NewConnectingJoint)> toRemoveObjects;
+            
+            if (_slimeDied)
+            {
+                toRemoveObjects = _slimeConnectionPyshics.TearAllConnections();
+                _slimeDied = false;
+            }
+            else
+            {
+                toRemoveObjects = _slimeConnectionPyshics.CheckForBrokenConnections();
+            }
+
             foreach (var pair in toRemoveObjects)
             {
                 UpdateConnectionOfSlime(pair.Item1, pair.Item2,-1);
                 _objectsConnections[pair.Item1].Remove(pair.Item2);
-                
                 _slimeConnectionVisuals.RemoveSegment(pair.Item1, pair.Item2);
             }
         }
@@ -113,27 +146,24 @@ namespace Player
             
             if (!_slimeData.Connected && counter > 0)
             {
-                SlimeEvents.SlimeConnected?.Invoke();
                 _slimeData.Connected = true;
             }
             else if (_slimeData.Connected && counter == 0)
             {
-                SlimeEvents.SlimeTears?.Invoke();
                 _slimeData.Connected = false;
             }
             
             _slimeData.SpringJointCount = counter;
         }
 
-        public void FixedUpdate()
+        private void OnSlimeGotHit(GameObject slime)
         {
-            _slimeConnectionVisuals.FixedUpdate();
+            _slimeDied = true;
         }
 
-        public void LateUpdate()
+        private void OnSlimeConnected()
         {
-            _slimeConnectionVisuals.LateUpdate();
-            _slimeConnectionPyshics.LateUpdate();
+            _slimeDied = false;
         }
     }
 }
