@@ -25,7 +25,7 @@ namespace _SLIME.Core.GameLoop
         
         static SceneLoader()
         {
-            sceneTypeToIndex.Add(SceneType.StartScene, "StartScene");
+            sceneTypeToIndex.Add(SceneType.StartScene, "FirstScene");
             sceneTypeToIndex.Add(SceneType.BossBecomesMadScene, "BossBecomesMad");
             sceneTypeToIndex.Add(SceneType.BossChaseScene, "BossChase");
             sceneTypeToIndex.Add(SceneType.BossFinalBattleScene, "BossFinalBattle");

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player.new_scripts.SlimeConfiguration
   slimeConfiguration:
     isConnectedAtStart: 1
-    moveSpeed: 10
+    moveSpeed: 20
     maxHealth: 100
     breakForce: 60
     connectionFrequency: 0.5
@@ -22,9 +22,9 @@ MonoBehaviour:
   LineDefaultSettings:
     linePrefab: {fileID: 7469158195929653497, guid: 8a68228252b0e442ba267d892a357a98, type: 3}
     visualResolution: 40
-    maxSag: 1
-    maxThickness: 0.8
-    minThickness: 0.2
+    maxSag: 0.2
+    maxThickness: 0.5
+    minThickness: 0.1
     closeDistance: 1
     farDistance: 5
     tearDuration: 0.2
@@ -36,4 +36,18 @@ MonoBehaviour:
     slimeProjectileLayer:
       serializedVersion: 2
       m_Bits: 128
-    trampolinePower: 200
+    trampolinePower: 300
+  MaxConnectionsOfSlime: 4
+  firstSceneSettings:
+    breakForce:
+    - 1200
+    - 1200
+    - 1200
+    - 1200
+    - 1200
+    connectionFrequency:
+    - 2
+    - 1.5
+    - 1.2
+    - 1
+    - 0.8

@@ -32,6 +32,8 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             _rigidbody = format.Rigidbody;
             _rigidbody.interpolation = RigidbodyInterpolation2D.Interpolate;
         }
+
+        public bool IsMoving => _rigidbody.linearVelocity.magnitude > .1f;
         
         public void OnEnable() { }
         public void OnDisable() { }

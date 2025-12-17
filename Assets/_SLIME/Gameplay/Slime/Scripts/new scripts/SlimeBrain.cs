@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using _SLIME.Gameplay.Slime.Scripts.SlimeComponents;
 using _SLIME.Gameplay.Slime.SlimePowers;
@@ -6,18 +7,24 @@ using Player;
 using Player.new_scripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Splines;
 
 namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
 {
     [RequireComponent(typeof(PlayerInput))]
     public class SlimeBrain: ProjectMonoBehavior
     {
+        #region Serialized Fields
         [SerializeField] private SlimeConfiguration slimeConfiguration;
+        
         [SerializeField] private GameObject slimeLeftSide; // Only for reference in the inspector - do not use in code!
         [SerializeField] private Transform slimeLeftSideAnchor; // Only for reference in the inspector - do not use in code!
+        [SerializeField] private GameObject leftSideHitPoint;
         
         [SerializeField] private GameObject slimeRightSide; // Only for reference in the inspector - do not use in code!
         [SerializeField] private Transform slimeRightSideAnchor; // Only for reference in the inspector - do not use in code!
+        [SerializeField] private GameObject rightSideHitPoint;
+        
         [SerializeField] private EdgeCollider2D edgeColliderConnections;
         [SerializeField] private TriggerSensor edgeColliderSensor;
         [SerializeField] private float controlSwitchDelay = 0.5f;
@@ -28,6 +35,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         [SerializeField] private SlimeStretchCameraShakeConfiguration slimeStretchCameraShakeConfiguration;
         [SerializeField] private Camera mainCamera;
         [SerializeField] private float  shotTearConnectionDelay = .3f;
+        #endregion
         
         private SlimeData _slimeData;
         private SlimeFeelManager _feelManager;
@@ -45,12 +53,15 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             InitializeFields();
             InitializeSlimeData();
         }
-        
+
         private void OnEnable()
         {
             _leftSide.OnEnable();
             _rightSide.OnEnable();
             _feelManager.OnEnable();
+            _slimeConnections.OnEnable();
+            
+            SlimeEvents.SlimeTears += OnSlimeTears;
         }
         
         private void OnDisable()
@@ -58,6 +69,9 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             _leftSide.OnDisable();
             _rightSide.OnDisable();
             _feelManager.OnDisable();
+            _slimeConnections.OnDisable();
+            
+            SlimeEvents.SlimeTears -= OnSlimeTears;
         }
 
         private void Update()
@@ -90,26 +104,31 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
 
         private void InitializeFields()
         {
+            _slimeData = new SlimeData();
             _rightSide = new SlimeSide(new SlimeSide.SlimeSideFormat(
                 slimeRightSide,
                 slimeRightSideAnchor,
                 slimeConfiguration.MoveSpeed,
-                slimeConfiguration.MaxHealth
+                slimeConfiguration.MaxHealth,
+                rightSideHitPoint,
+                _slimeData
             ));
             
             _leftSide = new SlimeSide(new SlimeSide.SlimeSideFormat(
                 slimeLeftSide,
                 slimeLeftSideAnchor,
                 slimeConfiguration.MoveSpeed,
-                slimeConfiguration.MaxHealth
+                slimeConfiguration.MaxHealth,
+                leftSideHitPoint,
+                _slimeData
             ));
             
-            _slimeData = new SlimeData(_rightSide, _leftSide);
+            _slimeData.Initialize(_rightSide, _leftSide);
             
             _slimePowers = new Slime.SlimePowers.SlimePowers(slimeConfiguration,new PowerComponents
             {
                 connectionsTriggerSensor = edgeColliderSensor
-            } );
+            } , _slimeData);
             _slimeConnections = new SlimeConnections(slimeConfiguration,_slimeData, new ConnectionsComponents
             {
                 edgeColliderConnections = edgeColliderConnections,
@@ -192,6 +211,11 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         private void OnTearFinished() // Called by the FeelManager via Invoke
         {
             _feelManager.OnTearFinished();
+        }
+        
+        private void OnSlimeTears()
+        {
+            _feelManager.OnSlimeTears();
         }
         
         private void UpdateSlimeData()

@@ -31,7 +31,6 @@ namespace Player.new_scripts
         {
             GameEvents.PauseGame += OnPauseGame;
             GameEvents.ResumeGame += OnResumeGame;
-            GameEvents.BrickShot += OnBrickShot;
             
             SlimeEvents.SlimeConnected += OnSlimeConnected;
             SlimeEvents.SlimeTears += OnSlimeTears;
@@ -41,7 +40,6 @@ namespace Player.new_scripts
         {
             GameEvents.PauseGame -= OnPauseGame;
             GameEvents.ResumeGame -= OnResumeGame;
-            GameEvents.BrickShot -= OnBrickShot;
             
             SlimeEvents.SlimeConnected -= OnSlimeConnected;
             SlimeEvents.SlimeTears -= OnSlimeTears;
@@ -79,18 +77,13 @@ namespace Player.new_scripts
             }
         }
         
-        private void OnSlimeTears()
+        public void OnSlimeTears()
         {
             foreach (var component in _components)
             {
                 component.OnSlimeTears();
             }
             _slimeBrain.Invoke(nameof(OnTearFinished), _controllerRumbleConfiguration.TearRumbleDuration);
-        }
-        
-        private void OnBrickShot()
-        {
-            _slimeBrain.Invoke(nameof(OnSlimeTears), _onShotTearConnectionAfter);
         }
 
         public void OnTearFinished()

@@ -1,12 +1,13 @@
+using _SLIME.Core.GameLoop;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ExpandingShaderController : MonoBehaviour
 {
     [Header("Settings")]
-    public float targetRadius = 2.5f; // How big the circle gets (to cover full screen)
-    public float duration = 2f;
-    public string nextSceneName = "Halel";
+    [SerializeField] private float targetRadius = 2.5f; // How big the circle gets (to cover full screen)
+    [SerializeField] private float duration = 2f;
+    [SerializeField] private SceneType nextSceneName;
 
     private Renderer _renderer;
     private MaterialPropertyBlock _propBlock;
@@ -43,7 +44,7 @@ public class ExpandingShaderController : MonoBehaviour
             if (progress >= 1f && !_hasTriggeredLoad)
             {
                 _hasTriggeredLoad = true;
-                LoadSceneByName();
+                SceneLoader.LoadScene(nextSceneName, OnSceneLoaded);
             }
         }
         else
@@ -67,25 +68,9 @@ public class ExpandingShaderController : MonoBehaviour
         _propBlock.SetFloat(RadiusID, radius);
         _renderer.SetPropertyBlock(_propBlock);
     }
-
-    void LoadSceneByName()
+    
+    void OnSceneLoaded()
     {
-        if (!string.IsNullOrEmpty(nextSceneName))
-        {
-            SceneManager.sceneLoaded += OnSceneLoaded;
-            SceneManager.LoadScene(nextSceneName);
-        }
-        else
-        {
-            Debug.LogError("Please enter a Scene Name in the Inspector!");
-        }
-    }
-
-    // This runs automatically when the new scene finishes loading
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-
         // Reset for Phase 2
         _timer = 0f;
         _isCoveringScreen = false; // Switch mode to "Shrink"

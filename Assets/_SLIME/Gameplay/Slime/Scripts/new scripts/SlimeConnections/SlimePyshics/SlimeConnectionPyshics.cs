@@ -12,7 +12,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         private readonly SlimeConfiguration _slimeConfig;
         private readonly SlimeData _slimeData;
 
-        private readonly Dictionary<SpringJoint2D, (NewConnectingJoint, NewConnectingJoint)> _joints =
+        private static readonly Dictionary<SpringJoint2D, (NewConnectingJoint, NewConnectingJoint)> _joints =
             new Dictionary<SpringJoint2D, (NewConnectingJoint, NewConnectingJoint)>();
         
         private readonly ConnectionsComponents _connectionsComponents;
@@ -40,6 +40,18 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             joint.dampingRatio = _slimeConfig.ConnectionDampingRatio;
             _joints[joint] = (source, target);
         }
+
+        public static void ChangeJointsAttributes(float frequency, float breakForce)
+        {
+            Debug.Log("change joints attributes " + frequency + " to " + breakForce);
+            foreach (var j in _joints.Keys)
+            {
+                j.breakForce = breakForce;
+                j.frequency = frequency;
+            }
+        }
+        
+        
 
 
         public List<(NewConnectingJoint, NewConnectingJoint)> CheckForBrokenConnections()
@@ -87,6 +99,40 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             };
             
             _connectionsComponents.edgeColliderConnections.points = newPoints;
+        }
+
+        /// <summary>
+        /// Force-breaks all existing connections immediately and returns the connection pairs that were removed.
+        /// This is useful when other systems (e.g., visuals) need to know exactly which connections were torn.
+        /// </summary>
+        public List<(NewConnectingJoint, NewConnectingJoint)> TearAllConnections()
+        {
+            var removed = new List<(NewConnectingJoint, NewConnectingJoint)>();
+
+            if (_joints.Count == 0)
+                return removed;
+
+            // Capture the connection data for visuals BEFORE we clear/destroy.
+            removed.AddRange(_joints.Values);
+
+            // Copy keys to avoid modifying the dictionary while iterating.
+            var jointsToDestroy = new List<SpringJoint2D>(_joints.Keys);
+
+            foreach (var joint in jointsToDestroy)
+            {
+                if (joint)
+                {
+                    // Destroying the joint component breaks the connection.
+                    Object.Destroy(joint);
+                }
+            }
+
+            _joints.Clear();
+
+            // If the rest of the system uses this flag to drive visuals/colliders, update it.
+            _slimeData.Connected = false;
+
+            return removed;
         }
     }
 }

@@ -9,52 +9,75 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         {
             public SlimeSide Parent;
             public float MaxHealth;
+            public GameObject PlayerHitPoint;
+            public SlimeAnimatorController AnimatorController;
             
-            public SlimeSideHealthFormat(SlimeSide parent, float maxHealth)
+            public SlimeSideHealthFormat(SlimeSide parent, float maxHealth, GameObject playerHitPoint, SlimeAnimatorController animatorController)
             {
                 Parent = parent;
                 MaxHealth = maxHealth;
+                PlayerHitPoint = playerHitPoint;
+                AnimatorController = animatorController;
             }
         }
         
         #region Properties
         public float CurrentHealth { get; private set; }
-        public bool IsDead { get; private set; }
+        private bool _isDead = false;
+
+        public bool IsDead
+        {
+            get => _isDead;
+            private set
+            {
+                if (IsDead != value)
+                {
+                    _isDead = value;
+                    if (_isDead)
+                    {
+                        _animatorController?.SetHit();
+                    }
+                    else // heal
+                    {
+                        _animatorController?.SetHeal();
+                    }
+                }
+            }
+        }
+
         #endregion
         
         #region Private Fields
         private SlimeSide _parent;
+        private GameObject _playerHitPoint;
         private readonly float _maxHealth;
+        private SlimeAnimatorController _animatorController;
         #endregion
         
         public SlimeSideHealth(SlimeSideHealthFormat format)
         {
             _parent = format.Parent;
             _maxHealth = format.MaxHealth;
+            _playerHitPoint = format.PlayerHitPoint;
             CurrentHealth = _maxHealth;
+            _animatorController = format.AnimatorController;
         }
 
         public void OnEnable()
         {
             SlimeEvents.SlimeConnected += OnSlimeConnected;
             SlimeEvents.SlimeTears += OnSlimeTear;
+            SlimeEvents.SlimeGetHit += OnSlimeGetHit;
         }
 
         public void OnDisable()
         {
             SlimeEvents.SlimeConnected -= OnSlimeConnected;
             SlimeEvents.SlimeTears -= OnSlimeTear;
+            SlimeEvents.SlimeGetHit -= OnSlimeGetHit;
         }
 
         public void Update() { }
-
-        public void FixedUpdate()
-        {
-            if (!IsDead)
-            {
-                CheckIfSmashed();
-            }
-        }
 
         public void TakeDamage(float damage)
         {
@@ -73,23 +96,19 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             IsDead = false;
         }
 
-        private void CheckIfSmashed()
-        {
-            // raycast up and down to check hand from above and floor from below
-            RaycastHit2D hitUp = Physics2D.Raycast(_parent.Position, Vector2.up * 1.5f, LayerMask.NameToLayer("Enemy Projectiles"));
-        
-            if (hitUp.collider && hitUp.collider.CompareTag("Smasher")) // TODO: replace with relevant layer or tag
-            {
-                IsDead = true;
-                // slimeEyes.SetActive(false); TODO: Notify parent SlimeSide that it is dead
-            }
-        }
-
         private void OnSlimeConnected()
         {
             Resurrect();
         }
 
         private void OnSlimeTear() { }
+
+        private void OnSlimeGetHit(GameObject hitSide)
+        {
+            if (hitSide ==_playerHitPoint)
+            {
+                IsDead = true;
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections;
+using _SLIME.Gameplay.Slime.Scripts.new_scripts;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -51,6 +52,11 @@ public class BossHandAttackLogic : MonoBehaviour
         }
         splineAnimate.NormalizedTime = 1f;
         if (useRefinedRotation) transform.rotation = rotationTo;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        SlimeEvents.SlimeGetHit?.Invoke(other.gameObject);
     }
     
     public void SetDuration(float totalDuration)

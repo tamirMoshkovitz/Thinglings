@@ -29,8 +29,6 @@ namespace _SLIME.Gameplay.Slime.Scripts.SlimeComponents
                 _prevLow = lowFrequency;
                 _prevHigh = highFrequency;
             }
-            
-            Debug.Log("stretch ratio: " + _slimeData.StretchRatio);
         }
 
         public void OnPauseGame()

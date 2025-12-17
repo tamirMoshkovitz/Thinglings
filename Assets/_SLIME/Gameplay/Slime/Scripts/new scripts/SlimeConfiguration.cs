@@ -21,24 +21,36 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         
         
         
+        [FormerlySerializedAs("slimeConfiguration")]
         [Tab("Slime")] 
-        [SerializeField] private SlimeConfigurationFormat slimeConfiguration;
+        [SerializeField] private SlimeConfigurationFormat slimeConfigurationNormal;
         [Tab("Slime")] 
         [SerializeField] public LineSettings LineDefaultSettings;
         
         [Tab("Slime")] 
         [SerializeField] public TrampolinePowerSettings TrampolinePowerSettings;
-        public bool IsConnectedAtStart => slimeConfiguration.isConnectedAtStart;
-        public float MoveSpeed => slimeConfiguration.moveSpeed;
-        public int MaxHealth => slimeConfiguration.maxHealth;
+        public bool IsConnectedAtStart => slimeConfigurationNormal.isConnectedAtStart;
+        public float MoveSpeed => slimeConfigurationNormal.moveSpeed;
+        public int MaxHealth => slimeConfigurationNormal.maxHealth;
 
-        public float BreakForce => slimeConfiguration.breakForce;
+        public float BreakForce => slimeConfigurationNormal.breakForce;
         
-        public float ConnectionFrequency => slimeConfiguration.connectionFrequency;
-        public float ConnectionDampingRatio => slimeConfiguration.connectionDampingRatio;
+        public float ConnectionFrequency => slimeConfigurationNormal.connectionFrequency;
+        public float ConnectionDampingRatio => slimeConfigurationNormal.connectionDampingRatio;
 
+        [Tab("Slime")] 
+        [SerializeField] public int MaxConnectionsOfSlime;
         
         
+        [System.Serializable]
+        public struct FirstSceneSettings
+        {
+            public float[] breakForce;
+            public float[] connectionFrequency;
+        }
+        
+        [Tab("StartScene")] 
+        [SerializeField] public FirstSceneSettings firstSceneSettings;
 
 
     }

@@ -17,12 +17,11 @@ namespace _SLIME.Gameplay.Slime.SlimePowers
         private readonly ISlimePower _trampolinePower;
         private readonly PowerComponents _powerComponents;
 
-        public SlimePowers(SlimeConfiguration slimeConfiguration, PowerComponents powerComponents)
+        public SlimePowers(SlimeConfiguration slimeConfiguration, PowerComponents powerComponents, SlimeData slimeData)
         {
             _slimeConfig = slimeConfiguration;
             _trampolinePower =
-                new TrampolinePower(
-                    slimeConfiguration.TrampolinePowerSettings);
+                new TrampolinePower(slimeConfiguration.TrampolinePowerSettings, slimeData);
             _powerComponents = powerComponents;
             _powerComponents.connectionsTriggerSensor.OnTriggerEntered += 
                 _trampolinePower.Activate;

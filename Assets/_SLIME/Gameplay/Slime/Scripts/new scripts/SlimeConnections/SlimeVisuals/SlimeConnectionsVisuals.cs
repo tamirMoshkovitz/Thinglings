@@ -15,8 +15,9 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
 
         private List<LineVisualizer> _breakingLines;
         private readonly ConnectionsComponents _connectionsComponents;
+        private SlimeData _slimeData;
 
-        public SlimeConnectionsVisuals(SlimeConfiguration slimeConfiguration,
+        public SlimeConnectionsVisuals(SlimeConfiguration slimeConfiguration, SlimeData slimeData,
             ConnectionsComponents connectionsComponents)
         {
             _slimeConfig = slimeConfiguration;
@@ -24,21 +25,22 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             _linesFather = new GameObject("LinesFather");
             _lineVisual = new NormalLineVisual();
             _breakingLines = new List<LineVisualizer>();
+            _slimeData = slimeData;
         }
         
         public void AddVisualLine(NewConnectingJoint connectorOne, NewConnectingJoint connectorTwo)
         {
             LineVisualizer visualizerTop = new LineVisualizer
                 (_slimeConfig.LineDefaultSettings, _linesFather.transform, 
-                    connectorOne.Top, connectorTwo.Mid, _lineVisual
+                    connectorOne.Top, connectorTwo.Mid, _lineVisual, _slimeData
                     ,connectorOne.name + " Top To " + connectorTwo.name  + " Mid" );
             LineVisualizer visualizerMid = new LineVisualizer
                 (_slimeConfig.LineDefaultSettings, _linesFather.transform, 
-                    connectorOne.Mid, connectorTwo.Bottom, _lineVisual,
+                    connectorOne.Mid, connectorTwo.Bottom, _lineVisual, _slimeData,
                     connectorOne.name + " Mid To " + connectorTwo.name  + " Bottom" );
             LineVisualizer visualizerBottom = new LineVisualizer
                 (_slimeConfig.LineDefaultSettings, _linesFather.transform, 
-                    connectorOne.Bottom, connectorTwo.Top, _lineVisual,
+                    connectorOne.Bottom, connectorTwo.Top, _lineVisual, _slimeData,
                     connectorOne.name + " Bottom To " + connectorTwo.name  + " Top" );
             _lineVisualizers.Add((connectorOne, connectorTwo), 
                 (visualizerTop, visualizerMid, visualizerBottom));

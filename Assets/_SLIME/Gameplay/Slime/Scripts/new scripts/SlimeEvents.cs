@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
 {
@@ -6,6 +7,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
     {
         public static Action SlimeTears;
         public static Action SlimeConnected;
+        public static Action<GameObject> SlimeGetHit;
         public static Action TrampolineActivated;
         public static Action TrampolineDeActivated;
     }

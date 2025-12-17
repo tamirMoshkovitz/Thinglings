@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Serialization;
@@ -18,21 +20,24 @@ public class FloatingObject : MonoBehaviour
 
     private Tween _floatTween;
 
-    private void OnEnable()
+    public IEnumerator Activate()
     {
-        transform.DOMove(targetPosition, moveDuration).SetEase(entryEase).OnComplete(StartFloating);
-    }
-
-    private void StartFloating()
-    {
-
-        float duration = Mathf.PI / speed;
+        Tween moveTween = transform.DOMove(targetPosition, moveDuration).SetEase(entryEase);
+        yield return moveTween.WaitForCompletion();
+        
+        float floatDuration = Mathf.PI / speed;
         float targetY = gameObject.transform.position.y + height;
 
-        _floatTween = objectTransform.DOLocalMoveY(targetY, duration)
+        _floatTween = objectTransform.DOLocalMoveY(targetY, floatDuration)
+            .SetEase(Ease.InOutSine);
+        
+        yield return _floatTween.WaitForCompletion();
+        
+        _floatTween = objectTransform.DOLocalMoveY(targetY, floatDuration)
             .SetEase(Ease.InOutSine)
-            .SetLoops(-1, LoopType.Yoyo); 
+            .SetLoops(-1, LoopType.Yoyo);
     }
+
 
     private void OnDisable()
     {

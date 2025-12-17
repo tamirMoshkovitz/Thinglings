@@ -726,6 +726,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2066038012093448670}
   - component: {fileID: 7696917836940140726}
+  - component: {fileID: 451608181353722099}
   m_Layer: 0
   m_Name: body
   m_TagString: Untagged
@@ -1167,7 +1168,7 @@ MonoBehaviour:
   bossHealthBar: {fileID: 0}
   maxHealth: 20
   currentHealth: 0
-  animator: {fileID: 1778635086524914802}
+  animator: {fileID: 451608181353722099}
 --- !u!1 &4661568311126601736
 GameObject:
   m_ObjectHideFlags: 0
@@ -1539,7 +1540,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7739236010113049703
 Transform:
   m_ObjectHideFlags: 0
