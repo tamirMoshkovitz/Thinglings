@@ -13,17 +13,6 @@ public class BossEmergeBehaviour : BossBaseBehaviour
         base.OnStateEnter(animator, stateInfo, layerIndex);
         if (data == null) return;
 
-        // Kill old tweens
-        data.bossRoot.DOKill();
-
-        // Move to Attack Position
-        data.bossRoot.DOMove(data.endPoint.position, duration)
-            .SetEase(Ease.OutBack)
-            .OnComplete(() => 
-            {
-                // Enable collider and tell Animator we are done
-                data.bossCollider.enabled = true;
-                animator.SetTrigger(FinishedMovement);
-            });
+        animator.SetTrigger(FinishedMovement);
     }
 }

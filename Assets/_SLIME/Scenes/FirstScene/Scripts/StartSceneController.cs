@@ -51,7 +51,6 @@ public class StartSceneController : MonoBehaviour
 
     private void OnDisable()
     {
-        _bloom.intensity.value = bloomBaseIntensity;
         SlimeEvents.SlimeTears -= ReadyForSceneChange;
     }
 
@@ -66,7 +65,6 @@ public class StartSceneController : MonoBehaviour
         if (bloomVolume.TryGet(out Bloom bloomComponent))
         {
             _bloom = bloomComponent;
-            _bloom.intensity.value = bloomBaseIntensity;
         }
 
         StartCoroutine(BeginningSceneRoutine());
@@ -144,9 +142,6 @@ public class StartSceneController : MonoBehaviour
 
         float progress = (float)objectIndex / floatingObjects.Length;
         float newBaseIntensity = Mathf.Lerp(bloomBaseIntensity, bloomFinalIntensity, progress);
-
-        DOTween.To(() => _bloom.intensity.value, x =>
-            _bloom.intensity.value = x, newBaseIntensity, timeBetweenSpawns).SetEase(Ease.Linear);
     }
     
     #region Animator Utilities
