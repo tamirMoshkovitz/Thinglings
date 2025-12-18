@@ -728,7 +728,6 @@ GameObject:
   - component: {fileID: 7696917836940140726}
   - component: {fileID: 451608181353722099}
   - component: {fileID: 6671620106277030303}
-  - component: {fileID: 669912729269612748}
   m_Layer: 0
   m_Name: body
   m_TagString: Untagged
@@ -849,23 +848,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HitFlashEffect
   _targetRenderer: {fileID: 7696917836940140726}
-  _shaderPropertyName: Flash
+  _shaderPropertyName: _Flash
   _flashDuration: 0.2
   _maxIntensity: 5
---- !u!114 &669912729269612748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2881394077465375035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78ba4eb8b0df2d84eb031cfc94287418, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FloatingMagic
-  floatDistance: 1
-  duration: 1000
 --- !u!1 &2896155625900264206
 GameObject:
   m_ObjectHideFlags: 0
@@ -1115,6 +1100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8187071179226125514}
   - component: {fileID: 852368871082504193}
+  - component: {fileID: 3900303270651239191}
   m_Layer: 0
   m_Name: Sorcerer
   m_TagString: Untagged
@@ -1177,7 +1163,7 @@ MonoBehaviour:
   spawnAreaLeft: {fileID: 671653929157809193}
   spawnAreaRight: {fileID: 4939076224726718476}
   bossHealthBar: {fileID: 0}
-  maxHealth: 20
+  maxHealth: 100
   currentHealth: 0
   animator: {fileID: 451608181353722099}
   laserArrayScript: {fileID: 2327076976174629442}
@@ -1245,6 +1231,20 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+--- !u!114 &3900303270651239191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4080245919577685454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78ba4eb8b0df2d84eb031cfc94287418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FloatingMagic
+  floatDistance: 3
+  duration: 2.5
 --- !u!1 &4661568311126601736
 GameObject:
   m_ObjectHideFlags: 0

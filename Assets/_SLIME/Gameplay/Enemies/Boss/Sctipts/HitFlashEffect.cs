@@ -9,7 +9,7 @@ public class HitFlashEffect : MonoBehaviour
     [SerializeField] private Renderer _targetRenderer;
     
     [Tooltip("The exact name of the property in your Shader Graph (e.g. '_Flash', 'Flash', or '_HitColor')")]
-    [SerializeField] private string _shaderPropertyName = "Flash";
+    [SerializeField] private string _shaderPropertyName = "_Flash";
     
     [SerializeField] private float _flashDuration = 0.2f;
     [SerializeField] private float _maxIntensity = 5f;

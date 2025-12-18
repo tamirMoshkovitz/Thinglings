@@ -876,7 +876,7 @@ GameObject:
   - component: {fileID: 4768536376600472458}
   - component: {fileID: 7487284664680715124}
   - component: {fileID: 1870236309165441612}
-  - component: {fileID: 6974814744912990140}
+  - component: {fileID: 3911525347668114702}
   m_Layer: 8
   m_Name: FIrstSlime
   m_TagString: Untagged
@@ -1168,7 +1168,7 @@ MonoBehaviour:
   - {fileID: 8412904071544052636}
   - {fileID: 7219174985340982713}
   splineOffset: {x: 0.1, y: 0.1}
---- !u!210 &6974814744912990140
+--- !u!210 &3911525347668114702
 SortingGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1567,7 +1567,7 @@ GameObject:
   - component: {fileID: 7740630892784465821}
   - component: {fileID: 7413063486520142136}
   - component: {fileID: 5638132142207919089}
-  - component: {fileID: 7165547714218034171}
+  - component: {fileID: 8828280969786548607}
   m_Layer: 8
   m_Name: SecondSlime
   m_TagString: Untagged
@@ -1859,7 +1859,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!210 &7165547714218034171
+--- !u!210 &8828280969786548607
 SortingGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3603,7 +3603,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 06c0dc47-2a3c-4111-a94d-e20050b6ede3
-    m_ActionName: Slime/Move Right[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+    m_ActionName: 'Slime/Move Right[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3524386366124774228}
@@ -3619,7 +3619,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: ecc01ad2-5f25-4ae9-a41a-274b99e48f6a
-    m_ActionName: Slime/Move Left[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+    m_ActionName: 'Slime/Move Left[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Slime

@@ -15,5 +15,7 @@ public class FloatingMagic : MonoBehaviour
         transform.DOLocalMoveY(startY + floatDistance, duration)
             .SetLoops(-1, LoopType.Yoyo) // Infinite loop, back and forth
             .SetEase(Ease.InOutSine);    // Smooth "breathing" motion
+        
+        Debug.Log(transform.gameObject.name + " Floating");
     }
 }
