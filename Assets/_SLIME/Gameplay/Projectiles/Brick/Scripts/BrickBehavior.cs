@@ -57,7 +57,7 @@ namespace Player.Brick
             if (collision.collider.gameObject.TryGetComponent(typeof(DamageRelay), out Component boss))
             {
                 ((DamageRelay)boss).TakeDamage(damage);
-                Debug.Log($"<color=yellow>{gameObject.name}</color>");
+                GameEvents.EnemyGotBricked?.Invoke();
             }
         }
     }

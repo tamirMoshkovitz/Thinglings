@@ -8,6 +8,7 @@ public static class GameEvents
     public static Action slimeConnected;
     public static Action BrickShot;
     public static Action ResetButtonPressed;
+    public static Action EnemyGotBricked;
     
     public static void RaiseResetGame()
     {
