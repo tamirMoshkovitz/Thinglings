@@ -47,6 +47,14 @@ namespace _SLIME.Slime
         [Tooltip("Controls how speed values interpolate")]
         public TweenDefinition SpeedTween;
         
+        
+        [Header("Shooting FireRate")]
+        public float maxFireRate;
+        public float minFireRate;
+        
+        [Tooltip("Controls how speed values interpolate")]
+        public TweenDefinition FireRateTween;
+        
         [Header("TurnSmoothness")]
         public float maxTurnSmoothnes;
         public float minTurnSmoothnes;
@@ -87,7 +95,9 @@ namespace _SLIME.Slime
         private readonly SlimeSideShootingReqComponents _shootingReqComponents;
 
         private float _currentEnergy;
-
+        
+        public float CurrentEnergy => _currentEnergy;
+        
         public SlimeSideShooting(SlimeSide slimeSide, SlimeSideShootingSettings shootingSettings,
             SlimeSideShootingReqComponents shootingReqComponents)
         {
@@ -119,7 +129,7 @@ namespace _SLIME.Slime
 
         public void OnShoot(InputAction.CallbackContext context)
         {
-            float lostEenrgy = DOVirtual.EasedValue(_shootingSetting.minLostEnergyPerShot,_shootingSetting.maxLostEnergyPerShot,
+            float lostEenrgy = DOVirtual.EasedValue(_shootingSetting.maxLostEnergyPerShot,_shootingSetting.minLostEnergyPerShot,
                 _currentEnergy,_shootingSetting.EnergyLossTween.easeType);
             if(lostEenrgy > _currentEnergy) return;
             _currentEnergy -= lostEenrgy;
