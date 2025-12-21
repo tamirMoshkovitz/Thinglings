@@ -1,6 +1,7 @@
 
 using System.Collections;
 using _SLIME.BaseScripts;
+using _SLIME.GameLoop;
 using _SLIME.Projectiles;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -81,11 +82,18 @@ namespace _SLIME.Slime
         {
             UpdateSlimeControls();
             UpdateSlimeData();
+            CheckDeath();
             _slimeConnections.Update();
             _leftSide.Update();
             _rightSide.Update();
             _feelManager.Update();
             _slimePowers.Update();
+        }
+
+        private void CheckDeath()
+        {
+            if(_rightSide.IsDead && _leftSide.IsDead) 
+                SceneLoader.LoadScene(SceneType.BossFinalBattleScene);
         }
 
         private void FixedUpdate()
