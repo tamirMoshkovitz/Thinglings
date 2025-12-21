@@ -9,8 +9,8 @@ namespace _SLIME.Slime
         private GameObject _linesFather;
         private NormalLineVisual _lineVisual;
 
-        private readonly Dictionary<(NewConnectingJoint, NewConnectingJoint), (LineVisualizer,LineVisualizer,LineVisualizer)> _lineVisualizers =
-            new Dictionary<(NewConnectingJoint, NewConnectingJoint), (LineVisualizer,LineVisualizer,LineVisualizer)>();
+        private readonly Dictionary<(ConnectingJoint, ConnectingJoint), (LineVisualizer,LineVisualizer,LineVisualizer)> _lineVisualizers =
+            new Dictionary<(ConnectingJoint, ConnectingJoint), (LineVisualizer,LineVisualizer,LineVisualizer)>();
 
         private List<LineVisualizer> _breakingLines;
         private readonly ConnectionsComponents _connectionsComponents;
@@ -27,7 +27,7 @@ namespace _SLIME.Slime
             _slimeData = slimeData;
         }
         
-        public void AddVisualLine(NewConnectingJoint connectorOne, NewConnectingJoint connectorTwo)
+        public void AddVisualLine(ConnectingJoint connectorOne, ConnectingJoint connectorTwo)
         {
             LineVisualizer visualizerTop = new LineVisualizer
                 (_slimeConfig.LineDefaultSettings, _linesFather.transform, 
@@ -80,7 +80,7 @@ namespace _SLIME.Slime
 
         
 
-        public void RemoveSegment(NewConnectingJoint connectorOne, NewConnectingJoint connectorTwo)
+        public void RemoveSegment(ConnectingJoint connectorOne, ConnectingJoint connectorTwo)
         {
             AddToBreakingLines(_lineVisualizers[(connectorOne, connectorTwo)].Item1.Remove());
             AddToBreakingLines(_lineVisualizers[(connectorOne, connectorTwo)].Item2.Remove());

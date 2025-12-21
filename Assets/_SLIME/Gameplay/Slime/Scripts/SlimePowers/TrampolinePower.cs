@@ -35,7 +35,6 @@ namespace _SLIME.Slime
             projectileGo.layer = (int)Mathf.Log(_trampolinePowerSettings.slimeProjectileLayer.value, 2);
             
             projectileRb.bodyType = RigidbodyType2D.Dynamic; 
-            // _projectileRb.gravityScale = 0;
             Vector2 direction = (objectToJump.transform.position - (Vector3)hitpoint).normalized;
 
 

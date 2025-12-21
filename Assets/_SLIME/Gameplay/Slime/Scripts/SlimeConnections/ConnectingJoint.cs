@@ -11,12 +11,12 @@ namespace _SLIME.Slime
         OutsidePoint,
     }
     
-    public class NewConnectingJoint: ProjectMonoBehavior
+    public class ConnectingJoint: ProjectMonoBehavior
     {
         [SerializeField] private ConnectorState state;
         [SerializeField] private SlimeBrain brain;
         [SerializeField] private int maxConnections;
-        [SerializeField] private NewConnectingJoint matchingConnection;
+        [SerializeField] private ConnectingJoint matchingConnection;
         [SerializeField] private Transform top;
         [SerializeField] private Transform mid;
         [SerializeField] private Transform bottom;
@@ -58,7 +58,7 @@ namespace _SLIME.Slime
         {
             if (!_canConnect) return;
             
-            var otherJoint = other.GetComponent<NewConnectingJoint>();
+            var otherJoint = other.GetComponent<ConnectingJoint>();
             if (otherJoint != null && GetInstanceID() < otherJoint.GetInstanceID()
                 && state != otherJoint.state)
             {

@@ -1,4 +1,5 @@
 using _SLIME.BaseScripts;
+using _SLIME.Projectiles;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -42,17 +43,8 @@ namespace _SLIME.Slime
         [Tab("Slime")] 
         [SerializeField] public int MaxConnectionsOfSlime;
         
+        [Tab("SlimeShootingPower")]
+        [SerializeField] public SlimeSideShootingSettings shootingSettings;
         
-        [System.Serializable]
-        public struct FirstSceneSettings
-        {
-            public float[] breakForce;
-            public float[] connectionFrequency;
-        }
-        
-        [Tab("StartScene")] 
-        [SerializeField] public FirstSceneSettings firstSceneSettings;
-
-
     }
 }

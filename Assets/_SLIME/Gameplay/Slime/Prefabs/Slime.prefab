@@ -3552,13 +3552,17 @@ MonoBehaviour:
   slimeLeftSide: {fileID: 590626563016348507}
   slimeLeftSideAnchor: {fileID: 4202063518585629668}
   leftSideHitPoint: {fileID: 4266444913706415466}
+  slimeLeftSideRenderer: {fileID: 4430316984018259240}
   slimeRightSide: {fileID: 793601271816119973}
   slimeRightSideAnchor: {fileID: 5178392793009059931}
   rightSideHitPoint: {fileID: 3684786749305273560}
+  slimeRightSideRenderer: {fileID: 4031597842911151217}
   edgeColliderConnections: {fileID: 4862461708991908865}
   edgeColliderSensor: {fileID: 6874304855154268082}
   controlSwitchDelay: 0.175
   controlSwitchThreshold: 0.5
+  bossHitPoint: {fileID: 0}
+  bulletPool: {fileID: 0}
   controllerRumbleConfiguration: {fileID: 11400000, guid: 5f485f8d6660e4091aede26db1cfced1, type: 2}
   slimeStretchCameraShakeConfiguration: {fileID: 11400000, guid: a1cf7dba4bdbc4a818d462a52dfeab15, type: 2}
   mainCamera: {fileID: 0}
@@ -3620,6 +3624,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ecc01ad2-5f25-4ae9-a41a-274b99e48f6a
     m_ActionName: 'Slime/Move Left[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3524386366124774228}
+        m_TargetAssemblyTypeName: _SLIME.Slime.SlimeBrain, Assembly-CSharp
+        m_MethodName: OnShootRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 698ae0d0-0359-4e17-b458-f13c31f1b750
+    m_ActionName: 'Slime/Shoot Right[/DualShock4GamepadHID/rightShoulder]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3524386366124774228}
+        m_TargetAssemblyTypeName: _SLIME.Slime.SlimeBrain, Assembly-CSharp
+        m_MethodName: OnShootLeft
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e1491a72-0950-4ab1-a4e7-a69b00dfef91
+    m_ActionName: 'Slime/Shoot Left[/DualShock4GamepadHID/rightShoulder]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Slime

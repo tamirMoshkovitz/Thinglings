@@ -23,6 +23,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Shoot Right",
+                    "type": "Button",
+                    "id": "698ae0d0-0359-4e17-b458-f13c31f1b750",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Shoot Left",
+                    "type": "Button",
+                    "id": "e1491a72-0950-4ab1-a4e7-a69b00dfef91",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -157,6 +175,28 @@
                     "action": "Move Left",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "399f0d3b-74b7-48a7-94d8-f3a77c4906c6",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1e332e49-5774-49ba-900a-9f5b2a7500c5",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

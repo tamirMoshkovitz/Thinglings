@@ -83,7 +83,6 @@ namespace _SLIME.Slime
         
         public void TriggerBounce()
         {
-            Debug.Log("TriggerBounce");
             _isVibrating = true;
             _vibrationTimer = 0f;
             

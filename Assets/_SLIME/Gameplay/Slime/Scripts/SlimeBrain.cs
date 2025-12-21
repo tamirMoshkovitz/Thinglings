@@ -1,6 +1,7 @@
 
 using System.Collections;
 using _SLIME.BaseScripts;
+using _SLIME.Projectiles;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,15 +17,21 @@ namespace _SLIME.Slime
         [SerializeField] private GameObject slimeLeftSide; // Only for reference in the inspector - do not use in code!
         [SerializeField] private Transform slimeLeftSideAnchor; // Only for reference in the inspector - do not use in code!
         [SerializeField] private GameObject leftSideHitPoint;
+        [SerializeField] private Renderer slimeLeftSideRenderer;
         
         [SerializeField] private GameObject slimeRightSide; // Only for reference in the inspector - do not use in code!
         [SerializeField] private Transform slimeRightSideAnchor; // Only for reference in the inspector - do not use in code!
         [SerializeField] private GameObject rightSideHitPoint;
+        [SerializeField] private Renderer slimeRightSideRenderer;
         
         [SerializeField] private EdgeCollider2D edgeColliderConnections;
         [SerializeField] private TriggerSensor edgeColliderSensor;
         [SerializeField] private float controlSwitchDelay = 0.5f;
         [SerializeField] private float controlSwitchThreshold = 0.5f;
+        
+        [Header("Slime Shooting")]
+        [SerializeField] private Transform bossHitPoint;
+        [SerializeField] private BulletMonoPool bulletPool;
         
         [Header("Feel Manager Settings")]
         [SerializeField] private ConrollerRumbleConfiguration controllerRumbleConfiguration;
@@ -107,16 +114,19 @@ namespace _SLIME.Slime
                 slimeConfiguration.MoveSpeed,
                 slimeConfiguration.MaxHealth,
                 rightSideHitPoint,
-                _slimeData
+                _slimeData,
+                slimeConfiguration.shootingSettings,
+                new SlimeSideShootingReqComponents(slimeRightSideRenderer, bossHitPoint, bulletPool)
             ));
-            
             _leftSide = new SlimeSide(new SlimeSide.SlimeSideFormat(
                 slimeLeftSide,
                 slimeLeftSideAnchor,
                 slimeConfiguration.MoveSpeed,
                 slimeConfiguration.MaxHealth,
                 leftSideHitPoint,
-                _slimeData
+                _slimeData,
+                slimeConfiguration.shootingSettings,
+                new SlimeSideShootingReqComponents(slimeLeftSideRenderer, bossHitPoint, bulletPool)
             ));
             
             _slimeData.Initialize(_rightSide, _leftSide);
@@ -138,6 +148,16 @@ namespace _SLIME.Slime
         {
             _isMoveRightCancelled = context.canceled;
             _rightSide.OnMove(context);
+        }
+
+        public void OnShootLeft(InputAction.CallbackContext context)
+        {
+            _leftSide.OnShoot(context);
+        }
+        
+        public void OnShootRight(InputAction.CallbackContext context)
+        {
+            _rightSide.OnShoot(context);
         }
 
         public void OnMoveLeft(InputAction.CallbackContext context)
@@ -174,11 +194,11 @@ namespace _SLIME.Slime
         
         #region ConnectionFunctions
 
-        public void TryAddConnection(NewConnectingJoint connectorOne, NewConnectingJoint connectorTwo)
+        public void TryAddConnection(ConnectingJoint connectorOne, ConnectingJoint connectorTwo)
         {
             _slimeConnections.TryAddConnection(connectorOne, connectorTwo);
         }
-        public void TryAddConnectionAtStart(NewConnectingJoint connectorOne, NewConnectingJoint connectorTwo)
+        public void TryAddConnectionAtStart(ConnectingJoint connectorOne, ConnectingJoint connectorTwo)
         {
             if (!slimeConfiguration.IsConnectedAtStart) return;
             _slimeConnections.TryAddConnection(connectorOne, connectorTwo);

@@ -13,8 +13,11 @@ namespace _SLIME.Slime
             public int MaxHealth;
             public GameObject PlayerHitPoint;
             public SlimeData SlimeData;
-
-            public SlimeSideFormat(GameObject gameObject, Transform topTransform, float moveSpeed, int maxHealth, GameObject playerHitPoint, SlimeData slimeData)
+            public SlimeSideShootingReqComponents ShootingReqComponents;
+            public SlimeSideShootingSettings ShootingSettings;
+            public SlimeSideFormat(GameObject gameObject, Transform topTransform,
+                float moveSpeed, int maxHealth, GameObject playerHitPoint, SlimeData slimeData,
+                SlimeSideShootingSettings shootingSettings,SlimeSideShootingReqComponents shootingReqComponents)
             {
                 GameObject = gameObject;
                 TopTransform = topTransform;
@@ -22,6 +25,8 @@ namespace _SLIME.Slime
                 MaxHealth = maxHealth;
                 PlayerHitPoint = playerHitPoint;
                 SlimeData = slimeData;
+                ShootingReqComponents = shootingReqComponents;
+                ShootingSettings = shootingSettings;
             }
         }
         
@@ -30,7 +35,8 @@ namespace _SLIME.Slime
         private SlimeSideHealth _health;
         private SlimeData _slimeData;
         private SlimeAnimatorController _animatorController;
-        
+        private readonly SlimeSideShooting _shooter;
+
         public SlimeSide(SlimeSideFormat format)
         {
             _gameObject = format.GameObject;
@@ -48,6 +54,10 @@ namespace _SLIME.Slime
                 format.PlayerHitPoint,
                 new SlimeAnimatorController(_gameObject.GetComponent<Animator>())
             ));
+
+            _shooter = new SlimeSideShooting(this,
+                format.ShootingSettings,
+                format.ShootingReqComponents);
 
             _slimeData = format.SlimeData;
         }
@@ -70,6 +80,7 @@ namespace _SLIME.Slime
         
         public void Update()
         {
+            _shooter.Update();
             _movement.Update();
             _health.Update();
             _animatorController.Update(_movement.IsMoving, _slimeData.IsStrained);
@@ -83,6 +94,11 @@ namespace _SLIME.Slime
         public void OnMove(InputAction.CallbackContext context)
         {
             _movement.OnMove(context);
+        }
+
+        public void OnShoot(InputAction.CallbackContext context)
+        {
+            if (!_slimeData.Connected) _shooter.OnShoot(context);
         }
 
         public float Mass

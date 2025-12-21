@@ -9,8 +9,8 @@ namespace _SLIME.Slime
         private readonly SlimeConfiguration _slimeConfig;
         private readonly SlimeData _slimeData;
 
-        private static readonly Dictionary<SpringJoint2D, (NewConnectingJoint, NewConnectingJoint)> _joints =
-            new Dictionary<SpringJoint2D, (NewConnectingJoint, NewConnectingJoint)>();
+        private static readonly Dictionary<SpringJoint2D, (ConnectingJoint, ConnectingJoint)> _joints =
+            new Dictionary<SpringJoint2D, (ConnectingJoint, ConnectingJoint)>();
         
         private readonly ConnectionsComponents _connectionsComponents;
         
@@ -25,7 +25,7 @@ namespace _SLIME.Slime
             _slimeData.SpringFrequency = _slimeConfig.ConnectionFrequency;
         }
 
-        public void AddJoint(NewConnectingJoint source, NewConnectingJoint target)
+        public void AddJoint(ConnectingJoint source, ConnectingJoint target)
         {
             SpringJoint2D joint = source.AddComponent<SpringJoint2D>();
             Rigidbody2D targetBody = target.GetComponent<Rigidbody2D>();
@@ -51,11 +51,11 @@ namespace _SLIME.Slime
         
 
 
-        public List<(NewConnectingJoint, NewConnectingJoint)> CheckForBrokenConnections()
+        public List<(ConnectingJoint, ConnectingJoint)> CheckForBrokenConnections()
         {
             List<SpringJoint2D> jToRemove = new List<SpringJoint2D>();
-            List<(NewConnectingJoint, NewConnectingJoint)> jToRemoveObjects =
-                new List<(NewConnectingJoint, NewConnectingJoint)>();
+            List<(ConnectingJoint, ConnectingJoint)> jToRemoveObjects =
+                new List<(ConnectingJoint, ConnectingJoint)>();
             foreach (var e in _joints)
             {
                 SpringJoint2D j = e.Key;
@@ -102,9 +102,9 @@ namespace _SLIME.Slime
         /// Force-breaks all existing connections immediately and returns the connection pairs that were removed.
         /// This is useful when other systems (e.g., visuals) need to know exactly which connections were torn.
         /// </summary>
-        public List<(NewConnectingJoint, NewConnectingJoint)> TearAllConnections()
+        public List<(ConnectingJoint, ConnectingJoint)> TearAllConnections()
         {
-            var removed = new List<(NewConnectingJoint, NewConnectingJoint)>();
+            var removed = new List<(ConnectingJoint, ConnectingJoint)>();
 
             if (_joints.Count == 0)
                 return removed;

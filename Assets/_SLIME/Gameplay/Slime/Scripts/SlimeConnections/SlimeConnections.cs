@@ -10,8 +10,8 @@ namespace _SLIME.Slime
     }
     public class SlimeConnections
     {
-        private Dictionary<NewConnectingJoint, List<NewConnectingJoint>> _objectsConnections =
-            new Dictionary<NewConnectingJoint, List<NewConnectingJoint>>();
+        private Dictionary<ConnectingJoint, List<ConnectingJoint>> _objectsConnections =
+            new Dictionary<ConnectingJoint, List<ConnectingJoint>>();
         
         
         private readonly SlimeConfiguration _slimeConfig;
@@ -60,7 +60,7 @@ namespace _SLIME.Slime
             _slimeConnectionPyshics.LateUpdate();
         }
 
-        public void TryAddConnection(NewConnectingJoint connectorOne, NewConnectingJoint connectorTwo)
+        public void TryAddConnection(ConnectingJoint connectorOne, ConnectingJoint connectorTwo)
         {
             //TODO : return if there are MAX_CONNECTIONS already
             if (CheckIfConnected(connectorOne, connectorTwo) || CheckIfMaxedConnections(connectorOne)
@@ -75,14 +75,14 @@ namespace _SLIME.Slime
             UpdateConnectionOfSlime(connectorOne, connectorTwo);
         }
 
-        private void UpdateConnectionOfSlime(NewConnectingJoint connectorOne, NewConnectingJoint connectorTwo, int numOfConnections = 1)
+        private void UpdateConnectionOfSlime(ConnectingJoint connectorOne, ConnectingJoint connectorTwo, int numOfConnections = 1)
         {
             if ((connectorOne.State == ConnectorState.FirstSlime && connectorTwo.State == ConnectorState.SecondSlime) ||
                 (connectorTwo.State == ConnectorState.SecondSlime && connectorOne.State == ConnectorState.FirstSlime))
                 _numOfSlimeConnections += numOfConnections;
         }
 
-        private bool CheckSlimeMaxConnections(NewConnectingJoint connectorOne, NewConnectingJoint connectorTwo)
+        private bool CheckSlimeMaxConnections(ConnectingJoint connectorOne, ConnectingJoint connectorTwo)
         {
             if ((connectorOne.State == ConnectorState.FirstSlime && connectorTwo.State == ConnectorState.SecondSlime) ||
                 (connectorTwo.State == ConnectorState.SecondSlime && connectorOne.State == ConnectorState.FirstSlime))
@@ -91,21 +91,21 @@ namespace _SLIME.Slime
             return false;
         }
 
-        private void AddConnectionToDict(NewConnectingJoint source, NewConnectingJoint target)
+        private void AddConnectionToDict(ConnectingJoint source, ConnectingJoint target)
         {
             if (!_objectsConnections.ContainsKey(source))
-                _objectsConnections[source] = new List<NewConnectingJoint>();
+                _objectsConnections[source] = new List<ConnectingJoint>();
             _objectsConnections[source].Add(target);
         }
 
 
-        private bool CheckIfMaxedConnections(NewConnectingJoint connector)
+        private bool CheckIfMaxedConnections(ConnectingJoint connector)
         {
             return _objectsConnections.ContainsKey(connector)
                    && _objectsConnections[connector].Count >= connector.MaxConnections;
         }
 
-        private bool CheckIfConnected(NewConnectingJoint connectorOne, NewConnectingJoint connectorTwo)
+        private bool CheckIfConnected(ConnectingJoint connectorOne, ConnectingJoint connectorTwo)
         {
             return _objectsConnections.ContainsKey(connectorOne) &&
                     _objectsConnections[connectorOne].Contains(connectorTwo);
@@ -114,7 +114,7 @@ namespace _SLIME.Slime
 
         private void UpdateConnections()
         {
-            List<(NewConnectingJoint, NewConnectingJoint)> toRemoveObjects;
+            List<(ConnectingJoint, ConnectingJoint)> toRemoveObjects;
             
             if (_slimeDied)
             {
