@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
+namespace _SLIME.Slime
 {
     public class BreakingLineVisual: IVisualStrategy
     {

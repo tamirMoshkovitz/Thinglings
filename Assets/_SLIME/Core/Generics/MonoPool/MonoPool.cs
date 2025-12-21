@@ -1,12 +1,13 @@
 using System.Collections.Generic;
+using _SLIME.BaseScripts;
 using UnityEngine;
 
-namespace Generics
+namespace _SLIME.Generics
 {
     /// <summary>
     /// Generic object pool for SPCBaseMono, enabling efficient reuse of pooled objects.
     /// </summary>
-    public class MonoPool<T> : MonoBehaviour where T : MonoBehaviour, IPoolable
+    public class MonoPool<T> : ProjectMonoBehavior where T : ProjectMonoBehavior, IPoolable
     {
         [SerializeField] private int initialSize = 10;
         [SerializeField] private T prefab;

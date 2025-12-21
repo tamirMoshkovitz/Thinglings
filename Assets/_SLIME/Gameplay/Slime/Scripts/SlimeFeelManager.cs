@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using _SLIME.Gameplay.Slime.Scripts.new_scripts;
-using _SLIME.Gameplay.Slime.Scripts.SlimeComponents;
-using Player.Interfaces;
+using _SLIME.GameLoop;
 using UnityEngine;
 
-namespace Player.new_scripts
+namespace _SLIME.Slime
 {
     public class SlimeFeelManager
     {

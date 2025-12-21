@@ -4,6 +4,7 @@ using UnityEditor;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
+using _SLIME.BaseScripts;
 
 // המטרה: העורך הזה יופעל על כל ScriptableObject באופן בסיסי, 
 // אבל יצייר טאבים רק אם ימצא את ה-Attribute שלנו.

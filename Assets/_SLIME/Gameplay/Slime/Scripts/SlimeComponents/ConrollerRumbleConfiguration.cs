@@ -1,7 +1,8 @@
 using System;
+using _SLIME.BaseScripts;
 using UnityEngine;
 
-namespace _SLIME.Gameplay.Slime.Scripts.SlimeComponents
+namespace _SLIME.Slime
 {
     [CreateAssetMenu(fileName = "ControllerRumbleConfig", menuName = "Scriptable Objects/Controller Rumble Configuration")]
     public class ConrollerRumbleConfiguration : TabbedScriptableObject

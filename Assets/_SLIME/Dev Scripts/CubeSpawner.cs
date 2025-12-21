@@ -1,4 +1,5 @@
-using Audio;
+
+using _SLIME.BaseScripts;
 using UnityEngine;
 
 namespace _SLIME.Dev_Scripts

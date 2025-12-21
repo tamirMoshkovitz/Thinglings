@@ -1,7 +1,8 @@
+using _SLIME.BaseScripts;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
+namespace _SLIME.Slime
 {
 
     [CreateAssetMenu(fileName = "SlimeConfig", menuName = "Scriptable Objects/SlimeConfiguration")]

@@ -1,12 +1,12 @@
-using System;
-using Audio;
-using TMPro;
+using _SLIME.BaseScripts;
+using _SLIME.Boss;
+using _SLIME.GameLoop;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Player.Brick
+namespace _SLIME.Projectiles
 {
-    public class BrickBehavior: MonoBehaviour
+    public class BrickBehavior: ProjectMonoBehavior
     {
         [SerializeField] private int damage = 20;
         [SerializeField] private float lifeTime = 3f;

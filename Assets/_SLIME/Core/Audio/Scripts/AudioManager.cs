@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using _SPC.Core.BaseScripts.Generics.MonoSingletone;
+using _SLIME.Generics;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-namespace Audio
+namespace _Slime.Audio
 {
     /// <summary>
     /// Manages all audio playback, pooling, and scene-based sound control for the game.

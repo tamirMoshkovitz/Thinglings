@@ -1,9 +1,8 @@
-using _SLIME.Gameplay.Slime.Scripts.new_scripts;
+
 using DG.Tweening;
-using Player.Interfaces;
 using UnityEngine;
 
-namespace Player
+namespace _SLIME.Slime
 {
     public class SlimeStretchCameraShake : ISlimeBehaviorComponent
     {

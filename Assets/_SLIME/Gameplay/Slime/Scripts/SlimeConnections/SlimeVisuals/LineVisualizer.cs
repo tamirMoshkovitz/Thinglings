@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using Player;
 using UnityEngine;
 
-namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
+namespace _SLIME.Slime
 {
     
     [System.Serializable]

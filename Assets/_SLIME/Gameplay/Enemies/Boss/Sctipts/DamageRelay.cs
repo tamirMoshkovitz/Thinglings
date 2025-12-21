@@ -1,21 +1,23 @@
-using System;
-using UI;
-using UnityEngine;
-using EventType = UI.EventType;
+using _SLIME.BaseScripts;
+using _SLIME.UI;
 
-public class DamageRelay : MonoBehaviour
+namespace _SLIME.Boss
 {
-    public BossController bossBrain; 
-    
-    public void TakeDamage(float amount)
+    public class DamageRelay : ProjectMonoBehavior
     {
-        bossBrain.TakeDamage(amount);
-        PopupEventsRenderer.OnRenderPointsAbove(new RenderEvent{
-            eventType = EventType.BossHealth,
-            value = -amount,
-            fatherTransform = null,
-            position = transform.position,
-            OnFinish = null
-        });
+        public BossController bossBrain;
+
+        public void TakeDamage(float amount)
+        {
+            bossBrain.TakeDamage(amount);
+            PopupEventsRenderer.OnRenderPointsAbove(new RenderEvent
+            {
+                eventType = EventType.BossHealth,
+                value = -amount,
+                fatherTransform = null,
+                position = transform.position,
+                OnFinish = null
+            });
+        }
     }
 }

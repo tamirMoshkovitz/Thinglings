@@ -1,4 +1,4 @@
-namespace Generics
+namespace _SLIME.Generics
 {
     /// <summary>
     /// Interface for objects that can be pooled and reset to an initial state.

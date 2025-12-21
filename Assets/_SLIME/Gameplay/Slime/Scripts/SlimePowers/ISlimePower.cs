@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _SLIME.Gameplay.Slime.Scripts.new_scripts.SlimePowers
+namespace _SLIME.Slime
 {
     public interface ISlimePower
     {

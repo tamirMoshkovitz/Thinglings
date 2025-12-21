@@ -1,9 +1,8 @@
 using System;
-using _SLIME.Gameplay.Slime.Scripts.new_scripts;
-using Audio;
+using _SLIME.BaseScripts;
 using UnityEngine;
 
-namespace _SLIME.Gameplay.Slime
+namespace _SLIME.Slime
 {
     public enum ConnectorState
     {

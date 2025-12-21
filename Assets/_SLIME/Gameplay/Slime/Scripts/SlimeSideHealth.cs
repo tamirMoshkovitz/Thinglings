@@ -1,7 +1,6 @@
-using NUnit.Framework;
 using UnityEngine;
 
-namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
+namespace _SLIME.Slime
 {
     public class SlimeSideHealth // TODO: think about the health logic, what is the main body health, how is the healing is done, etc.
     {

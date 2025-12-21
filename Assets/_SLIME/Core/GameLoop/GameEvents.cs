@@ -1,17 +1,20 @@
 using System;
 
-public static class GameEvents
+namespace _SLIME.GameLoop
 {
-    public static Action SlimeTears;
-    public static Action PauseGame;
-    public static Action ResumeGame;
-    public static Action slimeConnected;
-    public static Action BrickShot;
-    public static Action ResetButtonPressed;
-    public static Action EnemyGotBricked;
-    
-    public static void RaiseResetGame()
+    public static class GameEvents
     {
-        ResetButtonPressed?.Invoke();
+        public static Action SlimeTears;
+        public static Action PauseGame;
+        public static Action ResumeGame;
+        public static Action slimeConnected;
+        public static Action BrickShot;
+        public static Action ResetButtonPressed;
+        public static Action EnemyGotBricked;
+
+        public static void RaiseResetGame()
+        {
+            ResetButtonPressed?.Invoke();
+        }
     }
 }

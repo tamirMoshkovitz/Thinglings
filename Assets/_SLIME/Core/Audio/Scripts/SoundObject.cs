@@ -1,14 +1,15 @@
 using System;
-using Generics;
+using _SLIME.BaseScripts;
+using _SLIME.Generics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Audio
+namespace _Slime.Audio
 {
     /// <summary>
     /// Represents a pooled audio source that can play, pause, and stop sounds, and returns itself to the pool when finished.
     /// </summary>
-    public class SoundObject : MonoBehaviour, IPoolable
+    public class SoundObject : ProjectMonoBehavior, IPoolable
     {
         [SerializeField] public AudioSource audioSource;
         private SoundPool _soundPool;

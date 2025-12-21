@@ -1,14 +1,17 @@
-using Unity.VisualScripting;
+using _SLIME.BaseScripts;
 using UnityEngine;
 
-public class DestroyItem : MonoBehaviour
+namespace _SLIME.Boss
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private void OnCollisionEnter2D(Collision2D collision)
+    public class DestroyItem : ProjectMonoBehavior
     {
-        if (collision.gameObject.CompareTag($"Wall"))
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            Destroy(gameObject);
+            if (collision.gameObject.CompareTag($"Wall"))
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

@@ -1,12 +1,13 @@
 
+using _SLIME.BaseScripts;
 using UnityEngine;
 
-namespace _SPC.Core.BaseScripts.Generics.MonoSingletone
+namespace _SLIME.Generics
 {
     /// <summary>
     /// Generic singleton base class for SPCBaseMono, ensuring only one instance exists and persists across scenes.
     /// </summary>
-    public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
+    public class MonoSingleton<T> : ProjectMonoBehavior where T : ProjectMonoBehavior
     {
         private static T _instance;
         private static bool _isInitialized;

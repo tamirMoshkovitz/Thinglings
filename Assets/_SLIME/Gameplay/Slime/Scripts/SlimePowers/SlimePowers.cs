@@ -1,9 +1,8 @@
 
-using _SLIME.Gameplay.Slime.Scripts.new_scripts;
-using _SLIME.Gameplay.Slime.Scripts.new_scripts.SlimePowers;
+using _SLIME.BaseScripts;
 using UnityEngine;
 
-namespace _SLIME.Gameplay.Slime.SlimePowers
+namespace _SLIME.Slime
 {
     
     [System.Serializable]

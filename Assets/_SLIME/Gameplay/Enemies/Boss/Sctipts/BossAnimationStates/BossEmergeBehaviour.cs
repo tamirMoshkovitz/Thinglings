@@ -1,18 +1,19 @@
 using UnityEngine;
-using DG.Tweening;
 
-public class BossEmergeBehaviour : BossBaseBehaviour
+namespace _SLIME.Boss
 {
-    private static readonly int FinishedMovement = Animator.StringToHash("FinishedMovement");
-
-    [Header("Settings")]
-    public float duration = 1.0f;
-
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public class BossEmergeBehaviour : BossBaseBehaviour
     {
-        base.OnStateEnter(animator, stateInfo, layerIndex);
-        if (data == null) return;
+        private static readonly int FinishedMovement = Animator.StringToHash("FinishedMovement");
 
-        animator.SetTrigger(FinishedMovement);
+        [Header("Settings")] public float duration = 1.0f;
+
+        override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            base.OnStateEnter(animator, stateInfo, layerIndex);
+            if (data == null) return;
+
+            animator.SetTrigger(FinishedMovement);
+        }
     }
 }

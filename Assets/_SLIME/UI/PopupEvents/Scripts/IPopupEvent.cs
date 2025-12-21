@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-namespace UI
+namespace _SLIME.UI
 {
     public interface IPopupEvent
     {

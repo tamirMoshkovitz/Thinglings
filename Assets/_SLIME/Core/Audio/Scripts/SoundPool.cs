@@ -1,6 +1,6 @@
-using Generics;
+using _SLIME.Generics;
 
-namespace Audio
+namespace _Slime.Audio
 {
     /// <summary>
     /// Pool for SoundObject instances, enabling efficient reuse of audio sources.

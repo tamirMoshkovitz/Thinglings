@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
-namespace _SLIME.Core.GameLoop
+namespace _SLIME.GameLoop
 {
     public enum SceneType
     {

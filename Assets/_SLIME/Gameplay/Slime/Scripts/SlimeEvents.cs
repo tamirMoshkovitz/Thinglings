@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
+namespace _SLIME.Slime
 {
     public static class SlimeEvents
     {

@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
-namespace UI
+namespace _SLIME.UI
 {
     
     public enum EventType

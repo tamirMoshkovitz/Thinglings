@@ -1,4 +1,4 @@
-namespace Player.Interfaces
+namespace _SLIME.Slime
 {
     public interface ISlimeBehaviorComponent
     {

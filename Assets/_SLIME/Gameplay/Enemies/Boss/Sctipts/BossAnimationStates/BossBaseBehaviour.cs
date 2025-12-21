@@ -1,16 +1,20 @@
 using UnityEngine;
 
-public class BossBaseBehaviour : StateMachineBehaviour
+namespace _SLIME.Boss
 {
-    protected BossController data; // Todo: Swap to scriptable
-
-    public void Initialize(BossController controller)
+    public class BossBaseBehaviour : StateMachineBehaviour
     {
-        data = controller;
-    }
+        protected BossController data; // Todo: Swap to scriptable
 
-    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        if (data == null) data = animator.GetComponent<BossController>();
+        public void Initialize(BossController controller)
+        {
+            data = controller;
+        }
+
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            if (data == null) data = animator.GetComponent<BossController>();
+        }
     }
+    
 }

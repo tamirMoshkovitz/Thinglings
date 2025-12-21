@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEngine.VFX;
 using System.Collections;
 using System.Collections.Generic;
-using _SLIME.Gameplay.Slime.Scripts.new_scripts;
+using _SLIME.BaseScripts;
 
-public class LaserAttackLogic : MonoBehaviour
+public class LaserAttackLogic : ProjectMonoBehavior
 {
     [System.Serializable]
     public class AnimationProfile

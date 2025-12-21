@@ -1,10 +1,9 @@
-using System;
-using _SLIME.Gameplay.Slime.Scripts.new_scripts.SlimePowers;
-using Player.Brick;
-using Unity.VisualScripting;
+
+using _SLIME.Projectiles;
+
 using UnityEngine;
 
-namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
+namespace _SLIME.Slime
 {
     
     

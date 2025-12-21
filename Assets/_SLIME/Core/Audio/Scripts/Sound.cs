@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Audio
+namespace _Slime.Audio
 {
     /// <summary>
     /// Represents a single sound definition, including its clip, volume, pitch, and playback options.

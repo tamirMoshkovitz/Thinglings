@@ -1,5 +1,8 @@
 using UnityEngine;
 
-public class TabbedScriptableObject : ScriptableObject
+namespace _SLIME.BaseScripts
 {
+    public class TabbedScriptableObject : ScriptableObject
+    {
+    }
 }

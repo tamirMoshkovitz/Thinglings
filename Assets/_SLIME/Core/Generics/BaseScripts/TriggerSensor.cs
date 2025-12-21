@@ -1,9 +1,8 @@
 using System;
-using Audio;
 using UnityEngine;
 
 
-namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
+namespace _SLIME.BaseScripts
 {
     [RequireComponent(typeof(Collider2D))]
     public class TriggerSensor : ProjectMonoBehavior

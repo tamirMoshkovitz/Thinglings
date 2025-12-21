@@ -1,6 +1,5 @@
-using System.Runtime.InteropServices;
+using _SLIME.BaseScripts;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "UIConfig", menuName = "Scriptable Objects/UIConfig")]

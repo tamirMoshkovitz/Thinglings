@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Audio
+namespace _SLIME.BaseScripts
 {
     public class ProjectMonoBehavior : MonoBehaviour { }
 }

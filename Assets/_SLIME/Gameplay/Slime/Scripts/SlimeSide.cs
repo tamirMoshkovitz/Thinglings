@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Splines;
 
-namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
+namespace _SLIME.Slime
 {
     public class SlimeSide
     {

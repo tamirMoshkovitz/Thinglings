@@ -1,10 +1,8 @@
 using System.Collections.Generic;
-using _SLIME.Gameplay.Slime;
-using _SLIME.Gameplay.Slime.Scripts.new_scripts;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Player
+namespace _SLIME.Slime
 {
     public struct ConnectionsComponents
     {

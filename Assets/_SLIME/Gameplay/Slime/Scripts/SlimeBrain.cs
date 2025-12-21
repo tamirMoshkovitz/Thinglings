@@ -1,15 +1,11 @@
-using System;
+
 using System.Collections;
-using _SLIME.Gameplay.Slime.Scripts.SlimeComponents;
-using _SLIME.Gameplay.Slime.SlimePowers;
-using Audio;
-using Player;
-using Player.new_scripts;
+using _SLIME.BaseScripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Splines;
 
-namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
+
+namespace _SLIME.Slime
 {
     [RequireComponent(typeof(PlayerInput))]
     public class SlimeBrain: ProjectMonoBehavior
@@ -40,7 +36,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
         private SlimeData _slimeData;
         private SlimeFeelManager _feelManager;
         private SlimeSide _leftSide, _rightSide;
-        private Slime.SlimePowers.SlimePowers _slimePowers;
+        private SlimePowers _slimePowers;
         private SlimeConnections _slimeConnections;
         
         private bool _isMoveLeftCancelled = true, _isMoveRightCancelled = true;
@@ -125,7 +121,7 @@ namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
             
             _slimeData.Initialize(_rightSide, _leftSide);
             
-            _slimePowers = new Slime.SlimePowers.SlimePowers(slimeConfiguration,new PowerComponents
+            _slimePowers = new SlimePowers(slimeConfiguration,new PowerComponents
             {
                 connectionsTriggerSensor = edgeColliderSensor
             } , _slimeData);

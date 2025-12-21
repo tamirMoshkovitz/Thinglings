@@ -1,8 +1,9 @@
 using System;
+using _SLIME.BaseScripts;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
+namespace _SLIME.Slime
 {
     [CreateAssetMenu(fileName = "SlimeStretchCameraShakeConfig", menuName = "Scriptable Objects/Slime Stretch Camera Shake Configuration")]
     public class SlimeStretchCameraShakeConfiguration : TabbedScriptableObject

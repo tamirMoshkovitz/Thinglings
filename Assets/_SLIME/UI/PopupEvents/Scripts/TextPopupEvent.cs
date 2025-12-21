@@ -2,7 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-namespace UI
+namespace _SLIME.UI
 {
     public class TextPopupEvent: IPopupEvent
     {
@@ -18,14 +18,14 @@ namespace UI
             mono.StartCoroutine(AnimateText(textObj, localPos,renderEvent,popUpSettings));
         }
 
-        private static void SetUpText(RenderEvent renderEvent, UIConfiguration.PopUpSettings popUpSettings,
+        private void SetUpText(RenderEvent renderEvent, UIConfiguration.PopUpSettings popUpSettings,
             TextMeshProUGUI textObj)
         {
                 if(renderEvent.value > 0) textObj.text = "+" + renderEvent.value;
                 else textObj.text = renderEvent.value.ToString();
         }
 
-        private static TextMeshProUGUI SetUpPosition(RenderEvent renderEvent, UIConfiguration.PopUpSettings popUpSettings, out Vector3 localPos)
+        private TextMeshProUGUI SetUpPosition(RenderEvent renderEvent, UIConfiguration.PopUpSettings popUpSettings, out Vector3 localPos)
         {
             Vector3 worldPosition = renderEvent.position;
             var textObj = MonoBehaviour.Instantiate(popUpSettings.textPrefab, renderEvent.fatherTransform);
@@ -34,7 +34,7 @@ namespace UI
             return textObj;
         }
 
-        private static IEnumerator AnimateText(TextMeshProUGUI textObj, Vector3 startPosition,
+        private IEnumerator AnimateText(TextMeshProUGUI textObj, Vector3 startPosition,
             RenderEvent renderEvent, UIConfiguration.PopUpSettings popUpSettings)
         {
             float elapsedTime = 0f;

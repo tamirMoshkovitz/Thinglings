@@ -1,13 +1,19 @@
 using System;
+using _SLIME.BaseScripts;
 using UnityEngine;
 
-public class FluidParticalSystem : MonoBehaviour
+namespace _SLIME.StartScene
 {
-    [SerializeField] private new ParticleSystem particleSystem;
 
-    [Obsolete("Obsolete")]
-    private void Update()
+
+    public class FluidParticalSystem : ProjectMonoBehavior
     {
-        particleSystem.gravityModifier = Mathf.Sin(Time.time);
+        [SerializeField] private new ParticleSystem particleSystem;
+
+        [Obsolete("Obsolete")]
+        private void Update()
+        {
+            particleSystem.gravityModifier = Mathf.Sin(Time.time);
+        }
     }
 }

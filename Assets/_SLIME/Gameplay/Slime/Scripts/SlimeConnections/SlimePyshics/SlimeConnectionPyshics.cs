@@ -1,11 +1,8 @@
 using System.Collections.Generic;
-using JetBrains.Annotations;
-using Player;
-using Player;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace _SLIME.Gameplay.Slime.Scripts.new_scripts
+namespace _SLIME.Slime
 {
     public class SlimeConnectionPyshics
     {
