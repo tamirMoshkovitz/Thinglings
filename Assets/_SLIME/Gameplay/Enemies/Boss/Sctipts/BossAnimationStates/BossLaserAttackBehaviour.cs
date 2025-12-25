@@ -7,6 +7,7 @@ namespace _SLIME.Boss
 
     public class BossLaserAttackBehaviour : BossBaseBehaviour
     {
+        private static readonly int AttackFinished = Animator.StringToHash("AttackFinished");
         private Coroutine _attackRoutine;
 
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -44,19 +45,17 @@ namespace _SLIME.Boss
             lasers.SetSpinning(false, 0);
             lasers.ResetVisuals();
             lasers.gameObject.SetActive(false);
-            animator.SetTrigger("Hide");
+            animator.SetTrigger(AttackFinished);
         }
 
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             if (_attackRoutine != null) data.StopCoroutine(_attackRoutine);
 
-            if (data.laserArrayScript != null)
-            {
-                data.laserArrayScript.SetSpinning(false, 0);
-                data.laserArrayScript.ResetVisuals();
-                data.laserArrayScript.gameObject.SetActive(false);
-            }
+            if (data.laserArrayScript == null) return;
+            data.laserArrayScript.SetSpinning(false, 0);
+            data.laserArrayScript.ResetVisuals();
+            data.laserArrayScript.gameObject.SetActive(false);
         }
     }
 }

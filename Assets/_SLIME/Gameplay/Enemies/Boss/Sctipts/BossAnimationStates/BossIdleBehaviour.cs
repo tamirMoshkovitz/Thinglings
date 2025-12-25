@@ -4,7 +4,7 @@ namespace _SLIME.Boss
 {
     public class BossIdleBehaviour : BossBaseBehaviour
     {
-        private static readonly int FinishedMovement = Animator.StringToHash("FinishedMovement");
+        private static readonly int EndHold = Animator.StringToHash("EndHold");
 
         [Header("Idle Settings")] public float duration = 3.0f; // How long to wait before next action
         public float floatStrength = 1f;
@@ -26,7 +26,7 @@ namespace _SLIME.Boss
 
             if (_timer >= duration)
             {
-                animator.SetTrigger(FinishedMovement);
+                animator.SetTrigger(EndHold);
             }
         }
 

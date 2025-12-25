@@ -3,8 +3,9 @@ using UnityEngine;
 
 namespace _SLIME.Boss
 {
-    public class BossSpellsAttackBehaviour : BossBaseBehaviour
+    public class BossSpawnAttackBehaviour : BossBaseBehaviour
     {
+        private static readonly int AttackFinished = Animator.StringToHash("AttackFinished");
         [Header("Settings")] public int spellsToCast = 5;
         public float spawnInterval = 0.5f;
 
@@ -24,7 +25,7 @@ namespace _SLIME.Boss
 
             if (_spellCounter >= spellsToCast)
             {
-                animator.SetTrigger("Hide");
+                animator.SetTrigger(AttackFinished);
             }
 
             _timer += Time.deltaTime;

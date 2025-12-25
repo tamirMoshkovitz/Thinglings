@@ -15,7 +15,7 @@ namespace _SLIME.Boss
 
         [SerializeField] private bool isHardMode = false;
 
-        private static readonly int Hide = Animator.StringToHash("Hide");
+        private static readonly int AttackFinished = Animator.StringToHash("AttackFinished");
         private Coroutine _smashRoutine;
         private List<HandWrapper> _leftHands;
         private List<HandWrapper> _rightHands;
@@ -87,7 +87,7 @@ namespace _SLIME.Boss
                 }
             }
 
-            animator.SetTrigger(Hide);
+            animator.SetTrigger(AttackFinished);
         }
 
         private void AddRandomHand(List<HandWrapper> list)
