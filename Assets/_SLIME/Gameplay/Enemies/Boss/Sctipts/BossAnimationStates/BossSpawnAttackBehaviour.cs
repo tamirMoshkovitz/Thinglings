@@ -6,8 +6,6 @@ namespace _SLIME.Boss
     public class BossSpawnAttackBehaviour : BossBaseBehaviour
     {
         private static readonly int AttackFinished = Animator.StringToHash("AttackFinished");
-        [Header("Settings")] public int spellsToCast = 5;
-        public float spawnInterval = 0.5f;
 
         private int _spellCounter;
         private float _timer;
@@ -23,28 +21,32 @@ namespace _SLIME.Boss
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
 
-            if (_spellCounter >= spellsToCast)
+            if (_spellCounter >= Data.bossSettings.SpawnAttack.spellsToCast)
             {
                 animator.SetTrigger(AttackFinished);
             }
 
             _timer += Time.deltaTime;
 
-            if (_timer >= spawnInterval)
+            if (_timer >= Data.bossSettings.SpawnAttack.spawnInterval)
             {
                 SpawnItem();
                 _spellCounter++;
                 _timer = 0f;
             }
         }
-
+        
+        // Todo: change to fit the spawner so it wont be heavy on performance
         private void SpawnItem()
         {
-            float randomX = Random.Range(data.spawnAreaLeft.position.x, data.spawnAreaRight.position.x);
-            float fixedY = data.spawnAreaLeft.position.y;
-
-            GameObject item = Instantiate(data.fallingItemPrefab, new Vector2(randomX, fixedY), Quaternion.identity);
-            Destroy(item, 5f);
+            Transform leftSpawnPoint = Data.leftSpawnPoint;
+            Transform rightSpawnPoint = Data.rightSpawnPoint;
+            
+            float randomX = Random.Range(leftSpawnPoint.position.x, rightSpawnPoint.position.x);
+            float fixedY = leftSpawnPoint.position.y;
+            
+            GameObject item = Instantiate(Data.bossSettings.SpawnAttack.projectilePrefab, new Vector2(randomX, fixedY), Quaternion.identity);
+            Destroy(item, Data.bossSettings.SpawnAttack.spellLifeTime);
         }
     }
 }

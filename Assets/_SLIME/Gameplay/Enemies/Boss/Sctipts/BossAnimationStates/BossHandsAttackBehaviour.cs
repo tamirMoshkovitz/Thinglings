@@ -2,19 +2,15 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.Serialization;
 
 
 namespace _SLIME.Boss
 {
     public class BossHandsAttackBehaviour : BossBaseBehaviour
     {
-
-        // TODO: Add to the boss scriptable 
-        [Header("State Specific Settings")] [SerializeField]
-        private int smashesToPerform = 5;
-
-        [SerializeField] private bool isHardMode = false;
-
+        
+        
         private static readonly int AttackFinished = Animator.StringToHash("AttackFinished");
         private Coroutine _smashRoutine;
         private List<HandWrapper> _leftHands;
@@ -45,20 +41,20 @@ namespace _SLIME.Boss
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
 
-            _leftHands = data.leftHandSplines.Select(h => new HandWrapper(h)).ToList();
-            _rightHands = data.rightHandSplines.Select(h => new HandWrapper(h)).ToList();
+            _leftHands = Data.leftHandSplines.Select(h => new HandWrapper(h)).ToList();
+            _rightHands = Data.rightHandSplines.Select(h => new HandWrapper(h)).ToList();
 
             DisableAllHands();
-            _smashRoutine = data.StartCoroutine(SmashRoutine(animator));
+            _smashRoutine = Data.StartCoroutine(SmashRoutine(animator));
         }
 
         private IEnumerator SmashRoutine(Animator animator)
         {
-            for (int i = 0; i < smashesToPerform; i++)
+            for (int i = 0; i < Data.bossSettings.HandsAttack.totalHandsToUse; i++)
             {
                 _activeHands.Clear();
 
-                if (isHardMode)
+                if (Data.bossSettings.HandsAttack.useBothHands)
                 {
                     AddRandomHand(_leftHands);
                     AddRandomHand(_rightHands);
@@ -71,19 +67,19 @@ namespace _SLIME.Boss
 
                 foreach (var hand in _activeHands)
                 {
-                    hand.Activate(data.handAttackDuration);
+                    hand.Activate(Data.bossSettings.HandsAttack.handAttackDuration);
                 }
 
-                yield return new WaitForSeconds(data.handAttackDuration);
+                yield return new WaitForSeconds(Data.bossSettings.HandsAttack.handAttackDuration);
 
                 foreach (var hand in _activeHands)
                 {
                     hand.Deactivate();
                 }
 
-                if (i < smashesToPerform - 1)
+                if (i < Data.bossSettings.HandsAttack.totalHandsToUse - 1)
                 {
-                    yield return new WaitForSeconds(data.handCooldown);
+                    yield return new WaitForSeconds(Data.bossSettings.HandsAttack.handCooldown);
                 }
             }
 
@@ -104,7 +100,7 @@ namespace _SLIME.Boss
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (_smashRoutine != null) data.StopCoroutine(_smashRoutine);
+            if (_smashRoutine != null) Data.StopCoroutine(_smashRoutine);
             DisableAllHands();
         }
     }

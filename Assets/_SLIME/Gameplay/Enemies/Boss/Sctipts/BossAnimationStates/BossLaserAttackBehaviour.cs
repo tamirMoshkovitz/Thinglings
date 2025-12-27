@@ -3,59 +3,56 @@ using System.Collections;
 
 namespace _SLIME.Boss
 {
-
-
     public class BossLaserAttackBehaviour : BossBaseBehaviour
     {
         private static readonly int AttackFinished = Animator.StringToHash("AttackFinished");
-        private Coroutine _attackRoutine;
+        
+        // Timer variables
+        private float _timer;
+        private float _duration;
 
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
 
-            if (data.laserArrayScript != null)
+            if (Data.laserAttackGameObject != null)
             {
-                _attackRoutine = data.StartCoroutine(ExecuteAttackSequence(animator));
+                // 1. Turn ON
+                Data.laserAttackGameObject.SetActive(true);
+
+                // 2. Setup Timer
+                _timer = 0f;
+                // Calculate total duration needed
+                _duration = Data.bossSettings.LaserAttack.rotationDuration + 1f;
             }
         }
 
-        private IEnumerator ExecuteAttackSequence(Animator animator)
+        override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            var lasers = data.laserArrayScript;
+            // 3. Count up
+            _timer += Time.deltaTime;
 
-            // 1. SETUP
-            lasers.ResetVisuals();
-            lasers.SetSpinning(true, data.laserRotationSpeed);
+            // 4. Check if time is up
+            if (_timer >= _duration)
+            {
+                // Turn OFF
+                if (Data.laserAttackGameObject != null)
+                {
+                    Data.laserAttackGameObject.SetActive(false);
+                }
 
-            // 2. GROW SEQUENCE (Explicit 0 -> Max)
-            yield return data.StartCoroutine(lasers.PlayGrowSequence(data.laserGrowProfile, data.laserStaggerDelay));
-
-            // 3. HOLD
-            yield return new WaitForSeconds(data.laserActiveDuration);
-
-            // 4. DISSOLVE SEQUENCE (Explicit Max -> 0)
-            yield return data.StartCoroutine(lasers.PlayDissolveSequence(data.laserDissolveProfile,
-                data.laserStaggerDelay));
-
-            // 5. SAFETY WAIT
-            yield return new WaitForSeconds(data.laserDissolveProfile.duration);
-
-            // 6. FINISH
-            lasers.SetSpinning(false, 0);
-            lasers.ResetVisuals();
-            lasers.gameObject.SetActive(false);
-            animator.SetTrigger(AttackFinished);
+                // Trigger Exit
+                animator.SetTrigger(AttackFinished);
+            }
         }
 
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (_attackRoutine != null) data.StopCoroutine(_attackRoutine);
-
-            if (data.laserArrayScript == null) return;
-            data.laserArrayScript.SetSpinning(false, 0);
-            data.laserArrayScript.ResetVisuals();
-            data.laserArrayScript.gameObject.SetActive(false);
+            // Safety cleanup just in case
+            if (Data.laserAttackGameObject != null)
+            {
+                Data.laserAttackGameObject.SetActive(false);
+            }
         }
     }
 }

@@ -4,16 +4,16 @@ namespace _SLIME.Boss
 {
     public class BossBaseBehaviour : StateMachineBehaviour
     {
-        protected BossController data; // Todo: Swap to scriptable
+        protected BossBrain Data;
 
-        public void Initialize(BossController controller)
+        public void Initialize(BossBrain brain)
         {
-            data = controller;
+            Data = brain;
         }
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (data == null) data = animator.GetComponent<BossController>();
+            if (Data == null) Data = animator.GetComponent<BossBrain>();
         }
     }
     
