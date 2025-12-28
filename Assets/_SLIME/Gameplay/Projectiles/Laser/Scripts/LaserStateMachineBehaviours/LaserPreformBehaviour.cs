@@ -1,6 +1,5 @@
 using _SLIME.Boss;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class LaserPreformBehaviour : StateMachineBehaviour
 {

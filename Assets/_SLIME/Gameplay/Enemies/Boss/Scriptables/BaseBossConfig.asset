@@ -67,5 +67,47 @@ MonoBehaviour:
       m_RotationOrder: 4
     rotationDuration: 9
     totalLoops: 3
+  littleBossAttackSettings:
+    duration: 3
+    waitUntilNextLoop: 1
+    easeCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.49743062
+        value: 0.49559036
+        inSlope: 0.0005404832
+        outSlope: 0.0005404832
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.0034404
+        value: 0.00036156178
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    useRefinedRotation: 0
+    startRotation: {x: 0, y: 0, z: 0}
+    endRotation: {x: 0, y: 0, z: 180}
+    spellsToCast: 0
+    spawnInterval: 0
+    spellLifeTime: 0
   bossCoreSettings:
     maxHealth: 0
