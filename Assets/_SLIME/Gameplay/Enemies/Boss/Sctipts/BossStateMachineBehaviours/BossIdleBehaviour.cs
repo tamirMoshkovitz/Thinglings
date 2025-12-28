@@ -14,7 +14,7 @@ namespace _SLIME.Boss
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
-            if (data == null) return;
+            if (Data == null) return;
 
             _timer = 0f;
         }

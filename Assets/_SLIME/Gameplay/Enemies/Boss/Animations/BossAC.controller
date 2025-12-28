@@ -215,7 +215,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1a6e4cee01ad824fb04996657c6c141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  bossLaserAttack: {fileID: 1964416140530120626, guid: ff55e0208bdb80746bb81cfa63280428, type: 3}
 --- !u!114 &-6694219664795996503
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -443,8 +442,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f47c8c0eb43a5943bb39228b78c2b17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossSpellsAttackBehaviour
-  spellsToCast: 3
-  spawnInterval: 1
 --- !u!114 &-3985519690874157410
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -779,8 +776,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a2dde0db12988c46a5f5802a5d2b102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  smashesToPerform: 3
-  isHardMode: 0
 --- !u!1102 &833435283281058801
 AnimatorState:
   serializedVersion: 6
@@ -991,7 +986,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 8901507440252238383}
-    m_Position: {x: 200, y: 100, z: 0}
+    m_Position: {x: 200, y: 110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7723102324138256807}
     m_Position: {x: 200, y: 320, z: 0}
@@ -1027,7 +1022,7 @@ AnimatorStateMachine:
     m_Position: {x: -40, y: 250, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 833435283281058801}
-    m_Position: {x: -40, y: 560, z: 0}
+    m_Position: {x: -40, y: 500, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4505623127421180869}
     m_Position: {x: -40, y: 390, z: 0}
@@ -1039,15 +1034,15 @@ AnimatorStateMachine:
     m_Position: {x: 440, y: 250, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7367224667446869842}
-    m_Position: {x: 440, y: 560, z: 0}
+    m_Position: {x: 440, y: 500, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 0, y: 110, z: 0}
-  m_EntryPosition: {x: 220, y: 50, z: 0}
-  m_ExitPosition: {x: 440, y: 110, z: 0}
+  m_AnyStatePosition: {x: 0, y: 120, z: 0}
+  m_EntryPosition: {x: 220, y: 60, z: 0}
+  m_ExitPosition: {x: 440, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 8901507440252238383}
 --- !u!1101 &4478506374506996456

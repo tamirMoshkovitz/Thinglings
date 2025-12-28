@@ -9,16 +9,16 @@ namespace _SLIME.Boss
 {
     public class BossHandAttackLogic : ProjectMonoBehavior
     {
-        [Header("References")] [SerializeField]
-        private SplineAnimate splineAnimate;
+        [Header("References")] 
+        [SerializeField] private SplineAnimate splineAnimate;
 
-        [Header("Animation Settings")] [SerializeField]
-        private float duration = 3f;
+        [Header("Animation Settings")] 
+        [SerializeField] private float duration = 3f;
 
         [SerializeField] private AnimationCurve easeCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
-        [Header("Rotation Settings")] [SerializeField]
-        private bool useRefinedRotation = true;
+        [Header("Rotation Settings")]
+        [SerializeField] private bool useRefinedRotation = true;
 
         [SerializeField] private Vector3 startRotation = new Vector3(0, 0, 0);
         [SerializeField] private Vector3 endRotation = new Vector3(0, 180, 0);

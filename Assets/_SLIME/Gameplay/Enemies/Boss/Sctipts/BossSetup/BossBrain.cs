@@ -8,10 +8,8 @@ namespace _SLIME.Boss
 {
     public class BossBrain : ProjectMonoBehavior
     {
-
         private static readonly int Die = Animator.StringToHash("Die");
         
-
         [Header("Camera Setup")] 
         public Camera mainCamera;
         
