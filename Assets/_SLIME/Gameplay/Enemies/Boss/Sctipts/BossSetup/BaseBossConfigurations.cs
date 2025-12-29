@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using _SLIME.BaseScripts;
 using UnityEngine;
 [CreateAssetMenu(fileName = "BaseBossConfig", menuName = "BossConfig")]
-public class BaseBossSettings : TabbedScriptableObject
+public class BaseBossConfigurations : TabbedScriptableObject
 {
     [Serializable]
     public struct HandsAttackSettings

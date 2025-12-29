@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7ed8bd0cc333224fad8e4cf88f45d50, type: 3}
+  m_Name: ArtConfigurations
+  m_EditorClassIdentifier: Assembly-CSharp::ArtConfigurations
+  parallaxLayer1:
+    maxShift: 2
+    sensitivity: 0.1
+    smoothing: 0.117
+  parallaxLayer2:
+    maxShift: 4
+    sensitivity: 0
+    smoothing: 0.248
+  parallaxLayer3:
+    maxShift: 10
+    sensitivity: 0.058
+    smoothing: 0.159
+  parallaxLayer4:
+    maxShift: 15
+    sensitivity: 0.012
+    smoothing: 0.117
+  parallaxLayer5:
+    maxShift: 0
+    sensitivity: 0
+    smoothing: 0

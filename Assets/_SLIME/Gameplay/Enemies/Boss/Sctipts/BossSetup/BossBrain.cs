@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 
@@ -13,8 +14,8 @@ namespace _SLIME.Boss
         [Header("Camera Setup")] 
         public Camera mainCamera;
         
-        [Header("Boss Data Setup")]
-        public BaseBossSettings bossSettings;
+        [FormerlySerializedAs("bossSettings")] [Header("Boss Data Setup")]
+        public BaseBossConfigurations bossConfigurations;
         public Collider2D bossCloseCollider;
         public Collider2D bossFarCollider;
         
@@ -42,7 +43,7 @@ namespace _SLIME.Boss
         void Start()
         {
             if (!mainCamera) mainCamera = Camera.main;
-            currentHealth = bossSettings.CoreSettings.maxHealth;
+            currentHealth = bossConfigurations.CoreSettings.maxHealth;
 
             var allBehaviours = animator.GetBehaviours<BossBaseBehaviour>();
             foreach (var behaviour in allBehaviours)
@@ -54,7 +55,7 @@ namespace _SLIME.Boss
         public void TakeDamage(float amount)
         {
             currentHealth -= amount;
-            if (bossHealthBar) bossHealthBar.fillAmount = currentHealth / bossSettings.CoreSettings.maxHealth;
+            if (bossHealthBar) bossHealthBar.fillAmount = currentHealth / bossConfigurations.CoreSettings.maxHealth;
             // if (currentHealth <= 0)
             //     GetComponent<Animator>().SetTrigger(Die);
         }

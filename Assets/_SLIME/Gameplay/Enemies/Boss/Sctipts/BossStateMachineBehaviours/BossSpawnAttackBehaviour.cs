@@ -21,14 +21,14 @@ namespace _SLIME.Boss
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
 
-            if (_spellCounter >= Data.bossSettings.SpawnAttack.spellsToCast)
+            if (_spellCounter >= Data.bossConfigurations.SpawnAttack.spellsToCast)
             {
                 animator.SetTrigger(AttackFinished);
             }
 
             _timer += Time.deltaTime;
 
-            if (_timer >= Data.bossSettings.SpawnAttack.spawnInterval)
+            if (_timer >= Data.bossConfigurations.SpawnAttack.spawnInterval)
             {
                 SpawnItem();
                 _spellCounter++;
@@ -45,8 +45,8 @@ namespace _SLIME.Boss
             float randomX = Random.Range(leftSpawnPoint.position.x, rightSpawnPoint.position.x);
             float fixedY = leftSpawnPoint.position.y;
             
-            GameObject item = Instantiate(Data.bossSettings.SpawnAttack.projectilePrefab, new Vector2(randomX, fixedY), Quaternion.identity);
-            Destroy(item, Data.bossSettings.SpawnAttack.spellLifeTime);
+            GameObject item = Instantiate(Data.bossConfigurations.SpawnAttack.projectilePrefab, new Vector2(randomX, fixedY), Quaternion.identity);
+            Destroy(item, Data.bossConfigurations.SpawnAttack.spellLifeTime);
         }
     }
 }
