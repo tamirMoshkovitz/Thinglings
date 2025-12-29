@@ -9,13 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1989155572332256973}
+  - component: {fileID: 6008439811400139060}
+  - component: {fileID: 677352210561855383}
   - component: {fileID: 42470740776450048}
   - component: {fileID: 3434810750985510433}
-  - component: {fileID: 5483460231843039356}
-  - component: {fileID: 4764626439825955572}
+  - component: {fileID: 7736917890635430442}
   m_Layer: 12
   m_Name: Code
-  m_TagString: Untagged
+  m_TagString: Code
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,9 +33,59 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4845938265268787964}
   m_Father: {fileID: 7270352075211162497}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6008439811400139060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491318962720943803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b53bab34abd4b5ba58f787a79f88303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_SLIME.LittleBoss.LittleBossBrain
+  enableSetChange: 1
+  animator: {fileID: 7308531217963279494}
+  reference:
+    movRef:
+      splineAnimate: {fileID: 42470740776450048}
+      littleBossTransform: {fileID: 1989155572332256973}
+      animator: {fileID: 7308531217963279494}
+    spellRef:
+      littleBossTransform: {fileID: 0}
+      targets: []
+--- !u!50 &677352210561855383
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491318962720943803}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
 --- !u!114 &42470740776450048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,8 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InspectorLocker
   targetScripts:
   - {fileID: 42470740776450048}
-  - {fileID: 5483460231843039356}
---- !u!114 &5483460231843039356
+--- !u!114 &7736917890635430442
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -82,18 +132,52 @@ MonoBehaviour:
   m_GameObject: {fileID: 491318962720943803}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4171075099e44f73a19d530f099b8164, type: 3}
+  m_Script: {fileID: 11500000, guid: d25f490149bb472e8e2bb52017f18df2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::_SLIME.LittleBoss.LittleBossMovementLogic
-  splineAnimate: {fileID: 42470740776450048}
-  bossSettings: {fileID: 11400000, guid: debaec0eb2ac1664b8e380373e0a5233, type: 2}
---- !u!61 &4764626439825955572
+  m_EditorClassIdentifier: Assembly-CSharp::_SLIME.LittleBoss.LittleBossDebugger
+  animator: {fileID: 7308531217963279494}
+  textColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  fontSize: 20
+  textPosition: {x: 20, y: 20}
+--- !u!1 &3976516219645862283
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7350407666791056710}
+  - component: {fileID: 7017681996088818502}
+  m_Layer: 0
+  m_Name: Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7350407666791056710
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3976516219645862283}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4845938265268787964}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &7017681996088818502
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 491318962720943803}
+  m_GameObject: {fileID: 3976516219645862283}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -117,21 +201,21 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.21133333}
+  m_Offset: {x: 0.47455168, y: -2.2483296}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.28866667}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 7.829356, y: 5.4966593}
   m_EdgeRadius: 0
 --- !u!1 &4940125301216233100
 GameObject:
@@ -144,7 +228,7 @@ GameObject:
   - component: {fileID: 2637496174505553814}
   - component: {fileID: 4875182833563812778}
   m_Layer: 0
-  m_Name: Spline
+  m_Name: MovementRoute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -212,41 +296,41 @@ MonoBehaviour:
           z: 0.000000021073424
           w: 0.70710695
     - Position:
-        x: -13.010613
-        y: 0.11721277
-        z: 0
+        x: -12.953646
+        y: -14.347578
+        z: 0.03
       TangentIn:
         x: -0
         y: -0
-        z: -4.384557
+        z: -4.413091
       TangentOut:
         x: 0
         y: 0
-        z: 4.4824624
+        z: 4.4600673
       Rotation:
         value:
-          x: 0.49897003
-          y: 0.5010278
-          z: -0.5010278
-          w: -0.4989701
+          x: -0.487315
+          y: -0.49390152
+          z: 0.5138124
+          w: 0.50456136
     - Position:
-        x: -26.607288
-        y: -0.11721325
-        z: 0
+        x: -26.603645
+        y: -0.11757851
+        z: 1
       TangentIn:
         x: -0
         y: -0
-        z: -0.03392428
+        z: -2.7861855
       TangentOut:
         x: 0
         y: 0
-        z: 0.047453083
+        z: 3.23535
       Rotation:
         value:
-          x: 0.0038244373
-          y: -0.70709646
-          z: 0.70709646
-          w: -0.003824398
+          x: -0.34963053
+          y: 0.60782707
+          z: 0.42990124
+          w: 0.56876147
     m_MetaData:
     - Mode: 4
       Tension: 0.5
@@ -296,7 +380,6 @@ Transform:
   m_Children:
   - {fileID: 1989155572332256973}
   - {fileID: 2637496174505553814}
-  - {fileID: 4845938265268787964}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7488889462281012349
@@ -309,6 +392,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4845938265268787964}
   - component: {fileID: 6971247894239733632}
+  - component: {fileID: 7308531217963279494}
   m_Layer: 0
   m_Name: Art
   m_TagString: Untagged
@@ -324,12 +408,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7488889462281012349}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7270352075211162497}
+  m_Children:
+  - {fileID: 7350407666791056710}
+  m_Father: {fileID: 1989155572332256973}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6971247894239733632
 SpriteRenderer:
@@ -378,7 +463,7 @@ SpriteRenderer:
   m_SortingLayerID: -1558396307
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 595d487bebc1c4624a615a59334fafbf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -389,3 +474,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &7308531217963279494
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7488889462281012349}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 29c374aa284b840719f4f55af773497d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

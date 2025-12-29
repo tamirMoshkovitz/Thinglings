@@ -123,8 +123,6 @@ namespace _SLIME.Slime
                 0f, 1f, _currentEnergy, _shootingSetting.ColorTween.easeType);
             HSVColor color = HSVColor.LerpMulti(easedT, _shootingSetting.EnergyColors.ToArray());
             _shootingReqComponents.renderer.material.color = color.ToRGB();
-            
-            Debug.Log(_currentEnergy);
         }
 
         public void OnShoot(InputAction.CallbackContext context)

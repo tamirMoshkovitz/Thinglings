@@ -1,17 +1,18 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using _SLIME.BaseScripts;
-using _SLIME.Boss;
-using _SLIME.Slime;
 using UnityEngine;
 using UnityEngine.Splines;
+using NaughtyAttributes;
 
 namespace _SLIME.LittleBoss
 {
     [Serializable]
     public struct LittleBossMovementSettings
     {
-        [Header("Animation Settings")] 
+        [BigHeader("Visualization", HeaderColor.Green)]
+        [Header("Animation and Movement Settings")] 
         public float duration;
         public float waitUntilNextLoop;
         public AnimationCurve easeCurve;
@@ -20,6 +21,14 @@ namespace _SLIME.LittleBoss
         public bool useRefinedRotation;
         public Vector3 startRotation;
         public Vector3 endRotation;
+        
+        [BigHeader("GamePlay", HeaderColor.Green)]
+        [Header("Change To Attack Settings")]
+        [MinMaxSlider(0f, 1f)]
+        public Vector2 chanceToAttack;
+        public AnimationCurve chanceToAttackCurve;
+        public float timeToMaxChance;
+        
     }
     
     
@@ -27,71 +36,97 @@ namespace _SLIME.LittleBoss
     public struct LittleBossMovementRef
     {
         public SplineAnimate splineAnimate;
-        public BaseBossSettings bossSettings;
+        public Transform littleBossTransform;
+        public Animator animator;
     }
     
-    public class LittleBossMovementLogic 
+    public class LittleBossMovementLogic: LittleBossBaseLogic
     {
-        [Header("References")] 
-        [SerializeField] private SplineAnimate splineAnimate;
-        [SerializeField] private BaseBossSettings bossSettings;
-
-        private LittleBossMovementSettings _set;
-
-        public LittleBossMovementLogic()
+        private static readonly int Attack = Animator.StringToHash("Attack");
+        public LittleBossMovementSettings Set;
+        private readonly LittleBossMovementRef _ref;
+        private readonly ProjectMonoBehavior _mono;
+        private List<Coroutine> _cors = new List<Coroutine>();
+        private float _timerForMove = 0f;
+        private float _timeInMoveState = 0f;
+        private float _currentChance = 0f;
+        
+        public LittleBossMovementLogic(LittleBossMovementSettings set, 
+            LittleBossMovementRef reference, ProjectMonoBehavior mono)
         {
+            Set = set;
+            _ref = reference;
+            _mono = mono;
+            _currentChance = Set.chanceToAttack.x;
+        }
+        
+        public void StartLogic()
+        {
+            _cors.Add(_mono.StartCoroutine(AnimateMoveAndRotate()));
+            _cors.Add(_mono.StartCoroutine(MoveToAttackControl()));
         }
 
-        public void Start()
+        private IEnumerator MoveToAttackControl()
         {
-            _set = bossSettings.LittleBossAttack;
+            while (true)
+            {
+                _timeInMoveState += Time.deltaTime;
+
+                float t = Mathf.Clamp01(_timeInMoveState / Set.timeToMaxChance);
+                float curveValue = Set.chanceToAttackCurve.Evaluate(t);
+                _currentChance = Mathf.Lerp(Set.chanceToAttack.x, Set.chanceToAttack.y, curveValue);
+                
+                if (UnityEngine.Random.value < _currentChance * Time.deltaTime)
+                {
+                    PerformTransitionToAttack();
+                    yield break; 
+                }
+
+                yield return null;
+            }
         }
 
-        private void OnEnable()
+        private void PerformTransitionToAttack()
         {
-            StartCoroutine(AnimateMoveAndRotate());
+            _ref.animator.SetTrigger(Attack);
+        }
+
+        public void EndLogic()
+        {
+            foreach (var c in _cors) _mono.StopCoroutine(c);
+            _timeInMoveState = 0f;
+            _cors.Clear();
         }
 
         private IEnumerator AnimateMoveAndRotate()
         {
             while (true)
             {
-                float timer = 0f;
+                Quaternion rotationFrom = Quaternion.Euler(Set.startRotation);
+                Quaternion rotationTo = Quaternion.Euler(Set.endRotation);
 
-                Quaternion rotationFrom = Quaternion.Euler(_set.startRotation);
-                Quaternion rotationTo = Quaternion.Euler(_set.endRotation);
-
-                while (timer < _set.duration)
+                while (_timerForMove < Set.duration)
                 {
-                    timer += Time.deltaTime;
-                    float progress = timer / _set.duration;
-                    float easedProgress = _set.easeCurve.Evaluate(progress);
+                    _timerForMove += Time.deltaTime;
+                    float progress = _timerForMove / Set.duration;
+                    float easedProgress = Set.easeCurve.Evaluate(progress);
 
-                    splineAnimate.NormalizedTime = easedProgress;
+                    _ref.splineAnimate.NormalizedTime = easedProgress;
 
-                    if (_set.useRefinedRotation)
+                    if (Set.useRefinedRotation)
                     {
-                        transform.rotation = Quaternion.Slerp(rotationFrom, rotationTo, easedProgress);
+                        _ref.littleBossTransform.rotation = Quaternion.Slerp(rotationFrom, rotationTo, easedProgress);
                     }
 
                     yield return null;
                 }
-
-                splineAnimate.NormalizedTime = 1f;
-                if (_set.useRefinedRotation) transform.rotation = rotationTo;
-                
-                yield return new WaitForSeconds(_set.waitUntilNextLoop);
+                _ref.splineAnimate.NormalizedTime = 1f;
+                _timerForMove = 0f;
+                if (Set.useRefinedRotation) _ref.littleBossTransform.rotation = rotationTo;
+                yield return new WaitForSeconds(Set.waitUntilNextLoop);
             }
+            // ReSharper disable once IteratorNeverReturns
         }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            SlimeEvents.SlimeGetHit?.Invoke(other.gameObject);
-        }
-
-        public void SetDuration(float totalDuration)
-        {
-            _set.duration = totalDuration;
-        }
+        
     }
 }
