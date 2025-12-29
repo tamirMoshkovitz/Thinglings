@@ -52,9 +52,9 @@ namespace _SLIME.Projectiles
             GameEvents.BrickShot?.Invoke();
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            var rig = collision.collider.attachedRigidbody;
+            var rig = collision.attachedRigidbody;
             if (rig && rig.TryGetComponent<IHealth>(out IHealth h))
             {
                 h.TakeDamage(damage);
