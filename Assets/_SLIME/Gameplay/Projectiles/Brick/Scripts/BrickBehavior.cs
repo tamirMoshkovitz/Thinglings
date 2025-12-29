@@ -1,5 +1,4 @@
 using _SLIME.BaseScripts;
-using _SLIME.Boss;
 using _SLIME.GameLoop;
 using UnityEngine;
 using UnityEngine.InputSystem;

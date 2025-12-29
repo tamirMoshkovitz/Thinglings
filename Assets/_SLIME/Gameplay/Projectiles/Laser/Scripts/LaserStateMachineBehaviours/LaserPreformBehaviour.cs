@@ -1,3 +1,4 @@
+using _SLIME.Boss;
 using UnityEngine;
 using UnityEngine.Serialization;
 
