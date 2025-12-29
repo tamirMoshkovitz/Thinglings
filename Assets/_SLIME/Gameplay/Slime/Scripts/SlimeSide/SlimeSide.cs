@@ -40,7 +40,8 @@ namespace _SLIME.Slime
         public SlimeSide(SlimeSideFormat format)
         {
             _gameObject = format.GameObject;
-            _animatorController = new SlimeAnimatorController(_gameObject.GetComponent<Animator>());
+            _animatorController = new SlimeAnimatorController(_gameObject.GetComponent<Animator>(),
+                format.ShootingReqComponents.renderer);
             TopPosition = format.TopTransform;
             _movement = new SlimeSideMovement(new SlimeSideMovement.SlimeSideMovementFormat(
                 this,
@@ -52,7 +53,7 @@ namespace _SLIME.Slime
                 this,
                 format.MaxHealth,
                 format.PlayerHitPoint,
-                new SlimeAnimatorController(_gameObject.GetComponent<Animator>())
+                _animatorController
             ));
 
             _shooter = new SlimeSideShooting(this,
