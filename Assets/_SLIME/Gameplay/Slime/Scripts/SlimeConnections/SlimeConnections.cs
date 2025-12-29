@@ -128,6 +128,7 @@ namespace _SLIME.Slime
 
             foreach (var pair in toRemoveObjects)
             {
+                if(pair.Item1 == null || pair.Item2 == null) continue;
                 UpdateConnectionOfSlime(pair.Item1, pair.Item2,-1);
                 _objectsConnections[pair.Item1].Remove(pair.Item2);
                 _slimeConnectionVisuals.RemoveSegment(pair.Item1, pair.Item2);
@@ -154,7 +155,7 @@ namespace _SLIME.Slime
             _slimeData.SpringJointCount = counter;
         }
 
-        private void OnSlimeGotHit(GameObject slime)
+        private void OnSlimeGotHit()
         {
             _slimeDied = true;
         }

@@ -114,11 +114,13 @@ namespace _SLIME.Projectiles
             if (!_active) return;
             weaponLogger?.Log($"Bullet triggered by: {other.name}");
             
-            if (other.gameObject.TryGetComponent(typeof(DamageRelay), out Component boss))
+            var rig = other.attachedRigidbody;
+            if (rig && rig.TryGetComponent<IHealth>(out IHealth h))
             {
-                ((DamageRelay)boss).TakeDamage((float)System.Math.Round(_data.damage, 2));
-                GameEvents.EnemyGotBricked?.Invoke();
+                h.TakeDamage((float)System.Math.Round(_data.damage, 2));
+                GameEvents.EnemyGotBricked?.Invoke(); //TODO: FIGURE OUT
             }
+        
             // Move bullet off-screen and return to pool
             transform.position = new Vector2(-100, -100);
             weaponLogger?.Log("Bullet returned to pool"); 

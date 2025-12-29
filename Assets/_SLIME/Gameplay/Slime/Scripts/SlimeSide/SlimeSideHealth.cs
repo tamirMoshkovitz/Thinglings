@@ -60,34 +60,37 @@ namespace _SLIME.Slime
             _playerHitPoint = format.PlayerHitPoint;
             CurrentHealth = _maxHealth;
             _animatorController = format.AnimatorController;
+            var hit = _parent.Transform.GetComponent<SlimeSideHitCollider>();
+            if (hit != null) hit.Init(this);
         }
 
         public void OnEnable()
         {
             SlimeEvents.SlimeConnected += OnSlimeConnected;
             SlimeEvents.SlimeTears += OnSlimeTear;
-            SlimeEvents.SlimeGetHit += OnSlimeGetHit;
         }
 
         public void OnDisable()
         {
             SlimeEvents.SlimeConnected -= OnSlimeConnected;
             SlimeEvents.SlimeTears -= OnSlimeTear;
-            SlimeEvents.SlimeGetHit -= OnSlimeGetHit;
         }
 
         public void Update() { }
 
         public void TakeDamage(float damage)
         {
-            if (IsDead) return;
-
-            CurrentHealth -= damage;
-            if (CurrentHealth <= 0)
-            {
-                CurrentHealth = 0;
-                IsDead = true;
-            }
+            IsDead = true;
+            SlimeEvents.SlimeGetHit();
+            // TODO(Elad): I'm not sure for what this is required 
+            // if (IsDead) return;
+            //
+            // CurrentHealth -= damage;
+            // if (CurrentHealth <= 0)
+            // {
+            //     CurrentHealth = 0;
+            //     IsDead = true;
+            // } 
         }
 
         public void Resurrect()
@@ -102,12 +105,6 @@ namespace _SLIME.Slime
 
         private void OnSlimeTear() { }
 
-        private void OnSlimeGetHit(GameObject hitSide)
-        {
-            if (hitSide ==_playerHitPoint)
-            {
-                IsDead = true;
-            }
-        }
+       
     }
 }
