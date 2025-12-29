@@ -877,6 +877,7 @@ GameObject:
   - component: {fileID: 7487284664680715124}
   - component: {fileID: 1870236309165441612}
   - component: {fileID: 3911525347668114702}
+  - component: {fileID: 3367376480706935779}
   m_Layer: 8
   m_Name: FIrstSlime
   m_TagString: Untagged
@@ -1180,6 +1181,18 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &3367376480706935779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590626563016348507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2597f82a53744bf790b1bb6d29c330ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Slime.SlimeSideHitCollider
 --- !u!1 &712490035989901975
 GameObject:
   m_ObjectHideFlags: 0
@@ -1568,6 +1581,7 @@ GameObject:
   - component: {fileID: 7413063486520142136}
   - component: {fileID: 5638132142207919089}
   - component: {fileID: 8828280969786548607}
+  - component: {fileID: 6971125646408717064}
   m_Layer: 8
   m_Name: SecondSlime
   m_TagString: Untagged
@@ -1871,6 +1885,18 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_SortAtRoot: 0
+--- !u!114 &6971125646408717064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793601271816119973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2597f82a53744bf790b1bb6d29c330ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Slime.SlimeSideHitCollider
 --- !u!1 &1128021109959432332
 GameObject:
   m_ObjectHideFlags: 0
