@@ -7,7 +7,7 @@ namespace _SLIME.Slime
     {
         public static Action SlimeTears;
         public static Action SlimeConnected;
-        public static Action<GameObject> SlimeGetHit;
+        public static Action SlimeGetHit;
         public static Action TrampolineActivated;
         public static Action TrampolineDeActivated;
     }

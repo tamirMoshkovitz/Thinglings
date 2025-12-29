@@ -36,28 +36,10 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.4064922
-        value: 0.73547435
-        inSlope: 1.1129844
-        outSlope: 1.1129844
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.7539598
-        value: 0.8380416
-        inSlope: 0.14353411
-        outSlope: 0.14353411
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.7967811
-      - serializedVersion: 3
         time: 1
         value: 1
-        inSlope: 2
-        outSlope: 2
+        inSlope: 0
+        outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
@@ -65,7 +47,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    rotationDuration: 9
+    rotationDuration: 10
     totalLoops: 3
   littleBossMovementSettings:
     duration: 3
@@ -124,4 +106,4 @@ MonoBehaviour:
       m_RotationOrder: 4
     timeToMaxChance: 5
   bossCoreSettings:
-    maxHealth: 0
+    maxHealth: 1000

@@ -64,6 +64,7 @@ namespace _SLIME.Slime
         }
         
         public Vector3 Position => _gameObject.transform.position;
+        public Transform Transform => _gameObject.transform;
         public Transform TopPosition { get; private set; }
         public bool IsDead => _health.IsDead;
         

@@ -1203,6 +1203,7 @@ GameObject:
   - component: {fileID: 8187071179226125514}
   - component: {fileID: 852368871082504193}
   - component: {fileID: 3900303270651239191}
+  - component: {fileID: 8472648192577018365}
   m_Layer: 0
   m_Name: Sorcerer
   m_TagString: Untagged
@@ -1240,7 +1241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossController
   mainCamera: {fileID: 0}
-  bossSettings: {fileID: 11400000, guid: debaec0eb2ac1664b8e380373e0a5233, type: 2}
+  bossConfigurations: {fileID: 11400000, guid: debaec0eb2ac1664b8e380373e0a5233, type: 2}
   bossCloseCollider: {fileID: 8182637274901235542}
   bossFarCollider: {fileID: 2018073295865570070}
   leftHandSplines:
@@ -1271,6 +1272,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FloatingMagic
   floatDistance: 3
   duration: 2.5
+--- !u!50 &8472648192577018365
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4080245919577685454}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
 --- !u!1 &4661568311126601736
 GameObject:
   m_ObjectHideFlags: 0
@@ -1419,7 +1447,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3752436025235252025}
-  - component: {fileID: 2108156563845630659}
   - component: {fileID: 2018073295865570070}
   m_Layer: 11
   m_Name: Boss Far Collider
@@ -1443,19 +1470,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8729987916343291076}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2108156563845630659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5776473476575897784}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c9a2c80a6a9f3245ac010d7bd0d848f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DamageRelay
-  bossBrain: {fileID: 852368871082504193}
 --- !u!58 &2018073295865570070
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1591,7 +1605,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1962292910904921268}
-  - component: {fileID: 1794629951346801512}
   - component: {fileID: 8182637274901235542}
   m_Layer: 11
   m_Name: Boss Close Collider
@@ -1615,19 +1628,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8729987916343291076}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1794629951346801512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6306895912961494447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c9a2c80a6a9f3245ac010d7bd0d848f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DamageRelay
-  bossBrain: {fileID: 852368871082504193}
 --- !u!58 &8182637274901235542
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2935,6 +2935,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3025898858781400177}
     m_Modifications:
+    - target: {fileID: 66362367073293880, guid: ff55e0208bdb80746bb81cfa63280428, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 302258904210078661, guid: ff55e0208bdb80746bb81cfa63280428, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.91
@@ -2982,6 +2986,10 @@ PrefabInstance:
     - target: {fileID: 1964416140530120626, guid: ff55e0208bdb80746bb81cfa63280428, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4782704634228196445, guid: ff55e0208bdb80746bb81cfa63280428, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

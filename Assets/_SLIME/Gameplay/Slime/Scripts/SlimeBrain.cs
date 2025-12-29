@@ -51,7 +51,7 @@ namespace _SLIME.Slime
         private Coroutine _controlSwitchCoroutine;
         
         public SlimeData Data => _slimeData;
-
+        
         private void Awake()
         {
             InitializeFields();
@@ -247,5 +247,7 @@ namespace _SLIME.Slime
             _slimeData.TopLineConnectionPositionLeft = _leftSide.TopPosition.position;
             _slimeData.TopLineConnectionPositionRight = _rightSide.TopPosition.position;
         }
+
+        
     }
 }

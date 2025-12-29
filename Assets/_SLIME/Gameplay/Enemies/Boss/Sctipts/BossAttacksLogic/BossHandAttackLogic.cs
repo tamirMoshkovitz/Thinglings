@@ -61,9 +61,13 @@ namespace _SLIME.Boss
             if (useRefinedRotation) transform.rotation = rotationTo;
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            SlimeEvents.SlimeGetHit?.Invoke(other.gameObject);
+            var rig = collision.attachedRigidbody;
+            if (rig && rig.TryGetComponent<IHealth>(out IHealth h))
+            {
+                h.TakeDamage(); 
+            }
         }
 
         public void SetDuration(float totalDuration)

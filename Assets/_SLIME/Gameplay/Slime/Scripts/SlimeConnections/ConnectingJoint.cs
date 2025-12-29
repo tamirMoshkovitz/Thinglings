@@ -66,7 +66,7 @@ namespace _SLIME.Slime
             }
         }
 
-        private void OnSlimeGetHit(GameObject other)
+        private void OnSlimeGetHit()
         {
             _canConnect = false;
         }

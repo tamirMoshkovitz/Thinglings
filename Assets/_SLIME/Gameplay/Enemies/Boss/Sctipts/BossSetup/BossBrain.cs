@@ -1,13 +1,15 @@
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
+using _SLIME.UI;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using EventType = _SLIME.UI.EventType;
 
 
 namespace _SLIME.Boss
 {
-    public class BossBrain : ProjectMonoBehavior
+    public class BossBrain : ProjectMonoBehavior, IHealth
     {
         private static readonly int Die = Animator.StringToHash("Die");
         
@@ -52,10 +54,19 @@ namespace _SLIME.Boss
             }
         }
 
-        public void TakeDamage(float amount)
+        public void TakeDamage(float damage)
         {
-            currentHealth -= amount;
+            currentHealth -= damage;
             if (bossHealthBar) bossHealthBar.fillAmount = currentHealth / bossConfigurations.CoreSettings.maxHealth;
+            PopupEventsRenderer.OnRenderPointsAbove(new RenderEvent
+             {
+                 eventType = EventType.BossHealth,
+                 value = -damage,
+                 fatherTransform = null,
+                 position = transform.position,
+                 OnFinish = null
+             });
+            
             // if (currentHealth <= 0)
             //     GetComponent<Animator>().SetTrigger(Die);
         }
