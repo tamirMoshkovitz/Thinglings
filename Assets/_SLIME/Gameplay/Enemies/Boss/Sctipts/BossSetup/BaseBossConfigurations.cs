@@ -6,7 +6,7 @@ using UnityEngine;
 namespace _SLIME.Boss
 {
     [CreateAssetMenu(fileName = "BaseBossConfig", menuName = "BossConfig")]
-    public class BaseBossSettings : TabbedScriptableObject
+    public class BaseBossConfigurations : TabbedScriptableObject
     {
         [Serializable]
         public struct HandsAttackSettings

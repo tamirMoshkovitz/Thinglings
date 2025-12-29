@@ -9,7 +9,7 @@ namespace _SLIME.LittleBoss
         private static readonly List<LittleBossBaseState> states = new List<LittleBossBaseState>();
         protected LittleBossBrain Data;
         protected LittleBossBaseLogic Logic;
-        [SerializeField] protected BaseBossSettings curSet;
+        [SerializeField] protected BaseBossConfigurations curSet;
 
         public virtual void Init(LittleBossBrain brain)
         {
@@ -17,7 +17,7 @@ namespace _SLIME.LittleBoss
             states.Add(this);
         }
 
-        public static void UpdateSettings(BaseBossSettings newSet)
+        public static void UpdateSettings(BaseBossConfigurations newSet)
         {
             foreach (var s in states)
             {
@@ -25,7 +25,7 @@ namespace _SLIME.LittleBoss
             }
         }
 
-        public virtual void UpdateSet(BaseBossSettings newSet)
+        public virtual void UpdateSet(BaseBossConfigurations newSet)
         {
             curSet = newSet;
         }

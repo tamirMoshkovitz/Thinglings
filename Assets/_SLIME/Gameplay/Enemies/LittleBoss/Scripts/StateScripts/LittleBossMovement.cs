@@ -17,7 +17,7 @@ namespace _SLIME.LittleBoss
             Logic = _logic;
         }
 
-        public override void UpdateSet(BaseBossSettings newSet)
+        public override void UpdateSet(BaseBossConfigurations newSet)
         {
             base.UpdateSet(newSet);
             _logic.Set = curSet.LittleBossMovement;

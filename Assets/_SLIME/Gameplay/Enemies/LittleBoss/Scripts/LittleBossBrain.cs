@@ -37,7 +37,7 @@ namespace _SLIME.LittleBoss
                 state.Init(this);
         }
 
-        private void UpdateSettings(BaseBossSettings newSettings)
+        private void UpdateSettings(BaseBossConfigurations newSettings)
         {
             if(!enableSetChange) return;
             foreach (var state in animator.GetBehaviours<LittleBossBaseState>())
