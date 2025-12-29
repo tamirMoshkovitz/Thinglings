@@ -9,7 +9,7 @@ using UnityEngine.Splines;
 namespace _SLIME.LittleBoss
 {
     [Serializable]
-    public struct LittleBossAttackSettings
+    public struct LittleBossMovementSettings
     {
         [Header("Animation Settings")] 
         public float duration;
@@ -20,26 +20,27 @@ namespace _SLIME.LittleBoss
         public bool useRefinedRotation;
         public Vector3 startRotation;
         public Vector3 endRotation;
-            
-        
-        [Tooltip("How many spells the littleBoss will create during the attack")]
-        public int spellsToCast;
-        
-        [Tooltip("How long will it take for a spell to spawn")]
-        public float spawnInterval;
-        
-        [Tooltip("Life time of the spell in seconds")]
-        public float spellLifeTime;
-        
     }
     
-    public class LittleBossMovementLogic : ProjectMonoBehavior
+    
+    [Serializable]
+    public struct LittleBossMovementRef
+    {
+        public SplineAnimate splineAnimate;
+        public BaseBossSettings bossSettings;
+    }
+    
+    public class LittleBossMovementLogic 
     {
         [Header("References")] 
         [SerializeField] private SplineAnimate splineAnimate;
         [SerializeField] private BaseBossSettings bossSettings;
 
-        private LittleBossAttackSettings _set;
+        private LittleBossMovementSettings _set;
+
+        public LittleBossMovementLogic()
+        {
+        }
 
         public void Start()
         {
