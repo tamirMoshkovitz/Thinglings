@@ -9,10 +9,13 @@ namespace _SLIME.Slime
         private static readonly int Heal = Animator.StringToHash("Heal");
         private static readonly int Hit = Animator.StringToHash("Hit");
         private Animator _animator;
+        private readonly Renderer _renderer;
 
-        public SlimeAnimatorController(Animator animator)
+        public SlimeAnimatorController(Animator animator,
+            Renderer renderer)
         {
             _animator = animator;
+            _renderer = renderer;
         }
 
         public void Update(bool isMoving, bool isStraining)
@@ -28,6 +31,8 @@ namespace _SLIME.Slime
 
         public void SetHit()
         {
+            _renderer.material.color = Color.black; 
+            // TODO: the upper line will be removed when we have animation of death
             _animator.SetTrigger(Hit);
             _animator.SetBool(IsStraining, false);
         }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LaserPreformBehaviour : StateMachineBehaviour
 {
-    [SerializeField] private BaseBossSettings bossSettings;
+    [FormerlySerializedAs("bossSettings")] [SerializeField] private BaseBossConfigurations bossConfigurations;
     private static readonly int ExitLaser = Animator.StringToHash("ExitLaser");
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -13,9 +13,9 @@ public class LaserPreformBehaviour : StateMachineBehaviour
         if (logic != null)
         {
             logic.PlayRotation(
-                bossSettings.LaserAttack.rotationCurve,
-                bossSettings.LaserAttack.rotationDuration,
-                bossSettings.LaserAttack.totalLoops
+                bossConfigurations.LaserAttack.rotationCurve,
+                bossConfigurations.LaserAttack.rotationDuration,
+                bossConfigurations.LaserAttack.totalLoops
             );
         }
     }

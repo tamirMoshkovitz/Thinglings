@@ -50,11 +50,11 @@ namespace _SLIME.Boss
 
         private IEnumerator SmashRoutine(Animator animator)
         {
-            for (int i = 0; i < Data.bossSettings.HandsAttack.totalHandsToUse; i++)
+            for (int i = 0; i < Data.bossConfigurations.HandsAttack.totalHandsToUse; i++)
             {
                 _activeHands.Clear();
 
-                if (Data.bossSettings.HandsAttack.useBothHands)
+                if (Data.bossConfigurations.HandsAttack.useBothHands)
                 {
                     AddRandomHand(_leftHands);
                     AddRandomHand(_rightHands);
@@ -67,19 +67,19 @@ namespace _SLIME.Boss
 
                 foreach (var hand in _activeHands)
                 {
-                    hand.Activate(Data.bossSettings.HandsAttack.handAttackDuration);
+                    hand.Activate(Data.bossConfigurations.HandsAttack.handAttackDuration);
                 }
 
-                yield return new WaitForSeconds(Data.bossSettings.HandsAttack.handAttackDuration);
+                yield return new WaitForSeconds(Data.bossConfigurations.HandsAttack.handAttackDuration);
 
                 foreach (var hand in _activeHands)
                 {
                     hand.Deactivate();
                 }
 
-                if (i < Data.bossSettings.HandsAttack.totalHandsToUse - 1)
+                if (i < Data.bossConfigurations.HandsAttack.totalHandsToUse - 1)
                 {
-                    yield return new WaitForSeconds(Data.bossSettings.HandsAttack.handCooldown);
+                    yield return new WaitForSeconds(Data.bossConfigurations.HandsAttack.handCooldown);
                 }
             }
 

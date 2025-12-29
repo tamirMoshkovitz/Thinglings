@@ -23,7 +23,7 @@ namespace _SLIME.Boss
                 // 2. Setup Timer
                 _timer = 0f;
                 // Calculate total duration needed
-                _duration = Data.bossSettings.LaserAttack.rotationDuration + 1f;
+                _duration = Data.bossConfigurations.LaserAttack.rotationDuration + 1f;
             }
         }
 

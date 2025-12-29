@@ -115,6 +115,7 @@ namespace _SLIME.Slime
 
         public void Update()
         {
+            if(_slimeSide.IsDead) return;
             float addedEnergy = DOVirtual.EasedValue(_shootingSetting.minAddedEnergyPerFrame, 
                 _shootingSetting.maxAddedEnergyPerFrame, _currentEnergy, _shootingSetting.EnergyAddTween.easeType );
             _currentEnergy = Mathf.Min(SlimeSideShootingSettings.MaxPossibleEnergy, 
@@ -123,6 +124,7 @@ namespace _SLIME.Slime
                 0f, 1f, _currentEnergy, _shootingSetting.ColorTween.easeType);
             HSVColor color = HSVColor.LerpMulti(easedT, _shootingSetting.EnergyColors.ToArray());
             _shootingReqComponents.renderer.material.color = color.ToRGB();
+            
         }
 
         public void OnShoot(InputAction.CallbackContext context)
