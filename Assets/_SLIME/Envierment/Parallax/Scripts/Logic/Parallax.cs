@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,31 +8,32 @@ public enum ParallaxLayers
     Layer2,
     Layer3,
     Layer4,
-    Layer5
+    Layer5,
+    Boss
 }
-
 public class Parallax : MonoBehaviour
 {
     [Header("Player Transforms")]
     [SerializeField] private List<Transform> players;
     
     [Header("Art Configurations")]
-    [Tooltip("Reference to the ArtConfigurations ScriptableObject")]
     [SerializeField] private ArtConfigurations artConfigurations;
     
     [Header("Parallax Layer Selection")]
-    [Tooltip("Select which parallax layer this object belongs to")]
     [SerializeField] private ParallaxLayers parallaxLayer;
 
-    private float _startObjX;
-    private float _startPlayersX;
-    private float _currentVelocity;
+    private Vector3 _startObjPos;
+    private Vector2 _startPlayersPos;
+    
+    private float _currentVelocityX;
+    private float _currentVelocityY;
+    
     private ArtConfigurations.ParallaxSettings _currentSettings;
 
     private void Start()
     {
-        _startObjX = transform.position.x;
-        _startPlayersX = GetPlayersCenterX();
+        _startObjPos = transform.position;
+        _startPlayersPos = GetPlayersCenter();
         _currentSettings = artConfigurations.GetSettings(parallaxLayer);
     }
 
@@ -39,47 +41,54 @@ public class Parallax : MonoBehaviour
     {
         if (players == null || players.Count == 0) return;
 
-        float currentPlayersX = GetPlayersCenterX();
-        
-        float playerDistMoved = currentPlayersX - _startPlayersX;
+        Vector2 currentPlayersPos = GetPlayersCenter();
+        Vector2 playerDistMoved = currentPlayersPos - _startPlayersPos;
 
-        float rawOffset = playerDistMoved * _currentSettings.sensitivity;
-        
-        float clampedOffset = Mathf.Clamp(rawOffset, -_currentSettings.maxShift, _currentSettings.maxShift);
+        float rawOffsetX = playerDistMoved.x * _currentSettings.sensitivityX;
+        float clampedOffsetX = Mathf.Clamp(rawOffsetX, -_currentSettings.maxShiftX, _currentSettings.maxShiftX);
+        float targetX = _startObjPos.x + clampedOffsetX;
 
-        float targetX = _startObjX + clampedOffset;
+        float rawOffsetY = playerDistMoved.y * _currentSettings.sensitivityY;
+        float clampedOffsetY = Mathf.Clamp(rawOffsetY, -_currentSettings.maxShiftY, _currentSettings.maxShiftY);
+        float targetY = _startObjPos.y + clampedOffsetY;
 
-        float newX = Mathf.SmoothDamp(transform.position.x, targetX, ref _currentVelocity, _currentSettings.smoothing);
+        float newX = Mathf.SmoothDamp(transform.position.x, targetX, ref _currentVelocityX, _currentSettings.smoothing);
+        float newY = Mathf.SmoothDamp(transform.position.y, targetY, ref _currentVelocityY, _currentSettings.smoothing);
 
-        transform.position = new Vector3(newX, transform.position.y, transform.position.z);
+        transform.position = new Vector3(newX, newY, transform.position.z);
     }
 
-    private float GetPlayersCenterX()
+    private Vector2 GetPlayersCenter()
     {
-        if (players.Count == 0) return 0f;
+        if (players.Count == 0) return Vector2.zero;
 
-        float totalX = 0f;
+        Vector2 totalPos = Vector2.zero;
         int activeCount = 0;
 
         foreach (var p in players)
         {
             if (!p || !p.gameObject.activeSelf) continue;
-            totalX += p.position.x;
+            totalPos.x += p.position.x;
+            totalPos.y += p.position.y;
             activeCount++;
         }
-        return activeCount > 0 ? totalX / activeCount : _startPlayersX;
+        return activeCount > 0 ? totalPos / activeCount : _startPlayersPos;
     }
-    
-    // Uncomment to see boundries
-    
-    // private void OnDrawGizmosSelected()
-    // {
-    //     if (!Application.isPlaying) _startObjX = transform.position.x;
-    //     
-    //     Gizmos.color = Color.yellow;
-    //     Gizmos.DrawLine(
-    //         new Vector3(_startObjX - _currentSettings.maxShift, transform.position.y, transform.position.z),
-    //         new Vector3(_startObjX + _currentSettings.maxShift, transform.position.y, transform.position.z)
-    //     );
-    // }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (artConfigurations == null) return;
+        var settings = Application.isPlaying ? _currentSettings : artConfigurations.GetSettings(parallaxLayer);
+        if (settings == null) return;
+
+        Vector3 center = Application.isPlaying ? _startObjPos : transform.position;
+        
+        Gizmos.color = new Color(1, 0.92f, 0.016f, 0.4f);
+        
+        Vector3 size = new Vector3(settings.maxShiftX * 2, settings.maxShiftY * 2, 0.1f);
+        Gizmos.DrawCube(center, size);
+        
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(center, size);
+    }
 }

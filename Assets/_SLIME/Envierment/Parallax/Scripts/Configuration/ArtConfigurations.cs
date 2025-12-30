@@ -1,23 +1,33 @@
 using System;
 using _SLIME.BaseScripts;
 using UnityEngine;
+using UnityEngine.Serialization; // Required to save your old data
 
 [CreateAssetMenu(fileName = "ArtConfig", menuName = "ArtConfigurations")]
 public class ArtConfigurations : TabbedScriptableObject
 {
-    // CHANGE 1: Change 'struct' to 'class'
     [Serializable]
     public class ParallaxSettings 
     {
-        [Tooltip("The absolute maximum distance this object can move from its start position.")]
-        public float maxShift = 2.0f;
+        [Header("Horizontal (X)")]
+        [Tooltip("Max distance X can move.")]
+        public float maxShiftX = 5.0f;
 
-        [Tooltip("How sensitive the movement is. Lower = Slower reaction.")]
+        [Tooltip("1.0 = Moves with player")]
+        [Range(0, 1.0f)]
+        public float sensitivityX = 0.5f;
+
+        [Header("Vertical (Y)")]
+        [Tooltip("Max distance Y can move. Keeps smaller than X")]
+        public float maxShiftY = 0.5f;
+
+        [Tooltip("Vertical sensitivity. 1.0 = Moves with player, keep lower")]
         [Range(0, 0.5f)]
-        public float sensitivity = 0.05f;
+        public float sensitivityY = 0.1f;
     
-        [Tooltip("Smoothing factor for the movement. Higher = Smoother.")]
-        [Range(0f, 1f)]
+        [Header("General")]
+        [Tooltip("Smoothing factor for movement, higher is smoother.")]
+        [Range(0f, 0.5f)]
         public float smoothing = 0.1f;
     }
 
@@ -41,6 +51,10 @@ public class ArtConfigurations : TabbedScriptableObject
     [Header("Layer 5 (Back)")]
     [SerializeField] private ParallaxSettings parallaxLayer5 = new ParallaxSettings();
     
+    [Tab("Parallax")]
+    [Header("Boss Layer")]
+    [SerializeField] private ParallaxSettings parallaxBossLayer = new ParallaxSettings();
+    
     public ParallaxSettings GetSettings(ParallaxLayers layer)
     {
         switch (layer)
@@ -50,6 +64,7 @@ public class ArtConfigurations : TabbedScriptableObject
             case ParallaxLayers.Layer3: return parallaxLayer3;
             case ParallaxLayers.Layer4: return parallaxLayer4;
             case ParallaxLayers.Layer5: return parallaxLayer5;
+            case ParallaxLayers.Boss: return parallaxBossLayer;
             default: return parallaxLayer1;
         }
     }
