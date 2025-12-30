@@ -16,7 +16,7 @@ MonoBehaviour:
     isConnectedAtStart: 1
     moveSpeed: 20
     maxHealth: 100
-    breakForce: 60
+    breakForce: 75
     connectionFrequency: 0.5
     connectionDampingRatio: 0.5
   LineDefaultSettings:
@@ -1192,6 +1192,16 @@ MonoBehaviour:
           weightedMode: 0
           inWeight: 0
           outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    maxFireRate: 0
+    minFireRate: 0
+    FireRateTween:
+      easeType: 0
+      curve:
+        serializedVersion: 2
+        m_Curve: []
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
