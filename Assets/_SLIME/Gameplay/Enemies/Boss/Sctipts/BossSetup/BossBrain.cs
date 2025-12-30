@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
+using _SLIME.Slime;
 using _SLIME.UI;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -42,8 +44,11 @@ namespace _SLIME.Boss
         [Header("Laser Attack Setup")] 
         public GameObject laserAttackGameObject;
 
+        
+
         void Start()
         {
+            SlimeEvents.AddTarget(bossCloseCollider.transform);
             if (!mainCamera) mainCamera = Camera.main;
             currentHealth = bossConfigurations.CoreSettings.maxHealth;
 

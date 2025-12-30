@@ -80,13 +80,16 @@ namespace _SLIME.Boss
         [SerializeField] private LittleBossMovementSettings littleBossMovementSettings;
         [Tab("Little Boss Settings")]
         [SerializeField] private LittleBossSpellAttackSettings littleBossSpellAttackSettings;
-
+        [Tab("Little Boss Settings")]
+        [SerializeField]private LittleBossHealthSet littleBossHealthSettings;
 
     
         [Tab("Boss Core Settings")]
         [SerializeField] private BossCoreSettings bossCoreSettings;
-    
-    
+
+        
+
+
         public HandsAttackSettings HandsAttack => handsAttackSettings;
         public SpawnAttackSettings SpawnAttack => spawnAttackSettings;
         public LaserAttackSettings LaserAttack => laserAttackSettings;
@@ -94,5 +97,6 @@ namespace _SLIME.Boss
         public LittleBossMovementSettings LittleBossMovement => littleBossMovementSettings;
         public LittleBossSpellAttackSettings LittleBossSpellAttack => littleBossSpellAttackSettings;
         public BossCoreSettings CoreSettings => bossCoreSettings;
+        public LittleBossHealthSet LittleBossHealth => littleBossHealthSettings;
     }
 }

@@ -25,10 +25,8 @@ namespace _SLIME.LittleBoss
             }
         }
 
-        public virtual void UpdateSet(BaseBossConfigurations newSet)
-        {
-            curSet = newSet;
-        }
+        public virtual void UpdateSet(BaseBossConfigurations newSet) { curSet = newSet; }
+        public static void ClearStates() { states.Clear(); }
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
@@ -41,5 +39,7 @@ namespace _SLIME.LittleBoss
             base.OnStateExit(animator, stateInfo, layerIndex);
             Logic.EndLogic();
         }
+
+        public void OnDestroy() { Logic.EndLogic(); }
     }
 }

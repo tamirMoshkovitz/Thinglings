@@ -90,6 +90,7 @@ namespace _SLIME.Slime
     
     public class SlimeSideShooting
     {
+        private List<Transform> targets = new List<Transform>();
         private readonly SlimeSide _slimeSide;
         private readonly SlimeSideShootingSettings _shootingSetting;
         private readonly SlimeSideShootingReqComponents _shootingReqComponents;
@@ -111,6 +112,13 @@ namespace _SLIME.Slime
                 _shootingSetting.maxAddedEnergyPerFrame = _shootingSetting.minAddedEnergyPerFrame;
                 Debug.LogWarning("maxAddedEnergyPerFrame was lower than minAddedEnergyPerFrame");
             }
+
+            SlimeEvents.AddTarget += AddTarget;
+        }
+
+        public void AddTarget(Transform target)
+        {
+            targets.Add(target);
         }
 
         public void Update()
@@ -141,7 +149,7 @@ namespace _SLIME.Slime
             float turnSmoothness = DOVirtual.EasedValue(_shootingSetting.minTurnSmoothnes, 
                 _shootingSetting.maxTurnSmoothnes, _currentEnergy, _shootingSetting.turnSmoothnesTween.easeType );
             bullet.Activate(new BulletInitData(
-                _shootingReqComponents.target,
+                GetClosestTarget(_slimeSide.Position),
                 _slimeSide.Position,
                 speed,
                 _shootingSetting.buffer,
@@ -149,8 +157,28 @@ namespace _SLIME.Slime
                 turnSmoothness,
                 damage
                 ));
-            
-            
+        }
+        
+        
+        private Transform GetClosestTarget(Vector3 currentPos)
+        {
+            Transform bestTarget = null;
+            float closestDistanceSqr = Mathf.Infinity; 
+            foreach (Transform potentialTarget in targets)
+            {
+                float dSqrToTarget = (potentialTarget.position - currentPos).sqrMagnitude;
+                if (dSqrToTarget < closestDistanceSqr)
+                {
+                    closestDistanceSqr = dSqrToTarget;
+                    bestTarget = potentialTarget;
+                }
+            }
+            return bestTarget;
+        }
+
+        public void OnDisable()
+        {
+            SlimeEvents.AddTarget -= AddTarget;
         }
     }
 }

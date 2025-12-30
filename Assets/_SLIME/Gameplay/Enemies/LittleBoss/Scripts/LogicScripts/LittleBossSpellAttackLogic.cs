@@ -8,7 +8,7 @@ namespace _SLIME.LittleBoss
     [Serializable]
     public struct LittleBossSpellAttackSettings
     {
-            
+        
     }
     
     
@@ -16,7 +16,7 @@ namespace _SLIME.LittleBoss
     public struct LittleBossSpellAttackRef
     {
         public Transform littleBossTransform;
-        public Transform[] targets;
+        public GameObject spellPrefab;
     }
     
     public class LittleBossSpellAttackLogic: LittleBossBaseLogic

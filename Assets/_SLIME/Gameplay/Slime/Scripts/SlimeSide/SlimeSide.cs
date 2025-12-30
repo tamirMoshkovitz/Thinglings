@@ -78,6 +78,7 @@ namespace _SLIME.Slime
         {
             _movement.OnDisable();
             _health.OnDisable();
+            _shooter.OnDisable();
         }
         
         public void Update()

@@ -1,6 +1,7 @@
 using System;
 using _SLIME.BaseScripts;
 using _SLIME.Boss;
+using _SLIME.Slime;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -23,7 +24,7 @@ namespace _SLIME.LittleBoss
         
         [Header("General References")]
         [SerializeField] private Animator animator;
-        
+        [SerializeField] private Transform hitPoint;
         [Header("State References")]
         [SerializeField] private LittleBossStatesRef reference;
         
@@ -33,6 +34,7 @@ namespace _SLIME.LittleBoss
         // public LittleBossHealthRef HealthRef => reference.healthRef;
         void Start()
         {
+            SlimeEvents.AddTarget(hitPoint);
             foreach (var state in animator.GetBehaviours<LittleBossBaseState>())
                 state.Init(this);
         }
@@ -43,6 +45,12 @@ namespace _SLIME.LittleBoss
             foreach (var state in animator.GetBehaviours<LittleBossBaseState>())
                 state.UpdateSet(newSettings);
         }
-        
+
+        private void OnDestroy()
+        {
+            LittleBossBaseState.ClearStates();
+            foreach (var state in animator.GetBehaviours<LittleBossBaseState>())
+                state.OnDestroy();
+        }
     }
 }
