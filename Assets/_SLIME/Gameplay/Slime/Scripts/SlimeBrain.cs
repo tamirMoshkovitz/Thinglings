@@ -197,6 +197,8 @@ namespace _SLIME.Slime
 
         private void SwitchSlimeSides()
         {
+            if (_rightSide.IsDead || _leftSide.IsDead) return;
+            
             (_leftSide, _rightSide) = (_rightSide, _leftSide);
         }
         
