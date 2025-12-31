@@ -10,37 +10,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7ed8bd0cc333224fad8e4cf88f45d50, type: 3}
-  m_Name: ArtConfigurations 1
+  m_Name: ArtConfigurations 2
   m_EditorClassIdentifier: Assembly-CSharp::ArtConfigurations
   parallaxLayer1:
     maxShiftX: 15
-    sensitivityX: -0.04
+    sensitivityX: -0.25
     maxShiftY: 0.5
-    sensitivityY: 0.1
+    sensitivityY: -0.1
     smoothing: 0.01
   parallaxLayer2:
-    maxShiftX: 0.5
-    sensitivityX: -0.1
+    maxShiftX: 5
+    sensitivityX: -0.175
     maxShiftY: 2.32
-    sensitivityY: 0.1
+    sensitivityY: -0.1
     smoothing: 0.15
   parallaxLayer3:
     maxShiftX: 5
     sensitivityX: -0.125
     maxShiftY: 0.5
-    sensitivityY: 0.1
+    sensitivityY: -0.1
     smoothing: 0.05
   parallaxLayer4:
     maxShiftX: 5
-    sensitivityX: -0.175
+    sensitivityX: -0.1
     maxShiftY: 0.5
-    sensitivityY: 0.1
+    sensitivityY: -0.1
     smoothing: 0.1
   parallaxLayer5:
     maxShiftX: 15
-    sensitivityX: -0.25
+    sensitivityX: -0.04
     maxShiftY: 0.5
-    sensitivityY: 0.1
+    sensitivityY: -0.1
     smoothing: 0.125
   parallaxBossLayer:
     maxShiftX: 10

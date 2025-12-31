@@ -14,7 +14,7 @@ public class ArtConfigurations : TabbedScriptableObject
         public float maxShiftX = 5.0f;
 
         [Tooltip("1.0 = Moves with player")]
-        [Range(0, 1.0f)]
+        [Range(-1.0f, 1.0f)]
         public float sensitivityX = 0.5f;
 
         [Header("Vertical (Y)")]
@@ -22,7 +22,7 @@ public class ArtConfigurations : TabbedScriptableObject
         public float maxShiftY = 0.5f;
 
         [Tooltip("Vertical sensitivity. 1.0 = Moves with player, keep lower")]
-        [Range(0, 0.5f)]
+        [Range(-0.5f, 0.5f)]
         public float sensitivityY = 0.1f;
     
         [Header("General")]
