@@ -29,17 +29,35 @@ MonoBehaviour:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 0
-        outSlope: 0
+        inSlope: 0.11204482
+        outSlope: 0.11204482
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
-        outWeight: 0
+        outWeight: 0.34100455
+      - serializedVersion: 3
+        time: 0.6731589
+        value: 0.33547437
+        inSlope: 1.1129844
+        outSlope: 1.1129844
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.862288
+        value: 0.659469
+        inSlope: 1.553316
+        outSlope: 1.553316
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.4147413
+        outWeight: 0.7967811
       - serializedVersion: 3
         time: 1
         value: 1
-        inSlope: 0
-        outSlope: 0
+        inSlope: 2
+        outSlope: 2
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
@@ -47,7 +65,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    rotationDuration: 10
-    totalLoops: 3
+    rotationDuration: 12
+    totalLoops: 2
   bossCoreSettings:
     maxHealth: 1000
