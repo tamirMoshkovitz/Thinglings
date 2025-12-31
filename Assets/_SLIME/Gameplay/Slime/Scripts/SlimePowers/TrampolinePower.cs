@@ -1,4 +1,5 @@
 
+using _SLIME.Gameplay.Projectiles.Brick.Scripts;
 using _SLIME.Projectiles;
 
 using UnityEngine;
@@ -44,9 +45,9 @@ namespace _SLIME.Slime
             float stretchForce = _slimeData.StretchRatio * .75f + .25f;
             projectileRb.AddForce(direction * power * stretchForce, ForceMode2D.Impulse);
 
-            if (projectileGo.TryGetComponent(typeof(BrickBehavior), out Component brickBehavior))
+            if (projectileGo.TryGetComponent(typeof(Spell), out Component spell))
             {
-                ((BrickBehavior)brickBehavior).Shoot(stretchForce);
+                ((Spell)spell).Shoot(stretchForce);
             }
             SlimeEvents.TrampolineActivated();
         }
