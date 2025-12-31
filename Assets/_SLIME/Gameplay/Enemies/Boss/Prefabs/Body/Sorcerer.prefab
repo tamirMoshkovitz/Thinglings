@@ -809,7 +809,7 @@ Transform:
   m_GameObject: {fileID: 2775281664255911021}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.12, y: 3.73, z: 0}
+  m_LocalPosition: {x: 0.109999895, y: 4.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1202,7 +1202,7 @@ Transform:
   m_GameObject: {fileID: 3699198049871394263}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.03627777, y: -0.059846878, z: 0}
+  m_LocalPosition: {x: 0.03627777, y: -0.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1419,13 +1419,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d873abedb8e0d46a7df483545a42ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HitFlashEffect
-  _bossCloseObjects:
-  - {fileID: 1813331546449406860}
-  _bossFarObjects:
-  - {fileID: 1813331546449406860}
-  - {fileID: 2775281664255911021}
-  _damageMaterial: {fileID: 2100000, guid: d631a03b2dbd5fc4c832d5c13dec98b9, type: 2}
+  _closeStateParents: []
+  _farStateParents: []
+  _flashColor: {r: 1, g: 1, b: 1, a: 1}
+  _shaderPropertyName: _Flash
   _flashDuration: 0.2
+  _maxIntensity: 5
 --- !u!1 &4661568311126601736
 GameObject:
   m_ObjectHideFlags: 0
@@ -1916,7 +1915,7 @@ Transform:
   m_GameObject: {fileID: 7576844204148976413}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.06, y: -1.74, z: 0}
+  m_LocalPosition: {x: -0.12, y: -1.93, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
