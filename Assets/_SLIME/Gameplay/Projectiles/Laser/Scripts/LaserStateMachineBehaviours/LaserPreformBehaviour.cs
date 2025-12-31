@@ -32,14 +32,6 @@ namespace _SLIME.Laser
                 animator.SetTrigger(ExitLaser);
             }
         }
-
-        override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        {
-            var logic = animator.GetComponent<LaserAttackLogic>();
-            if (logic != null)
-            {
-                logic.StopRotation();
-            }
-        }
+        
     }
 }

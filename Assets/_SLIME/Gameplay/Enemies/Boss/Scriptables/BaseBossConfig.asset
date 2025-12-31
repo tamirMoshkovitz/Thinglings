@@ -19,8 +19,8 @@ MonoBehaviour:
     useBothHands: 0
   spawnAttackSettings:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
-    spellsToCast: 3
-    spawnInterval: 1
+    spellsToCast: 5
+    spawnInterval: 2
     spellLifeTime: 5
   laserAttackSettings:
     rotationCurve:
@@ -65,7 +65,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    rotationDuration: 12
-    totalLoops: 2
+    rotationDuration: 10
+    totalLoops: 1
   bossCoreSettings:
     maxHealth: 1000

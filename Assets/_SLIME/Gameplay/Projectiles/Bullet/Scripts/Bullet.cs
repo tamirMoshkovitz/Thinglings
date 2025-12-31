@@ -118,7 +118,6 @@ namespace _SLIME.Projectiles
             if (rig && rig.TryGetComponent<IHealth>(out IHealth h))
             {
                 h.TakeDamage((float)System.Math.Round(_data.damage, 2));
-                GameEvents.EnemyGotBricked?.Invoke(); //TODO: FIGURE OUT
             }
         
             // Move bullet off-screen and return to pool

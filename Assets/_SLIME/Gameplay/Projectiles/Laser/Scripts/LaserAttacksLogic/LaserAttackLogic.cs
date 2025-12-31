@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
@@ -11,6 +12,14 @@ namespace _SLIME.Laser
     
         [SerializeField] List<GameObject> laserCollidersGameObjects;
         public bool IsRotating { get; private set; }
+        
+        public bool HasFinishedAction { get; set;}
+        
+        private void OnDisable()
+        {
+            HasFinishedAction = false;
+        }
+
         public void PlayRotation(AnimationCurve rotationCurve, float rotationDuration, int totalLoops)
         {
             StopRotation();

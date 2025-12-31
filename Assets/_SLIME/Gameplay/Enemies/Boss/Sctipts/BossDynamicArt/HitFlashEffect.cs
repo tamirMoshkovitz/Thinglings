@@ -1,41 +1,42 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using _SLIME.BaseScripts;
 using _SLIME.GameLoop;
-
+// using _SLIME.Boss.States; 
 
 namespace _SLIME.Boss
 {
     public class HitFlashEffect : ProjectMonoBehavior
     {
-        [Header("Settings")]
-        [Tooltip("The Renderer to flash. If empty, it grabs the one on this object.")]
-        [SerializeField]
-        private Renderer _targetRenderer;
+        [Header("Target Groups")]
+        [Tooltip("Assign the parent GameObject for the Boss's 'Close' form here.")]
+        [SerializeField] private List<GameObject> _closeStateParents = new List<GameObject>();
 
-        [Tooltip("The exact name of the property in your Shader Graph (e.g. '_Flash', 'Flash', or '_HitColor')")]
-        [SerializeField]
-        private string _shaderPropertyName = "_Flash";
+        [Tooltip("Assign the parent GameObject for the Boss's 'Far' form here.")]
+        [SerializeField] private List<GameObject> _farStateParents = new List<GameObject>();
 
+        [Header("Effect Settings")]
+        [Tooltip("The color of the flash. Set to White for a standard brightness flash.")]
+        [SerializeField] private Color _flashColor = Color.white; // Added this to control color
+        [SerializeField] private string _shaderPropertyName = "_Flash";
         [SerializeField] private float _flashDuration = 0.2f;
         [SerializeField] private float _maxIntensity = 5f;
 
+        // We store Renderers now, not Materials
+        private List<Renderer> _closeRenderers = new List<Renderer>();
+        private List<Renderer> _farRenderers = new List<Renderer>();
+
         private int _flashPropertyID;
         private Coroutine _flashRoutine;
-        private Material _materialInstance;
 
         private void Awake()
         {
-            // Auto-grab renderer if not assigned
-            if (_targetRenderer == null)
-                _targetRenderer = GetComponent<Renderer>();
-
-            // Cache the shader ID for performance (much faster than using strings)
             _flashPropertyID = Shader.PropertyToID(_shaderPropertyName);
-
-            // We act on the material instance so we don't change the asset file
-            if (_targetRenderer != null)
-                _materialInstance = _targetRenderer.material;
+            
+            // Populate the renderer lists once at startup
+            GetRenderersFromParents(_closeStateParents, _closeRenderers);
+            GetRenderersFromParents(_farStateParents, _farRenderers);
         }
 
         private void OnEnable()
@@ -46,41 +47,92 @@ namespace _SLIME.Boss
         private void OnDisable()
         {
             GameEvents.EnemyGotBricked -= TriggerFlash;
+            ResetFlash();
+        }
+
+        private void GetRenderersFromParents(List<GameObject> parents, List<Renderer> targetList)
+        {
+            foreach (var parent in parents)
+            {
+                if (parent != null)
+                {
+                    targetList.AddRange(parent.GetComponentsInChildren<Renderer>(true));
+                }
+            }
         }
 
         public void TriggerFlash()
         {
-            if (_targetRenderer == null || _materialInstance == null) return;
-
-            // Stop any currently running flash so they don't fight
             if (_flashRoutine != null) StopCoroutine(_flashRoutine);
+            
+            ResetFlash();
+            
+            List<Renderer> activeRenderers = null;
 
-            _flashRoutine = StartCoroutine(FlashRoutine());
+            if (BossBrain._bossState is BossStates.CloseState)
+            {
+                activeRenderers = _closeRenderers;
+            }
+            else if (BossBrain._bossState is BossStates.FarState)
+            {
+                activeRenderers = _farRenderers;
+            }
+
+            if (activeRenderers != null && activeRenderers.Count > 0)
+            {
+                _flashRoutine = StartCoroutine(FlashRoutine(activeRenderers));
+            }
         }
 
-        private IEnumerator FlashRoutine()
+        private IEnumerator FlashRoutine(List<Renderer> targets)
         {
             float timer = 0f;
 
             while (timer < _flashDuration)
             {
                 timer += Time.deltaTime;
-
-                // Fade from Max Intensity down to 0
                 float currentVal = Mathf.Lerp(_maxIntensity, 0f, timer / _flashDuration);
+                
+                Color finalColor = _flashColor * currentVal; 
 
-                // Construct the vector (Assuming Red channel controls the flash)
-                Vector3 flashVector = new Vector3(currentVal, 0, 0);
-
-                _materialInstance.SetVector(_flashPropertyID, flashVector);
+                foreach (var r in targets)
+                {
+                    if (r)
+                    {
+                        r.material.SetVector(_flashPropertyID, finalColor);
+                    }
+                }
 
                 yield return null;
             }
 
-            // Ensure we finish cleanly at exactly 0
-            _materialInstance.SetVector(_flashPropertyID, Vector3.zero);
+            // Clean up: Reset to 0 (Black/No emission)
+            foreach (var r in targets)
+            {
+                if (r)
+                {
+                    r.material.SetVector(_flashPropertyID, Vector3.zero);
+                }
+            }
+
             _flashRoutine = null;
         }
-    }
 
+        private void ResetFlash()
+        {
+            ResetRenderers(_closeRenderers);
+            ResetRenderers(_farRenderers);
+        }
+
+        private void ResetRenderers(List<Renderer> list)
+        {
+            foreach (var r in list)
+            {
+                if (r != null)
+                {
+                    r.material.SetVector(_flashPropertyID, Vector3.zero);
+                }
+            }
+        }
+    }
 }
