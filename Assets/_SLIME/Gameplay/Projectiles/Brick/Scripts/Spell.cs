@@ -67,7 +67,7 @@ namespace _SLIME.Gameplay.Projectiles.Brick.Scripts
             Collider2D[] colliders = GetComponentsInChildren<Collider2D>();
             foreach (Collider2D childCollider in colliders)
             {
-                childCollider.enabled = false;
+                // childCollider.enabled = false; // TODO: fix this to work correctly
             }
         }
     }
