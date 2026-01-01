@@ -76,13 +76,16 @@ namespace _SLIME.Slime
     public struct SlimeSideShootingReqComponents
     {
         public Renderer renderer;
-        public Transform target;
+        public Transform far;
         public BulletMonoPool pool;
+        public Transform close;
 
-        public SlimeSideShootingReqComponents(Renderer renderer, Transform target, BulletMonoPool pool)
+        public SlimeSideShootingReqComponents(Renderer renderer, Transform farHitPoint, Transform closeHitPoint,
+            BulletMonoPool pool)
         {
             this.renderer = renderer;
-            this.target = target;
+            this.far = farHitPoint;
+            this.close = closeHitPoint;
             this.pool = pool;
         }
     }
@@ -141,7 +144,8 @@ namespace _SLIME.Slime
             float turnSmoothness = DOVirtual.EasedValue(_shootingSetting.minTurnSmoothnes, 
                 _shootingSetting.maxTurnSmoothnes, _currentEnergy, _shootingSetting.turnSmoothnesTween.easeType );
             bullet.Activate(new BulletInitData(
-                _shootingReqComponents.target,
+                _shootingReqComponents.far.gameObject.activeSelf ?
+                    _shootingReqComponents.far : _shootingReqComponents.close ,
                 _slimeSide.Position,
                 speed,
                 _shootingSetting.buffer,

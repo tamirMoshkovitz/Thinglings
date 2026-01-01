@@ -5,6 +5,7 @@ using _SLIME.GameLoop;
 using _SLIME.Projectiles;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 
 namespace _SLIME.Slime
@@ -32,6 +33,8 @@ namespace _SLIME.Slime
         
         [Header("Slime Shooting")]
         [SerializeField] private Transform bossHitPoint;
+         [SerializeField] private Transform bossHitPointEyeRight;
+         [SerializeField] private Transform bossHitPointEyeLeft;
         [SerializeField] private BulletMonoPool bulletPool;
         
         [Header("Feel Manager Settings")]
@@ -124,7 +127,7 @@ namespace _SLIME.Slime
                 rightSideHitPoint,
                 _slimeData,
                 slimeConfiguration.shootingSettings,
-                new SlimeSideShootingReqComponents(slimeRightSideRenderer, bossHitPoint, bulletPool)
+                new SlimeSideShootingReqComponents(slimeRightSideRenderer, bossHitPoint,bossHitPointEyeRight, bulletPool)
             ));
             _leftSide = new SlimeSide(new SlimeSide.SlimeSideFormat(
                 slimeLeftSide,
@@ -134,7 +137,7 @@ namespace _SLIME.Slime
                 leftSideHitPoint,
                 _slimeData,
                 slimeConfiguration.shootingSettings,
-                new SlimeSideShootingReqComponents(slimeLeftSideRenderer, bossHitPoint, bulletPool)
+                new SlimeSideShootingReqComponents(slimeLeftSideRenderer, bossHitPoint, bossHitPointEyeLeft, bulletPool)
             ));
             
             _slimeData.Initialize(_rightSide, _leftSide);

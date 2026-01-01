@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2609288348492558136}
   - component: {fileID: 5919803993066920245}
   - component: {fileID: 9014357927008579629}
+  - component: {fileID: 183832095708456337}
   m_Layer: 7
   m_Name: Bullet
   m_TagString: Untagged
@@ -81,7 +82,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1155970319
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.15496778, g: 1, b: 0, a: 1}
@@ -194,3 +195,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Utils.GameLogger
   _active: 0
+--- !u!114 &183832095708456337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5353834291032494717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be20678cebe84bf89392ac97ce7740aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_SLIME.DebugTools.BulletDebugger
+  bulletScript: {fileID: 5919803993066920245}
+  autoFindBullet: 1
+  targetLineColor: {r: 1, g: 0, b: 0, a: 1}
+  velocityColor: {r: 0, g: 1, b: 0, a: 1}
+  predictedTurnColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  showDataLabels: 1
+  vectorScale: 2

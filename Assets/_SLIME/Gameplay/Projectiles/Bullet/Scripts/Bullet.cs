@@ -41,6 +41,12 @@ namespace _SLIME.Projectiles
     }
     public class Bullet : ProjectMonoBehavior, IPoolable
     {
+        public BulletInitData DebugData => _data;
+        public Vector2 DebugDirection => _currentDirection;
+        public bool DebugIsActive => _active;
+        public Rigidbody2D DebugRB => rb2D;
+        
+        
         [Header("Bullet Components")]
         [Tooltip("Rigidbody2D component for physics-based movement.")]
         [SerializeField] private Rigidbody2D rb2D;
