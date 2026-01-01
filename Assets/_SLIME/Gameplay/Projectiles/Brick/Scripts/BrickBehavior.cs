@@ -23,7 +23,10 @@ namespace _SLIME.Projectiles
 
         protected override void OnCollisionEnter2D(Collision2D other)
         {
-            InitiateFastDissolve();
+            if (other.gameObject.CompareTag("Player"))
+            {
+                InitiateFastDissolve();
+            }
         }
 
         protected override void OnTriggerEnter2D(Collider2D collision)
@@ -34,7 +37,11 @@ namespace _SLIME.Projectiles
                 h.TakeDamage(damage);
                 // GameEvents.EnemyGotBricked?.Invoke(); //TODO: FIGURE OUT
             }
-            InitiateFastDissolve();
+            
+            if (!collision.gameObject.CompareTag("Player"))
+            {
+                InitiateFastDissolve();
+            }        
         }
     }
 }
