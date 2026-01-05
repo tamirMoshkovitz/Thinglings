@@ -33,10 +33,12 @@ namespace _SLIME.Slime
         
         [Header("Slime Shooting")]
         [SerializeField] private Transform bossHitPoint;
-         [SerializeField] private Transform bossHitPointEyeRight;
-         [SerializeField] private Transform bossHitPointEyeLeft;
+        [SerializeField] private Transform bossHitPointEyeRight;
+        [SerializeField] private Transform bossHitPointEyeLeft;
         [SerializeField] private BulletMonoPool bulletPool;
         
+        [Header("Slime Powers")]
+        [SerializeField] private SparkPowerDep sparkPowerDep;
         [Header("Feel Manager Settings")]
         [SerializeField] private ConrollerRumbleConfiguration controllerRumbleConfiguration;
         [SerializeField] private SlimeStretchCameraShakeConfiguration slimeStretchCameraShakeConfiguration;
@@ -52,7 +54,7 @@ namespace _SLIME.Slime
         
         private bool _isMoveLeftCancelled = true, _isMoveRightCancelled = true;
         private Coroutine _controlSwitchCoroutine;
-        
+
         public SlimeData Data => _slimeData;
         
         private void Awake()
@@ -66,6 +68,7 @@ namespace _SLIME.Slime
             _leftSide.OnEnable();
             _rightSide.OnEnable();
             _feelManager.OnEnable();
+            _slimePowers.OnEnable();
             _slimeConnections.OnEnable();
             
             SlimeEvents.SlimeTears += OnSlimeTears;
@@ -77,6 +80,7 @@ namespace _SLIME.Slime
             _rightSide.OnDisable();
             _feelManager.OnDisable();
             _slimeConnections.OnDisable();
+            _slimePowers.OnDisable();
             
             SlimeEvents.SlimeTears -= OnSlimeTears;
         }
@@ -145,7 +149,7 @@ namespace _SLIME.Slime
             _slimePowers = new SlimePowers(slimeConfiguration,new PowerComponents
             {
                 connectionsTriggerSensor = edgeColliderSensor
-            } , _slimeData);
+            } , _slimeData, sparkPowerDep);
             _slimeConnections = new SlimeConnections(slimeConfiguration,_slimeData, new ConnectionsComponents
             {
                 edgeColliderConnections = edgeColliderConnections,

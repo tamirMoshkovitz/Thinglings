@@ -39,6 +39,7 @@ namespace _SLIME.Slime
 
         public SlimeSide(SlimeSideFormat format)
         {
+            _slimeData = format.SlimeData;
             _gameObject = format.GameObject;
             _animatorController = new SlimeAnimatorController(_gameObject.GetComponent<Animator>(),
                 format.ShootingReqComponents.renderer);
@@ -53,14 +54,14 @@ namespace _SLIME.Slime
                 this,
                 format.MaxHealth,
                 format.PlayerHitPoint,
-                _animatorController
+                _animatorController,
+                _slimeData
             ));
 
             _shooter = new SlimeSideShooting(this,
                 format.ShootingSettings,
                 format.ShootingReqComponents);
 
-            _slimeData = format.SlimeData;
         }
         
         public Vector3 Position => _gameObject.transform.position;

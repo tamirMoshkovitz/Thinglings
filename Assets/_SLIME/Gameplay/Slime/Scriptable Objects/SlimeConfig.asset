@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: SlimeConfig
   m_EditorClassIdentifier: Assembly-CSharp::Player.new_scripts.SlimeConfiguration
   slimeConfigurationNormal:
-    isConnectedAtStart: 1
+    isConnectedAtStart: 0
     moveSpeed: 20
     maxHealth: 100
-    breakForce: 75
-    connectionFrequency: 0.5
+    breakForce: 200
+    connectionFrequency: 1.2
     connectionDampingRatio: 0.5
+    maxStretchTimeThreshold: 1.5
+    maxStretchPercentThreshold: 85
   LineDefaultSettings:
     linePrefab: {fileID: 7469158195929653497, guid: 8a68228252b0e442ba267d892a357a98, type: 3}
     visualResolution: 40
@@ -37,7 +39,16 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 128
     trampolinePower: 300
-  MaxConnectionsOfSlime: 4
+  SparkPowerSettings:
+    slimeProjectileLayer:
+      serializedVersion: 2
+      m_Bits: 128
+    sparkRadius: 0.1
+    sparkDamage: 4
+    enemyHitLayer:
+      serializedVersion: 2
+      m_Bits: 2048
+  MaxConnectionsOfSlime: 3
   shootingSettings:
     maxDamage: 0.4
     minDamage: 0.1

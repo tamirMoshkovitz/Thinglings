@@ -297,6 +297,8 @@ MonoBehaviour:
   top: {fileID: 7733041590448998132}
   mid: {fileID: 1779373808833057161}
   bottom: {fileID: 3673644944610253778}
+  leftJoint: {fileID: 6658917060347089250}
+  rightJoint: {fileID: 2201285653460600751}
 --- !u!58 &4994673978314764701
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1551,6 +1553,8 @@ MonoBehaviour:
   top: {fileID: 1001271511033310233}
   mid: {fileID: 7341849118402539358}
   bottom: {fileID: 1338868372334190499}
+  leftJoint: {fileID: 3489780312306140929}
+  rightJoint: {fileID: 4299045310517040959}
 --- !u!58 &6414547269506945381
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1606,6 +1610,8 @@ MonoBehaviour:
   top: {fileID: 1001271511033310233}
   mid: {fileID: 7341849118402539358}
   bottom: {fileID: 1338868372334190499}
+  leftJoint: {fileID: 3489780312306140929}
+  rightJoint: {fileID: 4299045310517040959}
 --- !u!1 &726186217929671005
 GameObject:
   m_ObjectHideFlags: 0
@@ -2381,6 +2387,8 @@ MonoBehaviour:
   top: {fileID: 8533496044726422646}
   mid: {fileID: 2450015689189056835}
   bottom: {fileID: 8292943613889361439}
+  leftJoint: {fileID: 4299045310517040959}
+  rightJoint: {fileID: 7721599653053594189}
 --- !u!1 &1170174788412926838
 GameObject:
   m_ObjectHideFlags: 0
@@ -2528,15 +2536,15 @@ SpriteRenderer:
   m_SortingLayerID: 1318477715
   m_SortingLayer: 4
   m_SortingOrder: 4
-  m_Sprite: {fileID: 21300000, guid: ff96e7ff1d0d4436cbb24ff430691393, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0b5200b6041f54b7cb7b0fe44328e241, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.5925926, y: 0.9814815}
+  m_Size: {x: 2.0185184, y: 1.5925926}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!210 &5815471862162216021
@@ -3034,6 +3042,8 @@ MonoBehaviour:
   top: {fileID: 5778399837032013605}
   mid: {fileID: 7588006459689297751}
   bottom: {fileID: 6854243895232951018}
+  leftJoint: {fileID: 5609624882280583798}
+  rightJoint: {fileID: 6658917060347089250}
 --- !u!58 &8669500502655304481
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4148,6 +4158,8 @@ MonoBehaviour:
   controlSwitchDelay: 0.175
   controlSwitchThreshold: 0.5
   bossHitPoint: {fileID: 0}
+  bossHitPointEyeRight: {fileID: 0}
+  bossHitPointEyeLeft: {fileID: 0}
   bulletPool: {fileID: 0}
   controllerRumbleConfiguration: {fileID: 11400000, guid: 5f485f8d6660e4091aede26db1cfced1, type: 2}
   slimeStretchCameraShakeConfiguration: {fileID: 11400000, guid: a1cf7dba4bdbc4a818d462a52dfeab15, type: 2}
@@ -4210,38 +4222,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ecc01ad2-5f25-4ae9-a41a-274b99e48f6a
     m_ActionName: 'Slime/Move Left[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3524386366124774228}
-        m_TargetAssemblyTypeName: _SLIME.Slime.SlimeBrain, Assembly-CSharp
-        m_MethodName: OnShootRight
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 698ae0d0-0359-4e17-b458-f13c31f1b750
-    m_ActionName: 'Slime/Shoot Right[/DualShock4GamepadHID/rightShoulder]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3524386366124774228}
-        m_TargetAssemblyTypeName: _SLIME.Slime.SlimeBrain, Assembly-CSharp
-        m_MethodName: OnShootLeft
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: e1491a72-0950-4ab1-a4e7-a69b00dfef91
-    m_ActionName: 'Slime/Shoot Left[/DualShock4GamepadHID/rightShoulder]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Slime
@@ -4513,6 +4493,8 @@ MonoBehaviour:
   top: {fileID: 7608988216449316245}
   mid: {fileID: 8808986594665527533}
   bottom: {fileID: 3665091548595414014}
+  leftJoint: {fileID: 3352516188449150311}
+  rightJoint: {fileID: 647230655595116052}
 --- !u!58 &4862077033314232931
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5607,6 +5589,8 @@ MonoBehaviour:
   top: {fileID: 3994596536949534097}
   mid: {fileID: 2600059899731945669}
   bottom: {fileID: 5842794309123459088}
+  leftJoint: {fileID: 7721599653053594189}
+  rightJoint: {fileID: 4772590844268633225}
 --- !u!1 &4482994688885948804
 GameObject:
   m_ObjectHideFlags: 0
@@ -5909,6 +5893,8 @@ MonoBehaviour:
   top: {fileID: 5529633273571669090}
   mid: {fileID: 2641421988500508638}
   bottom: {fileID: 1076888086800996989}
+  leftJoint: {fileID: 4959593618205866219}
+  rightJoint: {fileID: 8612438704227727265}
 --- !u!1 &4560451740808599217
 GameObject:
   m_ObjectHideFlags: 0
@@ -6602,6 +6588,8 @@ MonoBehaviour:
   top: {fileID: 6708048015192974867}
   mid: {fileID: 9207444738202041377}
   bottom: {fileID: 86136287976686348}
+  leftJoint: {fileID: 5187126964466480343}
+  rightJoint: {fileID: 4959593618205866219}
 --- !u!1 &4635262094660423457
 GameObject:
   m_ObjectHideFlags: 0
@@ -7138,6 +7126,8 @@ MonoBehaviour:
   top: {fileID: 3999570739568344624}
   mid: {fileID: 6504581762045245984}
   bottom: {fileID: 8847729249997846115}
+  leftJoint: {fileID: 2201285653460600751}
+  rightJoint: {fileID: 3352516188449150311}
 --- !u!58 &2770447085809759385
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -7440,6 +7430,8 @@ MonoBehaviour:
   top: {fileID: 5796911424389965286}
   mid: {fileID: 3154401009354242634}
   bottom: {fileID: 1446386742702883574}
+  leftJoint: {fileID: 647230655595116052}
+  rightJoint: {fileID: 8645414695372734724}
 --- !u!58 &1489493666251650628
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -7933,6 +7925,8 @@ MonoBehaviour:
   top: {fileID: 8025938738786078432}
   mid: {fileID: 498874231239820875}
   bottom: {fileID: 537990199562918535}
+  leftJoint: {fileID: 0}
+  rightJoint: {fileID: 0}
 --- !u!1 &6052374066035418517
 GameObject:
   m_ObjectHideFlags: 0
@@ -8948,6 +8942,8 @@ MonoBehaviour:
   top: {fileID: 7100484672988681866}
   mid: {fileID: 9032574065727558566}
   bottom: {fileID: 8446852208819521462}
+  leftJoint: {fileID: 4238249483313720668}
+  rightJoint: {fileID: 5609624882280583798}
 --- !u!58 &3867810864827401925
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -9522,6 +9518,8 @@ MonoBehaviour:
   top: {fileID: 8951921133413521742}
   mid: {fileID: 7392509542211873655}
   bottom: {fileID: 221223161785893005}
+  leftJoint: {fileID: 8645414695372734724}
+  rightJoint: {fileID: 4238249483313720668}
 --- !u!58 &7419936878829868929
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -10015,6 +10013,8 @@ MonoBehaviour:
   top: {fileID: 2349823277913187036}
   mid: {fileID: 375028864553779195}
   bottom: {fileID: 5574430611751744620}
+  leftJoint: {fileID: 8612438704227727265}
+  rightJoint: {fileID: 5187126964466480343}
 --- !u!1 &8507652598213316982
 GameObject:
   m_ObjectHideFlags: 0

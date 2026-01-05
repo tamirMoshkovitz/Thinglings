@@ -21,6 +21,8 @@ namespace _SLIME.Slime
         private readonly ConnectionsComponents _connectionsComponents;
         private bool _slimeDied;
         private int _numOfSlimeConnections;
+        private float _currentStretchTimer = 0f; 
+        private bool _shouldTearAllConnections = false; 
 
         public SlimeConnections(SlimeConfiguration slimeConfiguration, SlimeData slimeData, ConnectionsComponents connectionsComponents)
         {
@@ -45,8 +47,32 @@ namespace _SLIME.Slime
 
         public void Update()
         {
+            CheckTimeAtMaxStretch();
             UpdateConnections();
             UpdateSlimeData();
+        }
+
+        private void CheckTimeAtMaxStretch()
+        {
+        
+            float stretchPercentThreshold = _slimeConfig.MaxStretchPercentThreshold / 100f;
+            float currentStretchRatio = _slimeData.StretchRatio;
+            
+            if (currentStretchRatio >= stretchPercentThreshold)
+            {
+
+                _currentStretchTimer += Time.deltaTime;
+    
+                if (_currentStretchTimer >= _slimeConfig.MaxStretchTimeThreshold)
+                {
+                    _shouldTearAllConnections = true;
+                }
+            }
+            else
+            {
+                _currentStretchTimer = 0f;
+                _shouldTearAllConnections = false;
+            }
         }
 
         public void FixedUpdate()
@@ -79,7 +105,7 @@ namespace _SLIME.Slime
         {
             if ((connectorOne.State == ConnectorState.FirstSlime && connectorTwo.State == ConnectorState.SecondSlime) ||
                 (connectorTwo.State == ConnectorState.SecondSlime && connectorOne.State == ConnectorState.FirstSlime))
-                _numOfSlimeConnections += numOfConnections;
+                _numOfSlimeConnections = Mathf.Max(_numOfSlimeConnections + numOfConnections,0);
         }
 
         private bool CheckSlimeMaxConnections(ConnectingJoint connectorOne, ConnectingJoint connectorTwo)
@@ -117,9 +143,15 @@ namespace _SLIME.Slime
             List<(ConnectingJoint, ConnectingJoint)> toRemoveObjects;
             
             if (_slimeDied)
-            {
+            {   
                 toRemoveObjects = _slimeConnectionPyshics.TearAllConnections();
                 _slimeDied = false;
+            }
+            else if (_shouldTearAllConnections)
+            {
+                toRemoveObjects = _slimeConnectionPyshics.TearAllConnections();
+                _shouldTearAllConnections = false;
+                _currentStretchTimer = 0f; 
             }
             else
             {
@@ -129,9 +161,9 @@ namespace _SLIME.Slime
             foreach (var pair in toRemoveObjects)
             {
                 if(pair.Item1 == null || pair.Item2 == null) continue;
-                UpdateConnectionOfSlime(pair.Item1, pair.Item2,-1);
                 _objectsConnections[pair.Item1].Remove(pair.Item2);
                 _slimeConnectionVisuals.RemoveSegment(pair.Item1, pair.Item2);
+                UpdateConnectionOfSlime(pair.Item1, pair.Item2,-1);
             }
         }
 
