@@ -22,7 +22,7 @@ namespace _SLIME.Projectiles
         /// </summary>
         /// <param name="target">Target transform to aim at.</param>
         /// <param name="startPosition">Starting position of the bullet.</param>
-        /// <param name="speed">Movement speed of the bullet.</param>
+        /// <param name="speed">Movement movementSpeed of the bullet.</param>
         /// <param name="buffer">Distance buffer from start position.</param>
         /// <param name="pool">Pool to return the bullet to when deactivated.</param>
         /// <param name="turnSmoothness">Smoothing factor for bullet turning/tracking (0-1 range).</param>

@@ -44,7 +44,7 @@ namespace _SLIME.Slime
         [Header("Speed")]
         public float maxSpeed;
         public float minSpeed;
-        [Tooltip("Controls how speed values interpolate")]
+        [Tooltip("Controls how movementSpeed values interpolate")]
         public TweenDefinition SpeedTween;
         
         
@@ -52,7 +52,7 @@ namespace _SLIME.Slime
         public float maxFireRate;
         public float minFireRate;
         
-        [Tooltip("Controls how speed values interpolate")]
+        [Tooltip("Controls how movementSpeed values interpolate")]
         public TweenDefinition FireRateTween;
         
         [Header("TurnSmoothness")]

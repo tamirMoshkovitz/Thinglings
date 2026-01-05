@@ -48,3 +48,84 @@ MonoBehaviour:
     maxShiftY: 2.11
     sensitivityY: 0.136
     smoothing: 0.128
+  tunnelMovementSettings:
+    movementSpeed: 10
+    respawnPositionZ: 2
+    despawnPositionZ: 7.61
+    focalLength: 10
+    baseLayerScale: 2
+    useDepthDarkening: 1
+    furthestBrightness: 0.2
+    brightnessCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0.5
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    opacityCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.2
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.8
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    fadeInAtEntrance: 1
+    fadeOutAtExit: 1
+    autoDistributeOnMove: 1
+    distributionTransitionSpeed: 1
+    linkPerspectiveToSpeed: 1
+    maxEffectSpeed: 20
+    targetPerspectiveAtMaxSpeed: 1

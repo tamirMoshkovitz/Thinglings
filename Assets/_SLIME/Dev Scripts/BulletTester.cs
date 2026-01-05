@@ -20,7 +20,7 @@ namespace _SLIME.Dev_Scripts
         [Tooltip("Starting position for test bullets.")]
         [SerializeField] private Vector2 startPosition = new Vector2(0, 0);
         
-        [Tooltip("Bullet speed for testing.")]
+        [Tooltip("Bullet movementSpeed for testing.")]
         [SerializeField] private float testSpeed = 5f;
         
         [Tooltip("Bullet buffer distance.")]
