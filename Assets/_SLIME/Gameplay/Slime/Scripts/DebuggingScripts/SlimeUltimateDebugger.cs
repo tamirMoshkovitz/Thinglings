@@ -22,6 +22,10 @@ public class SlimeUltimateDebugger : MonoBehaviour
     private FieldInfo _numConnectionsField; // זה ה-_numOfSlimeConnections (לוגיקה)
     private FieldInfo _currentStretchTimerField;
     private FieldInfo _shouldTearAllConnectionsField;
+    private FieldInfo _slimeConnectionPyshicsField; // לגישה ל-SlimeConnectionPyshics
+    
+    // --- Reflection Info for SlimeConnectionPyshics (static field) ---
+    private FieldInfo _jointsDictionaryField; // ה-_joints Dictionary
     
     // --- Reflection Info for SlimeConfiguration ---
     private PropertyInfo _breakForceProp;
@@ -34,6 +38,9 @@ public class SlimeUltimateDebugger : MonoBehaviour
     // --- For Gizmos ---
     private FieldInfo _sideAField;
     private FieldInfo _sideBField;
+    
+    // --- For ScrollView ---
+    private Vector2 _scrollPosition = Vector2.zero;
 
     private void Start()
     {
@@ -118,6 +125,14 @@ public class SlimeUltimateDebugger : MonoBehaviour
         _numConnectionsField = t.GetField("_numOfSlimeConnections", BindingFlags.Instance | BindingFlags.NonPublic);
         _currentStretchTimerField = t.GetField("_currentStretchTimer", BindingFlags.Instance | BindingFlags.NonPublic);
         _shouldTearAllConnectionsField = t.GetField("_shouldTearAllConnections", BindingFlags.Instance | BindingFlags.NonPublic);
+        _slimeConnectionPyshicsField = t.GetField("_slimeConnectionPyshics", BindingFlags.Instance | BindingFlags.NonPublic);
+        
+        // שליפת ה-_joints static field מ-SlimeConnectionPyshics
+        Type physicsType = Type.GetType("_SLIME.Slime.SlimeConnectionPyshics");
+        if (physicsType != null)
+        {
+            _jointsDictionaryField = physicsType.GetField("_joints", BindingFlags.Static | BindingFlags.NonPublic);
+        }
     }
 
     private void InitConfigReflection()
@@ -253,9 +268,129 @@ public class SlimeUltimateDebugger : MonoBehaviour
             text += "<i>SlimeConfiguration not found yet...</i>";
         }
 
-        // Draw Box
-        float height = 450;
-        GUI.Box(new Rect(20, 20, 260, height), text, style);
+        // --- SECTION 4: PHYSICAL JOINTS DETAILS ---
+        text += "\n\n<color=#90EE90><b>[Physical Joints]</b></color>\n";
+        if (_jointsDictionaryField != null)
+        {
+            try
+            {
+                object jointsDict = _jointsDictionaryField.GetValue(null); // static field, null instance
+                if (jointsDict != null)
+                {
+                    // Get Count property
+                    var countProp = jointsDict.GetType().GetProperty("Count");
+                    int jointCount = (int)countProp.GetValue(jointsDict);
+                    text += $"Total Joints: <b>{jointCount}</b>\n\n";
+                    
+                    if (jointCount > 0)
+                    {
+                        // Use IDictionary interface to iterate
+                        var dictionaryType = typeof(System.Collections.IDictionary);
+                        var enumeratorMethod = dictionaryType.GetMethod("GetEnumerator");
+                        var enumerator = enumeratorMethod.Invoke(jointsDict, null);
+                        var moveNextMethod = enumerator.GetType().GetMethod("MoveNext");
+                        var currentProperty = enumerator.GetType().GetProperty("Current");
+                        
+                        int index = 1;
+                        while ((bool)moveNextMethod.Invoke(enumerator, null))
+                        {
+                            var entry = currentProperty.GetValue(enumerator);
+                            var keyProperty = entry.GetType().GetProperty("Key");
+                            var valueProperty = entry.GetType().GetProperty("Value");
+                            
+                            var joint = keyProperty.GetValue(entry);
+                            if (joint == null) continue;
+                            
+                            // Get connection pair (value)
+                            var connectionPair = valueProperty.GetValue(entry);
+                            
+                            // Get joint properties
+                            var breakForceProp = joint.GetType().GetProperty("breakForce");
+                            var frequencyProp = joint.GetType().GetProperty("frequency");
+                            var dampingRatioProp = joint.GetType().GetProperty("dampingRatio");
+                            var distanceProp = joint.GetType().GetProperty("distance");
+                            var connectedBodyProp = joint.GetType().GetProperty("connectedBody");
+                            var enabledProp = joint.GetType().GetProperty("enabled");
+                            
+                            // Get values
+                            float breakForce = breakForceProp != null ? (float)breakForceProp.GetValue(joint) : 0f;
+                            float frequency = frequencyProp != null ? (float)frequencyProp.GetValue(joint) : 0f;
+                            float dampingRatio = dampingRatioProp != null ? (float)dampingRatioProp.GetValue(joint) : 0f;
+                            float distance = distanceProp != null ? (float)distanceProp.GetValue(joint) : 0f;
+                            object connectedBody = connectedBodyProp != null ? connectedBodyProp.GetValue(joint) : null;
+                            bool enabled = enabledProp != null ? (bool)enabledProp.GetValue(joint) : false;
+                            
+                            // Get source and target from connection pair (ValueTuple)
+                            string sourceName = "?";
+                            string targetName = "?";
+                            if (connectionPair != null)
+                            {
+                                var item1Prop = connectionPair.GetType().GetField("Item1");
+                                var item2Prop = connectionPair.GetType().GetField("Item2");
+                                var source = item1Prop != null ? item1Prop.GetValue(connectionPair) : null;
+                                var target = item2Prop != null ? item2Prop.GetValue(connectionPair) : null;
+                                
+                                if (source != null)
+                                {
+                                    var nameProp = source.GetType().GetProperty("name");
+                                    sourceName = nameProp != null ? (string)nameProp.GetValue(source) : source.ToString();
+                                }
+                                if (target != null)
+                                {
+                                    var nameProp = target.GetType().GetProperty("name");
+                                    targetName = nameProp != null ? (string)nameProp.GetValue(target) : target.ToString();
+                                }
+                            }
+                            
+                            text += $"<size=11><b>Joint #{index}:</b></size>\n";
+                            text += $"  Connection: {sourceName} → {targetName}\n";
+                            text += $"  BreakForce: <b>{breakForce:F1}</b>\n";
+                            text += $"  Frequency: <b>{frequency:F2}</b> Hz\n";
+                            text += $"  Damping: <b>{dampingRatio:F2}</b>\n";
+                            text += $"  Distance: <b>{distance:F3}</b>\n";
+                            text += $"  Connected Body: {(connectedBody != null ? "<color=green>YES</color>" : "<color=red>NO</color>")}\n";
+                            text += $"  Enabled: {(enabled ? "<color=green>YES</color>" : "<color=red>NO</color>")}\n";
+                            text += "\n";
+                            
+                            index++;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                text += $"<color=red>Error: {e.Message}</color>";
+            }
+        }
+        else
+        {
+            text += "<i>Joints dictionary not found...</i>";
+        }
+
+        // Draw Box on the right side of the screen with scroll view
+        float boxWidth = 320;
+        float boxX = Screen.width - boxWidth - 20;
+        float boxY = 20;
+        float boxHeight = Screen.height - 40f;
+        
+        // Calculate content height based on text
+        float lineHeight = 20f;
+        int lineCount = text.Split('\n').Length;
+        float contentHeight = lineCount * lineHeight + 40f;
+        
+        // Create scroll view
+        _scrollPosition = GUI.BeginScrollView(
+            new Rect(boxX, boxY, boxWidth, boxHeight),
+            _scrollPosition,
+            new Rect(0, 0, boxWidth - 20, contentHeight),
+            false,
+            true
+        );
+        
+        // Draw the text content
+        GUI.Box(new Rect(0, 0, boxWidth - 20, contentHeight), text, style);
+        
+        GUI.EndScrollView();
     }
 
     // --- Gizmos Logic (Same as before) ---

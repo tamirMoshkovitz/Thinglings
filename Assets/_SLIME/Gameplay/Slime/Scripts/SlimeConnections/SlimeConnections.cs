@@ -104,14 +104,14 @@ namespace _SLIME.Slime
         private void UpdateConnectionOfSlime(ConnectingJoint connectorOne, ConnectingJoint connectorTwo, int numOfConnections = 1)
         {
             if ((connectorOne.State == ConnectorState.FirstSlime && connectorTwo.State == ConnectorState.SecondSlime) ||
-                (connectorTwo.State == ConnectorState.SecondSlime && connectorOne.State == ConnectorState.FirstSlime))
+                (connectorOne.State == ConnectorState.SecondSlime && connectorTwo.State == ConnectorState.FirstSlime))
                 _numOfSlimeConnections = Mathf.Max(_numOfSlimeConnections + numOfConnections,0);
         }
 
         private bool CheckSlimeMaxConnections(ConnectingJoint connectorOne, ConnectingJoint connectorTwo)
         {
             if ((connectorOne.State == ConnectorState.FirstSlime && connectorTwo.State == ConnectorState.SecondSlime) ||
-                (connectorTwo.State == ConnectorState.SecondSlime && connectorOne.State == ConnectorState.FirstSlime))
+                (connectorOne.State == ConnectorState.SecondSlime && connectorTwo.State == ConnectorState.FirstSlime))
                 return _numOfSlimeConnections  >= _slimeConfig.MaxConnectionsOfSlime;
             
             return false;
