@@ -19,7 +19,7 @@ MonoBehaviour:
     breakForce: 200
     connectionFrequency: 1.2
     connectionDampingRatio: 0.5
-    maxStretchTimeThreshold: 1.5
+    maxStretchTimeThreshold: 0.2
     maxStretchPercentThreshold: 85
   LineDefaultSettings:
     linePrefab: {fileID: 7469158195929653497, guid: 8a68228252b0e442ba267d892a357a98, type: 3}
