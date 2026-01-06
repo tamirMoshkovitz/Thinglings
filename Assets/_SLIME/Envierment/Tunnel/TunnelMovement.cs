@@ -24,9 +24,7 @@ public class TunnelMovement : ProjectMonoBehavior
 
     private void OnEnable()
     {
-        if (artConfigurations != null)
-            _settings = artConfigurations.tunnelMovementSettings;
-
+        _settings = artConfigurations.tunnelMovementSettings;
         _globalScrollPosition = 0f;
 
         InitializeLayers();
@@ -62,7 +60,6 @@ public class TunnelMovement : ProjectMonoBehavior
         validChildren = validChildren.OrderBy(t => t.GetSiblingIndex()).ToList();
 
         int validCount = validChildren.Count;
-        if (validCount == 0) return;
 
         for (int i = 0; i < validCount; i++)
         {
@@ -141,8 +138,18 @@ public class TunnelMovement : ProjectMonoBehavior
     private void ApplyVisuals(LayerData layer, float progress)
     {
         layer.Renderer.sortingOrder = 100 - (int)(progress * 100);
-
+        
         float alpha = Mathf.Clamp01(_settings.opacityCurve.Evaluate(progress));
+        
+        if (!_settings.fadeInAtEntrance && progress < 0.2f) 
+        {
+            alpha = 1f;
+        }
+
+        if (!_settings.fadeOutAtExit && progress > 0.8f) 
+        {
+            alpha = 1f;
+        }
 
         float brightness = 1f;
         if (_settings.useDepthDarkening)
@@ -163,6 +170,7 @@ public class TunnelMovement : ProjectMonoBehavior
     private void OnDrawGizmos()
     {
         var tunnelSetting = artConfigurations.tunnelMovementSettings;
+        
         Gizmos.color = Color.green;
         Vector3 startPos = new Vector3(transform.position.x, transform.position.y, tunnelSetting.respawnPositionZ);
         Gizmos.DrawWireCube(startPos, Vector3.one * 1f);

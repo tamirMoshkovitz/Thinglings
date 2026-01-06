@@ -49,10 +49,10 @@ MonoBehaviour:
     sensitivityY: 0.136
     smoothing: 0.128
   tunnelMovementSettings:
-    movementSpeed: 0
+    movementSpeed: 3.34
     respawnPositionZ: 0
     despawnPositionZ: 60
-    cameraFocalScale: 10
+    cameraFocalScale: 4.7
     baseLayerScale: 1
     useDepthDarkening: 1
     brightnessCurve:
@@ -68,23 +68,23 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0.025
       - serializedVersion: 3
-        time: 0.2248654
-        value: 0.83801615
-        inSlope: 0.5486296
-        outSlope: 0.5486296
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 1
+        time: 0.2041626
+        value: 0.9513359
         inSlope: -0.034013472
         outSlope: -0.034013472
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.35000002
         outWeight: 0
+      - serializedVersion: 3
+        time: 0.7457013
+        value: 0.867252
+        inSlope: 0.5486296
+        outSlope: 0.5486296
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -110,8 +110,8 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.89783114
-        value: 0.9854018
+        time: 0.9059909
+        value: 1.0000004
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -132,8 +132,6 @@ MonoBehaviour:
       m_RotationOrder: 4
     fadeInAtEntrance: 0
     fadeOutAtExit: 1
-    autoDistributeOnMove: 1
-    distributionTransitionSpeed: 2
     linkPerspectiveToSpeed: 1
     maxEffectSpeed: 10
     targetPerspectiveAtMaxSpeed: 1

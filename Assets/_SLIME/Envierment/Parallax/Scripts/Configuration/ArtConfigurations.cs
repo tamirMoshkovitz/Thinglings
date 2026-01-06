@@ -1,8 +1,6 @@
 using System;
 using _SLIME.BaseScripts;
 using UnityEngine;
-using UnityEngine.Serialization; // Required to save your old data
-
 [CreateAssetMenu(fileName = "ArtConfig", menuName = "ArtConfigurations")]
 public class ArtConfigurations : TabbedScriptableObject
 {
@@ -61,11 +59,6 @@ public class ArtConfigurations : TabbedScriptableObject
         public bool fadeOutAtExit = true;
 
         [Header("Automation Settings (No need to tweak manually but available - advanced)")]
-        [Tooltip("If checked, speed controls the distribution. Speed 0 = Manual Layout. Speed > 0 = Grid Layout.")]
-        public bool autoDistributeOnMove = true;
-        [Tooltip("The speed at which the distribution transitions from manual to grid.")]
-        public float distributionTransitionSpeed = 2f;
-
         [Tooltip("If checked, speed controls the 3D effect.")]
         public bool linkPerspectiveToSpeed = true;
         [Tooltip("The speed at which the perspective effect reaches its target.")]
