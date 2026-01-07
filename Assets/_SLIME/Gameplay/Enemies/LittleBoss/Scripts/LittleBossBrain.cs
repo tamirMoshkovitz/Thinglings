@@ -34,7 +34,6 @@ namespace _SLIME.LittleBoss
         // public LittleBossHealthRef HealthRef => reference.healthRef;
         void Start()
         {
-            SlimeEvents.AddTarget(hitPoint);
             foreach (var state in animator.GetBehaviours<LittleBossBaseState>())
                 state.Init(this);
         }

@@ -79,12 +79,10 @@ namespace _SLIME.Slime
         {
             _movement.OnDisable();
             _health.OnDisable();
-            _shooter.OnDisable();
         }
         
         public void Update()
         {
-            _shooter.Update();
             _movement.Update();
             _health.Update();
             _animatorController.Update(_movement.IsMoving, _slimeData.IsStrained);

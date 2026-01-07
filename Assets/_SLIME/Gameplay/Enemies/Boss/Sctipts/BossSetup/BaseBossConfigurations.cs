@@ -88,6 +88,7 @@ namespace _SLIME.Boss
         [SerializeField] private BossCoreSettings bossCoreSettings;
 
         
+        
 
 
         public HandsAttackSettings HandsAttack => handsAttackSettings;
