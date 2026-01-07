@@ -22,8 +22,13 @@ namespace _SLIME.Slime
         private SlimeSide _parent;
         private readonly float _moveSpeed;
         private readonly Rigidbody2D _rigidbody;
-        
         private Vector2 _moveInput = Vector2.zero;
+
+        private Vector2 MoveInput
+        {
+            get => _parent.IsDead? Vector2.zero : _moveInput;
+            set => _moveInput = value;
+        }
         
         public SlimeSideMovement(SlimeSideMovementFormat format)
         {
@@ -42,14 +47,13 @@ namespace _SLIME.Slime
         
         public void FixedUpdate()
         {
-            // Map input X -> velocity.x and input Y -> velocity.y so up/down respond
-            Vector2 newVel = _moveInput * _moveSpeed;
+            Vector2 newVel = MoveInput * _moveSpeed;
             _rigidbody.linearVelocity = newVel;
         }
         
         public void OnMove(InputAction.CallbackContext context)
         {
-            _moveInput = _parent.IsDead ? Vector2.zero : context.ReadValue<Vector2>();
+            MoveInput = _parent.IsDead ? Vector2.zero : context.ReadValue<Vector2>();
         }
     }
 }

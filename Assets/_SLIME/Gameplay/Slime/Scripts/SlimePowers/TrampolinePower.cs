@@ -1,4 +1,5 @@
 
+using _SLIME.Gameplay.Projectiles.Brick.Scripts;
 using _SLIME.Projectiles;
 
 using UnityEngine;
@@ -11,7 +12,9 @@ namespace _SLIME.Slime
     public struct TrampolinePowerSettings
     {
         public LayerMask slimeProjectileLayer;
-        public float trampolinePower;
+        public float trampolineMinPower;
+        public float trampolineMaxPower;
+        public AnimationCurve trampolinePowerCurve;
     }
     
     public class TrampolinePower: ISlimePower
@@ -40,13 +43,14 @@ namespace _SLIME.Slime
 
             projectileRb.linearVelocity = Vector2.zero;
             
-            float power = _trampolinePowerSettings.trampolinePower;
-            float stretchForce = _slimeData.StretchRatio * .75f + .25f;
-            projectileRb.AddForce(direction * power * stretchForce, ForceMode2D.Impulse);
+            float stretchForce = _trampolinePowerSettings.trampolinePowerCurve.Evaluate(_slimeData.StretchRatio);
+            float power = Mathf.Lerp(_trampolinePowerSettings.trampolineMinPower,
+             _trampolinePowerSettings.trampolineMaxPower, stretchForce);
+            projectileRb.AddForce(direction * power, ForceMode2D.Impulse);
 
-            if (projectileGo.TryGetComponent(typeof(BrickBehavior), out Component brickBehavior))
+            if (projectileGo.TryGetComponent(typeof(Spell), out Component spell))
             {
-                ((BrickBehavior)brickBehavior).Shoot(stretchForce);
+                ((Spell)spell).Shoot(stretchForce);
             }
             SlimeEvents.TrampolineActivated();
         }

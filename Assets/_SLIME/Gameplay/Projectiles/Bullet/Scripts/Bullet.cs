@@ -22,7 +22,7 @@ namespace _SLIME.Projectiles
         /// </summary>
         /// <param name="target">Target transform to aim at.</param>
         /// <param name="startPosition">Starting position of the bullet.</param>
-        /// <param name="speed">Movement speed of the bullet.</param>
+        /// <param name="speed">Movement movementSpeed of the bullet.</param>
         /// <param name="buffer">Distance buffer from start position.</param>
         /// <param name="pool">Pool to return the bullet to when deactivated.</param>
         /// <param name="turnSmoothness">Smoothing factor for bullet turning/tracking (0-1 range).</param>
@@ -41,6 +41,12 @@ namespace _SLIME.Projectiles
     }
     public class Bullet : ProjectMonoBehavior, IPoolable
     {
+        public BulletInitData DebugData => _data;
+        public Vector2 DebugDirection => _currentDirection;
+        public bool DebugIsActive => _active;
+        public Rigidbody2D DebugRB => rb2D;
+        
+        
         [Header("Bullet Components")]
         [Tooltip("Rigidbody2D component for physics-based movement.")]
         [SerializeField] private Rigidbody2D rb2D;
@@ -118,7 +124,6 @@ namespace _SLIME.Projectiles
             if (rig && rig.TryGetComponent<IHealth>(out IHealth h))
             {
                 h.TakeDamage((float)System.Math.Round(_data.damage, 2));
-                GameEvents.EnemyGotBricked?.Invoke(); //TODO: FIGURE OUT
             }
         
             // Move bullet off-screen and return to pool

@@ -19,8 +19,8 @@ MonoBehaviour:
     useBothHands: 0
   spawnAttackSettings:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
-    spellsToCast: 3
-    spawnInterval: 1
+    spellsToCast: 100
+    spawnInterval: 2
     spellLifeTime: 5
   laserAttackSettings:
     rotationCurve:
@@ -29,69 +29,30 @@ MonoBehaviour:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 0
-        outSlope: 0
+        inSlope: 0.11204482
+        outSlope: 0.11204482
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
-        outWeight: 0
+        outWeight: 0.34100455
       - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
+        time: 0.6731589
+        value: 0.33547437
+        inSlope: 1.1129844
+        outSlope: 1.1129844
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    rotationDuration: 10
-    totalLoops: 3
-  littleBossMovementSettings:
-    duration: 3
-    waitUntilNextLoop: 0
-    easeCurve:
-      serializedVersion: 2
-      m_Curve:
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
+        time: 0.862288
+        value: 0.659469
+        inSlope: 1.553316
+        outSlope: 1.553316
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    useRefinedRotation: 0
-    startRotation: {x: 0, y: 0, z: 0}
-    endRotation: {x: 0, y: 0, z: 180}
-    chanceToAttack: {x: 0.07042254, y: 0.23239437}
-    chanceToAttackCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+        inWeight: 0.4147413
+        outWeight: 0.7967811
       - serializedVersion: 3
         time: 1
         value: 1
@@ -104,8 +65,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    timeToMaxChance: 5
-  littleBossHealthSettings:
-    health: 20
+    rotationDuration: 10
+    totalLoops: 1
   bossCoreSettings:
-    maxHealth: 1000
+    maxHealth: 200

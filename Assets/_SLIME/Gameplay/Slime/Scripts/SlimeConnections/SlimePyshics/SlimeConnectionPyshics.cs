@@ -37,17 +37,6 @@ namespace _SLIME.Slime
             joint.dampingRatio = _slimeConfig.ConnectionDampingRatio;
             _joints[joint] = (source, target);
         }
-
-        public static void ChangeJointsAttributes(float frequency, float breakForce)
-        {
-            Debug.Log("change joints attributes " + frequency + " to " + breakForce);
-            foreach (var j in _joints.Keys)
-            {
-                j.breakForce = breakForce;
-                j.frequency = frequency;
-            }
-        }
-        
         
 
 
@@ -81,10 +70,10 @@ namespace _SLIME.Slime
 
         private void UpdateConectionsCollider()
         {
-            _connectionsComponents.edgeColliderConnections.enabled = _slimeData.Connected;
+            _connectionsComponents.EdgeColliderConnections.enabled = _slimeData.Connected;
             Vector2 worldPosLeft = _slimeData.TopLineConnectionPositionLeft;
             Vector2 worldPosRight = _slimeData.TopLineConnectionPositionRight;
-            Transform colliderTransform = _connectionsComponents.edgeColliderConnections.transform;
+            Transform colliderTransform = _connectionsComponents.EdgeColliderConnections.transform;
 
             Vector2 localPosLeft = colliderTransform.InverseTransformPoint(worldPosLeft);
             Vector2 localPosRight = colliderTransform.InverseTransformPoint(worldPosRight);
@@ -95,7 +84,7 @@ namespace _SLIME.Slime
                 localPosRight
             };
             
-            _connectionsComponents.edgeColliderConnections.points = newPoints;
+            _connectionsComponents.EdgeColliderConnections.points = newPoints;
         }
 
         /// <summary>

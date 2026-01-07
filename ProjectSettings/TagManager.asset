@@ -13,6 +13,7 @@ TagManager:
   - Line
   - Connectable
   - Code
+  - NotIncludeRBToMass
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,7 @@ TagManager:
   - Enemy Body
   - Player Connections
   - Enemy Not Projectiles Attacks
-  - 
+  - Walls
   - 
   - 
   - 
@@ -61,6 +62,9 @@ TagManager:
     locked: 0
   - name: Slime
     uniqueID: 1318477715
+    locked: 0
+  - name: Frontground
+    uniqueID: 294922717
     locked: 0
   - name: Projectiles
     uniqueID: 3138996977

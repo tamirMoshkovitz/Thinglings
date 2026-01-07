@@ -32,6 +32,7 @@ namespace _SLIME.Boss
         
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
+            base.OnStateUpdate(animator, stateInfo, layerIndex);
             _timer += Time.deltaTime;
 
             if (!(_timer >= duration)) return;

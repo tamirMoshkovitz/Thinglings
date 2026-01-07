@@ -109,24 +109,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Shoot Right"",
-                    ""type"": ""Button"",
-                    ""id"": ""698ae0d0-0359-4e17-b458-f13c31f1b750"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Shoot Left"",
-                    ""type"": ""Button"",
-                    ""id"": ""e1491a72-0950-4ab1-a4e7-a69b00dfef91"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -261,28 +243,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Move Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""399f0d3b-74b7-48a7-94d8-f3a77c4906c6"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Shoot Right"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1e332e49-5774-49ba-900a-9f5b2a7500c5"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Shoot Left"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -293,8 +253,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Slime = asset.FindActionMap("Slime", throwIfNotFound: true);
         m_Slime_MoveRight = m_Slime.FindAction("Move Right", throwIfNotFound: true);
         m_Slime_MoveLeft = m_Slime.FindAction("Move Left", throwIfNotFound: true);
-        m_Slime_ShootRight = m_Slime.FindAction("Shoot Right", throwIfNotFound: true);
-        m_Slime_ShootLeft = m_Slime.FindAction("Shoot Left", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -377,8 +335,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<ISlimeActions> m_SlimeActionsCallbackInterfaces = new List<ISlimeActions>();
     private readonly InputAction m_Slime_MoveRight;
     private readonly InputAction m_Slime_MoveLeft;
-    private readonly InputAction m_Slime_ShootRight;
-    private readonly InputAction m_Slime_ShootLeft;
     /// <summary>
     /// Provides access to input actions defined in input action map "Slime".
     /// </summary>
@@ -398,14 +354,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Slime/MoveLeft".
         /// </summary>
         public InputAction @MoveLeft => m_Wrapper.m_Slime_MoveLeft;
-        /// <summary>
-        /// Provides access to the underlying input action "Slime/ShootRight".
-        /// </summary>
-        public InputAction @ShootRight => m_Wrapper.m_Slime_ShootRight;
-        /// <summary>
-        /// Provides access to the underlying input action "Slime/ShootLeft".
-        /// </summary>
-        public InputAction @ShootLeft => m_Wrapper.m_Slime_ShootLeft;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -438,12 +386,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @MoveLeft.started += instance.OnMoveLeft;
             @MoveLeft.performed += instance.OnMoveLeft;
             @MoveLeft.canceled += instance.OnMoveLeft;
-            @ShootRight.started += instance.OnShootRight;
-            @ShootRight.performed += instance.OnShootRight;
-            @ShootRight.canceled += instance.OnShootRight;
-            @ShootLeft.started += instance.OnShootLeft;
-            @ShootLeft.performed += instance.OnShootLeft;
-            @ShootLeft.canceled += instance.OnShootLeft;
         }
 
         /// <summary>
@@ -461,12 +403,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @MoveLeft.started -= instance.OnMoveLeft;
             @MoveLeft.performed -= instance.OnMoveLeft;
             @MoveLeft.canceled -= instance.OnMoveLeft;
-            @ShootRight.started -= instance.OnShootRight;
-            @ShootRight.performed -= instance.OnShootRight;
-            @ShootRight.canceled -= instance.OnShootRight;
-            @ShootLeft.started -= instance.OnShootLeft;
-            @ShootLeft.performed -= instance.OnShootLeft;
-            @ShootLeft.canceled -= instance.OnShootLeft;
         }
 
         /// <summary>
@@ -521,19 +457,5 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMoveLeft(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Shoot Right" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnShootRight(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Shoot Left" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnShootLeft(InputAction.CallbackContext context);
     }
 }

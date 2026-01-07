@@ -1,13 +1,18 @@
 using System;
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
-using _SLIME.Slime;
+using _SLIME.GameLoop;
 using _SLIME.UI;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using EventType = _SLIME.UI.EventType;
 
+public enum BossStates
+{
+    FarState,
+    CloseState
+}
 
 namespace _SLIME.Boss
 {
@@ -20,8 +25,8 @@ namespace _SLIME.Boss
         
         [FormerlySerializedAs("bossSettings")] [Header("Boss Data Setup")]
         public BaseBossConfigurations bossConfigurations;
-        public Collider2D bossCloseCollider;
-        public Collider2D bossFarCollider;
+        public GameObject bossCloseColliders;
+        public GameObject bossFarColliders;
         
         [Header("Hands Attack Setup")] 
         [Tooltip("List of left hand splines")]
@@ -43,12 +48,15 @@ namespace _SLIME.Boss
 
         [Header("Laser Attack Setup")] 
         public GameObject laserAttackGameObject;
-
         
+        public static BossStates _bossState = BossStates.FarState;
+        
+        public static event Action CloseState;
+        public static event Action FarState;
+    
 
-        void Start()
+        private void Start()
         {
-            SlimeEvents.AddTarget(bossCloseCollider.transform);
             if (!mainCamera) mainCamera = Camera.main;
             currentHealth = bossConfigurations.CoreSettings.maxHealth;
 
@@ -71,14 +79,32 @@ namespace _SLIME.Boss
                  position = transform.position,
                  OnFinish = null
              });
+            GameEvents.EnemyGotBricked?.Invoke();
             
             // if (currentHealth <= 0)
             //     GetComponent<Animator>().SetTrigger(Die);
         }
 
+        public void BossCloseState()
+        {
+            if (_bossState == BossStates.CloseState) return;
+            _bossState = BossStates.CloseState;
+            bossCloseColliders.SetActive(true);
+            bossFarColliders.SetActive(false);
+            CloseState?.Invoke();
+        }
+        
+        public void BossFarState()
+        {
+            if (_bossState == BossStates.FarState) return;
+            _bossState = BossStates.FarState;
+            bossCloseColliders.SetActive(false);
+            bossFarColliders.SetActive(true);
+            FarState?.Invoke();
+        }
+
         private void OnDrawGizmos()
         {
-            
             if (leftSpawnPoint == null || rightSpawnPoint == null) return;
             Gizmos.color = Color.green;
             Vector3 center = (leftSpawnPoint.position + rightSpawnPoint.position) / 2;

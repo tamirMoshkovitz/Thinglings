@@ -5,6 +5,7 @@ using _SLIME.GameLoop;
 using _SLIME.Projectiles;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 
 namespace _SLIME.Slime
@@ -25,6 +26,7 @@ namespace _SLIME.Slime
         [SerializeField] private GameObject rightSideHitPoint;
         [SerializeField] private Renderer slimeRightSideRenderer;
         
+        [SerializeField] private ConnectionsComponents conenctionsComponent;
         [SerializeField] private EdgeCollider2D edgeColliderConnections;
         [SerializeField] private TriggerSensor edgeColliderSensor;
         [SerializeField] private float controlSwitchDelay = 0.5f;
@@ -32,8 +34,12 @@ namespace _SLIME.Slime
         
         [Header("Slime Shooting")]
         [SerializeField] private Transform bossHitPoint;
+        [SerializeField] private Transform bossHitPointEyeRight;
+        [SerializeField] private Transform bossHitPointEyeLeft;
         [SerializeField] private BulletMonoPool bulletPool;
         
+        [Header("Slime Powers")]
+        [SerializeField] private SparkPowerDep sparkPowerDep;
         [Header("Feel Manager Settings")]
         [SerializeField] private ConrollerRumbleConfiguration controllerRumbleConfiguration;
         [SerializeField] private SlimeStretchCameraShakeConfiguration slimeStretchCameraShakeConfiguration;
@@ -49,7 +55,7 @@ namespace _SLIME.Slime
         
         private bool _isMoveLeftCancelled = true, _isMoveRightCancelled = true;
         private Coroutine _controlSwitchCoroutine;
-        
+
         public SlimeData Data => _slimeData;
         
         private void Awake()
@@ -63,6 +69,7 @@ namespace _SLIME.Slime
             _leftSide.OnEnable();
             _rightSide.OnEnable();
             _feelManager.OnEnable();
+            _slimePowers.OnEnable();
             _slimeConnections.OnEnable();
             
             SlimeEvents.SlimeTears += OnSlimeTears;
@@ -74,6 +81,7 @@ namespace _SLIME.Slime
             _rightSide.OnDisable();
             _feelManager.OnDisable();
             _slimeConnections.OnDisable();
+            _slimePowers.OnDisable();
             
             SlimeEvents.SlimeTears -= OnSlimeTears;
         }
@@ -100,7 +108,6 @@ namespace _SLIME.Slime
         {
             _leftSide.FixedUpdate();
             _rightSide.FixedUpdate();
-            _slimeConnections.FixedUpdate();
         }
 
         private void LateUpdate()
@@ -124,7 +131,7 @@ namespace _SLIME.Slime
                 rightSideHitPoint,
                 _slimeData,
                 slimeConfiguration.shootingSettings,
-                new SlimeSideShootingReqComponents(slimeRightSideRenderer, bossHitPoint, bulletPool)
+                new SlimeSideShootingReqComponents(slimeRightSideRenderer, bossHitPoint,bossHitPointEyeRight, bulletPool)
             ));
             _leftSide = new SlimeSide(new SlimeSide.SlimeSideFormat(
                 slimeLeftSide,
@@ -134,7 +141,7 @@ namespace _SLIME.Slime
                 leftSideHitPoint,
                 _slimeData,
                 slimeConfiguration.shootingSettings,
-                new SlimeSideShootingReqComponents(slimeLeftSideRenderer, bossHitPoint, bulletPool)
+                new SlimeSideShootingReqComponents(slimeLeftSideRenderer, bossHitPoint, bossHitPointEyeLeft, bulletPool)
             ));
             
             _slimeData.Initialize(_rightSide, _leftSide);
@@ -142,11 +149,8 @@ namespace _SLIME.Slime
             _slimePowers = new SlimePowers(slimeConfiguration,new PowerComponents
             {
                 connectionsTriggerSensor = edgeColliderSensor
-            } , _slimeData);
-            _slimeConnections = new SlimeConnections(slimeConfiguration,_slimeData, new ConnectionsComponents
-            {
-                edgeColliderConnections = edgeColliderConnections,
-            } );
+            } , _slimeData, sparkPowerDep);
+            _slimeConnections = new SlimeConnections(slimeConfiguration,_slimeData, conenctionsComponent );
             
             _feelManager = new SlimeFeelManager(this, controllerRumbleConfiguration,
                 slimeStretchCameraShakeConfiguration, mainCamera, shotTearConnectionDelay);
@@ -197,6 +201,8 @@ namespace _SLIME.Slime
 
         private void SwitchSlimeSides()
         {
+            if (_rightSide.IsDead || _leftSide.IsDead) return;
+            
             (_leftSide, _rightSide) = (_rightSide, _leftSide);
         }
         

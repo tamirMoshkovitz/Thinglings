@@ -31,10 +31,11 @@ namespace _SLIME.Slime
             }
         }
 
+        public bool OneSlimeDead { get; set; } = false;
         public float Distance => Mathf.Max(0, Vector3.Distance(_sideA.Position, _sideB.Position) - 1f); //TODO: REFACTOR!! the -1 is because the slime radius is 0.5f for both sides
 
         public bool ReachedMaxStretch => Distance >= MaxStretchDistance;
-        public float StretchRatio => Distance / MaxStretchDistance;
+        public float StretchRatio => Connected ? Distance / MaxStretchDistance : 0f;
         public float MaxStretchDistance // Physics by chatGPT thank you very much
         {
             get

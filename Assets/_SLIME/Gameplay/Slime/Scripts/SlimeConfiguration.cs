@@ -18,6 +18,8 @@ namespace _SLIME.Slime
             [FormerlySerializedAs("maxStretch")] public float breakForce;
             public float connectionFrequency;
             public float connectionDampingRatio;
+            public float maxStretchTimeThreshold; 
+            public float maxStretchPercentThreshold; 
         }
 
         
@@ -27,10 +29,18 @@ namespace _SLIME.Slime
         [Tab("Slime")] 
         [SerializeField] private SlimeConfigurationFormat slimeConfigurationNormal;
         [Tab("Slime")] 
-        [SerializeField] public LineSettings LineDefaultSettings;
+        [SerializeField] public LineSettings LineAboveSettings;
+        [Tab("Slime")] 
+        [SerializeField] public LineSettings LineBellowSettings;
+        [Tab("Slime")] 
+        [SerializeField] public LineSettings LineAboveBreakSettings;
+        [Tab("Slime")] 
+        [SerializeField] public LineSettings LineBellowBreakSettings;
         
         [Tab("Slime")] 
         [SerializeField] public TrampolinePowerSettings TrampolinePowerSettings;
+        [Tab("Slime")] 
+        [SerializeField] public SparkPowerSettings SparkPowerSettings;
         public bool IsConnectedAtStart => slimeConfigurationNormal.isConnectedAtStart;
         public float MoveSpeed => slimeConfigurationNormal.moveSpeed;
         public int MaxHealth => slimeConfigurationNormal.maxHealth;
@@ -39,6 +49,9 @@ namespace _SLIME.Slime
         
         public float ConnectionFrequency => slimeConfigurationNormal.connectionFrequency;
         public float ConnectionDampingRatio => slimeConfigurationNormal.connectionDampingRatio;
+        
+        public float MaxStretchTimeThreshold => slimeConfigurationNormal.maxStretchTimeThreshold;
+        public float MaxStretchPercentThreshold => slimeConfigurationNormal.maxStretchPercentThreshold;
 
         [Tab("Slime")] 
         [SerializeField] public int MaxConnectionsOfSlime;

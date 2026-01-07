@@ -1,12 +1,16 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 namespace _SLIME.Slime
 {
+    [Serializable]
     public struct ConnectionsComponents
     {
-        public EdgeCollider2D edgeColliderConnections;
+        public EdgeCollider2D EdgeColliderConnections;
+        public Transform TransformSlime1LinePoint;
+        public Transform TransformSlime2LinePoint;
     }
     public class SlimeConnections
     {
@@ -21,6 +25,8 @@ namespace _SLIME.Slime
         private readonly ConnectionsComponents _connectionsComponents;
         private bool _slimeDied;
         private int _numOfSlimeConnections;
+        private float _currentStretchTimer = 0f; 
+        private bool _shouldTearAllConnections = false; 
 
         public SlimeConnections(SlimeConfiguration slimeConfiguration, SlimeData slimeData, ConnectionsComponents connectionsComponents)
         {
@@ -35,24 +41,47 @@ namespace _SLIME.Slime
         {
             SlimeEvents.SlimeConnected += OnSlimeConnected;
             SlimeEvents.SlimeGetHit += OnSlimeGotHit;
+            SlimeEvents.SlimeTears += OnSlimeTears;
         }
+
 
         public void OnDisable()
         {
             SlimeEvents.SlimeConnected -= OnSlimeConnected;
             SlimeEvents.SlimeGetHit -= OnSlimeGotHit;
+            SlimeEvents.SlimeTears -= OnSlimeTears;
         }
 
         public void Update()
         {
+            CheckTimeAtMaxStretch();
             UpdateConnections();
             UpdateSlimeData();
         }
 
-        public void FixedUpdate()
+        private void CheckTimeAtMaxStretch()
         {
-            _slimeConnectionVisuals.FixedUpdate();
+        
+            float stretchPercentThreshold = _slimeConfig.MaxStretchPercentThreshold / 100f;
+            float currentStretchRatio = _slimeData.StretchRatio;
+            
+            if (currentStretchRatio >= stretchPercentThreshold)
+            {
+
+                _currentStretchTimer += Time.deltaTime;
+    
+                if (_currentStretchTimer >= _slimeConfig.MaxStretchTimeThreshold)
+                {
+                    _shouldTearAllConnections = true;
+                }
+            }
+            else
+            {
+                _currentStretchTimer = 0f;
+                _shouldTearAllConnections = false;
+            }
         }
+        
 
         public void LateUpdate()
         {
@@ -67,9 +96,7 @@ namespace _SLIME.Slime
                                                              || CheckIfMaxedConnections(connectorTwo) ||
                                                              CheckSlimeMaxConnections(connectorOne,connectorTwo)) return;
             _slimeConnectionPyshics.AddJoint(connectorOne, connectorTwo);
-            _slimeConnectionVisuals.AddVisualLine(connectorOne, connectorTwo);
             _slimeConnectionPyshics.AddJoint(connectorTwo, connectorOne);
-            _slimeConnectionVisuals.AddVisualLine(connectorTwo, connectorOne);
             AddConnectionToDict(connectorOne, connectorTwo);
             AddConnectionToDict(connectorTwo, connectorOne);
             UpdateConnectionOfSlime(connectorOne, connectorTwo);
@@ -78,14 +105,14 @@ namespace _SLIME.Slime
         private void UpdateConnectionOfSlime(ConnectingJoint connectorOne, ConnectingJoint connectorTwo, int numOfConnections = 1)
         {
             if ((connectorOne.State == ConnectorState.FirstSlime && connectorTwo.State == ConnectorState.SecondSlime) ||
-                (connectorTwo.State == ConnectorState.SecondSlime && connectorOne.State == ConnectorState.FirstSlime))
-                _numOfSlimeConnections += numOfConnections;
+                (connectorOne.State == ConnectorState.SecondSlime && connectorTwo.State == ConnectorState.FirstSlime))
+                _numOfSlimeConnections = Mathf.Max(_numOfSlimeConnections + numOfConnections,0);
         }
 
         private bool CheckSlimeMaxConnections(ConnectingJoint connectorOne, ConnectingJoint connectorTwo)
         {
             if ((connectorOne.State == ConnectorState.FirstSlime && connectorTwo.State == ConnectorState.SecondSlime) ||
-                (connectorTwo.State == ConnectorState.SecondSlime && connectorOne.State == ConnectorState.FirstSlime))
+                (connectorOne.State == ConnectorState.SecondSlime && connectorTwo.State == ConnectorState.FirstSlime))
                 return _numOfSlimeConnections  >= _slimeConfig.MaxConnectionsOfSlime;
             
             return false;
@@ -117,9 +144,15 @@ namespace _SLIME.Slime
             List<(ConnectingJoint, ConnectingJoint)> toRemoveObjects;
             
             if (_slimeDied)
-            {
+            {   
                 toRemoveObjects = _slimeConnectionPyshics.TearAllConnections();
                 _slimeDied = false;
+            }
+            else if (_shouldTearAllConnections)
+            {
+                toRemoveObjects = _slimeConnectionPyshics.TearAllConnections();
+                _shouldTearAllConnections = false;
+                _currentStretchTimer = 0f; 
             }
             else
             {
@@ -129,9 +162,8 @@ namespace _SLIME.Slime
             foreach (var pair in toRemoveObjects)
             {
                 if(pair.Item1 == null || pair.Item2 == null) continue;
-                UpdateConnectionOfSlime(pair.Item1, pair.Item2,-1);
                 _objectsConnections[pair.Item1].Remove(pair.Item2);
-                _slimeConnectionVisuals.RemoveSegment(pair.Item1, pair.Item2);
+                UpdateConnectionOfSlime(pair.Item1, pair.Item2,-1);
             }
         }
 
@@ -162,7 +194,13 @@ namespace _SLIME.Slime
 
         private void OnSlimeConnected()
         {
+            _slimeConnectionVisuals.AddVisualLine(_connectionsComponents.TransformSlime1LinePoint,
+                _connectionsComponents.TransformSlime2LinePoint);
             _slimeDied = false;
+        }
+        private void OnSlimeTears()
+        {
+            _slimeConnectionVisuals.RemoveSegment();
         }
     }
 }

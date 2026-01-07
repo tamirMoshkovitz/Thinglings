@@ -13,18 +13,59 @@ MonoBehaviour:
   m_Name: SlimeConfig
   m_EditorClassIdentifier: Assembly-CSharp::Player.new_scripts.SlimeConfiguration
   slimeConfigurationNormal:
-    isConnectedAtStart: 1
+    isConnectedAtStart: 0
     moveSpeed: 20
     maxHealth: 100
-    breakForce: 60
-    connectionFrequency: 0.5
+    breakForce: 200
+    connectionFrequency: 1.2
     connectionDampingRatio: 0.5
-  LineDefaultSettings:
+    maxStretchTimeThreshold: 0.2
+    maxStretchPercentThreshold: 85
+  LineAboveSettings:
     linePrefab: {fileID: 7469158195929653497, guid: 8a68228252b0e442ba267d892a357a98, type: 3}
     visualResolution: 40
     maxSag: 0.2
-    maxThickness: 0.5
-    minThickness: 0.1
+    maxThickness: 0.72
+    minThickness: 0.5
+    closeDistance: 1
+    farDistance: 5
+    tearDuration: 0.2
+    tearDropOfLines: 0.2
+    vibrationSpeed: 50
+    vibrationDecay: 2
+    vibrationStrength: 0.8
+  LineBellowSettings:
+    linePrefab: {fileID: 7469158195929653497, guid: 15b1774c5fb6946779cceaa5fe5ce2e9, type: 3}
+    visualResolution: 40
+    maxSag: 0.2
+    maxThickness: 0.79
+    minThickness: 0.57
+    closeDistance: 1
+    farDistance: 5
+    tearDuration: 0.2
+    tearDropOfLines: 0.2
+    vibrationSpeed: 50
+    vibrationDecay: 2
+    vibrationStrength: 0.8
+  LineAboveBreakSettings:
+    linePrefab: {fileID: 7469158195929653497, guid: efacb1fd70f8c44aea1992b22ad141fc, type: 3}
+    visualResolution: 40
+    maxSag: 0.2
+    maxThickness: 0.7
+    minThickness: 0.5
+    closeDistance: 1
+    farDistance: 5
+    tearDuration: 0.2
+    tearDropOfLines: 0.2
+    vibrationSpeed: 50
+    vibrationDecay: 2
+    vibrationStrength: 0.8
+  LineBellowBreakSettings:
+    linePrefab: {fileID: 7469158195929653497, guid: 77bdfd0e9aa2e4ee9b97506ab01d2a59, type: 3}
+    visualResolution: 40
+    maxSag: 0.2
+    maxThickness: 0.7
+    minThickness: 0.5
     closeDistance: 1
     farDistance: 5
     tearDuration: 0.2
@@ -36,8 +77,78 @@ MonoBehaviour:
     slimeProjectileLayer:
       serializedVersion: 2
       m_Bits: 128
-    trampolinePower: 300
-  MaxConnectionsOfSlime: 4
+    trampolineMinPower: 45
+    trampolineMaxPower: 315
+    trampolinePowerCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.093756266
+        value: 0.008790238
+        inSlope: 0.18751258
+        outSlope: 0.18751258
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.552496
+        value: 0.30287084
+        inSlope: -0.016941056
+        outSlope: -0.016941056
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.6927402
+      - serializedVersion: 3
+        time: 0.77306694
+        value: 0.5327785
+        inSlope: 0.025285704
+        outSlope: 0.025285704
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.92655694
+      - serializedVersion: 3
+        time: 0.90606856
+        value: 0.7621695
+        inSlope: 0.07491819
+        outSlope: 0.07491819
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 1
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  SparkPowerSettings:
+    slimeProjectileLayer:
+      serializedVersion: 2
+      m_Bits: 128
+    sparkRadius: 0.1
+    sparkDamage: 4
+    enemyHitLayer:
+      serializedVersion: 2
+      m_Bits: 2048
+  MaxConnectionsOfSlime: 3
   shootingSettings:
     maxDamage: 0.4
     minDamage: 0.1
@@ -1192,6 +1303,16 @@ MonoBehaviour:
           weightedMode: 0
           inWeight: 0
           outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    maxFireRate: 0
+    minFireRate: 0
+    FireRateTween:
+      easeType: 0
+      curve:
+        serializedVersion: 2
+        m_Curve: []
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4

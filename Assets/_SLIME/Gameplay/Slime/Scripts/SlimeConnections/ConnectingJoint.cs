@@ -20,16 +20,17 @@ namespace _SLIME.Slime
         [SerializeField] private Transform top;
         [SerializeField] private Transform mid;
         [SerializeField] private Transform bottom;
-        
+        [SerializeField] private ConnectingJoint leftJoint;
+        [SerializeField] private ConnectingJoint rightJoint;
         private static float _cooldownTime = .5f; 
         private static bool _canConnect = true;
         private float _deathCooldownTimer;
-        
         public int MaxConnections => maxConnections;
         public Transform Top => top;
         public Transform Mid => mid;
         public Transform Bottom => bottom;
         public ConnectorState State => state;
+        
         private void Start()
         {
             if(matchingConnection != null && 
@@ -59,10 +60,18 @@ namespace _SLIME.Slime
             if (!_canConnect) return;
             
             var otherJoint = other.GetComponent<ConnectingJoint>();
-            if (otherJoint != null && GetInstanceID() < otherJoint.GetInstanceID()
-                && state != otherJoint.state)
+            if(otherJoint == null) return;
+            AddConnection(otherJoint,this);
+            AddConnection(otherJoint.leftJoint,this.rightJoint);
+            AddConnection(otherJoint.rightJoint,this.leftJoint);
+        }
+
+        private void AddConnection(ConnectingJoint otherJoint, ConnectingJoint connectingJoint)
+        {
+            if (connectingJoint.GetInstanceID() < otherJoint.GetInstanceID()
+                                   && connectingJoint.state != otherJoint.state)
             {
-                brain.TryAddConnection(otherJoint, this);
+                brain.TryAddConnection(otherJoint, connectingJoint);
             }
         }
 

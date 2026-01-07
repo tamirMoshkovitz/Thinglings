@@ -10,13 +10,16 @@ namespace _SLIME.Slime
             public float MaxHealth;
             public GameObject PlayerHitPoint;
             public SlimeAnimatorController AnimatorController;
+            public SlimeData Data;
             
-            public SlimeSideHealthFormat(SlimeSide parent, float maxHealth, GameObject playerHitPoint, SlimeAnimatorController animatorController)
+            public SlimeSideHealthFormat(SlimeSide parent, float maxHealth, GameObject playerHitPoint, 
+                SlimeAnimatorController animatorController, SlimeData data)
             {
                 Parent = parent;
                 MaxHealth = maxHealth;
                 PlayerHitPoint = playerHitPoint;
                 AnimatorController = animatorController;
+                Data = data;
             }
         }
         
@@ -51,6 +54,7 @@ namespace _SLIME.Slime
         private GameObject _playerHitPoint;
         private readonly float _maxHealth;
         private SlimeAnimatorController _animatorController;
+        private SlimeData _data;
         #endregion
         
         public SlimeSideHealth(SlimeSideHealthFormat format)
@@ -60,6 +64,7 @@ namespace _SLIME.Slime
             _playerHitPoint = format.PlayerHitPoint;
             CurrentHealth = _maxHealth;
             _animatorController = format.AnimatorController;
+            _data = format.Data;
             var hit = _parent.Transform.GetComponent<SlimeSideHitCollider>();
             if (hit != null) hit.Init(this);
         }
@@ -81,6 +86,7 @@ namespace _SLIME.Slime
         public void TakeDamage(float damage)
         {
             IsDead = true;
+            _data.OneSlimeDead = true;
             SlimeEvents.SlimeGetHit();
             // TODO(Elad): I'm not sure for what this is required 
             // if (IsDead) return;
@@ -96,11 +102,13 @@ namespace _SLIME.Slime
         public void Resurrect()
         {
             IsDead = false;
+            _data.OneSlimeDead = false;
         }
 
         private void OnSlimeConnected()
         {
             Resurrect();
+            
         }
 
         private void OnSlimeTear() { }
