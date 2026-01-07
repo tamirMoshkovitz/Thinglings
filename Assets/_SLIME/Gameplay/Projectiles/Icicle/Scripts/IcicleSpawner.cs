@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class IcicleSpawner : MonoBehaviour
 {
@@ -16,7 +18,7 @@ public class IcicleSpawner : MonoBehaviour
 
     private readonly List<GameObject> _iciclePool = new List<GameObject>();
     private Coroutine _spawnCoroutine;
-
+    private float _timer;
     private void OnEnable()
     {
         foreach (Transform child in transform)
@@ -27,7 +29,7 @@ public class IcicleSpawner : MonoBehaviour
         StartSpawning();
     }
 
-    private void OnSecondStageStart()
+    public void OnSecondStageStart()
     {
         gameObject.SetActive(false);
     }

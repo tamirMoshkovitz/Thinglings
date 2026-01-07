@@ -8,7 +8,6 @@ public class IcicleLogic : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     private new Rigidbody2D _rigidbody2D;
     private Collider2D _col;
-    
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -19,6 +18,8 @@ public class IcicleLogic : MonoBehaviour
     {
         ResetToHanging();
     }
+
+
 
     private void ResetToHanging()
     {

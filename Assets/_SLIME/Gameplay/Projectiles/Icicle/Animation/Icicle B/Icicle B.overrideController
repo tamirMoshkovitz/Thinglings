@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Icicle B
+  m_Controller: {fileID: 9100000, guid: b78a58fedb831b44f985ddc5d9dab26a, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: e464d2c75f5134e02a4d1cef1740df85, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 495578a0e83c84a0fb5631a153e9040e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 933bea069e9b24e278a59e2f7ba152cd, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: c50275afb07db496f8afa1943693cc1e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: fedd0952c56c84b6ab301693373995d4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2abc8f5905b29442c8654685da244e38, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 5a7b77c1907a24d638220a10a5d1330d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 5c86b8b00769a4f2fa7f3dcd1a06ef76, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: bab1ecca71a214e92a9c9b74023c3b0d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 58184f8dbdeb546b99148019aee3cb99, type: 2}
