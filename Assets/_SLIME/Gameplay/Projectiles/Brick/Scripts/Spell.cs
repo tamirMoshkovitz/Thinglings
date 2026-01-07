@@ -69,8 +69,6 @@ namespace _SLIME.Gameplay.Projectiles.Brick.Scripts
         {
             lifeTime = fastDissolveLifeTime;
             DissolveCondition = true;
-            if (_collidersEnabled)
-                DisableColliders();
         }
 
         protected void DisableColliders()
