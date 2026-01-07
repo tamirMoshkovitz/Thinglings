@@ -1,12 +1,16 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 namespace _SLIME.Slime
 {
+    [Serializable]
     public struct ConnectionsComponents
     {
-        public EdgeCollider2D edgeColliderConnections;
+        public EdgeCollider2D EdgeColliderConnections;
+        public Transform TransformSlime1LinePoint;
+        public Transform TransformSlime2LinePoint;
     }
     public class SlimeConnections
     {
@@ -37,12 +41,15 @@ namespace _SLIME.Slime
         {
             SlimeEvents.SlimeConnected += OnSlimeConnected;
             SlimeEvents.SlimeGetHit += OnSlimeGotHit;
+            SlimeEvents.SlimeTears += OnSlimeTears;
         }
+
 
         public void OnDisable()
         {
             SlimeEvents.SlimeConnected -= OnSlimeConnected;
             SlimeEvents.SlimeGetHit -= OnSlimeGotHit;
+            SlimeEvents.SlimeTears -= OnSlimeTears;
         }
 
         public void Update()
@@ -74,11 +81,7 @@ namespace _SLIME.Slime
                 _shouldTearAllConnections = false;
             }
         }
-
-        public void FixedUpdate()
-        {
-            _slimeConnectionVisuals.FixedUpdate();
-        }
+        
 
         public void LateUpdate()
         {
@@ -93,9 +96,7 @@ namespace _SLIME.Slime
                                                              || CheckIfMaxedConnections(connectorTwo) ||
                                                              CheckSlimeMaxConnections(connectorOne,connectorTwo)) return;
             _slimeConnectionPyshics.AddJoint(connectorOne, connectorTwo);
-            _slimeConnectionVisuals.AddVisualLine(connectorOne, connectorTwo);
             _slimeConnectionPyshics.AddJoint(connectorTwo, connectorOne);
-            _slimeConnectionVisuals.AddVisualLine(connectorTwo, connectorOne);
             AddConnectionToDict(connectorOne, connectorTwo);
             AddConnectionToDict(connectorTwo, connectorOne);
             UpdateConnectionOfSlime(connectorOne, connectorTwo);
@@ -162,7 +163,6 @@ namespace _SLIME.Slime
             {
                 if(pair.Item1 == null || pair.Item2 == null) continue;
                 _objectsConnections[pair.Item1].Remove(pair.Item2);
-                _slimeConnectionVisuals.RemoveSegment(pair.Item1, pair.Item2);
                 UpdateConnectionOfSlime(pair.Item1, pair.Item2,-1);
             }
         }
@@ -194,7 +194,13 @@ namespace _SLIME.Slime
 
         private void OnSlimeConnected()
         {
+            _slimeConnectionVisuals.AddVisualLine(_connectionsComponents.TransformSlime1LinePoint,
+                _connectionsComponents.TransformSlime2LinePoint);
             _slimeDied = false;
+        }
+        private void OnSlimeTears()
+        {
+            _slimeConnectionVisuals.RemoveSegment();
         }
     }
 }

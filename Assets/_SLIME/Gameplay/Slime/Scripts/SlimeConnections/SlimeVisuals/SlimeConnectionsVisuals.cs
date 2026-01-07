@@ -9,12 +9,12 @@ namespace _SLIME.Slime
         private GameObject _linesFather;
         private NormalLineVisual _lineVisual;
 
-        private readonly Dictionary<(ConnectingJoint, ConnectingJoint), (LineVisualizer,LineVisualizer,LineVisualizer)> _lineVisualizers =
-            new Dictionary<(ConnectingJoint, ConnectingJoint), (LineVisualizer,LineVisualizer,LineVisualizer)>();
-
+        
         private List<LineVisualizer> _breakingLines;
         private readonly ConnectionsComponents _connectionsComponents;
         private SlimeData _slimeData;
+        private LineVisualizer _visualizeAboveLine;
+        private LineVisualizer _visualizeBellowLine;
 
         public SlimeConnectionsVisuals(SlimeConfiguration slimeConfiguration, SlimeData slimeData,
             ConnectionsComponents connectionsComponents)
@@ -27,43 +27,23 @@ namespace _SLIME.Slime
             _slimeData = slimeData;
         }
         
-        public void AddVisualLine(ConnectingJoint connectorOne, ConnectingJoint connectorTwo)
+        public void AddVisualLine(Transform first, Transform second)
         {
-            LineVisualizer visualizerTop = new LineVisualizer
-                (_slimeConfig.LineDefaultSettings, _linesFather.transform, 
-                    connectorOne.Top, connectorTwo.Mid, _lineVisual, _slimeData
-                    ,connectorOne.name + " Top To " + connectorTwo.name  + " Mid" );
-            LineVisualizer visualizerMid = new LineVisualizer
-                (_slimeConfig.LineDefaultSettings, _linesFather.transform, 
-                    connectorOne.Mid, connectorTwo.Bottom, _lineVisual, _slimeData,
-                    connectorOne.name + " Mid To " + connectorTwo.name  + " Bottom" );
-            LineVisualizer visualizerBottom = new LineVisualizer
-                (_slimeConfig.LineDefaultSettings, _linesFather.transform, 
-                    connectorOne.Bottom, connectorTwo.Top, _lineVisual, _slimeData,
-                    connectorOne.name + " Bottom To " + connectorTwo.name  + " Top" );
-            _lineVisualizers.Add((connectorOne, connectorTwo), 
-                (visualizerTop, visualizerMid, visualizerBottom));
+            _visualizeAboveLine = new LineVisualizer
+                (_slimeConfig.LineAboveSettings, _linesFather.transform, 
+                    first,second, _lineVisual, _slimeData
+                    ,"ConnectionAboveLine" );
+            _visualizeBellowLine = new LineVisualizer
+            (_slimeConfig.LineBellowSettings, _linesFather.transform, 
+                first,second, _lineVisual, _slimeData
+                ,"ConnectionBellowLine" );
         }
-
-        public void FixedUpdate()
-        {
-            foreach (var e in _lineVisualizers)
-            {
-                e.Value.Item1.FixedUpdate();  
-                e.Value.Item2.FixedUpdate();  
-                e.Value.Item3.FixedUpdate();  
-            }
-        }
+        
         
         public void LateUpdate()
         {
-            foreach (var e in _lineVisualizers)
-            {
-                e.Value.Item1.LateUpdate();  
-                e.Value.Item2.LateUpdate();  
-                e.Value.Item3.LateUpdate();   
-            }
-            
+            if(_visualizeAboveLine != null) _visualizeAboveLine.LateUpdate();
+            if(_visualizeBellowLine != null) _visualizeBellowLine.LateUpdate();
             
             for (int i = _breakingLines.Count - 1; i >= 0; i--)
             {
@@ -77,15 +57,13 @@ namespace _SLIME.Slime
             
             
         }
-
         
-
-        public void RemoveSegment(ConnectingJoint connectorOne, ConnectingJoint connectorTwo)
+        public void RemoveSegment()
         {
-            AddToBreakingLines(_lineVisualizers[(connectorOne, connectorTwo)].Item1.Remove());
-            AddToBreakingLines(_lineVisualizers[(connectorOne, connectorTwo)].Item2.Remove());
-            AddToBreakingLines(_lineVisualizers[(connectorOne, connectorTwo)].Item3.Remove());
-            _lineVisualizers.Remove((connectorOne, connectorTwo));
+            AddToBreakingLines(_visualizeAboveLine.Remove(_slimeConfig.LineAboveBreakSettings));
+            AddToBreakingLines(_visualizeBellowLine.Remove(_slimeConfig.LineBellowBreakSettings));
+            _visualizeAboveLine = null;
+            _visualizeBellowLine = null;
         }
 
         private void AddToBreakingLines(List<LineVisualizer> newParts)

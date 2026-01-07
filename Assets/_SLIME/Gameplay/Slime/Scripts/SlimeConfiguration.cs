@@ -29,7 +29,13 @@ namespace _SLIME.Slime
         [Tab("Slime")] 
         [SerializeField] private SlimeConfigurationFormat slimeConfigurationNormal;
         [Tab("Slime")] 
-        [SerializeField] public LineSettings LineDefaultSettings;
+        [SerializeField] public LineSettings LineAboveSettings;
+        [Tab("Slime")] 
+        [SerializeField] public LineSettings LineBellowSettings;
+        [Tab("Slime")] 
+        [SerializeField] public LineSettings LineAboveBreakSettings;
+        [Tab("Slime")] 
+        [SerializeField] public LineSettings LineBellowBreakSettings;
         
         [Tab("Slime")] 
         [SerializeField] public TrampolinePowerSettings TrampolinePowerSettings;

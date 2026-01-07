@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -8642173703105438883}
   - component: {fileID: 4958150090943058549}
   m_Layer: 0
-  m_Name: Line
+  m_Name: LineBrokenAbove
   m_TagString: Line
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4a6dad7524998f44f930f8eca6d84ad3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -89,26 +89,44 @@ LineRenderer:
   - {x: 2.61, y: 0.33, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 0.6
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
         value: 1
+        inSlope: -3.340884
+        outSlope: -3.340884
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.55318624
+      - serializedVersion: 3
+        time: 0.5034588
+        value: 0.3018854
         inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0.3009758
+        inSlope: -0.023563856
+        outSlope: -0.023563856
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.41092342
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.7607843, g: 0.91764706, b: 0.9529412, a: 1}
-      key1: {r: 0.7607843, g: 0.91764706, b: 0.9529412, a: 1}
+      key0: {r: 0.99607843, g: 0.7921569, b: 0.39215687, a: 1}
+      key1: {r: 0.99607843, g: 0.7921569, b: 0.39215687, a: 1}
       key2: {r: 0.19215687, g: 0.16470589, b: 0.21960784, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}

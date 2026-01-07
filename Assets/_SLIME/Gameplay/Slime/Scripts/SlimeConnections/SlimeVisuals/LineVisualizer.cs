@@ -88,10 +88,7 @@ namespace _SLIME.Slime
             
             _currentVibrationAmplitude = _lineSettings.vibrationStrength;
         }
-        public void FixedUpdate()
-        {
-            
-        }
+        
         public bool LateUpdate()
         {
             if (_isVibrating)
@@ -134,9 +131,9 @@ namespace _SLIME.Slime
         #endregion
         
         
-        public List<LineVisualizer> Remove()
+        public List<LineVisualizer> Remove(LineSettings settings = default)
         {
-            return _visualStrategy.AnimateRemovalOfLine(ref _components, _lineSettings);
+            return _visualStrategy.AnimateRemovalOfLine(ref _components, settings);
         }
     }
 }

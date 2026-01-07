@@ -111,6 +111,7 @@ namespace _SLIME.Slime
                 float mass = 0;
                 foreach (var rb in _gameObject.GetComponentsInChildren<Rigidbody2D>())
                 {
+                    if(rb.gameObject.CompareTag($"NotIncludeRBToMass")) continue;
                     mass += rb.mass;
                 }
 

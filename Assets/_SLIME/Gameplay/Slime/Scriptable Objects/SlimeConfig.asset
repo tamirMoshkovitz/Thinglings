@@ -21,12 +21,51 @@ MonoBehaviour:
     connectionDampingRatio: 0.5
     maxStretchTimeThreshold: 0.2
     maxStretchPercentThreshold: 85
-  LineDefaultSettings:
+  LineAboveSettings:
     linePrefab: {fileID: 7469158195929653497, guid: 8a68228252b0e442ba267d892a357a98, type: 3}
     visualResolution: 40
     maxSag: 0.2
-    maxThickness: 0.5
-    minThickness: 0.1
+    maxThickness: 0.72
+    minThickness: 0.5
+    closeDistance: 1
+    farDistance: 5
+    tearDuration: 0.2
+    tearDropOfLines: 0.2
+    vibrationSpeed: 50
+    vibrationDecay: 2
+    vibrationStrength: 0.8
+  LineBellowSettings:
+    linePrefab: {fileID: 7469158195929653497, guid: 15b1774c5fb6946779cceaa5fe5ce2e9, type: 3}
+    visualResolution: 40
+    maxSag: 0.2
+    maxThickness: 0.79
+    minThickness: 0.57
+    closeDistance: 1
+    farDistance: 5
+    tearDuration: 0.2
+    tearDropOfLines: 0.2
+    vibrationSpeed: 50
+    vibrationDecay: 2
+    vibrationStrength: 0.8
+  LineAboveBreakSettings:
+    linePrefab: {fileID: 7469158195929653497, guid: efacb1fd70f8c44aea1992b22ad141fc, type: 3}
+    visualResolution: 40
+    maxSag: 0.2
+    maxThickness: 0.7
+    minThickness: 0.5
+    closeDistance: 1
+    farDistance: 5
+    tearDuration: 0.2
+    tearDropOfLines: 0.2
+    vibrationSpeed: 50
+    vibrationDecay: 2
+    vibrationStrength: 0.8
+  LineBellowBreakSettings:
+    linePrefab: {fileID: 7469158195929653497, guid: 77bdfd0e9aa2e4ee9b97506ab01d2a59, type: 3}
+    visualResolution: 40
+    maxSag: 0.2
+    maxThickness: 0.7
+    minThickness: 0.5
     closeDistance: 1
     farDistance: 5
     tearDuration: 0.2

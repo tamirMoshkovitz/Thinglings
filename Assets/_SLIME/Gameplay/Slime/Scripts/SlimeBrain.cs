@@ -26,6 +26,7 @@ namespace _SLIME.Slime
         [SerializeField] private GameObject rightSideHitPoint;
         [SerializeField] private Renderer slimeRightSideRenderer;
         
+        [SerializeField] private ConnectionsComponents conenctionsComponent;
         [SerializeField] private EdgeCollider2D edgeColliderConnections;
         [SerializeField] private TriggerSensor edgeColliderSensor;
         [SerializeField] private float controlSwitchDelay = 0.5f;
@@ -107,7 +108,6 @@ namespace _SLIME.Slime
         {
             _leftSide.FixedUpdate();
             _rightSide.FixedUpdate();
-            _slimeConnections.FixedUpdate();
         }
 
         private void LateUpdate()
@@ -150,10 +150,7 @@ namespace _SLIME.Slime
             {
                 connectionsTriggerSensor = edgeColliderSensor
             } , _slimeData, sparkPowerDep);
-            _slimeConnections = new SlimeConnections(slimeConfiguration,_slimeData, new ConnectionsComponents
-            {
-                edgeColliderConnections = edgeColliderConnections,
-            } );
+            _slimeConnections = new SlimeConnections(slimeConfiguration,_slimeData, conenctionsComponent );
             
             _feelManager = new SlimeFeelManager(this, controllerRumbleConfiguration,
                 slimeStretchCameraShakeConfiguration, mainCamera, shotTearConnectionDelay);
