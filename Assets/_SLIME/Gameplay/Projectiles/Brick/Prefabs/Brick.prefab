@@ -9846,7 +9846,6 @@ GameObject:
   - component: {fileID: 1923119996960366167}
   - component: {fileID: 7800700459579744225}
   - component: {fileID: 437437000217825744}
-  - component: {fileID: 2111302664650618751}
   - component: {fileID: 3567687290959470195}
   m_Layer: 10
   m_Name: Brick
@@ -10002,18 +10001,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
---- !u!114 &2111302664650618751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9219921866110431799}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b8948f01db19ad41b8a2bb09a88725c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DestroyItem
 --- !u!114 &3567687290959470195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10026,5 +10013,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d77ec208da42138e363f05278c4b12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.Brick.BrickBehavior
-  damage: 10
   lifeTime: 1200
+  fastDissolveLifeTime: 400
+  damage: 10

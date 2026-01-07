@@ -9,6 +9,7 @@ namespace _SLIME.Gameplay.Projectiles.Brick.Scripts
     {
         [SerializeField] private float lifeTime = 1200f;
         [SerializeField] private float fastDissolveLifeTime = 400f;
+        [SerializeField] private float dissolvePrecentageToDisableColliders = 0.5f;
 
         protected bool DissolveCondition = false;
         protected Rigidbody2D Rb;
@@ -17,6 +18,7 @@ namespace _SLIME.Gameplay.Projectiles.Brick.Scripts
         private static readonly int DissolveId = Shader.PropertyToID("_Dissolve");
         private MaterialPropertyBlock _propBlock;
         private float _lifetimeTimer = 0f;
+        private bool _collidersEnabled = true;
 
         private void Awake()
         {
@@ -40,6 +42,11 @@ namespace _SLIME.Gameplay.Projectiles.Brick.Scripts
                 _renderer.GetPropertyBlock(_propBlock);
                 _propBlock.SetFloat(DissolveId, dissolveAmount);
                 _renderer.SetPropertyBlock(_propBlock);
+
+                if (dissolveAmount >= dissolvePrecentageToDisableColliders && _collidersEnabled)
+                {
+                    DisableColliders();
+                }
             }
         }
         
@@ -62,13 +69,19 @@ namespace _SLIME.Gameplay.Projectiles.Brick.Scripts
         {
             lifeTime = fastDissolveLifeTime;
             DissolveCondition = true;
-            
+            if (_collidersEnabled)
+                DisableColliders();
+        }
+
+        private void DisableColliders()
+        {
             // disable all children colliders to prevent further interactions
             Collider2D[] colliders = GetComponentsInChildren<Collider2D>();
             foreach (Collider2D childCollider in colliders)
             {
                 childCollider.enabled = false;
             }
+            _collidersEnabled = false;
         }
     }
 }
