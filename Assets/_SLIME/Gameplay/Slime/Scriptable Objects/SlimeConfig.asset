@@ -38,7 +38,68 @@ MonoBehaviour:
     slimeProjectileLayer:
       serializedVersion: 2
       m_Bits: 128
-    trampolinePower: 300
+    trampolineMinPower: 45
+    trampolineMaxPower: 315
+    trampolinePowerCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.093756266
+        value: 0.008790238
+        inSlope: 0.18751258
+        outSlope: 0.18751258
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.552496
+        value: 0.30287084
+        inSlope: -0.016941056
+        outSlope: -0.016941056
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.6927402
+      - serializedVersion: 3
+        time: 0.77306694
+        value: 0.5327785
+        inSlope: 0.025285704
+        outSlope: 0.025285704
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.92655694
+      - serializedVersion: 3
+        time: 0.90606856
+        value: 0.7621695
+        inSlope: 0.07491819
+        outSlope: 0.07491819
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 1
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   SparkPowerSettings:
     slimeProjectileLayer:
       serializedVersion: 2
