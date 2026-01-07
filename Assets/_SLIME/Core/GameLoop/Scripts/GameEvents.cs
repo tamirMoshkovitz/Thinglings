@@ -12,6 +12,7 @@ namespace _SLIME.GameLoop
         public static Action ResetButtonPressed;
         public static Action EnemyGotBricked; // TODO: is this only for spell encounter ot also for bullet? 
         public static Action IcicleGotHit;
+        public static Action IcicleCrumbled;
         
         // TODO: IN FUTURE, RESET SHOULD BE ACTIVATED ON ProjectMonoBehaviour to be applied by inheritance to all objects
         public static void RaiseResetGame()

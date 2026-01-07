@@ -1,4 +1,5 @@
 using System;
+using _SLIME.BaseScripts;
 using _SLIME.Scenes.Pinball.Scripts;
 using UnityEngine;
 
@@ -27,17 +28,18 @@ namespace _SLIME.Gameplay.Projectiles.Brick.Scripts
         {
             _HitCount++;
             
-            if (collision.collider.gameObject.TryGetComponent(typeof(Icicle), out Component icicle))
+            if (collision.gameObject.TryGetComponent<IHealth>(out IHealth h))
             {
-                ((Icicle)icicle).Break();
+                h.TakeDamage();
                 DissolveCondition = true;
                 Rb.linearVelocity = Vector2.zero;
+                DisableColliders();
             }
             
             
             float randomX = (UnityEngine.Random.value * 2 - 1f) * bounceRandomness;
             float randomY = (UnityEngine.Random.value * 2 - 1f) * bounceRandomness;
-            Vector2 newDir = (Rb.linearVelocity + new Vector2(randomX, randomY)).normalized;
+            Vector2 newDir = (Rb.linearVelocity + new Vector2(randomX, randomY)).normalized * 1.5f;
             Rb.linearVelocity = newDir * Rb.linearVelocity.magnitude;
         }
 

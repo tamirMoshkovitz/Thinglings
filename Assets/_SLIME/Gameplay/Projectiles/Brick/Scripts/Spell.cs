@@ -31,13 +31,8 @@ namespace _SLIME.Gameplay.Projectiles.Brick.Scripts
         {
             if (DissolveCondition)
             {
-                if (_lifetimeTimer >= lifeTime)
-                {
-                    Destroy(gameObject);
-                }
-                
                 _lifetimeTimer += Time.deltaTime;
-                
+
                 float dissolveAmount = Mathf.Lerp(0f, DissolveId, Mathf.Clamp01(_lifetimeTimer / lifeTime));
                 _renderer.GetPropertyBlock(_propBlock);
                 _propBlock.SetFloat(DissolveId, dissolveAmount);
@@ -46,6 +41,11 @@ namespace _SLIME.Gameplay.Projectiles.Brick.Scripts
                 if (dissolveAmount >= dissolvePrecentageToDisableColliders && _collidersEnabled)
                 {
                     DisableColliders();
+                }
+
+                if (dissolveAmount >= 1f)
+                {
+                    Destroy(gameObject);
                 }
             }
         }
@@ -73,7 +73,7 @@ namespace _SLIME.Gameplay.Projectiles.Brick.Scripts
                 DisableColliders();
         }
 
-        private void DisableColliders()
+        protected void DisableColliders()
         {
             // disable all children colliders to prevent further interactions
             Collider2D[] colliders = GetComponentsInChildren<Collider2D>();

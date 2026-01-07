@@ -2,37 +2,46 @@ using System;
 using _SLIME.BaseScripts;
 using _SLIME.GameLoop;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _SLIME.Scenes.Pinball.Scripts
 {
     public class PinballSceneManager: ProjectMonoBehavior
     {
-        [SerializeField] private int icicleHitsToMoveOn = 4;
+        private static readonly int EndScene = Animator.StringToHash("End Scene");
+        [SerializeField] private int icicleHitsToMoveOn = 3;
+        [SerializeField] private Animator sceneChangeAnimator;
 
-        private int _icicleHitCounter = 0;
+        private int _icicleBreakCounter = 0;
         private void OnEnable()
         {
-            GameEvents.IcicleGotHit += OnIcicleGotHit;
+            GameEvents.IcicleCrumbled += OnIcicleCrumbled;
             GameEvents.ResetButtonPressed += OnReset; // TODO: check if this is the meaning of the event
         }
 
         private void OnDisable()
         {
-            GameEvents.IcicleGotHit -= OnIcicleGotHit;
+            GameEvents.IcicleCrumbled -= OnIcicleCrumbled;
             GameEvents.ResetButtonPressed -= OnReset;
         }
 
-        private void OnIcicleGotHit()
+        private void OnIcicleCrumbled()
         {
-            if (++_icicleHitCounter == icicleHitsToMoveOn)
+            if (_icicleBreakCounter++ == icicleHitsToMoveOn)
             {
-                SceneLoader.LoadScene(SceneType.BossFinalBattleScene);
+                sceneChangeAnimator.SetTrigger(EndScene);
+                Invoke(nameof(LoadNextScene), 3f); // TODO: switch to amination event
             }
         }
 
         private void OnReset()
         {
-            _icicleHitCounter = 0;
+            _icicleBreakCounter = 0;
+        }
+        
+        private void LoadNextScene() // TODO: Animation event call
+        {
+            SceneLoader.LoadScene(SceneType.BossFinalBattleScene);
         }
     }
 }

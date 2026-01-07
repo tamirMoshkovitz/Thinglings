@@ -38,7 +38,7 @@ namespace _SLIME.Projectiles
                 // GameEvents.EnemyGotBricked?.Invoke(); //TODO: FIGURE OUT
             }
             
-            if (!collision.gameObject.CompareTag("Player"))
+            if (!collision.gameObject.CompareTag("Player") || !collision.gameObject.CompareTag("Player Connections"))
             {
                 InitiateFastDissolve();
             }        

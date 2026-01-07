@@ -9846,9 +9846,9 @@ GameObject:
   - component: {fileID: 1923119996960366167}
   - component: {fileID: 7800700459579744225}
   - component: {fileID: 437437000217825744}
-  - component: {fileID: 1300167866339085872}
+  - component: {fileID: -1135583689035671544}
   m_Layer: 10
-  m_Name: Pinball Spell
+  m_Name: Harmful Pinball Spell
   m_TagString: FallingItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9918,7 +9918,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: 519880ec6d842470ab9b6135fd931538, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.6419906, b: 0.2783019, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -10001,7 +10001,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
---- !u!114 &1300167866339085872
+--- !u!114 &-1135583689035671544
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10010,12 +10010,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 9219921866110431799}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edc413cb26f64221b50fa4f2c3495793, type: 3}
+  m_Script: {fileID: 11500000, guid: 3df59824d8764dc0af943d36d8c3226b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Gameplay.Projectiles.Brick.Scripts.PinballSpell
+  m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Gameplay.Projectiles.Brick.Scripts.HarmfulPinballSpell
   lifeTime: 200
   fastDissolveLifeTime: 400
   dissolvePrecentageToDisableColliders: 0.5
   maxSpeed: 25
   bounceRandomness: 4
   collisionToDissolve: 3
+  damage: 5

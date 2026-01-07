@@ -253,7 +253,5 @@ namespace _SLIME.Slime
             _slimeData.TopLineConnectionPositionLeft = _leftSide.TopPosition.position;
             _slimeData.TopLineConnectionPositionRight = _rightSide.TopPosition.position;
         }
-
-        
     }
 }
