@@ -12,6 +12,7 @@ namespace _SLIME.Boss
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
+            TotalAttacksPreformed++;
             Data.laserAttackGameObject.SetActive(true);
             laserAttackLogic = Data.laserAttackGameObject.GetComponent<LaserAttackLogic>();
         }

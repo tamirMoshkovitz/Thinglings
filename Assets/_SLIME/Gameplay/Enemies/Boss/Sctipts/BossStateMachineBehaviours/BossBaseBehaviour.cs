@@ -5,7 +5,7 @@ namespace _SLIME.Boss
     public class BossBaseBehaviour : StateMachineBehaviour
     {
         protected BossBrain Data;
-
+        public static int TotalAttacksPreformed = 0;
         public void Initialize(BossBrain brain)
         {
             Data = brain;

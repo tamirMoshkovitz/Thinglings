@@ -12,47 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ed8bd0cc333224fad8e4cf88f45d50, type: 3}
   m_Name: ArtConfigurations 1
   m_EditorClassIdentifier: Assembly-CSharp::ArtConfigurations
-  parallaxLayer1:
-    maxShiftX: 15
-    sensitivityX: -0.04
-    maxShiftY: 0.5
-    sensitivityY: 0.1
-    smoothing: 0.01
-  parallaxLayer2:
-    maxShiftX: 0.5
-    sensitivityX: -0.1
-    maxShiftY: 2.32
-    sensitivityY: 0.1
-    smoothing: 0.15
-  parallaxLayer3:
-    maxShiftX: 5
-    sensitivityX: -0.125
-    maxShiftY: 0.5
-    sensitivityY: 0.1
-    smoothing: 0.05
-  parallaxLayer4:
-    maxShiftX: 5
-    sensitivityX: -0.175
-    maxShiftY: 0.5
-    sensitivityY: 0.1
-    smoothing: 0.1
-  parallaxLayer5:
-    maxShiftX: 15
-    sensitivityX: -0.25
-    maxShiftY: 0.5
-    sensitivityY: 0.1
-    smoothing: 0.125
-  parallaxBossLayer:
-    maxShiftX: 10
-    sensitivityX: -0.23
-    maxShiftY: 2.11
-    sensitivityY: 0.136
-    smoothing: 0.128
   tunnelMovementSettings:
-    movementSpeed: 3.34
+    movementSpeed: 0
     respawnPositionZ: 0
     despawnPositionZ: 60
-    cameraFocalScale: 4.7
+    cameraFocalScale: 5
     baseLayerScale: 1
     useDepthDarkening: 1
     brightnessCurve:
@@ -68,22 +32,22 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0.025
       - serializedVersion: 3
-        time: 0.2041626
-        value: 0.9513359
-        inSlope: -0.034013472
-        outSlope: -0.034013472
+        time: 0.15438429
+        value: 0.84186226
+        inSlope: 0.26560217
+        outSlope: 0.26560217
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.35000002
-        outWeight: 0
+        outWeight: 0.35223168
       - serializedVersion: 3
-        time: 0.7457013
-        value: 0.867252
-        inSlope: 0.5486296
-        outSlope: 0.5486296
+        time: 0.76746035
+        value: 0.9876133
+        inSlope: 0.10805614
+        outSlope: 0.10805614
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
+        inWeight: 0.2537476
         outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -110,8 +74,8 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.9059909
-        value: 1.0000004
+        time: 0.9423831
+        value: 1.000069
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -130,8 +94,56 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    fadeInAtEntrance: 0
+    fadeInAtEntrance: 1
     fadeOutAtExit: 1
     linkPerspectiveToSpeed: 1
     maxEffectSpeed: 10
     targetPerspectiveAtMaxSpeed: 1
+  parallaxSettings:
+    depthSensitivityCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: -0.041961804
+        outSlope: -0.041961804
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.3440699
+      - serializedVersion: 3
+        time: 0.13419175
+        value: 0.60141844
+        inSlope: -0.4861229
+        outSlope: -0.4861229
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.2679395
+      - serializedVersion: 3
+        time: 0.70116615
+        value: 0.9968972
+        inSlope: 0.065480135
+        outSlope: 0.065480135
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.9916667
+        value: 0.5328467
+        inSlope: -0.5839424
+        outSlope: -0.5839424
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.09725787
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    sensitivityMultiplierX: -0.1
+    sensitivityMultiplierY: -0.1
+    maxShiftX: 10
+    maxShiftY: 10
+    smoothing: 0.5

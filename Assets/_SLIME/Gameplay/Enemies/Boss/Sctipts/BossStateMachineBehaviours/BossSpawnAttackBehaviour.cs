@@ -13,7 +13,7 @@ namespace _SLIME.Boss
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
-
+            TotalAttacksPreformed++;
             _spellCounter = 0;
             _timer = 0f;
         }

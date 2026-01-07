@@ -2,15 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ParallaxLayers
-{
-    Layer1,
-    Layer2,
-    Layer3,
-    Layer4,
-    Layer5,
-    Boss
-}
 public class Parallax : MonoBehaviour
 {
     [Header("Player Transforms")]
@@ -19,49 +10,97 @@ public class Parallax : MonoBehaviour
     [Header("Art Configurations")]
     [SerializeField] private ArtConfigurations artConfigurations;
     
-    [Header("Parallax Layer Selection")]
-    [SerializeField] private ParallaxLayers parallaxLayer;
+    private class ParallaxLayer
+    {
+        public Transform transform;
+        public Vector3 startPos;
+        public float velocityX;
+        public float velocityY;
+        public float baseDepthSensitivity; 
+    }
 
-    private Vector3 _startObjPos;
+    private readonly List<ParallaxLayer> _layers = new List<ParallaxLayer>();
     private Vector2 _startPlayersPos;
-    
-    private float _currentVelocityX;
-    private float _currentVelocityY;
-    
     private ArtConfigurations.ParallaxSettings _currentSettings;
 
     private void Start()
     {
-        _startObjPos = transform.position;
+        _currentSettings = artConfigurations.parallaxSettings;
         _startPlayersPos = GetPlayersCenter();
-        _currentSettings = artConfigurations.GetSettings(parallaxLayer);
+
+        InitializeLayers();
+    }
+
+    private void InitializeLayers()
+    {
+        _layers.Clear();
+
+        // 1. Find the Depth Range (Min Z and Max Z) of all children
+        float minZ = float.MaxValue;
+        float maxZ = float.MinValue;
+
+        foreach (Transform child in transform)
+        {
+            if (child.position.z < minZ) minZ = child.position.z;
+            if (child.position.z > maxZ) maxZ = child.position.z;
+        }
+
+        // Avoid division by zero if all objects are at the same Z
+        float depthRange = maxZ - minZ;
+        if (depthRange < 0.001f) depthRange = 1f;
+
+        foreach (Transform child in transform)
+        {
+            float zDepth = child.position.z;
+
+            // 2. Normalize Z to a 0-1 range regardless of actual world coordinates
+            // This ensures the Curve works even if objects are at Z = 100
+            float normalizedDepth = (zDepth - minZ) / depthRange;
+
+            float depthFactor = _currentSettings.depthSensitivityCurve.Evaluate(normalizedDepth);
+
+            ParallaxLayer newLayer = new ParallaxLayer
+            {
+                transform = child,
+                startPos = child.position,
+                baseDepthSensitivity = depthFactor,
+                velocityX = 0f,
+                velocityY = 0f
+            };
+            
+            _layers.Add(newLayer);
+        }
     }
 
     private void LateUpdate()
     {
-        if (players == null || players.Count == 0) return;
-
         Vector2 currentPlayersPos = GetPlayersCenter();
         Vector2 playerDistMoved = currentPlayersPos - _startPlayersPos;
 
-        float rawOffsetX = playerDistMoved.x * _currentSettings.sensitivityX;
-        float clampedOffsetX = Mathf.Clamp(rawOffsetX, -_currentSettings.maxShiftX, _currentSettings.maxShiftX);
-        float targetX = _startObjPos.x + clampedOffsetX;
+        foreach (var layer in _layers)
+        {
+            float dynamicSensitivityX = layer.baseDepthSensitivity * _currentSettings.sensitivityMultiplierX;
+            float dynamicSensitivityY = layer.baseDepthSensitivity * _currentSettings.sensitivityMultiplierY;
+            
+            float rawOffsetX = playerDistMoved.x * dynamicSensitivityX;
+            float clampedOffsetX = Mathf.Clamp(rawOffsetX, -_currentSettings.maxShiftX, _currentSettings.maxShiftX);
+            float targetX = layer.startPos.x + clampedOffsetX;
+            
+            float rawOffsetY = playerDistMoved.y * dynamicSensitivityY;
+            float clampedOffsetY = Mathf.Clamp(rawOffsetY, -_currentSettings.maxShiftY, _currentSettings.maxShiftY);
+            float targetY = layer.startPos.y + clampedOffsetY;
 
-        float rawOffsetY = playerDistMoved.y * _currentSettings.sensitivityY;
-        float clampedOffsetY = Mathf.Clamp(rawOffsetY, -_currentSettings.maxShiftY, _currentSettings.maxShiftY);
-        float targetY = _startObjPos.y + clampedOffsetY;
+            float newX = Mathf.SmoothDamp(layer.transform.position.x, targetX, ref layer.velocityX, _currentSettings.smoothing);
+            float newY = Mathf.SmoothDamp(layer.transform.position.y, targetY, ref layer.velocityY, _currentSettings.smoothing);
 
-        float newX = Mathf.SmoothDamp(transform.position.x, targetX, ref _currentVelocityX, _currentSettings.smoothing);
-        float newY = Mathf.SmoothDamp(transform.position.y, targetY, ref _currentVelocityY, _currentSettings.smoothing);
-
-        transform.position = new Vector3(newX, newY, transform.position.z);
+            // FIX: Use current Z (transform.position.z) instead of start Z
+            // This allows other scripts (like TunnelMovement) to change Z without this script fighting back.
+            layer.transform.position = new Vector3(newX, newY, layer.transform.position.z);
+        }
     }
 
     private Vector2 GetPlayersCenter()
     {
-        if (players.Count == 0) return Vector2.zero;
-
         Vector2 totalPos = Vector2.zero;
         int activeCount = 0;
 
@@ -77,18 +116,27 @@ public class Parallax : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        if (artConfigurations == null) return;
-        var settings = Application.isPlaying ? _currentSettings : artConfigurations.GetSettings(parallaxLayer);
+        // Safety check to prevent errors in Editor before Play Mode
+        var settings = (Application.isPlaying && _currentSettings != null) ? _currentSettings : (artConfigurations != null ? artConfigurations.parallaxSettings : null);
         if (settings == null) return;
 
-        Vector3 center = Application.isPlaying ? _startObjPos : transform.position;
+        Gizmos.color = new Color(1, 0.92f, 0.016f, 0.2f);
         
-        Gizmos.color = new Color(1, 0.92f, 0.016f, 0.4f);
-        
-        Vector3 size = new Vector3(settings.maxShiftX * 2, settings.maxShiftY * 2, 0.1f);
-        Gizmos.DrawCube(center, size);
-        
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(center, size);
+        foreach (Transform child in transform)
+        {
+            Vector3 center = Application.isPlaying && _layers.Count > 0 
+                ? GetStartPosForGizmo(child) 
+                : child.position;
+
+            Vector3 size = new Vector3(settings.maxShiftX * 2, settings.maxShiftY * 2, 0.1f);
+            Gizmos.DrawWireCube(center, size);
+        }
+    }
+
+    private Vector3 GetStartPosForGizmo(Transform t)
+    {
+        if (_layers == null) return t.position;
+        var layer = _layers.Find(l => l.transform == t);
+        return layer != null ? layer.startPos : t.position;
     }
 }
