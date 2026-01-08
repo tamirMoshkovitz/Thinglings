@@ -20,7 +20,6 @@ public class IcicleLogic : MonoBehaviour
     }
 
 
-
     private void ResetToHanging()
     {
         _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
