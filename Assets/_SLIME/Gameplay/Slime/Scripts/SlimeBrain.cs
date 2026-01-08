@@ -88,7 +88,7 @@ namespace _SLIME.Slime
 
         private void Update()
         {
-            UpdateSlimeControls();
+            // UpdateSlimeControls();
             UpdateSlimeData();
             CheckDeath();
             _slimeConnections.Update();
@@ -178,33 +178,33 @@ namespace _SLIME.Slime
             _leftSide.OnMove(context);
         }
 
-        private void UpdateSlimeControls()
-        {
-            bool bothCancelled = _isMoveRightCancelled && _isMoveLeftCancelled;
+        // private void UpdateSlimeControls()
+        // {
+        //     bool bothCancelled = _isMoveRightCancelled && _isMoveLeftCancelled;
+        //
+        //     if (bothCancelled)
+        //     {
+        //         if (_controlSwitchCoroutine == null)
+        //         {
+        //             _controlSwitchCoroutine = StartCoroutine(ControlSwitchCoroutine());
+        //         }
+        //     }
+        //     else
+        //     {
+        //         if (_controlSwitchCoroutine != null)
+        //         {
+        //             StopCoroutine(_controlSwitchCoroutine);
+        //             _controlSwitchCoroutine = null;
+        //         }
+        //     }
+        // }
 
-            if (bothCancelled)
-            {
-                if (_controlSwitchCoroutine == null)
-                {
-                    _controlSwitchCoroutine = StartCoroutine(ControlSwitchCoroutine());
-                }
-            }
-            else
-            {
-                if (_controlSwitchCoroutine != null)
-                {
-                    StopCoroutine(_controlSwitchCoroutine);
-                    _controlSwitchCoroutine = null;
-                }
-            }
-        }
-
-        private void SwitchSlimeSides()
-        {
-            if (_rightSide.IsDead || _leftSide.IsDead) return;
-            
-            (_leftSide, _rightSide) = (_rightSide, _leftSide);
-        }
+        // private void SwitchSlimeSides()
+        // {
+        //     if (_rightSide.IsDead || _leftSide.IsDead) return;
+        //     
+        //     (_leftSide, _rightSide) = (_rightSide, _leftSide);
+        // }
         
         #region ConnectionFunctions
 
@@ -220,17 +220,17 @@ namespace _SLIME.Slime
 
         #endregion
 
-        private IEnumerator ControlSwitchCoroutine()
-        {
-            yield return new WaitForSeconds(controlSwitchDelay);
-
-            if (_isMoveRightCancelled && _isMoveLeftCancelled && _leftSide.Position.x > _rightSide.Position.x + controlSwitchThreshold)
-            {
-                SwitchSlimeSides();
-            }
-
-            _controlSwitchCoroutine = null;
-        }
+        // private IEnumerator ControlSwitchCoroutine()
+        // {
+        //     yield return new WaitForSeconds(controlSwitchDelay);
+        //
+        //     if (_isMoveRightCancelled && _isMoveLeftCancelled && _leftSide.Position.x > _rightSide.Position.x + controlSwitchThreshold)
+        //     {
+        //         SwitchSlimeSides();
+        //     }
+        //
+        //     _controlSwitchCoroutine = null;
+        // }
 
 
         private void InitializeSlimeData()
