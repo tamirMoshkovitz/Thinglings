@@ -17,6 +17,8 @@ namespace _SLIME.Slime
             _animator = animator;
             _renderer = renderer;
         }
+        
+        public Animator Animator => _animator;
 
         public void Update(bool isMoving, bool isStraining)
         {

@@ -88,7 +88,7 @@ namespace _SLIME.Slime
 
         private void Update()
         {
-            // UpdateSlimeControls();
+            UpdateSlimeControls();
             UpdateSlimeData();
             CheckDeath();
             _slimeConnections.Update();
@@ -158,6 +158,7 @@ namespace _SLIME.Slime
 
         public void OnMoveRight(InputAction.CallbackContext context)
         {
+            if (context.canceled != _isMoveRightCancelled) Debug.Log("Right Move Cancelled: " + context.canceled);
             _isMoveRightCancelled = context.canceled;
             _rightSide.OnMove(context);
         }
@@ -174,37 +175,41 @@ namespace _SLIME.Slime
 
         public void OnMoveLeft(InputAction.CallbackContext context)
         {
+            if (context.canceled != _isMoveLeftCancelled) Debug.Log("Left Move Cancelled: " + context.canceled);
             _isMoveLeftCancelled = context.canceled;
             _leftSide.OnMove(context);
         }
 
-        // private void UpdateSlimeControls()
-        // {
-        //     bool bothCancelled = _isMoveRightCancelled && _isMoveLeftCancelled;
-        //
-        //     if (bothCancelled)
-        //     {
-        //         if (_controlSwitchCoroutine == null)
-        //         {
-        //             _controlSwitchCoroutine = StartCoroutine(ControlSwitchCoroutine());
-        //         }
-        //     }
-        //     else
-        //     {
-        //         if (_controlSwitchCoroutine != null)
-        //         {
-        //             StopCoroutine(_controlSwitchCoroutine);
-        //             _controlSwitchCoroutine = null;
-        //         }
-        //     }
-        // }
+        private void UpdateSlimeControls()
+        {
+            bool bothCancelled = _isMoveRightCancelled && _isMoveLeftCancelled;
+        
+            if (bothCancelled)
+            {
+                if (_controlSwitchCoroutine == null)
+                {
+                    _controlSwitchCoroutine = StartCoroutine(ControlSwitchCoroutine());
+                }
+            }
+            else
+            {
+                if (_controlSwitchCoroutine != null)
+                {
+                    StopCoroutine(_controlSwitchCoroutine);
+                    _controlSwitchCoroutine = null;
+                }
+            }
+        }
 
-        // private void SwitchSlimeSides()
-        // {
-        //     if (_rightSide.IsDead || _leftSide.IsDead) return;
-        //     
-        //     (_leftSide, _rightSide) = (_rightSide, _leftSide);
-        // }
+        private void SwitchSlimeSides()
+        {
+            if (_rightSide.IsDead || _leftSide.IsDead) return;
+            
+            (_leftSide.Animator.runtimeAnimatorController, _rightSide.Animator.runtimeAnimatorController) =
+                (_rightSide.Animator.runtimeAnimatorController, _leftSide.Animator.runtimeAnimatorController);
+            
+            (_leftSide, _rightSide) = (_rightSide, _leftSide);
+        }
         
         #region ConnectionFunctions
 
@@ -220,17 +225,17 @@ namespace _SLIME.Slime
 
         #endregion
 
-        // private IEnumerator ControlSwitchCoroutine()
-        // {
-        //     yield return new WaitForSeconds(controlSwitchDelay);
-        //
-        //     if (_isMoveRightCancelled && _isMoveLeftCancelled && _leftSide.Position.x > _rightSide.Position.x + controlSwitchThreshold)
-        //     {
-        //         SwitchSlimeSides();
-        //     }
-        //
-        //     _controlSwitchCoroutine = null;
-        // }
+        private IEnumerator ControlSwitchCoroutine()
+        {
+            yield return new WaitForSeconds(controlSwitchDelay);
+        
+            if (_isMoveRightCancelled && _isMoveLeftCancelled && _leftSide.Position.x > _rightSide.Position.x + controlSwitchThreshold)
+            {
+                SwitchSlimeSides();
+            }
+        
+            _controlSwitchCoroutine = null;
+        }
 
 
         private void InitializeSlimeData()
