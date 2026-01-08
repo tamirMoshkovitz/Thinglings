@@ -11,13 +11,31 @@ namespace _SLIME.Laser
         private Coroutine _rotationCoroutine;
     
         [SerializeField] List<GameObject> laserCollidersGameObjects;
+        [SerializeField] Collider2D rightLaserCollider;
+        [SerializeField] Collider2D leftLaserCollider;
         public bool IsRotating { get; private set; }
         
         public bool HasFinishedAction { get; set;}
-        
+
+        private void Awake()
+        {
+            rightLaserCollider.enabled = false;
+            leftLaserCollider.enabled = false;
+        }
+
         private void OnDisable()
         {
             HasFinishedAction = false;
+        }
+        
+            public void EnableRightLaserColliders() // called by animation event
+            {
+                rightLaserCollider.enabled = true;
+            }
+            
+            public void EnableLeftLaserColliders() // called by animation event
+        {
+            leftLaserCollider.enabled = true;
         }
 
         public void PlayRotation(AnimationCurve rotationCurve, float rotationDuration, int totalLoops)
