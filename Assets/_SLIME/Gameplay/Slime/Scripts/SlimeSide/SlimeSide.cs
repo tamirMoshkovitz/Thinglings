@@ -69,6 +69,8 @@ namespace _SLIME.Slime
         public Transform TopPosition { get; private set; }
         public bool IsDead => _health.IsDead;
         
+        public Animator Animator => _animatorController.Animator;
+        
         public void OnEnable()
         {
             _movement.OnEnable();
