@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Strain
+  m_Name: SecondSlimeStrain
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,7 +21,7 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 263b6347a4dec4ef098dd93a450c57c6, type: 3}
+      value: {fileID: 21300000, guid: da6d7518f67684a0294a4c40c997544d, type: 3}
     attribute: m_Sprite
     path: Visuals/ThinglingEyes
     classID: 212
@@ -30,7 +30,7 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 31a589130d44a42b793651bf43ab24f5, type: 3}
+      value: {fileID: 21300000, guid: 7f073197f3e39443c8637f6a10ceb5b5, type: 3}
     attribute: m_Sprite
     path: Visuals/ThinglingEyes/ThinglingBody
     classID: 212
@@ -62,8 +62,8 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 263b6347a4dec4ef098dd93a450c57c6, type: 3}
-    - {fileID: 21300000, guid: 31a589130d44a42b793651bf43ab24f5, type: 3}
+    - {fileID: 21300000, guid: da6d7518f67684a0294a4c40c997544d, type: 3}
+    - {fileID: 21300000, guid: 7f073197f3e39443c8637f6a10ceb5b5, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
