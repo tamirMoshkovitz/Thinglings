@@ -33,6 +33,8 @@ public class TempPhaseChanger : MonoBehaviour
     [Header("Trigger Condition")]
     [Tooltip("How many attacks until the sequence starts.")]
     [SerializeField] private int attacksToStart = 5;
+    
+    [SerializeField] IcicleSpawner spawner;
 
     // State Machine Flags
     private bool _conditionMet;
@@ -110,7 +112,7 @@ public class TempPhaseChanger : MonoBehaviour
         // Step 2: Start Movement Ramp
         _isRampingMovement = true;
         _movementTimer = 0f;
-        
+        spawner.OnSecondStageStart();
         // Capture start values at the moment the ramp begins
         if (artConfigurations != null)
         {
