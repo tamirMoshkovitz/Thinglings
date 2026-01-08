@@ -20,7 +20,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 4.94, y: -0.18, z: 0}
+        value: {x: 16.1, y: -0.18, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -36,7 +36,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -4.8, y: 0.45, z: 0}
+        value: {x: -15.3, y: 1.52, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -53,7 +53,7 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 16199a10d862946a6be415953d78ffbb, type: 3}
+      value: {fileID: 21300000, guid: 1427dedc5c09e4ffd958f3f21e23b8c9, type: 3}
     attribute: m_Sprite
     path: Laser Center
     classID: 212
@@ -134,7 +134,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 16199a10d862946a6be415953d78ffbb, type: 3}
+    - {fileID: 21300000, guid: 1427dedc5c09e4ffd958f3f21e23b8c9, type: 3}
     - {fileID: 21300000, guid: 3491138d43b064e1b921b3cb081a5824, type: 3}
     - {fileID: 21300000, guid: b3c1094a6fe11491f99a6a652c75cdd4, type: 3}
     - {fileID: 21300000, guid: 3491138d43b064e1b921b3cb081a5824, type: 3}
@@ -166,7 +166,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 4.94
+        value: 16.1
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -229,7 +229,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -4.8
+        value: -15.3
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -250,7 +250,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.45
+        value: 1.52
         inSlope: 0
         outSlope: 0
         tangentMode: 136
