@@ -63,7 +63,9 @@ namespace _SLIME.Slime
             if(otherJoint == null) return;
             AddConnection(otherJoint,this);
             AddConnection(otherJoint.leftJoint,this.rightJoint);
+            AddConnection(otherJoint.leftJoint.leftJoint,this.rightJoint.rightJoint);
             AddConnection(otherJoint.rightJoint,this.leftJoint);
+            AddConnection(otherJoint.rightJoint.rightJoint,this.leftJoint.leftJoint);
         }
 
         private void AddConnection(ConnectingJoint otherJoint, ConnectingJoint connectingJoint)
