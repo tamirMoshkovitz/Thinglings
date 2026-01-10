@@ -1607,6 +1607,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: happy Sorcerer
       objectReference: {fileID: 0}
+    - target: {fileID: 4622440772077818780, guid: 9282f6fc0abe4479b9c557861dd0467c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
