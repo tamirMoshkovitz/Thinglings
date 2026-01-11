@@ -34,7 +34,12 @@ namespace _SLIME.Tutorial
             CurrentState = currentState;
             StartCoroutine(GetCoroutineForState(currentState));
         }
-        
+
+        private void OnDisable()
+        {
+            if(_rockStateLogic != null) _rockStateLogic.OnDisable();
+        }
+
         private IEnumerator GetCoroutineForState(TutorialState state)
         {
             return state switch
@@ -57,11 +62,13 @@ namespace _SLIME.Tutorial
         #region RockState
         
         [SerializeField] private RockStateDeps rockStateDeps;
+        private RockStateLogic _rockStateLogic;
         private IEnumerator RockStateCoroutine()
         {
             CurrentState = TutorialState.RockState;
-            yield return new RockStateLogic(rockStateDeps,
-                tutorialScriptable.RockStateSet).Start();
+            _rockStateLogic = new RockStateLogic(rockStateDeps,
+                tutorialScriptable.RockStateSet);
+            yield return _rockStateLogic.Start();
             StartCoroutine(RiseToBossCoroutine());
         }
         #endregion
@@ -69,6 +76,8 @@ namespace _SLIME.Tutorial
         #region RiseToBoss
         
         [SerializeField] private RiseToBossStateDeps riseToBossStateDeps;
+        
+
         private IEnumerator RiseToBossCoroutine()
         {
             CurrentState = TutorialState.RiseToBoss;

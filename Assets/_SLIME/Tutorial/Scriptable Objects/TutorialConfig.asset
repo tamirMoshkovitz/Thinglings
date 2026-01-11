@@ -19,11 +19,12 @@ MonoBehaviour:
     shakeVibrato: 5
     shakeRandomness: 5
   rockStateSet:
+    startCameraSize: 5
     zoomOutAmount: 1.25
     zoomEase: 0
     zoomSpeed: 1.5
   riseToBossStateSet:
-    topThresholdPercent: 25
+    topThresholdPercent: 48
     moveSpeed: 2
-    moveEase: 1
+    moveEase: 0
     cameraNotMovingTimeout: 5

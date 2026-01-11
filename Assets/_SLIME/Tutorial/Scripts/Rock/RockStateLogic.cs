@@ -22,6 +22,7 @@ namespace _SLIME.Tutorial
     [Serializable]
     public struct RockStateSet
     {
+        public float startCameraSize;
         public float zoomOutAmount;
         public Ease zoomEase;
         public float zoomSpeed;
@@ -39,6 +40,7 @@ namespace _SLIME.Tutorial
         public RockStateLogic(RockStateDeps rockStateDeps,
             RockStateSet rockStateSet)
         {
+
             _rockStateDeps = rockStateDeps;
             _rockStateSet = rockStateSet;
             Rock.JoystickMoved += OnJoystickMoved;
@@ -50,9 +52,10 @@ namespace _SLIME.Tutorial
                 () => thirdRoutine(),
                 () => fourthRoutine()
             };
+            _rockStateDeps.mainCamera.orthographicSize = _rockStateSet.startCameraSize;
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
             Rock.JoystickMoved -= OnJoystickMoved;
         }
@@ -104,10 +107,13 @@ namespace _SLIME.Tutorial
 
         private IEnumerator AnimateExplosion()
         {
+            
+            yield return TriggerAndWaitForState(_rockStateDeps.ExplosionAnimator, "In stone boom", "In stone boom");
             _rockStateDeps.rockBackground.SetActive(false);
             _rockStateDeps.slimeGameObject.SetActive(true);
             _rockStateDeps.happyBossBackground.SetActive(true);
-            yield return null;
+            yield return TriggerAndWaitForState(_rockStateDeps.ExplosionAnimator, "boom out", "boom out");
+            
         }
 
         #endregion
@@ -127,21 +133,24 @@ namespace _SLIME.Tutorial
         /// <summary>
         /// Triggers an animation and waits until it completes
         /// </summary>
-        private IEnumerator TriggerAndWaitForState(Animator animator, string triggerName, string targetStateName,
-            int layer = 0)
+        private IEnumerator TriggerAndWaitForState(Animator animator, string triggerName, string targetStateName, int layer = 0)
         {
-            // Trigger the animation
+      
             animator.SetTrigger(triggerName);
 
-            // Wait until we enter the target state
-            yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(layer).IsName(targetStateName));
+            yield return null;
 
-            // Wait until the animation completes (normalizedTime >= 1)
-            yield return new WaitUntil(() =>
-                animator.GetCurrentAnimatorStateInfo(layer).IsName(targetStateName) &&
-                animator.GetCurrentAnimatorStateInfo(layer).normalizedTime >= 1.0f);
+            while (!animator.GetCurrentAnimatorStateInfo(layer).IsName(targetStateName))
+            {
+                yield return null;
+            }
+            
+            while (animator.GetCurrentAnimatorStateInfo(layer).IsName(targetStateName) && 
+                   animator.GetCurrentAnimatorStateInfo(layer).normalizedTime < 1.0f)
+            {
+                yield return null;
+            }
         }
-
         #endregion
 
     }
