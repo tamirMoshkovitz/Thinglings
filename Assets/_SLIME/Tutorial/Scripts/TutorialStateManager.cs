@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using _SLIME.BaseScripts;
+using DG.Tweening;
 using UnityEngine;
 
 namespace _SLIME.Tutorial
@@ -9,7 +10,6 @@ namespace _SLIME.Tutorial
     public enum TutorialState
     {
         RockState,
-        RockExplosion,
         RiseToBoss,
         SlimeConnects,
         SlimeTear,
@@ -25,9 +25,13 @@ namespace _SLIME.Tutorial
     {
         
         [SerializeField] private TutorialState currentState;
+        [SerializeField] private TutorialScriptable tutorialScriptable;
+        
+        public TutorialState CurrentState { get; private set; }
         
         private void Start()
         {
+            CurrentState = currentState;
             StartCoroutine(GetCoroutineForState(currentState));
         }
         
@@ -36,7 +40,6 @@ namespace _SLIME.Tutorial
             return state switch
             {
                 TutorialState.RockState => RockStateCoroutine(),
-                TutorialState.RockExplosion => RockExplosionCoroutine(),
                 TutorialState.RiseToBoss => RiseToBossCoroutine(),
                 TutorialState.SlimeConnects => SlimeConnectsCoroutine(),
                 TutorialState.SlimeTear => SlimeTearCoroutine(),
@@ -53,31 +56,24 @@ namespace _SLIME.Tutorial
         
         #region RockState
         
-        [Serializable]
-        private struct RockStateDeps
-        {
-            public GameObject rock;
-        }
         [SerializeField] private RockStateDeps rockStateDeps;
         private IEnumerator RockStateCoroutine()
         {
-            yield return null;
-            StartCoroutine(RockExplosionCoroutine());
-        }
-        #endregion
-        
-        #region RockExplosion
-        private IEnumerator RockExplosionCoroutine()
-        {
-            yield return null;
+            CurrentState = TutorialState.RockState;
+            yield return new RockStateLogic(rockStateDeps,
+                tutorialScriptable.RockStateSet).Start();
             StartCoroutine(RiseToBossCoroutine());
         }
         #endregion
         
         #region RiseToBoss
+        
+        [SerializeField] private RiseToBossStateDeps riseToBossStateDeps;
         private IEnumerator RiseToBossCoroutine()
         {
-            yield return null;
+            CurrentState = TutorialState.RiseToBoss;
+            yield return new RiseToBossLogic(riseToBossStateDeps,
+                tutorialScriptable.RiseToBossStateSet).Start();
             StartCoroutine(SlimeConnectsCoroutine());
         }
         #endregion
@@ -85,6 +81,7 @@ namespace _SLIME.Tutorial
         #region SlimeConnects
         private IEnumerator SlimeConnectsCoroutine()
         {
+            CurrentState = TutorialState.SlimeConnects;
             yield return null;
             StartCoroutine(SlimeTearCoroutine());
         }
@@ -93,6 +90,7 @@ namespace _SLIME.Tutorial
         #region SlimeTear
         private IEnumerator SlimeTearCoroutine()
         {
+            CurrentState = TutorialState.SlimeTear;
             yield return null;
             StartCoroutine(BossGetsAngryCoroutine());
         }
@@ -101,6 +99,7 @@ namespace _SLIME.Tutorial
         #region BossGetsAngry
         private IEnumerator BossGetsAngryCoroutine()
         {
+            CurrentState = TutorialState.BossGetsAngry;
             yield return null;
             StartCoroutine(ZoomOutCoroutine());
         }
@@ -109,6 +108,7 @@ namespace _SLIME.Tutorial
         #region ZoomOut
         private IEnumerator ZoomOutCoroutine()
         {
+            CurrentState = TutorialState.ZoomOut;
             yield return null;
             StartCoroutine(SpellHitCoroutine());
         }
@@ -117,6 +117,7 @@ namespace _SLIME.Tutorial
         #region SpellHit
         private IEnumerator SpellHitCoroutine()
         {
+            CurrentState = TutorialState.SpellHit;
             yield return null;
             StartCoroutine(LearnSlimeToConnectCoroutine());
         }
@@ -125,6 +126,7 @@ namespace _SLIME.Tutorial
         #region LearnSlimeToConnect
         private IEnumerator LearnSlimeToConnectCoroutine()
         {
+            CurrentState = TutorialState.LearnSlimeToConnect;
             yield return null;
             StartCoroutine(BossThrowsSpellCoroutine());
         }
@@ -133,6 +135,7 @@ namespace _SLIME.Tutorial
         #region BossThrowsSpell
         private IEnumerator BossThrowsSpellCoroutine()
         {
+            CurrentState = TutorialState.BossThrowsSpell;
             yield return null;
             StartCoroutine(CaveShakeCoroutine());
         }
@@ -141,6 +144,7 @@ namespace _SLIME.Tutorial
         #region CaveShake
         private IEnumerator CaveShakeCoroutine()
         {
+            CurrentState = TutorialState.CaveShake;
             yield return null;
             StartCoroutine(SceneMoveToFinalBattleCoroutine());
         }
@@ -149,6 +153,7 @@ namespace _SLIME.Tutorial
         #region SceneMoveToFinalBattle
         private IEnumerator SceneMoveToFinalBattleCoroutine()
         {
+            CurrentState = TutorialState.SceneMoveToFinalBattle;
             yield return null;
         }
         #endregion
