@@ -64,6 +64,18 @@ public class BaseBossConfigurations : TabbedScriptableObject
         public float maxHealth;
     }
     
+    [Serializable]
+    public struct BossPhaseSettings
+    {
+        [Header("Phase Settings")]
+        
+        [Tooltip("Upper health threshold to enter this phase")]
+        public float upperHealthThreshold;
+        
+        [Tooltip("Lower health threshold to exit this phase")]
+        public float lowerHealthThreshold;
+    }
+    
     [Tab("Attacks Settings")]
     [SerializeField] private HandsAttackSettings handsAttackSettings;
     [Tab("Attacks Settings")]
@@ -75,8 +87,13 @@ public class BaseBossConfigurations : TabbedScriptableObject
     [Tab("Boss Core Settings")]
     [SerializeField] private BossCoreSettings bossCoreSettings;
     
+    [Tab("Boss Phase Settings")]
+    [SerializeField] private BossPhaseSettings bossPhaseSettings;
+    
     public HandsAttackSettings HandsAttack => handsAttackSettings;
     public SpawnAttackSettings SpawnAttack => spawnAttackSettings;
     public LaserAttackSettings LaserAttack => laserAttackSettings;
     public BossCoreSettings CoreSettings => bossCoreSettings;
+    
+    public BossPhaseSettings PhaseSettings => bossPhaseSettings;
 }

@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d89350894c6ed44a9dc92bb198fbcf, type: 3}
+  m_Name: SecondPhaseStateConfig
+  m_EditorClassIdentifier: Assembly-CSharp::BaseBossSettings
+  handsAttackSettings:
+    handAttackDuration: 3
+    handCooldown: 1
+    totalHandsToUse: 3
+    useBothHands: 0
+  spawnAttackSettings:
+    projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
+    spellsToCast: 12
+    spawnInterval: 1.25
+    spellLifeTime: 5
+  laserAttackSettings:
+    rotationCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0.11204482
+        outSlope: 0.11204482
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.34100455
+      - serializedVersion: 3
+        time: 0.6731589
+        value: 0.33547437
+        inSlope: 1.1129844
+        outSlope: 1.1129844
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.862288
+        value: 0.659469
+        inSlope: 1.553316
+        outSlope: 1.553316
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.4147413
+        outWeight: 0.7967811
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    rotationDuration: 6
+    totalLoops: 1
+  bossCoreSettings:
+    maxHealth: 100
+  bossPhaseSettings:
+    upperHealthThreshold: 60
+    lowerHealthThreshold: 40

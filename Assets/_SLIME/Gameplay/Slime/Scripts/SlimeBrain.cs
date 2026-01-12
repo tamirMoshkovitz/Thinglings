@@ -158,7 +158,7 @@ namespace _SLIME.Slime
 
         public void OnMoveRight(InputAction.CallbackContext context)
         {
-            if (context.canceled != _isMoveRightCancelled) Debug.Log("Right Move Cancelled: " + context.canceled);
+            if (context.canceled != _isMoveRightCancelled) ;
             _isMoveRightCancelled = context.canceled;
             _rightSide.OnMove(context);
         }
@@ -175,7 +175,7 @@ namespace _SLIME.Slime
 
         public void OnMoveLeft(InputAction.CallbackContext context)
         {
-            if (context.canceled != _isMoveLeftCancelled) Debug.Log("Left Move Cancelled: " + context.canceled);
+            if (context.canceled != _isMoveLeftCancelled);
             _isMoveLeftCancelled = context.canceled;
             _leftSide.OnMove(context);
         }

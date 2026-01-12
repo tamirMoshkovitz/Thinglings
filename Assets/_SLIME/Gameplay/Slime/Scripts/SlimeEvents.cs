@@ -11,5 +11,6 @@ namespace _SLIME.Slime
         public static Action TrampolineActivated;
         public static Action TrampolineDeActivated;
         public static Action SparkActivated;
+        
     }
 }

@@ -69,11 +69,11 @@ namespace _SLIME.Boss
             
             List<Renderer> activeRenderers = null;
 
-            if (BossBrain._bossState is BossStates.CloseState)
+            if (BossBrain.BossState is BossStates.CloseState)
             {
                 activeRenderers = _closeRenderers;
             }
-            else if (BossBrain._bossState is BossStates.FarState)
+            else if (BossBrain.BossState is BossStates.FarState)
             {
                 activeRenderers = _farRenderers;
             }

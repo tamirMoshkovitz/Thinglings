@@ -21,6 +21,7 @@ public class IcicleSpawner : MonoBehaviour
     private float _timer;
     private void OnEnable()
     {
+        ThirdPhaseState.TunnelPhaseStarted += OnTunnelPhaseStarted;
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(false);
@@ -29,7 +30,7 @@ public class IcicleSpawner : MonoBehaviour
         StartSpawning();
     }
 
-    public void OnSecondStageStart()
+    public void OnTunnelPhaseStarted()
     {
         gameObject.SetActive(false);
     }
