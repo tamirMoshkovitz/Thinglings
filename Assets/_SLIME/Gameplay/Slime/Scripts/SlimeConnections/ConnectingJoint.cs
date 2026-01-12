@@ -42,6 +42,11 @@ namespace _SLIME.Slime
             SlimeEvents.SlimeGetHit += OnSlimeGetHit;
         }
 
+        private void OnDisable()
+        {
+            SlimeEvents.SlimeGetHit -= OnSlimeGetHit;
+        }
+
         private void Update()
         {
             if (_deathCooldownTimer >= _cooldownTime)

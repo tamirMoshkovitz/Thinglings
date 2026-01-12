@@ -13,8 +13,6 @@ namespace _SLIME.Tutorial
         RiseToBoss,
         SlimeConnects,
         SlimeTear,
-        BossGetsAngry,
-        ZoomOut,
         SpellHit,
         LearnSlimeToConnect,
         BossThrowsSpell,
@@ -38,6 +36,7 @@ namespace _SLIME.Tutorial
         private void OnDisable()
         {
             if(_rockStateLogic != null) _rockStateLogic.OnDisable();
+            if(_slimeTearsLogic != null) _slimeTearsLogic.OnDisable();  
         }
 
         private IEnumerator GetCoroutineForState(TutorialState state)
@@ -48,8 +47,6 @@ namespace _SLIME.Tutorial
                 TutorialState.RiseToBoss => RiseToBossCoroutine(),
                 TutorialState.SlimeConnects => SlimeConnectsCoroutine(),
                 TutorialState.SlimeTear => SlimeTearCoroutine(),
-                TutorialState.BossGetsAngry => BossGetsAngryCoroutine(),
-                TutorialState.ZoomOut => ZoomOutCoroutine(),
                 TutorialState.SpellHit => SpellHitCoroutine(),
                 TutorialState.LearnSlimeToConnect => LearnSlimeToConnectCoroutine(),
                 TutorialState.BossThrowsSpell => BossThrowsSpellCoroutine(),
@@ -88,37 +85,27 @@ namespace _SLIME.Tutorial
         #endregion
         
         #region SlimeConnects
+        [SerializeField] private SlimeConnectsStateDeps slimeConnectsStateDeps;
+        
         private IEnumerator SlimeConnectsCoroutine()
         {
             CurrentState = TutorialState.SlimeConnects;
-            yield return null;
+            yield return new SlimeConnectsLogic(slimeConnectsStateDeps,
+                tutorialScriptable.SlimeConnectsStateSet).Start();
             StartCoroutine(SlimeTearCoroutine());
         }
         #endregion
         
         #region SlimeTear
+        [SerializeField] private SlimeTearsStateDeps slimeTearsStateDeps;
+        private SlimeTearsLogic _slimeTearsLogic;
         private IEnumerator SlimeTearCoroutine()
         {
             CurrentState = TutorialState.SlimeTear;
-            yield return null;
-            StartCoroutine(BossGetsAngryCoroutine());
-        }
-        #endregion
-        
-        #region BossGetsAngry
-        private IEnumerator BossGetsAngryCoroutine()
-        {
-            CurrentState = TutorialState.BossGetsAngry;
-            yield return null;
-            StartCoroutine(ZoomOutCoroutine());
-        }
-        #endregion
-        
-        #region ZoomOut
-        private IEnumerator ZoomOutCoroutine()
-        {
-            CurrentState = TutorialState.ZoomOut;
-            yield return null;
+
+            _slimeTearsLogic = new SlimeTearsLogic(slimeTearsStateDeps,
+                tutorialScriptable.SlimeTearsStateSet);
+            yield return _slimeTearsLogic.Start();
             StartCoroutine(SpellHitCoroutine());
         }
         #endregion

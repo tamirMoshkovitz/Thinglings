@@ -129,9 +129,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2231272026677981616, guid: 55208e6c384101649a5925974123948a, type: 3}
   m_PrefabInstance: {fileID: 689614786710474723}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &174396333 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2948316560401893346, guid: 9282f6fc0abe4479b9c557861dd0467c, type: 3}
+  m_PrefabInstance: {fileID: 3346243743947891324}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &194749316 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 793601271816119973, guid: d19131542a3dd490abec89de45f4dbdc, type: 3}
+  m_PrefabInstance: {fileID: 728586244}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &194749317 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5770468431943715506, guid: d19131542a3dd490abec89de45f4dbdc, type: 3}
   m_PrefabInstance: {fileID: 728586244}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &230139383
@@ -782,6 +792,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 590626563016348507, guid: d19131542a3dd490abec89de45f4dbdc, type: 3}
   m_PrefabInstance: {fileID: 728586244}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &544429298 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7219174985340982713, guid: d19131542a3dd490abec89de45f4dbdc, type: 3}
+  m_PrefabInstance: {fileID: 728586244}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &728586244
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -821,6 +836,10 @@ PrefabInstance:
     - target: {fileID: 788580213383257640, guid: d19131542a3dd490abec89de45f4dbdc, type: 3}
       propertyPath: m_Distance
       value: 0.37483695
+      objectReference: {fileID: 0}
+    - target: {fileID: 800464921363838902, guid: d19131542a3dd490abec89de45f4dbdc, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1367965732522654235, guid: d19131542a3dd490abec89de45f4dbdc, type: 3}
       propertyPath: m_Distance
@@ -1294,6 +1313,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3526016663370936909, guid: d19131542a3dd490abec89de45f4dbdc, type: 3}
   m_PrefabInstance: {fileID: 728586244}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &819180596 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5495671162430005579, guid: d19131542a3dd490abec89de45f4dbdc, type: 3}
+  m_PrefabInstance: {fileID: 728586244}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819180594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
 --- !u!1 &820194645 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4622440772077818780, guid: 9282f6fc0abe4479b9c557861dd0467c, type: 3}
@@ -1720,13 +1750,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 127195865}
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: slimeTearsStateDeps.sorcerer
+      value: 
+      objectReference: {fileID: 820194645}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: rockStateDeps.slimeGameObject
       value: 
       objectReference: {fileID: 819180594}
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: slimeConnectsStateDeps.slime1
+      value: 
+      objectReference: {fileID: 544429298}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: slimeConnectsStateDeps.slime2
+      value: 
+      objectReference: {fileID: 194749317}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: riseToBossStateDeps.mainCamera
       value: 
       objectReference: {fileID: 230139385}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: slimeTearsStateDeps.slimeInput
+      value: 
+      objectReference: {fileID: 819180596}
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: rockStateDeps.ExplosionAnimator
       value: 
@@ -1735,6 +1781,26 @@ PrefabInstance:
       propertyPath: rockStateDeps.happyBossBackground
       value: 
       objectReference: {fileID: 820194645}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: slimeConnectsStateDeps.slimeInput
+      value: 
+      objectReference: {fileID: 819180596}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: slimeTearsStateDeps.sorcererAnimator
+      value: 
+      objectReference: {fileID: 174396333}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: slimeTearsStateDeps.transitionAnimator
+      value: 
+      objectReference: {fileID: 1307573145}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: slimeTearsStateDeps.transitionRenderer
+      value: 
+      objectReference: {fileID: 1307573146}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: slimeConnectsStateDeps.sorcererAnimator
+      value: 
+      objectReference: {fileID: 174396333}
     - target: {fileID: 5273071452591367334, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1792,6 +1858,11 @@ Transform:
 --- !u!95 &1307573145 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 6768303131200781959, guid: 47637439db76348ae94481f868aaf610, type: 3}
+  m_PrefabInstance: {fileID: 501549788}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1307573146 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8716285693211327182, guid: 47637439db76348ae94481f868aaf610, type: 3}
   m_PrefabInstance: {fileID: 501549788}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &1373747583 stripped
@@ -2995,9 +3066,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 946524391871532581, guid: 3736a769e058e0d4e98892d691d4e8a9, type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 946524391871532581, guid: 3736a769e058e0d4e98892d691d4e8a9, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 206129999
+      objectReference: {fileID: 0}
     - target: {fileID: 4939953386362282765, guid: 3736a769e058e0d4e98892d691d4e8a9, type: 3}
       propertyPath: m_Name
       value: Fluid Particle System
+      objectReference: {fileID: 0}
+    - target: {fileID: 4939953386362282765, guid: 3736a769e058e0d4e98892d691d4e8a9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6916833981664252138, guid: 3736a769e058e0d4e98892d691d4e8a9, type: 3}
       propertyPath: m_LocalPosition.x

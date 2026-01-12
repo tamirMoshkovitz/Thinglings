@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using _SLIME.BaseScripts;
 using DG.Tweening;
 using UnityEngine;
@@ -10,11 +11,11 @@ namespace _SLIME.Tutorial
     [System.Serializable]
         public struct RockShakeSettings
         {
-            public float shakeIntensity;
-            public float shakeDuration;
-            public float requiredShakeTime;
-            public int shakeVibrato;
-            public float shakeRandomness;
+            public float[] shakeIntensity;
+            public float[] shakeDuration;
+            public float[] requiredShakeTime;
+            public int[] shakeVibrato;
+            public float[] shakeRandomness;
         }
 
        
@@ -29,16 +30,19 @@ namespace _SLIME.Tutorial
         private float _accumulatedShakeTime;
         private Tween _currentShakeTween;
         private bool _eventTriggered;
+        private int _currentShakeIndex = 0;
         
         private void OnEnable()
         {
             _isShaking = false;
             _accumulatedShakeTime = 0f;
+            JoystickMoved += OnJoystickMoved;
         }
         
         private void OnDisable()
         {
             StopShake();
+            JoystickMoved -= OnJoystickMoved;
         }
 
         private void Awake()
@@ -51,7 +55,7 @@ namespace _SLIME.Tutorial
             if (_isShaking)
             {
                 _accumulatedShakeTime += Time.deltaTime;
-                if (_accumulatedShakeTime >= rockShakeSettings.requiredShakeTime)
+                if (_accumulatedShakeTime >= rockShakeSettings.requiredShakeTime[_currentShakeIndex])
                 {
                     JoystickMoved?.Invoke();
                     _accumulatedShakeTime = 0f;
@@ -59,11 +63,30 @@ namespace _SLIME.Tutorial
             }
         }
         
+        private void OnJoystickMoved()
+        {
+            int maxIndex = Mathf.Min(
+                rockShakeSettings.shakeIntensity.Length,
+                rockShakeSettings.shakeDuration.Length,
+                rockShakeSettings.requiredShakeTime.Length,
+                rockShakeSettings.shakeVibrato.Length,
+                rockShakeSettings.shakeRandomness.Length
+            ) - 1;
+            
+            if (_currentShakeIndex < maxIndex)
+            {
+                _currentShakeIndex++;
+            }
+        }
+        
         public void OnMove(InputAction.CallbackContext context)
         {
             if (context.performed)
             {
-                StartShake();
+                if (!_isShaking)
+                {
+                    StartCoroutine(ShakeCoroutine());
+                }
             }
             else if (context.canceled)
             {
@@ -71,22 +94,22 @@ namespace _SLIME.Tutorial
             }
         }
         
-        
-        private void StartShake()
+        private IEnumerator ShakeCoroutine()
         {
-            if (_isShaking) return;
-            
             _isShaking = true;
             
-            _currentShakeTween = transform.DOShakePosition(
-                rockShakeSettings.shakeDuration,
-                rockShakeSettings.shakeIntensity,
-                rockShakeSettings.shakeVibrato,
-                rockShakeSettings.shakeRandomness,
-                false,
-                true)
-                .SetLoops(-1);
-        
+            while (_isShaking)
+            {
+                _currentShakeTween = transform.DOShakePosition(
+                    rockShakeSettings.shakeDuration[_currentShakeIndex],
+                    rockShakeSettings.shakeIntensity[_currentShakeIndex],
+                    rockShakeSettings.shakeVibrato[_currentShakeIndex],
+                    rockShakeSettings.shakeRandomness[_currentShakeIndex],
+                    false,
+                    true);
+                
+                yield return _currentShakeTween.WaitForCompletion();
+            }
         }
         
         private void StopShake()
