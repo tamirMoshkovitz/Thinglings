@@ -78,12 +78,29 @@ public class BaseBossConfigurations : TabbedScriptableObject
         public float lowerHealthThreshold;
     }
     
+    [Serializable]
+    public struct IcicleSpawnSettings
+    {
+        [Header("Icicle Spawn Settings")]
+        
+        [Tooltip("Minimum time to wait before the next spawn.")]
+        public float minWaitTime;
+        
+        [Tooltip("Maximum time to wait before the next spawn.")]
+        public float maxWaitTime;
+        
+        [Tooltip("If true, it will keep spawning indefinitely.")]
+        public bool loopSpawning;
+    }
+    
     [Tab("Attacks Settings")]
     [SerializeField] private HandsAttackSettings handsAttackSettings;
     [Tab("Attacks Settings")]
     [SerializeField] private SpawnAttackSettings spawnAttackSettings;
     [Tab("Attacks Settings")]
     [SerializeField] private LaserAttackSettings laserAttackSettings;
+    [Tab("Attacks Settings")]
+    [SerializeField] private IcicleSpawnSettings icicleSpawnSettings;
     
     
     [Tab("Boss Core Settings")]
@@ -96,6 +113,6 @@ public class BaseBossConfigurations : TabbedScriptableObject
     public SpawnAttackSettings SpawnAttack => spawnAttackSettings;
     public LaserAttackSettings LaserAttack => laserAttackSettings;
     public BossCoreSettings CoreSettings => bossCoreSettings;
-    
     public BossPhaseSettings PhaseSettings => bossPhaseSettings;
+    public IcicleSpawnSettings IcicleSpawn => icicleSpawnSettings;
 }

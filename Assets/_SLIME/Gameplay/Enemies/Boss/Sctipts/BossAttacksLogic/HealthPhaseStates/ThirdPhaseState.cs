@@ -8,6 +8,7 @@ public class ThirdPhaseState : State
     private readonly BaseBossConfigurations _thirdPhaseConfigurations;
     private readonly BossBrain _bossBrain;
     public static event Action TunnelPhaseStarted;
+    private bool _hasInvokedTunnelStart;
 
     public ThirdPhaseState(StateMachine stateMachine, BossBrain bossBrain, BaseBossConfigurations thirdPhaseConfigurations) : base(stateMachine)
     {
@@ -28,7 +29,14 @@ public class ThirdPhaseState : State
         if (_bossBrain.currentHealth <= _thirdPhaseConfigurations.PhaseSettings.upperHealthThreshold
             && _bossBrain.currentHealth > _thirdPhaseConfigurations.PhaseSettings.lowerHealthThreshold)
         {
+            return;
+        }
+
+        if (!_hasInvokedTunnelStart)
+        {
+            Debug.Log("Invoking Tunnel Phase Start");
             TunnelPhaseStarted?.Invoke();
+            _hasInvokedTunnelStart = true;
         }
     }
 }

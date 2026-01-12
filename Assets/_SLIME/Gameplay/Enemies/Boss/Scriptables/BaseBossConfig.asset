@@ -69,7 +69,7 @@ MonoBehaviour:
     rotationDuration: 10
     totalLoops: 1
   bossCoreSettings:
-    maxHealth: 400
+    maxHealth: 100
   bossPhaseSettings:
-    upperHealthThreshold: 400
-    lowerHealthThreshold: 320
+    upperHealthThreshold: 100
+    lowerHealthThreshold: 80

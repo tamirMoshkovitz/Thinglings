@@ -5,7 +5,6 @@ using _SLIME.GameLoop;
 using _SLIME.Slime;
 using _SLIME.UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using EventType = _SLIME.UI.EventType;
 
@@ -54,8 +53,8 @@ namespace _SLIME.Boss
         [HideInInspector] 
         public float currentHealth;
 
-        [Header("Animation Setup")] 
-        [SerializeField] private Animator animator;
+        [Header("Animation Setup")]
+        public Animator animator;
 
         [Header("Laser Attack Setup")] 
         public GameObject laserAttackGameObject;

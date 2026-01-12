@@ -79,9 +79,10 @@ public class TempPhaseChanger : MonoBehaviour
 
     private void Update()
     {
-        if (!_conditionMet)
+        if (_conditionMet)
         {
             StartFadeSequence();
+            _conditionMet = false;
         }
 
         // Handle Sequence
@@ -121,7 +122,6 @@ public class TempPhaseChanger : MonoBehaviour
         // Step 2: Start Movement Ramp
         _isRampingMovement = true;
         _movementTimer = 0f;
-        spawner.OnTunnelPhaseStarted();
         // Capture start values at the moment the ramp begins
         if (artConfigurations != null)
         {
