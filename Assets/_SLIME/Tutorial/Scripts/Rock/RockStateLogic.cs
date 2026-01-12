@@ -29,7 +29,7 @@ namespace _SLIME.Tutorial
     }
 
 
-    public class RockStateLogic
+    public class RockStateLogic : ITutorialStateLogic
     {
         private RockStateDeps _rockStateDeps;
         private RockStateSet _rockStateSet;

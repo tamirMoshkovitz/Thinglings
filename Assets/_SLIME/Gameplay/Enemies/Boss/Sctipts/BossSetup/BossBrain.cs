@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
 using _SLIME.GameLoop;
+using _SLIME.Slime;
 using _SLIME.UI;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -44,6 +45,9 @@ namespace _SLIME.Boss
         [Header("Spawn Setup")]
         public Transform leftSpawnPoint;
         public Transform rightSpawnPoint;
+        public Transform slime1;
+        public Transform slime2;
+        [HideInInspector] public bool slimesConnected = false;
         
         [Header("Health Setup")] 
         public Image bossHealthBar;
@@ -87,12 +91,27 @@ namespace _SLIME.Boss
             {
                 behaviour.Initialize(this);
             }
+            
+        }
+
+        private void OnEnable(){
+            SlimeEvents.SlimeConnected += OnSlimeConnected;
+            SlimeEvents.SlimeTears += OnSlimeTears;
         }
         
         private void Update()
         {
             StateMachine.CurrentState.LogicUpdate();
         }
+        
+        private void OnDisable()
+        {
+            SlimeEvents.SlimeConnected -= OnSlimeConnected;
+            SlimeEvents.SlimeTears -= OnSlimeTears;
+        }
+        
+        private void OnSlimeConnected() => slimesConnected = true;
+        private void OnSlimeTears() => slimesConnected = false;
 
         // ReSharper disable Unity.PerformanceAnalysis
         public void TakeDamage(float damage)

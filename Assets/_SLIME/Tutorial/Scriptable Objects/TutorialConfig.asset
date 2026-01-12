@@ -77,4 +77,50 @@ MonoBehaviour:
     sorcererTriggerName: to angry
     sorcererWaitForStateName: Transition to tutorial
     transitionTriggerName: to spell boss
-    transitionWaitForStateName: Angry boss to spell boss
+    transitionWaitForStateName: in spell boss
+  spellHitStateSet:
+    waitTimeBeforeSpawn: 0.5
+    spellSpeed: 5
+    cameraShakeIntensity: 0.5
+    cameraShakeDuration: 0.2
+    cameraShakeVibrato: 1
+    cameraShakeRandomness: 0.2
+  learnSlimeAboutSpellsStateSet:
+    separationDistance: 3
+    separationTime: 3
+    separationCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    spellSpeed: 10
+  bossThrowsSpellStateSet:
+    timeBetweenSpells: 4
+    spellSpeed: 10
+  sceneMoveToFinalBattleStateSet:
+    transitionTriggerName: to game
+    transitionAnimationStateName: Boss spells to game
+  tutorialBossFlashSettings:
+    flashColor: {r: 1, g: 1, b: 1, a: 0}
+    shaderPropertyName: _Flash
+    flashDuration: 0.2
+    maxIntensity: 1

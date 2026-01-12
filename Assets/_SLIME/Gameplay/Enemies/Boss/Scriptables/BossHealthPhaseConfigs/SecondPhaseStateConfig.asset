@@ -22,6 +22,7 @@ MonoBehaviour:
     spellsToCast: 12
     spawnInterval: 1.25
     spellLifeTime: 5
+    spellSpeed: 15
   laserAttackSettings:
     rotationCurve:
       serializedVersion: 2
@@ -68,7 +69,7 @@ MonoBehaviour:
     rotationDuration: 6
     totalLoops: 1
   bossCoreSettings:
-    maxHealth: 100
+    maxHealth: 400
   bossPhaseSettings:
-    upperHealthThreshold: 60
-    lowerHealthThreshold: 40
+    upperHealthThreshold: 240
+    lowerHealthThreshold: 160

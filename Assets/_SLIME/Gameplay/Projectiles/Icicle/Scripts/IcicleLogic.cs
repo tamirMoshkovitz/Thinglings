@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using _SLIME.BaseScripts;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -6,8 +8,12 @@ public class IcicleLogic : MonoBehaviour
 {
     [SerializeField] private Animator icicleAnimator;
     [SerializeField] private Transform spawnPoint;
+    [SerializeField] private TurnOffGameobjectAfterTime turnOffGameobjectAfterTime;
     private new Rigidbody2D _rigidbody2D;
     private Collider2D _col;
+    private Coroutine _courtine;
+    private bool _hit;
+
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -26,6 +32,8 @@ public class IcicleLogic : MonoBehaviour
         _rigidbody2D.angularVelocity = 0f;
         _col.enabled = false;
         gameObject.transform.position = spawnPoint.position;
+        _hit = false;
+        _courtine = null;
     }
 
     public void ActivateFall()
@@ -35,9 +43,42 @@ public class IcicleLogic : MonoBehaviour
         _rigidbody2D.gravityScale = 1f;
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Ask elad how to add the logic to the tear/ hit.
-        gameObject.SetActive(false);
+        if(_hit) return;
+        _hit = true;
+        var rig = collision.attachedRigidbody;
+        if (rig && rig.TryGetComponent<IHealth>(out IHealth h))
+        {
+            h.TakeDamage();
+        }
+        icicleAnimator.SetTrigger("IcycleHit");
+        if(_courtine != null) return;
+        _courtine = StartCoroutine(WaitForDissolveState());
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(_hit) return;
+        _hit = true;
+        icicleAnimator.SetTrigger("IcycleHit");
+        if(_courtine != null) return;
+        _courtine = StartCoroutine(WaitForDissolveState());
+    }
+    
+    private IEnumerator WaitForDissolveState()
+    {
+        // Wait until we enter the IcicleDissolve state
+        while (!icicleAnimator.GetCurrentAnimatorStateInfo(0).IsName("IcicleDissolve"))
+        {
+            yield return null;
+        }
+        
+        // Wait until the animation finishes
+        while (icicleAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        {
+            yield return null;
+        }
+        turnOffGameobjectAfterTime.TurnOff();
     }
 }

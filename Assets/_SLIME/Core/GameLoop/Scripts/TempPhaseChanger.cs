@@ -121,7 +121,7 @@ public class TempPhaseChanger : MonoBehaviour
         // Step 2: Start Movement Ramp
         _isRampingMovement = true;
         _movementTimer = 0f;
-        spawner.OnSecondStageStart();
+        spawner.OnTunnelPhaseStarted();
         // Capture start values at the moment the ramp begins
         if (artConfigurations != null)
         {

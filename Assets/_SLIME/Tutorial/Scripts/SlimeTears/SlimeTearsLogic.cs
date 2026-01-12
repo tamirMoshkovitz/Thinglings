@@ -12,6 +12,8 @@ namespace _SLIME.Tutorial
         public Renderer transitionRenderer;
         public GameObject sorcerer;
         public UnityEngine.InputSystem.PlayerInput slimeInput;
+        public GameObject tutorialBackground;
+        public GameObject tutorialBoss;
     }
     
     [System.Serializable]
@@ -23,7 +25,7 @@ namespace _SLIME.Tutorial
         public string transitionWaitForStateName;
     }
     
-    public class SlimeTearsLogic
+    public class SlimeTearsLogic : ITutorialStateLogic
     {
         private SlimeTearsStateDeps _slimeTearsStateDeps;
         private SlimeTearsStateSet _slimeTearsStateSet;
@@ -70,7 +72,9 @@ namespace _SLIME.Tutorial
             _slimeTearsStateDeps.transitionAnimator.SetTrigger(_slimeTearsStateSet.transitionTriggerName);
             yield return WaitForAnimationState(_slimeTearsStateDeps.transitionAnimator, 
                 _slimeTearsStateSet.transitionWaitForStateName);
-            _slimeTearsStateDeps.transitionRenderer.sortingLayerName = "Default";
+            _slimeTearsStateDeps.tutorialBackground.SetActive(true);
+            _slimeTearsStateDeps.tutorialBoss.SetActive(true);
+            
         }
 
         private void OnSlimeTears()

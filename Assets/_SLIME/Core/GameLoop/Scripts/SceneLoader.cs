@@ -7,8 +7,7 @@ namespace _SLIME.GameLoop
     public enum SceneType
     {
         StartScene,
-        PinBall,
-        BossChaseScene,
+        StartSceneAfterDeath,
         BossFinalBattleScene,
     }
     
@@ -26,13 +25,12 @@ namespace _SLIME.GameLoop
         static SceneLoader()
         {
             sceneTypeToIndex.Add(SceneType.StartScene, "FirstScene");
-            sceneTypeToIndex.Add(SceneType.PinBall, "PinBall");
-            sceneTypeToIndex.Add(SceneType.BossChaseScene, "BossChase");
             sceneTypeToIndex.Add(SceneType.BossFinalBattleScene, "BossFinalBattle");
+            sceneTypeToIndex.Add(SceneType.StartSceneAfterDeath, "FirstSceneAfterDamdge");
+            
             indexToSceneType.Add("StartScene", SceneType.StartScene);
-            indexToSceneType.Add("BossBecomesMad", SceneType.PinBall);
-            indexToSceneType.Add("BossChase", SceneType.BossChaseScene);
             indexToSceneType.Add("BossFinalBattle", SceneType.BossFinalBattleScene);
+            indexToSceneType.Add("FirstSceneAfterDamdge", SceneType.StartSceneAfterDeath);
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
         

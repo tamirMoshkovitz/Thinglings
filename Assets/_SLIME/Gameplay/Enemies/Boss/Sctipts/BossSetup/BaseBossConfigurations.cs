@@ -40,6 +40,8 @@ public class BaseBossConfigurations : TabbedScriptableObject
         [Tooltip("Life time of the spell in seconds")]
         public float spellLifeTime;
         
+        [Tooltip("Spell Speed")]
+        public float spellSpeed;
     }
     
     [Serializable]

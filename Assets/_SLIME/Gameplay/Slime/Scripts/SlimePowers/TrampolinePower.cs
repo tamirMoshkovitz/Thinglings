@@ -32,6 +32,11 @@ namespace _SLIME.Slime
         public void Activate(Vector2 hitpoint,Collider2D objectToJump)
         {
             isActive = true;
+            if (objectToJump.gameObject.CompareTag("Icicle"))
+            {
+                SlimeEvents.SlimeConnectionGotHitByIcicle?.Invoke();
+                return;
+            } 
             Rigidbody2D projectileRb = objectToJump.GetComponent<Rigidbody2D>();
             GameObject projectileGo = projectileRb.gameObject;
             

@@ -25,7 +25,7 @@ namespace _SLIME.Tutorial
         public float cameraNotMovingTimeout;
     }
     
-    public class RiseToBossLogic
+    public class RiseToBossLogic : ITutorialStateLogic
     {
         private RiseToBossStateDeps _riseToBossStateDeps;
         private RiseToBossStateSet _riseToBossStateSet;
@@ -36,6 +36,11 @@ namespace _SLIME.Tutorial
         {
             _riseToBossStateDeps = riseToBossStateDeps;
             _riseToBossStateSet = riseToBossStateSet;
+        }
+        
+        public void OnDisable()
+        {
+            // Cleanup if needed
         }
         
         public IEnumerator Start()

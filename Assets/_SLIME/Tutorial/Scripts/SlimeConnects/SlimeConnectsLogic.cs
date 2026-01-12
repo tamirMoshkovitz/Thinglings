@@ -24,7 +24,7 @@ namespace _SLIME.Tutorial
         public AnimationCurve moveEase;
     }
     
-    public class SlimeConnectsLogic
+    public class SlimeConnectsLogic : ITutorialStateLogic
     {
         private SlimeConnectsStateDeps _slimeConnectsStateDeps;
         private SlimeConnectsStateSet _slimeConnectsStateSet;
@@ -34,6 +34,11 @@ namespace _SLIME.Tutorial
         {
             _slimeConnectsStateDeps = slimeConnectsStateDeps;
             _slimeConnectsStateSet = slimeConnectsStateSet;
+        }
+        
+        public void OnDisable()
+        {
+            // Cleanup if needed
         }
         
         public IEnumerator Start()

@@ -100,8 +100,12 @@ namespace _SLIME.Slime
 
         private void CheckDeath()
         {
-            if(_rightSide.IsDead && _leftSide.IsDead) 
-                SceneLoader.LoadScene(SceneType.BossFinalBattleScene);
+            if (_rightSide.IsDead && _leftSide.IsDead)
+            {
+                if(SceneLoader.CurrentSceneType == SceneType.BossFinalBattleScene) SceneLoader.LoadScene(SceneType.BossFinalBattleScene);
+                if(SceneLoader.CurrentSceneType == SceneType.StartScene) SceneLoader.LoadScene(SceneType.StartSceneAfterDeath);
+                if(SceneLoader.CurrentSceneType == SceneType.StartSceneAfterDeath) SceneLoader.LoadScene(SceneType.StartSceneAfterDeath);
+            }
         }
 
         private void FixedUpdate()
