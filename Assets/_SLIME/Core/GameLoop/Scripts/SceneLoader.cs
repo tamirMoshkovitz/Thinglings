@@ -28,7 +28,7 @@ namespace _SLIME.GameLoop
             sceneTypeToIndex.Add(SceneType.BossFinalBattleScene, "BossFinalBattle");
             sceneTypeToIndex.Add(SceneType.StartSceneAfterDeath, "FirstSceneAfterDamdge");
             
-            indexToSceneType.Add("StartScene", SceneType.StartScene);
+            indexToSceneType.Add("FirstScene", SceneType.StartScene);
             indexToSceneType.Add("BossFinalBattle", SceneType.BossFinalBattleScene);
             indexToSceneType.Add("FirstSceneAfterDamdge", SceneType.StartSceneAfterDeath);
             SceneManager.sceneLoaded += OnSceneLoaded;
