@@ -1,3 +1,4 @@
+using _SLIME.Slime;
 using UnityEngine;
 
 
@@ -9,6 +10,7 @@ namespace _SLIME.Boss
 
         private int _spellCounter;
         private float _timer;
+        
 
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
@@ -58,15 +60,12 @@ namespace _SLIME.Boss
         
         private Vector3 GetTargetPosition()
         {
-            Vector3 slime1Pos = Data.slime1.position;
-            Vector3 slime2Pos = Data.slime2.position;
+            Vector3 slime1Pos = SlimeData.instance.SideATransform.position;
+            Vector3 slime2Pos = SlimeData.instance.SideBTransform.position;
+
+            if (SlimeData.instance.SideBDead) return slime1Pos;
+            if (SlimeData.instance.SideADead) return slime2Pos;
             
-            if (Data.slimesConnected)
-            {
-                return (slime1Pos + slime2Pos) / 2f;
-            }
-            
-        
             Vector3 spawnPos = Data.leftSpawnPoint.position;
             float dist1 = Vector3.Distance(spawnPos, slime1Pos);
             float dist2 = Vector3.Distance(spawnPos, slime2Pos);

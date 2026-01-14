@@ -4,6 +4,7 @@ namespace _SLIME.Slime
 {
     public class SlimeData
     {
+        public static SlimeData instance;
         private SlimeSide _sideA;
         private SlimeSide _sideB;
         
@@ -11,8 +12,13 @@ namespace _SLIME.Slime
         {
             _sideA = sideA;
             _sideB = sideB;
+            instance = this;
         }
 
+        public Transform SideATransform => _sideA.Transform;
+        public Transform SideBTransform => _sideB.Transform;
+        public bool SideADead => _sideA.IsDead;
+        public bool SideBDead => _sideB.IsDead;
         private bool _connected = false;
         public bool Connected
         {

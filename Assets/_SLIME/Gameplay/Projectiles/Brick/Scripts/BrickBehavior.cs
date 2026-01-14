@@ -35,6 +35,8 @@ namespace _SLIME.Projectiles
             if (rig && rig.TryGetComponent<IHealth>(out IHealth h))
             {
                 h.TakeDamage(damage);
+                Destroy(gameObject);
+                return;
                 // GameEvents.EnemyGotBricked?.Invoke(); //TODO: FIGURE OUT
             }
             
