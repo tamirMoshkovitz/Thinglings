@@ -23,7 +23,7 @@ public class ThirdPhaseState : State
         _bossBrain.bossConfigurations = _thirdPhaseConfigurations;
         _bossBrain.WaterStateActivated = true;
         
-        GameEvents.FmodPhaseFour?.Invoke();
+        // GameEvents.FmodPhaseFour?.Invoke();
     }
     
     public override void LogicUpdate()
@@ -40,6 +40,8 @@ public class ThirdPhaseState : State
             Debug.Log("Invoking Tunnel Phase Start");
             TunnelPhaseStarted?.Invoke();
             _hasInvokedTunnelStart = true;
+            
+            GameEvents.FmodPhaseFour?.Invoke();
         }
     }
 }

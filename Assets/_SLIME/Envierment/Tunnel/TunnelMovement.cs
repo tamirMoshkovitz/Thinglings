@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using _SLIME.BaseScripts;
+using _SLIME.GameLoop;
 
 public class TunnelMovement : ProjectMonoBehavior
 {
