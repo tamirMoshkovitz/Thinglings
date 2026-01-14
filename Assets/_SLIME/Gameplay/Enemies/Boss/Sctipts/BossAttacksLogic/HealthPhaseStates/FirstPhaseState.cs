@@ -1,4 +1,5 @@
 using _SLIME.Boss;
+using _SLIME.GameLoop;
 using UnityEngine;
 
 public class FirstPhaseState : State
@@ -17,6 +18,8 @@ public class FirstPhaseState : State
         base.Enter();
         _bossBrain.bossConfigurations = _firstPhaseConfigurations;
         _bossBrain.WaterStateActivated = true;
+        
+        GameEvents.FmodPhaseTwo?.Invoke();
     }
     
     public override void LogicUpdate()

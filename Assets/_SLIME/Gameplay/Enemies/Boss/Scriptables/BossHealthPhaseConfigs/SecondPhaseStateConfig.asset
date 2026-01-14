@@ -68,8 +68,12 @@ MonoBehaviour:
       m_RotationOrder: 4
     rotationDuration: 6
     totalLoops: 1
+  icicleSpawnSettings:
+    minWaitTime: 0
+    maxWaitTime: 0
+    loopSpawning: 0
   bossCoreSettings:
-    maxHealth: 400
+    maxHealth: 200
   bossPhaseSettings:
-    upperHealthThreshold: 240
-    lowerHealthThreshold: 160
+    upperHealthThreshold: 100
+    lowerHealthThreshold: 70

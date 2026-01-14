@@ -14,6 +14,12 @@ namespace _SLIME.GameLoop
         public static Action IcicleGotHit;
         public static Action IcicleCrumbled;
         
+        // FMOD Events
+        public static Action FmodPhaseOne;
+        public static Action FmodPhaseTwo;
+        public static Action FmodPhaseThree;
+        public static Action FmodPhaseFour;
+        
         // TODO: IN FUTURE, RESET SHOULD BE ACTIVATED ON ProjectMonoBehaviour to be applied by inheritance to all objects
         public static void RaiseResetGame()
         {

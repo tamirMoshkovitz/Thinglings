@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{87d75b92-625a-490a-98d4-88b06ab5a797}">
+		<property name="name">
+			<value>battle scenes</value>
+		</property>
+		<relationship name="folder">
+			<destination>{e9be661c-660b-4f2c-820b-ed11e40c4884}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{faf795ca-17b7-4aa1-8a72-c2736b5f01cf}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{faf795ca-17b7-4aa1-8a72-c2736b5f01cf}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>5</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>pinball</value>
+			<value>boss phase1</value>
+			<value>boss phase 2</value>
+			<value>boss phase 3</value>
+			<value>boss phase 4</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
