@@ -52,12 +52,17 @@ namespace _SLIME.Slime
         
         public float MaxStretchTimeThreshold => slimeConfigurationNormal.maxStretchTimeThreshold;
         public float MaxStretchPercentThreshold => slimeConfigurationNormal.maxStretchPercentThreshold;
+        
 
         [Tab("Slime")] 
         [SerializeField] public int MaxConnectionsOfSlime;
         
         [Tab("SlimeShootingPower")]
         [SerializeField] public SlimeSideShootingSettings shootingSettings;
-        
+
+
+        [Tab("Slime Spark")] 
+        [SerializeField] public SparkSets SparkSet;
+
     }
 }

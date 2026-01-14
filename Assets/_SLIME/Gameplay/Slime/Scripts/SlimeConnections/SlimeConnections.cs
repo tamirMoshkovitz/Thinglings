@@ -11,7 +11,11 @@ namespace _SLIME.Slime
         public EdgeCollider2D EdgeColliderConnections;
         public Transform TransformSlime1LinePoint;
         public Transform TransformSlime2LinePoint;
+        public GameObject Spark;
     }
+    
+    
+    
     public class SlimeConnections
     {
         private Dictionary<ConnectingJoint, List<ConnectingJoint>> _objectsConnections =

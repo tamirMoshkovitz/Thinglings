@@ -135,5 +135,11 @@ namespace _SLIME.Slime
         {
             return _visualStrategy.AnimateRemovalOfLine(ref _components, settings);
         }
+
+        public Vector3 GetLineCenter()
+        {
+            int midIndex = _components.linePositions.Length / 2;
+            return _components.linePositions[midIndex];
+        }
     }
 }
