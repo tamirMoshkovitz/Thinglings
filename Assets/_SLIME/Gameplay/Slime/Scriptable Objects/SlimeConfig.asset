@@ -143,8 +143,8 @@ MonoBehaviour:
     slimeProjectileLayer:
       serializedVersion: 2
       m_Bits: 128
-    sparkRadius: 0.1
-    sparkDamage: 4
+    sparkRadius: 1.5
+    sparkDamage: 1
     enemyHitLayer:
       serializedVersion: 2
       m_Bits: 2048
