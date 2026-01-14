@@ -10,8 +10,8 @@ namespace _SLIME.Gameplay.Projectiles.Brick.Scripts
         [SerializeField] private float lifeTime = 1200f;
         [SerializeField] private float fastDissolveLifeTime = 400f;
         [SerializeField] private float dissolvePrecentageToDisableColliders = 0.5f;
-        [SerializeField] private SpriteRenderer renderer;
-        [SerializeField] private Sprite spriteWhenItsPlayer;
+        [SerializeField] protected SpriteRenderer renderer;
+        [SerializeField] protected Sprite spriteWhenItsPlayer;
 
         protected bool DissolveCondition = false;
         protected Rigidbody2D Rb;
@@ -70,7 +70,6 @@ namespace _SLIME.Gameplay.Projectiles.Brick.Scripts
         protected void InitiateFastDissolve()
         {
             lifeTime = fastDissolveLifeTime;
-            renderer.sprite = spriteWhenItsPlayer;
             DissolveCondition = true;
         }
 

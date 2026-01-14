@@ -32,6 +32,13 @@ namespace _SLIME.Tutorial
         private PropertyInfo _riseToBossStateSetProp;
         private PropertyInfo _spellHitStateSetProp;
         
+        // Reflection info for RiseToBossLogic runtime tracking
+        private FieldInfo _allLogicsField;
+        private float _riseToBossLastCameraY;
+        private float _riseToBossTimeSinceMovement;
+        private bool _riseToBossTrackingStarted;
+        private TutorialState _lastTrackedState;
+        
         // For ScrollView
         private Vector2 _scrollPosition = Vector2.zero;
         
@@ -74,6 +81,7 @@ namespace _SLIME.Tutorial
             _rockStateDepsField = t.GetField("rockStateDeps", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             _riseToBossStateDepsField = t.GetField("riseToBossStateDeps", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             _spellHitStateDepsField = t.GetField("spellHitStateDeps", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            _allLogicsField = t.GetField("_allLogics", BindingFlags.Instance | BindingFlags.NonPublic);
         }
         
         private void InitRockReflection()
@@ -156,8 +164,17 @@ namespace _SLIME.Tutorial
                 currentState = (TutorialState)_currentStateProp.GetValue(_tutorialStateManager);
             }
             
+            // Reset tracking when state changes
+            if (currentState != _lastTrackedState)
+            {
+                _riseToBossTrackingStarted = false;
+                _riseToBossTimeSinceMovement = 0f;
+                _lastTrackedState = currentState;
+            }
+            
             text += "\n<color=#FFA500><b>[Tutorial State Manager]</b></color>\n";
             text += $"Current State: <color=yellow><b>{currentState}</b></color>\n";
+            text += $"Frame: <b>{Time.frameCount}</b> | Time: <b>{Time.time:F1}s</b> | DeltaTime: <b>{Time.deltaTime * 1000:F1}ms</b>\n";
             
             var scriptable = _tutorialScriptableField?.GetValue(_tutorialStateManager) as TutorialScriptable;
             if (scriptable != null)
@@ -276,9 +293,10 @@ namespace _SLIME.Tutorial
             string text = "";
             
             // RiseToBoss State Set from Scriptable
+            object riseToBossStateSet = null;
             if (scriptable != null && _riseToBossStateSetProp != null)
             {
-                var riseToBossStateSet = _riseToBossStateSetProp.GetValue(scriptable);
+                riseToBossStateSet = _riseToBossStateSetProp.GetValue(scriptable);
                 if (riseToBossStateSet != null)
                 {
                     text += "\n<color=#FFD700><b>[RiseToBoss State Set (Config)]</b></color>\n";
@@ -287,14 +305,261 @@ namespace _SLIME.Tutorial
             }
             
             // RiseToBoss State Deps
+            object riseToBossStateDeps = null;
             if (_riseToBossStateDepsField != null)
             {
-                var riseToBossStateDeps = _riseToBossStateDepsField.GetValue(_tutorialStateManager);
+                riseToBossStateDeps = _riseToBossStateDepsField.GetValue(_tutorialStateManager);
                 if (riseToBossStateDeps != null)
                 {
                     text += "\n<color=#00CED1><b>[RiseToBoss State Deps]</b></color>\n";
                     text += GetStructFieldsString(riseToBossStateDeps, riseToBossStateDeps.GetType());
                 }
+            }
+            
+            // Real-time tracking and calculations
+            if (riseToBossStateDeps != null && riseToBossStateSet != null)
+            {
+                text += DisplayRiseToBossRealTimeData(riseToBossStateDeps, riseToBossStateSet);
+            }
+            
+            // Get RiseToBossLogic from _allLogics and show tween state
+            if (_allLogicsField != null)
+            {
+                text += DisplayRiseToBossLogicState();
+            }
+            
+            return text;
+        }
+        
+        private string DisplayRiseToBossRealTimeData(object riseToBossStateDeps, object riseToBossStateSet)
+        {
+            string text = "";
+            Type depsType = riseToBossStateDeps.GetType();
+            Type setType = riseToBossStateSet.GetType();
+            
+            // Get deps fields
+            var slime1Field = depsType.GetField("Slime1");
+            var slime2Field = depsType.GetField("Slime2");
+            var arrow1Field = depsType.GetField("Arrow1");
+            var arrow2Field = depsType.GetField("Arrow2");
+            var mainCameraField = depsType.GetField("mainCamera");
+            var maxCameraPositionField = depsType.GetField("maxCameraPosition");
+            
+            // Get settings fields
+            var topThresholdPercentField = setType.GetField("topThresholdPercent");
+            var cameraNotMovingTimeoutField = setType.GetField("cameraNotMovingTimeout");
+            
+            GameObject slime1 = slime1Field?.GetValue(riseToBossStateDeps) as GameObject;
+            GameObject slime2 = slime2Field?.GetValue(riseToBossStateDeps) as GameObject;
+            Animator arrow1 = arrow1Field?.GetValue(riseToBossStateDeps) as Animator;
+            Animator arrow2 = arrow2Field?.GetValue(riseToBossStateDeps) as Animator;
+            Camera mainCamera = mainCameraField?.GetValue(riseToBossStateDeps) as Camera;
+            Transform maxCameraPosition = maxCameraPositionField?.GetValue(riseToBossStateDeps) as Transform;
+            
+            int topThresholdPercent = topThresholdPercentField != null ? (int)topThresholdPercentField.GetValue(riseToBossStateSet) : 0;
+            float cameraNotMovingTimeout = cameraNotMovingTimeoutField != null ? (float)cameraNotMovingTimeoutField.GetValue(riseToBossStateSet) : 0f;
+            
+            if (mainCamera == null) return text;
+            
+            text += "\n<color=#90EE90><b>[Real-Time Camera Data]</b></color>\n";
+            
+            float currentCameraY = mainCamera.transform.position.y;
+            float orthographicSize = mainCamera.orthographicSize;
+            
+            // Track camera movement (simulating the coroutine logic)
+            if (!_riseToBossTrackingStarted)
+            {
+                _riseToBossLastCameraY = currentCameraY;
+                _riseToBossTimeSinceMovement = 0f;
+                _riseToBossTrackingStarted = true;
+            }
+            
+            float cameraMovementDelta = Mathf.Abs(currentCameraY - _riseToBossLastCameraY);
+            
+            if (cameraMovementDelta > 0.001f)
+            {
+                _riseToBossTimeSinceMovement = 0f;
+                _riseToBossLastCameraY = currentCameraY;
+            }
+            else
+            {
+                _riseToBossTimeSinceMovement += Time.deltaTime;
+            }
+            
+            text += $"Camera Y: <b>{currentCameraY:F3}</b>\n";
+            text += $"Last Camera Y: <b>{_riseToBossLastCameraY:F3}</b>\n";
+            text += $"Camera Movement Delta: <b>{cameraMovementDelta:F5}</b> (threshold: 0.001)\n";
+            text += $"Orthographic Size: <b>{orthographicSize:F2}</b>\n";
+            
+            // Movement timeout tracking
+            bool shouldShowArrows = _riseToBossTimeSinceMovement >= cameraNotMovingTimeout;
+            string timeColor = shouldShowArrows ? "red" : "white";
+            text += $"Time Since Movement: <color={timeColor}><b>{_riseToBossTimeSinceMovement:F2}s</b></color> / {cameraNotMovingTimeout:F1}s\n";
+            text += $"Should Show Arrows: {(shouldShowArrows ? "<color=yellow><b>YES</b></color>" : "<color=gray>NO</color>")}\n";
+            
+            if (maxCameraPosition != null)
+            {
+                float maxY = maxCameraPosition.position.y;
+                float distanceToMax = maxY - currentCameraY;
+                text += $"Max Camera Y: <b>{maxY:F2}</b>\n";
+                text += $"Distance to Max: <b>{distanceToMax:F2}</b>\n";
+            }
+            
+            // Threshold calculation
+            text += "\n<color=#FF69B4><b>[Slimes At Top Check]</b></color>\n";
+            float cameraCenter = currentCameraY;
+            float thresholdPercentage = topThresholdPercent / 100f;
+            float threshold = cameraCenter + orthographicSize * (1f - thresholdPercentage);
+            
+            text += $"Threshold Calculation:\n";
+            text += $"  Center({cameraCenter:F2}) + Size({orthographicSize:F2}) * (1 - {thresholdPercentage:F2})\n";
+            text += $"  = <b>{threshold:F2}</b>\n";
+            
+            if (slime1 != null && slime2 != null)
+            {
+                float slime1Y = slime1.transform.position.y;
+                float slime2Y = slime2.transform.position.y;
+                
+                bool slime1AtTop = slime1Y >= threshold;
+                bool slime2AtTop = slime2Y >= threshold;
+                
+                float slime1Diff = slime1Y - threshold;
+                float slime2Diff = slime2Y - threshold;
+                
+                string s1Color = slime1AtTop ? "green" : "red";
+                string s2Color = slime2AtTop ? "green" : "red";
+                
+                text += $"\nSlime1 Y: <b>{slime1Y:F2}</b> (<color={s1Color}>{(slime1AtTop ? "AT TOP" : $"needs +{-slime1Diff:F2}")}</color>)\n";
+                text += $"Slime2 Y: <b>{slime2Y:F2}</b> (<color={s2Color}>{(slime2AtTop ? "AT TOP" : $"needs +{-slime2Diff:F2}")}</color>)\n";
+                text += $"Both At Top: {(slime1AtTop && slime2AtTop ? "<color=green><b>YES - Will proceed!</b></color>" : "<color=red><b>NO</b></color>")}\n";
+            }
+            
+            // Arrow Animator states
+            text += "\n<color=#00BFFF><b>[Arrow Animators]</b></color>\n";
+            if (arrow1 != null)
+            {
+                var stateInfo1 = arrow1.GetCurrentAnimatorStateInfo(0);
+                text += $"Arrow1: ";
+                if (stateInfo1.IsName("arrow in"))
+                    text += "<color=yellow><b>arrow in</b></color>\n";
+                else if (stateInfo1.IsName("arrow out"))
+                    text += "<color=gray>arrow out</color>\n";
+                else
+                    text += $"<color=orange>{stateInfo1.fullPathHash}</color>\n";
+                text += $"  Normalized Time: <b>{stateInfo1.normalizedTime:F2}</b>\n";
+            }
+            else
+            {
+                text += "Arrow1: <color=red>NULL</color>\n";
+            }
+            
+            if (arrow2 != null)
+            {
+                var stateInfo2 = arrow2.GetCurrentAnimatorStateInfo(0);
+                text += $"Arrow2: ";
+                if (stateInfo2.IsName("arrow in"))
+                    text += "<color=yellow><b>arrow in</b></color>\n";
+                else if (stateInfo2.IsName("arrow out"))
+                    text += "<color=gray>arrow out</color>\n";
+                else
+                    text += $"<color=orange>{stateInfo2.fullPathHash}</color>\n";
+                text += $"  Normalized Time: <b>{stateInfo2.normalizedTime:F2}</b>\n";
+            }
+            else
+            {
+                text += "Arrow2: <color=red>NULL</color>\n";
+            }
+            
+            return text;
+        }
+        
+        private string DisplayRiseToBossLogicState()
+        {
+            string text = "";
+            
+            try
+            {
+                var allLogics = _allLogicsField.GetValue(_tutorialStateManager) as System.Collections.IList;
+                if (allLogics == null || allLogics.Count == 0)
+                {
+                    text += "\n<color=#FF6347><b>[RiseToBoss Logic]</b></color>\n";
+                    text += "<i>No logic instances found</i>\n";
+                    return text;
+                }
+                
+                // Find RiseToBossLogic in the list
+                object riseToBossLogic = null;
+                foreach (var logic in allLogics)
+                {
+                    if (logic != null && logic.GetType().Name == "RiseToBossLogic")
+                    {
+                        riseToBossLogic = logic;
+                        break;
+                    }
+                }
+                
+                if (riseToBossLogic != null)
+                {
+                    text += "\n<color=#FF6347><b>[RiseToBoss Logic Instance]</b></color>\n";
+                    text += "<color=green>Logic found in _allLogics</color>\n";
+                    
+                    Type logicType = riseToBossLogic.GetType();
+                    
+                    // Get the camera tween field
+                    var cameraTweenField = logicType.GetField("_cameraMoveTween", BindingFlags.Instance | BindingFlags.NonPublic);
+                    if (cameraTweenField != null)
+                    {
+                        var tween = cameraTweenField.GetValue(riseToBossLogic) as Tween;
+                        if (tween != null)
+                        {
+                            text += $"Camera Tween: <color=green><b>EXISTS</b></color>\n";
+                            text += $"  IsActive: {(tween.IsActive() ? "<color=green>YES</color>" : "<color=gray>NO</color>")}\n";
+                            text += $"  IsPlaying: {(tween.IsPlaying() ? "<color=yellow><b>YES</b></color>" : "<color=gray>NO</color>")}\n";
+                            text += $"  IsComplete: {(tween.IsComplete() ? "<color=green>YES</color>" : "<color=gray>NO</color>")}\n";
+                            if (tween.IsActive())
+                            {
+                                text += $"  Elapsed: <b>{tween.Elapsed():F2}s</b> / {tween.Duration():F2}s\n";
+                                text += $"  Progress: <b>{tween.ElapsedPercentage() * 100:F1}%</b>\n";
+                            }
+                        }
+                        else
+                        {
+                            text += $"Camera Tween: <color=gray>NULL (not started yet)</color>\n";
+                        }
+                    }
+                    
+                    // Get the deps and settings from the logic instance
+                    var depsField = logicType.GetField("_riseToBossStateDeps", BindingFlags.Instance | BindingFlags.NonPublic);
+                    var setField = logicType.GetField("_riseToBossStateSet", BindingFlags.Instance | BindingFlags.NonPublic);
+                    
+                    if (depsField != null)
+                    {
+                        var deps = depsField.GetValue(riseToBossLogic);
+                        text += $"Logic has Deps: <color=green>YES</color>\n";
+                    }
+                    if (setField != null)
+                    {
+                        var set = setField.GetValue(riseToBossLogic);
+                        text += $"Logic has Settings: <color=green>YES</color>\n";
+                    }
+                }
+                else
+                {
+                    text += "\n<color=#FF6347><b>[RiseToBoss Logic Instance]</b></color>\n";
+                    text += $"<i>RiseToBossLogic not found in {allLogics.Count} logics</i>\n";
+                    
+                    // List what logics exist
+                    text += "Existing logics:\n";
+                    foreach (var logic in allLogics)
+                    {
+                        if (logic != null)
+                            text += $"  - {logic.GetType().Name}\n";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                text += $"\n<color=red>Error accessing logic: {e.Message}</color>\n";
             }
             
             return text;

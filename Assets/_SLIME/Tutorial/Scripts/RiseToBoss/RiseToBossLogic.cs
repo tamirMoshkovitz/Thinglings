@@ -46,8 +46,8 @@ namespace _SLIME.Tutorial
         public IEnumerator Start()
         {
             yield return WaitForSlimesAtTop();
-            yield return MoveCameraToMax();
             TriggerArrowsOut();
+            yield return MoveCameraToMax();
         }
         
         private IEnumerator WaitForSlimesAtTop()
@@ -59,24 +59,13 @@ namespace _SLIME.Tutorial
             while (!AreSlimesAtTop())
             {
                 yield return null;
+                 
+                timeSinceLastMovement += Time.deltaTime;
                 
-                float currentCameraY = _riseToBossStateDeps.mainCamera.transform.position.y;
-                float cameraMovement = Mathf.Abs(currentCameraY - lastCameraY);
-                
-                if (cameraMovement > 0.001f)
+                if (!arrowsTriggered && timeSinceLastMovement >= _riseToBossStateSet.cameraNotMovingTimeout)
                 {
-                    timeSinceLastMovement = 0f;
-                    lastCameraY = currentCameraY;
-                }
-                else
-                {
-                    timeSinceLastMovement += Time.deltaTime;
-                    
-                    if (!arrowsTriggered && timeSinceLastMovement >= _riseToBossStateSet.cameraNotMovingTimeout)
-                    {
-                        TriggerArrowsIn();
-                        arrowsTriggered = true;
-                    }
+                    TriggerArrowsIn();
+                    arrowsTriggered = true;
                 }
             }
         }

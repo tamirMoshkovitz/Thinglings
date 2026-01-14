@@ -12,6 +12,7 @@ namespace _SLIME.Tutorial
         public Transform leftSpellSpawnPoint;
         public Transform rightSpellSpawnPoint;
         public GameObject spellPrefab;
+        public Animator animatorForSketch;
     }
     
     [System.Serializable]
@@ -43,7 +44,7 @@ namespace _SLIME.Tutorial
         
         public IEnumerator Start()
         {
-            
+            _deps.animatorForSketch.SetTrigger("spell return");
             yield return ThrowSpellsUntilBossHit();
         }
         
@@ -68,6 +69,7 @@ namespace _SLIME.Tutorial
                 
                 yield return null;
             }
+            _deps.animatorForSketch.gameObject.SetActive(false);
         }
         
         private void SpawnSpell(Transform spawnPoint, Vector3 targetPosition)

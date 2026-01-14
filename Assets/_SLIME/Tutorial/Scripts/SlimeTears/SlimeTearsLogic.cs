@@ -14,6 +14,7 @@ namespace _SLIME.Tutorial
         public UnityEngine.InputSystem.PlayerInput slimeInput;
         public GameObject tutorialBackground;
         public GameObject tutorialBoss;
+        public Animator sketchStretchAnimator;
     }
     
     [System.Serializable]
@@ -36,12 +37,12 @@ namespace _SLIME.Tutorial
         {
             _slimeTearsStateDeps = slimeTearsStateDeps;
             _slimeTearsStateSet = slimeTearsStateSet;
-            _SLIME.Slime.SlimeEvents.SlimeTears += OnSlimeTears;
+            Slime.SlimeEvents.SlimeTears += OnSlimeTears;
         }
 
         public void OnDisable()
         {
-            _SLIME.Slime.SlimeEvents.SlimeTears -= OnSlimeTears;
+            Slime.SlimeEvents.SlimeTears -= OnSlimeTears;
         }
         
         private void DisableSlimeInput()
@@ -84,10 +85,12 @@ namespace _SLIME.Tutorial
         
         private IEnumerator WaitForSlimeTears()
         {
+            _slimeTearsStateDeps.sketchStretchAnimator.SetTrigger("stretch");
             while (!_eventTriggered)
             {
                 yield return null;
             }
+            _slimeTearsStateDeps.sketchStretchAnimator.gameObject.SetActive(false);
         }
         
         private IEnumerator WaitForAnimationState(Animator animator, string stateName)

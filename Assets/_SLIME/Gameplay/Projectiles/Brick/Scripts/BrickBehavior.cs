@@ -41,7 +41,12 @@ namespace _SLIME.Projectiles
             if (!collision.gameObject.CompareTag("Player") || !collision.gameObject.CompareTag("Player Connections"))
             {
                 InitiateFastDissolve();
-            }        
+            }
+
+            if (collision.gameObject.CompareTag("Player Connections"))
+            {
+                renderer.sprite = spriteWhenItsPlayer;
+            }
         }
     }
 }
