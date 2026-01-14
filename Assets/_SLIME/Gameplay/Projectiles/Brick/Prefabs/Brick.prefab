@@ -9936,7 +9936,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9219921866110431799}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -9953,7 +9953,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &437437000217825744
 BoxCollider2D:
@@ -10016,4 +10016,6 @@ MonoBehaviour:
   lifeTime: 1200
   fastDissolveLifeTime: 400
   dissolvePrecentageToDisableColliders: 0.5
+  renderer: {fileID: 1923119996960366167}
+  spriteWhenItsPlayer: {fileID: 7200647912939248274, guid: 84160510b50b643de9c70c90c668b30c, type: 3}
   damage: 10

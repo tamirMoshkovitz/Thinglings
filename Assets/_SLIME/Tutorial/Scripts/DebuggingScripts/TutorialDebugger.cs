@@ -17,6 +17,7 @@ namespace _SLIME.Tutorial
         private FieldInfo _tutorialScriptableField;
         private FieldInfo _rockStateDepsField;
         private FieldInfo _riseToBossStateDepsField;
+        private FieldInfo _spellHitStateDepsField;
         
         // Reflection info for Rock
         private FieldInfo _rockShakeSettingsField;
@@ -29,6 +30,7 @@ namespace _SLIME.Tutorial
         private PropertyInfo _rockShakeSettingsProp;
         private PropertyInfo _rockStateSetProp;
         private PropertyInfo _riseToBossStateSetProp;
+        private PropertyInfo _spellHitStateSetProp;
         
         // For ScrollView
         private Vector2 _scrollPosition = Vector2.zero;
@@ -71,6 +73,7 @@ namespace _SLIME.Tutorial
             _tutorialScriptableField = t.GetField("tutorialScriptable", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             _rockStateDepsField = t.GetField("rockStateDeps", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             _riseToBossStateDepsField = t.GetField("riseToBossStateDeps", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            _spellHitStateDepsField = t.GetField("spellHitStateDeps", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
         }
         
         private void InitRockReflection()
@@ -90,6 +93,7 @@ namespace _SLIME.Tutorial
             _rockShakeSettingsProp = t.GetProperty("RockShakeSettings");
             _rockStateSetProp = t.GetProperty("RockStateSet");
             _riseToBossStateSetProp = t.GetProperty("RiseToBossStateSet");
+            _spellHitStateSetProp = t.GetProperty("SpellHitStateSet");
         }
         
         private string GetStructFieldsString(object structInstance, Type structType, string prefix = "")
@@ -169,6 +173,9 @@ namespace _SLIME.Tutorial
                     break;
                 case TutorialState.RiseToBoss:
                     text += DisplayRiseToBossStateDetails(scriptable);
+                    break;
+                case TutorialState.SpellHit:
+                    text += DisplaySpellHitStateDetails(scriptable);
                     break;
                 default:
                     text += "\n<color=#FF69B4><b>[Current State]</b></color>\n";
@@ -287,6 +294,57 @@ namespace _SLIME.Tutorial
                 {
                     text += "\n<color=#00CED1><b>[RiseToBoss State Deps]</b></color>\n";
                     text += GetStructFieldsString(riseToBossStateDeps, riseToBossStateDeps.GetType());
+                }
+            }
+            
+            return text;
+        }
+        
+        private string DisplaySpellHitStateDetails(TutorialScriptable scriptable)
+        {
+            string text = "";
+            
+            // SpellHit State Set from Scriptable
+            if (scriptable != null && _spellHitStateSetProp != null)
+            {
+                var spellHitStateSet = _spellHitStateSetProp.GetValue(scriptable);
+                if (spellHitStateSet != null)
+                {
+                    text += "\n<color=#FFD700><b>[SpellHit State Set (Config)]</b></color>\n";
+                    text += GetStructFieldsString(spellHitStateSet, spellHitStateSet.GetType());
+                }
+            }
+            
+            // SpellHit State Deps
+            if (_spellHitStateDepsField != null)
+            {
+                var spellHitStateDeps = _spellHitStateDepsField.GetValue(_tutorialStateManager);
+                if (spellHitStateDeps != null)
+                {
+                    text += "\n<color=#00CED1><b>[SpellHit State Deps]</b></color>\n";
+                    text += GetStructFieldsString(spellHitStateDeps, spellHitStateDeps.GetType());
+                    
+                    // Show slime positions in real-time
+                    var spellHitStateDepsType = spellHitStateDeps.GetType();
+                    var slime1Field = spellHitStateDepsType.GetField("slime1");
+                    var slime2Field = spellHitStateDepsType.GetField("slime2");
+                    
+                    if (slime1Field != null && slime2Field != null)
+                    {
+                        Transform slime1 = slime1Field.GetValue(spellHitStateDeps) as Transform;
+                        Transform slime2 = slime2Field.GetValue(spellHitStateDeps) as Transform;
+                        
+                        if (slime1 != null && slime2 != null)
+                        {
+                            text += "\n<color=#90EE90><b>[Real-Time Slime Positions]</b></color>\n";
+                            text += $"Slime1 X: <b>{slime1.position.x:F2}</b>\n";
+                            text += $"Slime2 X: <b>{slime2.position.x:F2}</b>\n";
+                            
+                            string leftSlime = slime1.position.x < slime2.position.x ? "Slime1" : "Slime2";
+                            text += $"Left Slime (X < means left): <color=yellow><b>{leftSlime}</b></color>\n";
+                            text += $"Current Logic Target: <color=yellow><b>{leftSlime}</b></color>\n";
+                        }
+                    }
                 }
             }
             

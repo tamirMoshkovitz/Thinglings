@@ -81,7 +81,7 @@ public class TabbedEditor : Editor
         serializedObject.Update();
         
         EditorGUILayout.Space();
-        _selectedTabIndex = GUILayout.Toolbar(_selectedTabIndex, _tabNames);
+        _selectedTabIndex = GUILayout.SelectionGrid(_selectedTabIndex, _tabNames, 4);
         EditorGUILayout.Space();
 
        

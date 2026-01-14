@@ -100,8 +100,12 @@ namespace _SLIME.Slime
 
         private void CheckDeath()
         {
-            if(_rightSide.IsDead && _leftSide.IsDead) 
-                SceneLoader.LoadScene(SceneType.BossFinalBattleScene);
+            if (_rightSide.IsDead && _leftSide.IsDead)
+            {
+                if(SceneLoader.CurrentSceneType == SceneType.BossFinalBattleScene) SceneLoader.LoadScene(SceneType.BossFinalBattleScene);
+                if(SceneLoader.CurrentSceneType == SceneType.StartScene) SceneLoader.LoadScene(SceneType.StartSceneAfterDeath);
+                if(SceneLoader.CurrentSceneType == SceneType.StartSceneAfterDeath) SceneLoader.LoadScene(SceneType.StartSceneAfterDeath);
+            }
         }
 
         private void FixedUpdate()
@@ -158,7 +162,7 @@ namespace _SLIME.Slime
 
         public void OnMoveRight(InputAction.CallbackContext context)
         {
-            if (context.canceled != _isMoveRightCancelled) Debug.Log("Right Move Cancelled: " + context.canceled);
+            if (context.canceled != _isMoveRightCancelled) ;
             _isMoveRightCancelled = context.canceled;
             _rightSide.OnMove(context);
         }
@@ -175,7 +179,7 @@ namespace _SLIME.Slime
 
         public void OnMoveLeft(InputAction.CallbackContext context)
         {
-            if (context.canceled != _isMoveLeftCancelled) Debug.Log("Left Move Cancelled: " + context.canceled);
+            if (context.canceled != _isMoveLeftCancelled);
             _isMoveLeftCancelled = context.canceled;
             _leftSide.OnMove(context);
         }

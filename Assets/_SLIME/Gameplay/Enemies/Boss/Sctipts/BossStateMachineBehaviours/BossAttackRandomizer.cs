@@ -26,7 +26,8 @@ namespace _SLIME.Boss
         private static readonly int DoSpawn = Animator.StringToHash("DoSpawn");
         private static readonly int DoLaser = Animator.StringToHash("DoLaser");
         private static readonly int DoIdle = Animator.StringToHash("DoIdle");
-        
+        private static readonly int DoWater = Animator.StringToHash("DoWater");
+
         private float _timer;
         
         
@@ -43,6 +44,13 @@ namespace _SLIME.Boss
 
         private void PreformSelectedAttack(Animator animator, BossAttackType selectedAttack)
         {
+            if (Data.WaterStateActivated)
+            {
+                animator.SetTrigger(DoWater);
+                Data.WaterStateActivated = false;
+                Debug.Log("Water Attack Activated");
+                return;
+            }
             switch (selectedAttack)
             {
                 case BossAttackType.Smash:

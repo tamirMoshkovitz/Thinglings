@@ -26,7 +26,8 @@ namespace _SLIME.Slime
         private bool _slimeDied;
         private int _numOfSlimeConnections;
         private float _currentStretchTimer = 0f; 
-        private bool _shouldTearAllConnections = false; 
+        private bool _shouldTearAllConnections = false;
+        private bool _tearByIcicle = false;
 
         public SlimeConnections(SlimeConfiguration slimeConfiguration, SlimeData slimeData, ConnectionsComponents connectionsComponents)
         {
@@ -42,6 +43,12 @@ namespace _SLIME.Slime
             SlimeEvents.SlimeConnected += OnSlimeConnected;
             SlimeEvents.SlimeGetHit += OnSlimeGotHit;
             SlimeEvents.SlimeTears += OnSlimeTears;
+            SlimeEvents.SlimeConnectionGotHitByIcicle += OnSlimeConnectionGotHitByIcicle;
+        }
+
+        private void OnSlimeConnectionGotHitByIcicle()
+        {
+            _tearByIcicle = true;
         }
 
 
@@ -50,6 +57,7 @@ namespace _SLIME.Slime
             SlimeEvents.SlimeConnected -= OnSlimeConnected;
             SlimeEvents.SlimeGetHit -= OnSlimeGotHit;
             SlimeEvents.SlimeTears -= OnSlimeTears;
+            SlimeEvents.SlimeConnectionGotHitByIcicle -= OnSlimeConnectionGotHitByIcicle;
         }
 
         public void Update()
@@ -143,10 +151,11 @@ namespace _SLIME.Slime
         {
             List<(ConnectingJoint, ConnectingJoint)> toRemoveObjects;
             
-            if (_slimeDied)
+            if (_slimeDied || _tearByIcicle)
             {   
                 toRemoveObjects = _slimeConnectionPyshics.TearAllConnections();
                 _slimeDied = false;
+                _tearByIcicle = false;
             }
             else if (_shouldTearAllConnections)
             {

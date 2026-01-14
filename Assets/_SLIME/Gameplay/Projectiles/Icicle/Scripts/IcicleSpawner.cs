@@ -1,26 +1,26 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using _SLIME.Boss;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class IcicleSpawner : MonoBehaviour
 {
-    [Header("Spawn Timing")]
-    [Tooltip("Minimum time to wait before the next spawn.")]
-    [SerializeField] private float minWaitTime = 1.0f;
-    [Tooltip("Maximum time to wait before the next spawn.")]
-    [SerializeField] private float maxWaitTime = 3.0f;
-
-    [Header("Behavior")]
-    [Tooltip("If true, it will keep spawning indefinitely.")]
-    [SerializeField] private bool loopSpawning = true;
+    [Header("Settings")]
+    [SerializeField] private BossBrain bossBrain;
 
     private readonly List<GameObject> _iciclePool = new List<GameObject>();
     private Coroutine _spawnCoroutine;
     private float _timer;
+    
+    private float MinWaitTime => bossBrain.bossConfigurations.IcicleSpawn.minWaitTime;
+    private float MaxWaitTime => bossBrain.bossConfigurations.IcicleSpawn.maxWaitTime;
+    private bool LoopSpawning => bossBrain.bossConfigurations.IcicleSpawn.loopSpawning;
     private void OnEnable()
     {
+        ThirdPhaseState.TunnelPhaseStarted += OnTunnelPhaseStarted;
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(false);
@@ -29,7 +29,7 @@ public class IcicleSpawner : MonoBehaviour
         StartSpawning();
     }
 
-    public void OnSecondStageStart()
+    private void OnTunnelPhaseStarted()
     {
         gameObject.SetActive(false);
     }
@@ -40,19 +40,14 @@ public class IcicleSpawner : MonoBehaviour
         _spawnCoroutine = StartCoroutine(SpawnRoutine());
     }
 
-    public void StopSpawning()
-    {
-        if (_spawnCoroutine != null) StopCoroutine(_spawnCoroutine);
-    }
-
     private IEnumerator SpawnRoutine()
     {
-        yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
+        yield return new WaitForSeconds(Random.Range(MinWaitTime, MaxWaitTime));
 
-        while (loopSpawning)
+        while (LoopSpawning)
         {
             SpawnRandomIcicle();
-            float waitTime = Random.Range(minWaitTime, maxWaitTime);
+            float waitTime = Random.Range(MinWaitTime, MaxWaitTime);
             yield return new WaitForSeconds(waitTime);
         }
     }

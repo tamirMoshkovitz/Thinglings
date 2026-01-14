@@ -1,0 +1,83 @@
+using System.Collections;
+using _SLIME.Boss;
+using UnityEngine;
+
+public class WaterAttackManager : MonoBehaviour
+{
+    private static readonly int CreaturesInsideTrigger = Animator.StringToHash("Creatures inside");
+    private static readonly int AttackModeTrigger = Animator.StringToHash("Attack mode");
+    private static readonly int MagicalWaterOutTrigger = Animator.StringToHash("Magical water out");
+    private static readonly int SlimeWon = Animator.StringToHash("SlimeWon");
+
+    [Header("Settings")]
+    [SerializeField] private float initialDelay = 1f;
+    [SerializeField] private float timeToAttackMode = 2f;
+    [SerializeField] private float timeToMagicOut = 1f;
+    [SerializeField] private float waterAttackDamage = 10f;
+
+    [Header("References")]
+    [SerializeField] private Animator animatorLeft;
+    [SerializeField] private Animator animatorRight;
+    [SerializeField] private BossBrain bossBrain;
+
+    private bool _isLeftZoneActive;
+    private bool _isRightZoneActive;
+    
+    private Coroutine _attackRoutine;
+    public bool CanAttack { get; private set; }
+
+    public void SetZoneState(int sensorId, bool isActive)
+    {
+        if (sensorId == 0) _isLeftZoneActive = isActive;
+        else if (sensorId == 1) _isRightZoneActive = isActive;
+
+        CheckSynchronization();
+    }
+
+    private void CheckSynchronization()
+    {
+        bool bothActive = _isLeftZoneActive && _isRightZoneActive;
+
+        if (bothActive)
+        {
+            if (_attackRoutine == null)
+            {
+                _attackRoutine = StartCoroutine(AttackSequence());
+            }
+        }
+        else
+        {
+            if (_attackRoutine != null)
+            {
+                StopCoroutine(_attackRoutine);
+                _attackRoutine = null;
+            }
+            
+            CanAttack = false;
+        }
+    }
+
+    private IEnumerator AttackSequence()
+    {
+        yield return new WaitForSeconds(initialDelay);
+        TriggerBoth(CreaturesInsideTrigger);
+
+        yield return new WaitForSeconds(timeToAttackMode);
+        TriggerBoth(AttackModeTrigger);
+        CanAttack = true;
+
+        yield return new WaitForSeconds(timeToMagicOut);
+        TriggerBoth(MagicalWaterOutTrigger);
+
+        _attackRoutine = null;
+    }
+
+    private void TriggerBoth(int hashId)
+    {
+        if(animatorLeft) animatorLeft.SetTrigger(hashId);
+        if(animatorRight) animatorRight.SetTrigger(hashId);
+        if (hashId != AttackModeTrigger) return;
+        bossBrain.animator.SetTrigger(SlimeWon);
+        bossBrain.TakeDamage(waterAttackDamage);
+    }
+}

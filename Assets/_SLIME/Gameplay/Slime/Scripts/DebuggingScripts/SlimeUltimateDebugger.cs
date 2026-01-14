@@ -17,6 +17,7 @@ public class SlimeUltimateDebugger : MonoBehaviour
     private PropertyInfo _stretchRatioProp;
     private PropertyInfo _isStrainedProp;
     private PropertyInfo _jointsCountProp; // זה ה-SpringJointCount (פיזיקה)
+    private FieldInfo _oneSlimeDeadField; // האם אחד הסליימים מת
     
     // --- Reflection Info for SlimeConnections ---
     private FieldInfo _numConnectionsField; // זה ה-_numOfSlimeConnections (לוגיקה)
@@ -113,6 +114,7 @@ public class SlimeUltimateDebugger : MonoBehaviour
         _stretchRatioProp = t.GetProperty("StretchRatio");
         _isStrainedProp = t.GetProperty("IsStrained");
         _jointsCountProp = t.GetProperty("SpringJointCount");
+        _oneSlimeDeadField = t.GetField("OneSlimeDead", BindingFlags.Instance | BindingFlags.Public);
         
         _sideAField = t.GetField("_sideA", BindingFlags.Instance | BindingFlags.NonPublic);
         _sideBField = t.GetField("_sideB", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -161,6 +163,21 @@ public class SlimeUltimateDebugger : MonoBehaviour
         style.richText = true;
 
         string text = "<b><size=15>--- SLIME DEBUGGER ---</size></b>\n";
+        
+        // --- SECTION 0: SLIME HEALTH STATUS ---
+        text += "\n<color=#FF0000><b>[⚠️ HEALTH STATUS]</b></color>\n";
+        if (_dataInstance != null && _oneSlimeDeadField != null)
+        {
+            bool oneSlimeDead = (bool)_oneSlimeDeadField.GetValue(_dataInstance);
+            if (oneSlimeDead)
+            {
+                text += "<size=14><color=red><b>⚠️ SLIME IS DEAD! ⚠️</b></color></size>\n";
+            }
+            else
+            {
+                text += "<color=green>Both Slimes Alive ✓</color>\n";
+            }
+        }
 
         // --- SECTION 1: SLIME CONNECTIONS (LOGIC) ---
         text += "\n<color=#FFA500><b>[Logic Connections]</b></color>\n";

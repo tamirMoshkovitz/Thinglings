@@ -10,6 +10,8 @@ namespace _SLIME.Gameplay.Projectiles.Brick.Scripts
         [SerializeField] private float lifeTime = 1200f;
         [SerializeField] private float fastDissolveLifeTime = 400f;
         [SerializeField] private float dissolvePrecentageToDisableColliders = 0.5f;
+        [SerializeField] private SpriteRenderer renderer;
+        [SerializeField] private Sprite spriteWhenItsPlayer;
 
         protected bool DissolveCondition = false;
         protected Rigidbody2D Rb;
@@ -34,15 +36,15 @@ namespace _SLIME.Gameplay.Projectiles.Brick.Scripts
                 _lifetimeTimer += Time.deltaTime;
 
                 float dissolveAmount = Mathf.Lerp(0f, DissolveId, Mathf.Clamp01(_lifetimeTimer / lifeTime));
-                _renderer.GetPropertyBlock(_propBlock);
-                _propBlock.SetFloat(DissolveId, dissolveAmount);
-                _renderer.SetPropertyBlock(_propBlock);
-
-                if (dissolveAmount >= dissolvePrecentageToDisableColliders && _collidersEnabled)
-                {
-                    DisableColliders();
-                }
-
+                // _renderer.GetPropertyBlock(_propBlock);
+                // _propBlock.SetFloat(DissolveId, dissolveAmount);
+                // _renderer.SetPropertyBlock(_propBlock);
+                //
+                // if (dissolveAmount >= dissolvePrecentageToDisableColliders && _collidersEnabled)
+                // {
+                //     DisableColliders();
+                // }
+                
                 if (dissolveAmount >= 1f)
                 {
                     Destroy(gameObject);
@@ -68,6 +70,7 @@ namespace _SLIME.Gameplay.Projectiles.Brick.Scripts
         protected void InitiateFastDissolve()
         {
             lifeTime = fastDissolveLifeTime;
+            renderer.sprite = spriteWhenItsPlayer;
             DissolveCondition = true;
         }
 

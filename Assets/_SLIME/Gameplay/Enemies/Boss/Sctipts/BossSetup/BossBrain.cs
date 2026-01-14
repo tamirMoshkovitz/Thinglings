@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
 using _SLIME.GameLoop;
+using _SLIME.Slime;
 using _SLIME.UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using EventType = _SLIME.UI.EventType;
 
@@ -23,8 +23,15 @@ namespace _SLIME.Boss
         [Header("Camera Setup")] 
         public Camera mainCamera;
         
-        [FormerlySerializedAs("bossSettings")] [Header("Boss Data Setup")]
+        [Header("Boss Data Setup")]
         public BaseBossConfigurations bossConfigurations;
+        [SerializeField] BaseBossConfigurations startingPhaseConfigurations;
+        [SerializeField] BaseBossConfigurations firstPhaseConfigurations;
+        [SerializeField] BaseBossConfigurations secondPhaseConfigurations;
+        [SerializeField] BaseBossConfigurations thirdPhaseConfigurations;
+        
+        public GameObject waterStateBrain;
+        
         public GameObject bossCloseColliders;
         public GameObject bossFarColliders;
         
@@ -37,23 +44,41 @@ namespace _SLIME.Boss
         [Header("Spawn Setup")]
         public Transform leftSpawnPoint;
         public Transform rightSpawnPoint;
+        public Transform slime1;
+        public Transform slime2;
+        [HideInInspector] public bool slimesConnected = false;
         
         [Header("Health Setup")] 
         public Image bossHealthBar;
         [HideInInspector] 
         public float currentHealth;
 
-        [Header("Animation Setup")] 
-        [SerializeField] private Animator animator;
+        [Header("Animation Setup")]
+        public Animator animator;
 
         [Header("Laser Attack Setup")] 
         public GameObject laserAttackGameObject;
         
-        public static BossStates _bossState = BossStates.FarState;
-        
+        public static BossStates BossState = BossStates.FarState;
         public static event Action CloseState;
         public static event Action FarState;
-    
+
+        private StateMachine StateMachine { get; set; }
+        public State FirstPhaseState { get; private set; }
+        public State SecondPhaseState { get; private set; }
+        public State ThirdPhaseState { get; private set; }
+        public State StartingPhaseState { get; private set; }
+            
+        public bool WaterStateActivated { get; set;}
+        private void Awake()
+        {
+            StateMachine = new StateMachine();
+            StartingPhaseState = new StartingPhaseState(StateMachine, this, startingPhaseConfigurations);
+            FirstPhaseState = new FirstPhaseState(StateMachine, this, firstPhaseConfigurations);
+            SecondPhaseState = new SecondPhaseState(StateMachine, this, secondPhaseConfigurations);
+            ThirdPhaseState = new ThirdPhaseState(StateMachine, this, thirdPhaseConfigurations);
+            StateMachine.Initialize(StartingPhaseState);
+        }
 
         private void Start()
         {
@@ -65,8 +90,29 @@ namespace _SLIME.Boss
             {
                 behaviour.Initialize(this);
             }
+            
         }
 
+        private void OnEnable(){
+            SlimeEvents.SlimeConnected += OnSlimeConnected;
+            SlimeEvents.SlimeTears += OnSlimeTears;
+        }
+        
+        private void Update()
+        {
+            StateMachine.CurrentState.LogicUpdate();
+        }
+        
+        private void OnDisable()
+        {
+            SlimeEvents.SlimeConnected -= OnSlimeConnected;
+            SlimeEvents.SlimeTears -= OnSlimeTears;
+        }
+        
+        private void OnSlimeConnected() => slimesConnected = true;
+        private void OnSlimeTears() => slimesConnected = false;
+
+        // ReSharper disable Unity.PerformanceAnalysis
         public void TakeDamage(float damage)
         {
             currentHealth -= damage;
@@ -84,11 +130,12 @@ namespace _SLIME.Boss
             // if (currentHealth <= 0)
             //     GetComponent<Animator>().SetTrigger(Die);
         }
-
+        
+        //TODO: Reset with the game (doesn't go back to the base far state on reset)
         public void BossCloseState()
         {
-            if (_bossState == BossStates.CloseState) return;
-            _bossState = BossStates.CloseState;
+            if (BossState == BossStates.CloseState) return;
+            BossState = BossStates.CloseState;
             bossCloseColliders.SetActive(true);
             bossFarColliders.SetActive(false);
             CloseState?.Invoke();
@@ -96,8 +143,8 @@ namespace _SLIME.Boss
         
         public void BossFarState()
         {
-            if (_bossState == BossStates.FarState) return;
-            _bossState = BossStates.FarState;
+            if (BossState == BossStates.FarState) return;
+            BossState = BossStates.FarState;
             bossCloseColliders.SetActive(false);
             bossFarColliders.SetActive(true);
             FarState?.Invoke();

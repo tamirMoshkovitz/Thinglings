@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
@@ -29,11 +30,8 @@ public class TempPhaseChanger : MonoBehaviour
     [SerializeField] private float targetSensitivityX = 1f;
     [Tooltip("Target sensitivity Y")]
     [SerializeField] private float targetSensitivityY = 1f;
-
-    [Header("Trigger Condition")]
-    [Tooltip("How many attacks until the sequence starts.")]
-    [SerializeField] private int attacksToStart = 5;
     
+    [Header("Icicle Spawner")]
     [SerializeField] IcicleSpawner spawner;
 
     // State Machine Flags
@@ -54,6 +52,16 @@ public class TempPhaseChanger : MonoBehaviour
     private SpriteRenderer[] _fadeRenderers;
     private readonly Dictionary<SpriteRenderer, float> _initialAlphas = new Dictionary<SpriteRenderer, float>();
 
+    private void OnEnable()
+    {
+        ThirdPhaseState.TunnelPhaseStarted += OnPhaseChangeToTunnel;
+    }
+    
+    private void OnDisable()
+    {
+        ThirdPhaseState.TunnelPhaseStarted -= OnPhaseChangeToTunnel;
+    }
+
     private void Start()
     {
         if (layerToFade != null)
@@ -71,14 +79,10 @@ public class TempPhaseChanger : MonoBehaviour
 
     private void Update()
     {
-        // Check triggers
-        if (!_conditionMet)
+        if (_conditionMet)
         {
-            _conditionMet = BossBaseBehaviour.TotalAttacksPreformed >= attacksToStart;
-            if (_conditionMet)
-            {
-                StartFadeSequence();
-            }
+            StartFadeSequence();
+            _conditionMet = false;
         }
 
         // Handle Sequence
@@ -91,11 +95,17 @@ public class TempPhaseChanger : MonoBehaviour
             HandleMovementTransition();
         }
     }
+    
+    public void OnPhaseChangeToTunnel()
+    {
+        _conditionMet = true;
+    }
+    
 
     private void StartFadeSequence()
     {
         // Step 1: Start Fade
-        if (layerToFade != null && _fadeRenderers != null && _fadeRenderers.Length > 0)
+        if (layerToFade && _fadeRenderers != null && _fadeRenderers.Length > 0)
         {
             _isFading = true;
             _fadeTimer = 0f;
@@ -112,7 +122,6 @@ public class TempPhaseChanger : MonoBehaviour
         // Step 2: Start Movement Ramp
         _isRampingMovement = true;
         _movementTimer = 0f;
-        spawner.OnSecondStageStart();
         // Capture start values at the moment the ramp begins
         if (artConfigurations != null)
         {
@@ -133,7 +142,7 @@ public class TempPhaseChanger : MonoBehaviour
         {
             foreach (var sr in _fadeRenderers)
             {
-                if (sr == null || !_initialAlphas.ContainsKey(sr)) continue;
+                if (!sr || !_initialAlphas.ContainsKey(sr)) continue;
 
                 float startAlpha = _initialAlphas[sr];
                 float newAlpha = Mathf.Lerp(startAlpha, targetAlpha, curveValue);

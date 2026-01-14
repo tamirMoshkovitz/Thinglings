@@ -45,44 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TempPhaseChanger
   artConfigurations: {fileID: 11400000, guid: 37801de56e1af7642bbf55351cb983c0, type: 2}
-  targetSpeed: 10
-  transitionDuration: 20
-  accelerationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.72915506
-      value: 0.33966494
-      inSlope: 1.4662397
-      outSlope: 1.4662397
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  attacksToStart: 1
-  targetSensitivityX: 1
-  targetSensitivityY: 1
   layerToFade: {fileID: 0}
   fadeDuration: 1
   fadeCurve:
@@ -110,3 +72,41 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   targetAlpha: 0
+  targetSpeed: 10
+  transitionDuration: 15
+  accelerationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 3.1959379
+      outSlope: 3.1959379
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.1603003
+      value: 0.5123098
+      inSlope: 1.8883646
+      outSlope: 1.8883646
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.58079123
+      outSlope: 0.58079123
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  targetSensitivityX: 1
+  targetSensitivityY: 1
+  spawner: {fileID: 0}

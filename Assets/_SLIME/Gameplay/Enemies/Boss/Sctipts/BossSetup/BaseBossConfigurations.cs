@@ -40,6 +40,8 @@ public class BaseBossConfigurations : TabbedScriptableObject
         [Tooltip("Life time of the spell in seconds")]
         public float spellLifeTime;
         
+        [Tooltip("Spell Speed")]
+        public float spellSpeed;
     }
     
     [Serializable]
@@ -64,19 +66,53 @@ public class BaseBossConfigurations : TabbedScriptableObject
         public float maxHealth;
     }
     
+    [Serializable]
+    public struct BossPhaseSettings
+    {
+        [Header("Phase Settings")]
+        
+        [Tooltip("Upper health threshold to enter this phase")]
+        public float upperHealthThreshold;
+        
+        [Tooltip("Lower health threshold to exit this phase")]
+        public float lowerHealthThreshold;
+    }
+    
+    [Serializable]
+    public struct IcicleSpawnSettings
+    {
+        [Header("Icicle Spawn Settings")]
+        
+        [Tooltip("Minimum time to wait before the next spawn.")]
+        public float minWaitTime;
+        
+        [Tooltip("Maximum time to wait before the next spawn.")]
+        public float maxWaitTime;
+        
+        [Tooltip("If true, it will keep spawning indefinitely.")]
+        public bool loopSpawning;
+    }
+    
     [Tab("Attacks Settings")]
     [SerializeField] private HandsAttackSettings handsAttackSettings;
     [Tab("Attacks Settings")]
     [SerializeField] private SpawnAttackSettings spawnAttackSettings;
     [Tab("Attacks Settings")]
     [SerializeField] private LaserAttackSettings laserAttackSettings;
+    [Tab("Attacks Settings")]
+    [SerializeField] private IcicleSpawnSettings icicleSpawnSettings;
     
     
     [Tab("Boss Core Settings")]
     [SerializeField] private BossCoreSettings bossCoreSettings;
     
+    [Tab("Boss Phase Settings")]
+    [SerializeField] private BossPhaseSettings bossPhaseSettings;
+    
     public HandsAttackSettings HandsAttack => handsAttackSettings;
     public SpawnAttackSettings SpawnAttack => spawnAttackSettings;
     public LaserAttackSettings LaserAttack => laserAttackSettings;
     public BossCoreSettings CoreSettings => bossCoreSettings;
+    public BossPhaseSettings PhaseSettings => bossPhaseSettings;
+    public IcicleSpawnSettings IcicleSpawn => icicleSpawnSettings;
 }

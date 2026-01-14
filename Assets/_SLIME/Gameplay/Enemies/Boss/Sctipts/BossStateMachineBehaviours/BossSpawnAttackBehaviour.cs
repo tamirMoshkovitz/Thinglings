@@ -36,7 +36,6 @@ namespace _SLIME.Boss
             }
         }
         
-        // Todo: change to fit the spawner so it wont be heavy on performance
         private void SpawnItem()
         {
             Transform leftSpawnPoint = Data.leftSpawnPoint;
@@ -45,8 +44,34 @@ namespace _SLIME.Boss
             float randomX = Random.Range(leftSpawnPoint.position.x, rightSpawnPoint.position.x);
             float fixedY = leftSpawnPoint.position.y;
             
-            GameObject item = Instantiate(Data.bossConfigurations.SpawnAttack.projectilePrefab, new Vector2(randomX, fixedY), Quaternion.identity);
+            GameObject item = Instantiate(Data.bossConfigurations.SpawnAttack.projectilePrefab,
+                new Vector2(randomX, fixedY), Quaternion.identity);
+            
+            Vector3 target = GetTargetPosition();
+            Vector3 direction = (target - item.transform.position).normalized;
+            
+            var rb = item.GetComponent<Rigidbody2D>();
+            rb.linearVelocity = direction * Data.bossConfigurations.SpawnAttack.spellSpeed;
+            
             Destroy(item, Data.bossConfigurations.SpawnAttack.spellLifeTime);
+        }
+        
+        private Vector3 GetTargetPosition()
+        {
+            Vector3 slime1Pos = Data.slime1.position;
+            Vector3 slime2Pos = Data.slime2.position;
+            
+            if (Data.slimesConnected)
+            {
+                return (slime1Pos + slime2Pos) / 2f;
+            }
+            
+        
+            Vector3 spawnPos = Data.leftSpawnPoint.position;
+            float dist1 = Vector3.Distance(spawnPos, slime1Pos);
+            float dist2 = Vector3.Distance(spawnPos, slime2Pos);
+            
+            return dist1 < dist2 ? slime1Pos : slime2Pos;
         }
     }
 }

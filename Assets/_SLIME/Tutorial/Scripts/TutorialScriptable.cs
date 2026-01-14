@@ -20,11 +20,39 @@ namespace _SLIME.Tutorial
         
         [Tab("SlimeTears")]
         [SerializeField] private SlimeTearsStateSet slimeTearsStateSet;
+        
+        [Tab("SpellHit")]
+        [SerializeField] private SpellHitStateSet spellHitStateSet;
+        
+        [Tab("LearnSlimeToConnect")]
+        [SerializeField] private LearnSlimeToConnectStateSet learnSlimeToConnectStateSet;
+        
+        [Tab("LearnSlimeAboutSpells")]
+        [SerializeField] private LearnSlimeAboutSpellsStateSet learnSlimeAboutSpellsStateSet;
+        
+        [Tab("BossThrowsSpell")]
+        [SerializeField] private BossThrowsSpellStateSet bossThrowsSpellStateSet;
+        
+        [Tab("CaveShake")]
+        [SerializeField] private CaveShakeStateSet caveShakeStateSet;
+        
+        [Tab("SceneMoveToFinalBattle")]
+        [SerializeField] private SceneMoveToFinalBattleStateSet sceneMoveToFinalBattleStateSet;
+        
+        [Tab("BossThrowsSpell")]
+        [SerializeField] private TutorialBossFlashSettings tutorialBossFlashSettings;
 
         public RockShakeSettings RockShakeSettings => rockShakeSettings;
+        public TutorialBossFlashSettings TutorialBossFlashSettings => tutorialBossFlashSettings;
         public RockStateSet RockStateSet => rockStateSet;
         public RiseToBossStateSet RiseToBossStateSet => riseToBossStateSet;
         public SlimeConnectsStateSet SlimeConnectsStateSet => slimeConnectsStateSet;
         public SlimeTearsStateSet SlimeTearsStateSet => slimeTearsStateSet;
+        public SpellHitStateSet SpellHitStateSet => spellHitStateSet;
+        public LearnSlimeToConnectStateSet LearnSlimeToConnectStateSet => learnSlimeToConnectStateSet;
+        public LearnSlimeAboutSpellsStateSet LearnSlimeAboutSpellsStateSet => learnSlimeAboutSpellsStateSet;
+        public BossThrowsSpellStateSet BossThrowsSpellStateSet => bossThrowsSpellStateSet;
+        public CaveShakeStateSet CaveShakeStateSet => caveShakeStateSet;
+        public SceneMoveToFinalBattleStateSet SceneMoveToFinalBattleStateSet => sceneMoveToFinalBattleStateSet;
     }
 }
