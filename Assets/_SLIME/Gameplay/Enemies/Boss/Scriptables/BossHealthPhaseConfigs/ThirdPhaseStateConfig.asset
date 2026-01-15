@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ThirdPhaseStateConfig
   m_EditorClassIdentifier: Assembly-CSharp::BaseBossSettings
   handsAttackSettings:
+    handWarningDuration: 1.5
     handAttackDuration: 3
     handCooldown: 1
     totalHandsToUse: 3

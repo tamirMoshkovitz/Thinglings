@@ -2,39 +2,37 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine.Serialization;
-
 
 namespace _SLIME.Boss
 {
     public class BossHandsAttackBehaviour : BossBaseBehaviour
     {
-        
-        
         private static readonly int AttackFinished = Animator.StringToHash("AttackFinished");
         private Coroutine _smashRoutine;
+        
         private List<HandWrapper> _leftHands;
         private List<HandWrapper> _rightHands;
-        private readonly List<HandWrapper> _activeHands = new List<HandWrapper>();
 
         private class HandWrapper
         {
-            private GameObject Root { get; set; }
-            private readonly BossHandAttackLogic _bossHandAttackLogicScript;
+            public GameObject Root { get; private set; }
+            public BossHandAttackLogic Logic { get; private set; }
 
             public HandWrapper(GameObject obj)
             {
                 Root = obj;
-                _bossHandAttackLogicScript = obj.GetComponentInChildren<BossHandAttackLogic>();
+                Logic = obj.GetComponentInChildren<BossHandAttackLogic>();
             }
 
             public void Activate(float duration)
             {
-                if (_bossHandAttackLogicScript) _bossHandAttackLogicScript.SetDuration(duration);
                 Root.SetActive(true);
             }
 
-            public void Deactivate() => Root.SetActive(false);
+            public void Deactivate()
+            {
+                if (Root.activeSelf) Root.SetActive(false);
+            }
         }
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -45,55 +43,81 @@ namespace _SLIME.Boss
             _leftHands = Data.leftHandSplines.Select(h => new HandWrapper(h)).ToList();
             _rightHands = Data.rightHandSplines.Select(h => new HandWrapper(h)).ToList();
 
-            DisableAllHands();
+            ForceStopAllHands();
             _smashRoutine = Data.StartCoroutine(SmashRoutine(animator));
         }
 
         private IEnumerator SmashRoutine(Animator animator)
         {
-            for (int i = 0; i < Data.bossConfigurations.HandsAttack.totalHandsToUse; i++)
+            int totalAttacks = Data.bossConfigurations.HandsAttack.totalHandsToUse;
+            float cooldown = Data.bossConfigurations.HandsAttack.handCooldown;
+            float attackDuration = Data.bossConfigurations.HandsAttack.handAttackDuration;
+            float warningDuration = Data.bossConfigurations.HandsAttack.handWarningDuration;
+
+            // Optional: Add a buffer to the duration so we don't cut off the animation too early
+            float totalLifeTime = warningDuration + attackDuration + 0.1f;
+
+            for (int i = 0; i < totalAttacks; i++)
             {
-                _activeHands.Clear();
+                List<HandWrapper> handsToFire = new List<HandWrapper>();
 
                 if (Data.bossConfigurations.HandsAttack.useBothHands)
                 {
-                    AddRandomHand(_leftHands);
-                    AddRandomHand(_rightHands);
+                    AddRandomHandTo(handsToFire, _leftHands);
+                    AddRandomHandTo(handsToFire, _rightHands);
                 }
                 else
                 {
                     bool isLeft = Random.value > 0.5f;
-                    AddRandomHand(isLeft ? _leftHands : _rightHands);
+                    AddRandomHandTo(handsToFire, isLeft ? _leftHands : _rightHands);
                 }
 
-                foreach (var hand in _activeHands)
+                foreach (var hand in handsToFire)
                 {
-                    hand.Activate(Data.bossConfigurations.HandsAttack.handAttackDuration);
+                    hand.Activate(attackDuration);
+
+                    Data.StartCoroutine(MonitorAndDisableHand(hand, totalLifeTime));
                 }
 
-                yield return new WaitForSeconds(Data.bossConfigurations.HandsAttack.handAttackDuration);
-
-                foreach (var hand in _activeHands)
-                {
-                    hand.Deactivate();
-                }
-
-                if (i < Data.bossConfigurations.HandsAttack.totalHandsToUse - 1)
-                {
-                    yield return new WaitForSeconds(Data.bossConfigurations.HandsAttack.handCooldown);
-                }
+                yield return new WaitForSeconds(Mathf.Max(cooldown, 0.1f));
             }
+
+            // Wait until all hands are essentially "done" before exiting state
+            yield return new WaitUntil(() => AllHandsFinished());
 
             animator.SetTrigger(AttackFinished);
         }
 
-        private void AddRandomHand(List<HandWrapper> list)
+        // This mini-routine handles turning off a specific hand after its job is done
+        private IEnumerator MonitorAndDisableHand(HandWrapper hand, float duration)
         {
-            if (list == null || list.Count == 0) return;
-            _activeHands.Add(list[Random.Range(0, list.Count)]);
+            // Wait for the total duration (Warning + Attack)
+            yield return new WaitForSeconds(duration);
+            
+            // Turn it off
+            hand.Deactivate();
         }
 
-        private void DisableAllHands()
+        private bool AllHandsFinished()
+        {
+            // Check if any hand gameobjects are still active
+            return !_leftHands.Any(h => h.Root.activeSelf) && !_rightHands.Any(h => h.Root.activeSelf);
+        }
+
+        private void AddRandomHandTo(List<HandWrapper> targetList, List<HandWrapper> sourceList)
+        {
+            if (sourceList == null || sourceList.Count == 0) return;
+            
+            // Only pick hands that are currently OFF
+            var availableHands = sourceList.Where(h => !h.Root.activeSelf).ToList();
+            
+            if (availableHands.Count > 0)
+            {
+                targetList.Add(availableHands[Random.Range(0, availableHands.Count)]);
+            }
+        }
+
+        private void ForceStopAllHands()
         {
             _leftHands?.ForEach(h => h.Deactivate());
             _rightHands?.ForEach(h => h.Deactivate());
@@ -102,7 +126,7 @@ namespace _SLIME.Boss
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             if (_smashRoutine != null) Data.StopCoroutine(_smashRoutine);
-            DisableAllHands();
+            ForceStopAllHands();
         }
     }
 }

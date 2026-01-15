@@ -9,6 +9,8 @@ public class BaseBossConfigurations : TabbedScriptableObject
     public struct HandsAttackSettings
     {
         [Header("Hands Attack")]
+        [Tooltip("Hand warning duration before the attack starts")]
+        public float handWarningDuration;
 
         [Tooltip("How long the hand takes to complete the path")]
         public float handAttackDuration;

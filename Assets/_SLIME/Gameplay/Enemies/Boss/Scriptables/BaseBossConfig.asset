@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: BaseBossConfig
   m_EditorClassIdentifier: Assembly-CSharp::BaseBossSettings
   handsAttackSettings:
+    handWarningDuration: 1.5
     handAttackDuration: 3
-    handCooldown: 1
-    totalHandsToUse: 3
+    handCooldown: 3
+    totalHandsToUse: 4
     useBothHands: 0
   spawnAttackSettings:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
