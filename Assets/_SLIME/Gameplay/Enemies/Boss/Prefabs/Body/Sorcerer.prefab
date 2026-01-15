@@ -1367,8 +1367,6 @@ MonoBehaviour:
   - {fileID: 7319645881235953889}
   leftSpawnPoint: {fileID: 671653929157809193}
   rightSpawnPoint: {fileID: 4939076224726718476}
-  slime1: {fileID: 0}
-  slime2: {fileID: 0}
   slimesConnected: 0
   bossHealthBar: {fileID: 0}
   currentHealth: 0
@@ -3910,11 +3908,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 302258904210078661, guid: ff55e0208bdb80746bb81cfa63280428, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.91
+      value: 2.75
       objectReference: {fileID: 0}
     - target: {fileID: 302258904210078661, guid: ff55e0208bdb80746bb81cfa63280428, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.9799998
+      value: 4.66
       objectReference: {fileID: 0}
     - target: {fileID: 302258904210078661, guid: ff55e0208bdb80746bb81cfa63280428, type: 3}
       propertyPath: m_LocalPosition.z
