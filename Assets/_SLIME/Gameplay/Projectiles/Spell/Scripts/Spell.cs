@@ -1,0 +1,110 @@
+using System;
+using _SLIME.BaseScripts;
+using _SLIME.GameLoop;
+using UnityEngine;
+using NaughtyAttributes;
+
+namespace _SLIME.Projectiles
+{
+    public enum SpellState { Spawning, Flying, Hit }
+    
+    public class Spell : ProjectMonoBehavior
+    {
+        private static readonly int Hit = Animator.StringToHash("Hit");
+        private static readonly int BossMove = Animator.StringToHash("BossMove");
+        private static readonly int PlayerMove = Animator.StringToHash("SlimeMove");
+
+        [SerializeField] private SpellComp comp;
+
+        [SerializeField]
+        private BaseBossConfigurations bossConfiguration;
+        private SpellBossAttributes _bossAttributes;
+        private SpellState _currentState;
+        private float DamagePerSpeedUnit => bossConfiguration.CoreSettings.maxHealth
+                                    /(bossConfiguration.CoreSettings.targetHitsToKill
+                                    * bossConfiguration.CoreSettings.expectedAvgSpeedOfSpells);
+        
+        public void BossSetup(SpellBossAttributes attributes)
+        {
+            
+            _bossAttributes = attributes;
+            comp.rb.linearVelocity = Vector2.zero;
+            comp.rb.bodyType = RigidbodyType2D.Kinematic; 
+        }
+        
+        public void Deflect(SpellSlimeAttributes attributes)
+        {
+            if (_currentState != SpellState.Flying) return;
+            comp.collider.gameObject.layer = GetLayerFromMask(attributes.layerMask);
+            comp.rb.bodyType = RigidbodyType2D.Dynamic; 
+            float incomingSpeed = comp.rb.linearVelocity.magnitude;
+            comp.rb.linearVelocity = Vector2.zero;
+            float finalPower = incomingSpeed * attributes.deflectionPower;
+            comp.rb.AddForce(attributes.direction *  finalPower, ForceMode2D.Impulse);
+            comp.animator.SetTrigger(PlayerMove);
+        }
+        
+        private void Shoot()
+        {
+            _currentState = SpellState.Flying;
+            comp.rb.linearVelocity = _bossAttributes.direction.normalized
+                                     * _bossAttributes.moveSpeed;
+            comp.animator.SetTrigger(BossMove);
+        }
+        
+        public void OnSpawnFinished()
+        {
+            if (_currentState != SpellState.Spawning) return;
+            Shoot();
+           
+        }
+        
+        public void OnHitFinished()
+        {
+            Destroy(gameObject);
+        }
+        
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (_currentState != SpellState.Flying) return;
+            
+            var rig = other.attachedRigidbody;
+            if (rig && rig.TryGetComponent<IHealth>(out IHealth h))
+            {
+                HandleImpact(h);
+            }
+            else if (other.CompareTag("Wall")) 
+            {
+                HandleImpact(null); 
+            }
+        }
+
+        private void HandleImpact(IHealth target)
+        {
+            _currentState = SpellState.Hit;
+            var currentSpeed = comp.rb.linearVelocity.magnitude;
+            comp.rb.linearVelocity = Vector2.zero;
+            comp.rb.bodyType = RigidbodyType2D.Kinematic;
+            if (target != null) target.TakeDamage(CalculateDamage(currentSpeed));
+            comp.animator.SetTrigger(Hit);
+        }
+        
+        private int CalculateDamage(float currentSpeed)
+        {
+            float rawDamage = currentSpeed * DamagePerSpeedUnit;
+            return Mathf.CeilToInt(rawDamage);
+        }
+        
+        private int GetLayerFromMask(LayerMask mask)
+        {
+            int layerNumber = 0;
+            int layer = mask.value;
+            while (layer > 1)
+            {
+                layer >>= 1;
+                layerNumber++;
+            }
+            return layerNumber;
+        }
+    }
+}

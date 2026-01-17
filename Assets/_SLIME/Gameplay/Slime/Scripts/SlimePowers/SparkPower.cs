@@ -1,6 +1,6 @@
 
 using _SLIME.BaseScripts;
-using _SLIME.Gameplay.Projectiles.Brick.Scripts;
+using _SLIME.Projectiles;
 using _SLIME.Projectiles;
 
 using UnityEngine;

@@ -77,8 +77,7 @@ MonoBehaviour:
     slimeProjectileLayer:
       serializedVersion: 2
       m_Bits: 128
-    trampolineMinPower: 150
-    trampolineMaxPower: 400
+    deflectionPower: {x: 6.5384607, y: 40.384613}
     trampolinePowerCurve:
       serializedVersion: 2
       m_Curve:

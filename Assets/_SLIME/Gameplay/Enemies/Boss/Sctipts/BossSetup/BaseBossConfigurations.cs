@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
+using _SLIME.LittleBoss;
 using UnityEngine;
 [CreateAssetMenu(fileName = "BaseBossConfig", menuName = "BossConfig")]
 public class BaseBossConfigurations : TabbedScriptableObject
@@ -39,11 +40,10 @@ public class BaseBossConfigurations : TabbedScriptableObject
         [Tooltip("How long will it take for a spell to spawn")]
         public float spawnInterval;
         
-        [Tooltip("Life time of the spell in seconds")]
-        public float spellLifeTime;
-        
         [Tooltip("Spell Speed")]
         public float spellSpeed;
+        
+        
     }
     
     [Serializable]
@@ -66,6 +66,8 @@ public class BaseBossConfigurations : TabbedScriptableObject
     {
         [Header("Health")]
         public float maxHealth;
+        public int targetHitsToKill;
+        public float expectedAvgSpeedOfSpells;
     }
     
     [Serializable]
@@ -111,10 +113,24 @@ public class BaseBossConfigurations : TabbedScriptableObject
     [Tab("Boss Phase Settings")]
     [SerializeField] private BossPhaseSettings bossPhaseSettings;
     
+    
+    
+    [Tab("Little Boss Settings")]
+    [SerializeField] private LittleBossMovementSettings littleBossMovementSettings;
+    [Tab("Little Boss Settings")]
+    [SerializeField] private LittleBossSpellAttackSettings littleBossSpellAttackSettings;
+    [Tab("Little Boss Settings")]
+    [SerializeField] private LittleBossHealthSet littleBossHealthSettings;
+
+    
+    
     public HandsAttackSettings HandsAttack => handsAttackSettings;
     public SpawnAttackSettings SpawnAttack => spawnAttackSettings;
     public LaserAttackSettings LaserAttack => laserAttackSettings;
     public BossCoreSettings CoreSettings => bossCoreSettings;
     public BossPhaseSettings PhaseSettings => bossPhaseSettings;
     public IcicleSpawnSettings IcicleSpawn => icicleSpawnSettings;
+    public LittleBossHealthSet LittleBossHealth => littleBossHealthSettings;
+    public LittleBossMovementSettings LittleBossMovement => littleBossMovementSettings;
+    public LittleBossSpellAttackSettings LittleBossSpellAttack => littleBossSpellAttackSettings;
 }

@@ -1,3 +1,4 @@
+using _SLIME.Projectiles;
 using _SLIME.Slime;
 using UnityEngine;
 
@@ -48,14 +49,15 @@ namespace _SLIME.Boss
             
             GameObject item = Instantiate(Data.bossConfigurations.SpawnAttack.projectilePrefab,
                 new Vector2(randomX, fixedY), Quaternion.identity);
+            Spell spell = item.GetComponentInChildren<Spell>();
             
             Vector3 target = GetTargetPosition();
             Vector3 direction = (target - item.transform.position).normalized;
-            
-            var rb = item.GetComponent<Rigidbody2D>();
-            rb.linearVelocity = direction * Data.bossConfigurations.SpawnAttack.spellSpeed;
-            
-            Destroy(item, Data.bossConfigurations.SpawnAttack.spellLifeTime);
+            spell.BossSetup(new SpellBossAttributes
+            {
+                direction = direction,
+                moveSpeed = Data.bossConfigurations.SpawnAttack.spellSpeed
+            });
         }
         
         private Vector3 GetTargetPosition()
