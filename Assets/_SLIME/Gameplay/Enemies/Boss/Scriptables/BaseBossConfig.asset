@@ -30,43 +30,43 @@ MonoBehaviour:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 0.11204482
-        outSlope: 0.11204482
+        inSlope: 0.025098259
+        outSlope: 0.025098259
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
-        outWeight: 0.34100455
+        outWeight: 0.9583015
       - serializedVersion: 3
-        time: 0.6731589
-        value: 0.33547437
-        inSlope: 1.1129844
-        outSlope: 1.1129844
+        time: 0.2309688
+        value: 0.12359261
+        inSlope: 0.97010386
+        outSlope: 0.97010386
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
+        inWeight: 0.33656046
+        outWeight: 0.44440067
       - serializedVersion: 3
-        time: 0.862288
-        value: 0.659469
-        inSlope: 1.553316
-        outSlope: 1.553316
+        time: 0.90511924
+        value: 0.96949536
+        inSlope: 1.1190317
+        outSlope: 1.1190317
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.4147413
-        outWeight: 0.7967811
+        inWeight: 0.20209996
+        outWeight: 0.288467
       - serializedVersion: 3
         time: 1
         value: 1
-        inSlope: 2
-        outSlope: 2
+        inSlope: -0.033987205
+        outSlope: -0.033987205
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0
+        inWeight: 1
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    rotationDuration: 10
+    rotationDuration: 7
     totalLoops: 1
   icicleSpawnSettings:
     minWaitTime: 5
