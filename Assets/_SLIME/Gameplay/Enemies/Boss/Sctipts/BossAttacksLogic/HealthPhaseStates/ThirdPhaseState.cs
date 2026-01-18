@@ -1,5 +1,6 @@
 using System;
 using _SLIME.Boss;
+using _SLIME.GameLoop;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -21,6 +22,8 @@ public class ThirdPhaseState : State
         base.Enter();
         _bossBrain.bossConfigurations = _thirdPhaseConfigurations;
         _bossBrain.WaterStateActivated = true;
+        
+        // GameEvents.FmodPhaseFour?.Invoke();
     }
     
     public override void LogicUpdate()
@@ -37,6 +40,8 @@ public class ThirdPhaseState : State
             Debug.Log("Invoking Tunnel Phase Start");
             TunnelPhaseStarted?.Invoke();
             _hasInvokedTunnelStart = true;
+            
+            GameEvents.FmodPhaseFour?.Invoke();
         }
     }
 }

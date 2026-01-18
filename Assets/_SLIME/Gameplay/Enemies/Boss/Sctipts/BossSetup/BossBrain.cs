@@ -18,8 +18,9 @@ namespace _SLIME.Boss
 {
     public class BossBrain : ProjectMonoBehavior, IHealth
     {
-        private static readonly int Die = Animator.StringToHash("Die");
         
+
+        private static readonly int Die = Animator.StringToHash("Die");
         [Header("Camera Setup")] 
         public Camera mainCamera;
         
@@ -44,8 +45,6 @@ namespace _SLIME.Boss
         [Header("Spawn Setup")]
         public Transform leftSpawnPoint;
         public Transform rightSpawnPoint;
-        public Transform slime1;
-        public Transform slime2;
         [HideInInspector] public bool slimesConnected = false;
         
         [Header("Health Setup")] 
@@ -96,6 +95,8 @@ namespace _SLIME.Boss
         private void OnEnable(){
             SlimeEvents.SlimeConnected += OnSlimeConnected;
             SlimeEvents.SlimeTears += OnSlimeTears;
+            
+            GameEvents.FmodPhaseTwo?.Invoke();
         }
         
         private void Update()

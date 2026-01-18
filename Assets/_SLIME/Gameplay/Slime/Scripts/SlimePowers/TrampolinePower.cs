@@ -1,6 +1,6 @@
 
-using _SLIME.Gameplay.Projectiles.Brick.Scripts;
 using _SLIME.Projectiles;
+using NaughtyAttributes;
 
 using UnityEngine;
 
@@ -12,9 +12,10 @@ namespace _SLIME.Slime
     public struct TrampolinePowerSettings
     {
         public LayerMask slimeProjectileLayer;
-        public float trampolineMinPower;
-        public float trampolineMaxPower;
+        [MinMaxSlider(0f,70f)]
+        public Vector2 deflectionPower;
         public AnimationCurve trampolinePowerCurve;
+        
     }
     
     public class TrampolinePower: ISlimePower
@@ -29,6 +30,7 @@ namespace _SLIME.Slime
         }
 
 
+        // ReSharper disable Unity.PerformanceAnalysis
         public void Activate(Vector2 hitpoint,Collider2D objectToJump)
         {
             isActive = true;
@@ -36,26 +38,25 @@ namespace _SLIME.Slime
             {
                 SlimeEvents.SlimeConnectionGotHitByIcicle?.Invoke();
                 return;
-            } 
-            Rigidbody2D projectileRb = objectToJump.GetComponent<Rigidbody2D>();
+            }
+
+            Rigidbody2D projectileRb = objectToJump.attachedRigidbody;
             GameObject projectileGo = projectileRb.gameObject;
             
-            projectileGo.layer = (int)Mathf.Log(_trampolinePowerSettings.slimeProjectileLayer.value, 2);
-            
-            projectileRb.bodyType = RigidbodyType2D.Dynamic; 
             Vector2 direction = (objectToJump.transform.position - (Vector3)hitpoint).normalized;
-
-
-            projectileRb.linearVelocity = Vector2.zero;
             
             float stretchForce = _trampolinePowerSettings.trampolinePowerCurve.Evaluate(_slimeData.StretchRatio);
-            float power = Mathf.Lerp(_trampolinePowerSettings.trampolineMinPower,
-             _trampolinePowerSettings.trampolineMaxPower, stretchForce);
-            projectileRb.AddForce(direction * power, ForceMode2D.Impulse);
-
+            float power = Mathf.Lerp(_trampolinePowerSettings.deflectionPower.x,
+             _trampolinePowerSettings.deflectionPower.y, stretchForce);
+            
             if (projectileGo.TryGetComponent(typeof(Spell), out Component spell))
             {
-                ((Spell)spell).Shoot(stretchForce);
+                ((Spell)spell).Deflect(new SpellSlimeAttributes
+                {
+                    deflectionPower = power,
+                    direction = direction,
+                    layerMask = _trampolinePowerSettings.slimeProjectileLayer
+                });
             }
             SlimeEvents.TrampolineActivated();
         }

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ThirdPhaseStateConfig
   m_EditorClassIdentifier: Assembly-CSharp::BaseBossSettings
   handsAttackSettings:
+    handWarningDuration: 1.5
     handAttackDuration: 3
     handCooldown: 1
     totalHandsToUse: 3
@@ -68,8 +69,12 @@ MonoBehaviour:
       m_RotationOrder: 4
     rotationDuration: 15
     totalLoops: 2
+  icicleSpawnSettings:
+    minWaitTime: 2
+    maxWaitTime: 4
+    loopSpawning: 1
   bossCoreSettings:
-    maxHealth: 100
+    maxHealth: 60
   bossPhaseSettings:
-    upperHealthThreshold: 40
-    lowerHealthThreshold: 30
+    upperHealthThreshold: 30
+    lowerHealthThreshold: 20

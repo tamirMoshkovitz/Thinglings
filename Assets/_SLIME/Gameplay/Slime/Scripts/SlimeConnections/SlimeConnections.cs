@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,7 +12,11 @@ namespace _SLIME.Slime
         public EdgeCollider2D EdgeColliderConnections;
         public Transform TransformSlime1LinePoint;
         public Transform TransformSlime2LinePoint;
+        public GameObject Spark;
     }
+    
+    
+    
     public class SlimeConnections
     {
         private Dictionary<ConnectingJoint, List<ConnectingJoint>> _objectsConnections =
@@ -166,6 +171,7 @@ namespace _SLIME.Slime
             else
             {
                 toRemoveObjects = _slimeConnectionPyshics.CheckForBrokenConnections();
+                if(toRemoveObjects.Count > 0) toRemoveObjects.AddRange(_slimeConnectionPyshics.TearAllConnections());
             }
 
             foreach (var pair in toRemoveObjects)

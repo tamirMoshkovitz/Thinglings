@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
+using _SLIME.GameLoop;
 using UnityEngine;
 
 namespace _SLIME.Tutorial
@@ -35,6 +36,11 @@ namespace _SLIME.Tutorial
             {
                 _renderers.AddRange(parent.GetComponentsInChildren<Renderer>(true));
             }
+        }
+
+        private void OnEnable()
+        {
+            GameEvents.FmodPhaseOne?.Invoke();
         }
 
         private void OnDisable()

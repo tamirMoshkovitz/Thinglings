@@ -87,10 +87,10 @@ namespace _SLIME.Tutorial
             var logic = new RiseToBossLogic(riseToBossStateDeps, tutorialScriptable.RiseToBossStateSet);
             _allLogics.Add(logic);
             yield return logic.Start();
-            StartCoroutine(SlimeConnectsCoroutine());
+            StartCoroutine(SlimeTearCoroutine());
         }
         #endregion
-        
+        // TODO: FOR NOW THIS STATE IS NOT ACTIVE, AND MAYBE FOREVER
         #region SlimeConnects
         [SerializeField] private SlimeConnectsStateDeps slimeConnectsStateDeps;
         

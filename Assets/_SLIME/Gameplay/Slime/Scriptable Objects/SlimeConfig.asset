@@ -77,8 +77,7 @@ MonoBehaviour:
     slimeProjectileLayer:
       serializedVersion: 2
       m_Bits: 128
-    trampolineMinPower: 150
-    trampolineMaxPower: 400
+    deflectionPower: {x: 6.5384607, y: 40.384613}
     trampolinePowerCurve:
       serializedVersion: 2
       m_Curve:
@@ -143,8 +142,8 @@ MonoBehaviour:
     slimeProjectileLayer:
       serializedVersion: 2
       m_Bits: 128
-    sparkRadius: 0.1
-    sparkDamage: 4
+    sparkRadius: 1.5
+    sparkDamage: 1
     enemyHitLayer:
       serializedVersion: 2
       m_Bits: 2048
@@ -1906,3 +1905,39 @@ MonoBehaviour:
       s: 0.88699996
       v: 1
     buffer: 0.4
+  SparkSet:
+    SparkAnimationCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.26764283
+        value: 0.41140184
+        inSlope: 3.1269426
+        outSlope: 3.1269426
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.06591935
+        outWeight: 0.028598156
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0.7867205
+        outSlope: 0.7867205
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.041955367
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    maxScale: 2
+    minScale: 0

@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa1139714132433cb807daea48a3104d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Tutorial.TutorialStateManager
-  currentState: 0
+  currentState: 3
   tutorialScriptable: {fileID: 11400000, guid: 86370ecb40a964e348b8bf0be8a9c021, type: 2}
   rockStateDeps:
     rockAnimator: {fileID: 0}
@@ -106,6 +106,7 @@ MonoBehaviour:
     slimeInput: {fileID: 0}
     tutorialBackground: {fileID: 0}
     tutorialBoss: {fileID: 0}
+    sketchStretchAnimator: {fileID: 0}
   spellHitStateDeps:
     slimeInput: {fileID: 0}
     spellPrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
@@ -127,6 +128,7 @@ MonoBehaviour:
     leftSpellSpawnPoint: {fileID: 0}
     rightSpellSpawnPoint: {fileID: 0}
     spellPrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
+    animatorForSketch: {fileID: 0}
   sceneMoveToFinalBattleStateDeps:
     transitionAnimator: {fileID: 0}
 --- !u!114 &3284895816509918789

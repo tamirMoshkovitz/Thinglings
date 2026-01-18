@@ -85,7 +85,6 @@ namespace _SLIME.Slime
         
         public void Update()
         {
-            _shooter.Update();
             _movement.Update();
             _health.Update();
             _animatorController.Update(_movement.IsMoving, _slimeData.IsStrained);

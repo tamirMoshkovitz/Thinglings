@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: FirstPhaseStateConfig
   m_EditorClassIdentifier: Assembly-CSharp::BaseBossSettings
   handsAttackSettings:
+    handWarningDuration: 1.5
     handAttackDuration: 3
     handCooldown: 1
     totalHandsToUse: 3
@@ -68,8 +69,12 @@ MonoBehaviour:
       m_RotationOrder: 4
     rotationDuration: 8
     totalLoops: 1
+  icicleSpawnSettings:
+    minWaitTime: 4
+    maxWaitTime: 6
+    loopSpawning: 1
   bossCoreSettings:
-    maxHealth: 100
+    maxHealth: 60
   bossPhaseSettings:
-    upperHealthThreshold: 80
-    lowerHealthThreshold: 60
+    upperHealthThreshold: 50
+    lowerHealthThreshold: 40

@@ -16,6 +16,7 @@ namespace _SLIME.Tutorial
         public Transform rightSpellSpawnPoint;
         public GameObject spellPrefab;
         public UnityEngine.InputSystem.PlayerInput slimeInput;
+        
     }
     
     [System.Serializable]

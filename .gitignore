@@ -91,29 +91,25 @@ crashlytics-build.properties
 .DS_Store
 **/.DS_Store
 
+# recovery files
+Assets/_Recovery/
+
 # =========================
 # FMOD
 # =========================
 
+# FMOD Studio project (scoped to Assets/FMOD Assets)
+Assets/FMOD Assets/**/.fmod/
+Assets/FMOD Assets/**/.cache/
+Assets/FMOD Assets/**/Build/
+Assets/FMOD Assets/**/*.autosave
+Assets/FMOD Assets/**/*.bak
+
 # FMOD Studio cache and temp files
 .fmod/
-*.user
-*.cache
-*.lock
-
-# FMOD Studio build cache
-Build/
-Cache/
-
-# FMOD Studio autosaves & backups
 *.autosave
 *.bak
 
-# Platform-specific FMOD Studio folders
-Desktop/
-Mobile/
-HTML5/
-Console/
-
-# FMOD profiling captures
-*.fsp
+# FMOD Unity integration cache/logs (should never be committed)
+Assets/Plugins/FMOD/Cache/
+fmod_editor.log

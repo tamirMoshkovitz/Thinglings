@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &820494072631728516
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4484831576589593915}
+  - component: {fileID: 3798119816415266290}
+  m_Layer: 0
+  m_Name: SpellDebuger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4484831576589593915
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820494072631728516}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.07573, y: 2.23607, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3798119816415266290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820494072631728516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2e49af163d8645e2b3d6335626df50c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Projectiles.SpellDebugger
+  velocityColor: {r: 0, g: 1, b: 0, a: 1}
+  directionColor: {r: 0, g: 1, b: 1, a: 1}
+  spawningColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  flyingColor: {r: 1, g: 0, b: 0, a: 1}
+  hitColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  velocityScale: 0.5
+  sphereRadius: 0.3
+  showGUI: 1
+  toggleKey: 282
