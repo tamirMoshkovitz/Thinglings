@@ -13,16 +13,42 @@ MonoBehaviour:
   m_Name: FirstPhaseStateConfig
   m_EditorClassIdentifier: Assembly-CSharp::BaseBossSettings
   handsAttackSettings:
-    handWarningDuration: 1.5
-    handAttackDuration: 3
+    handWarningDuration: 1
+    handAttackDuration: 1.5
     handCooldown: 1
-    totalHandsToUse: 3
+    totalHandsToUse: 4
     useBothHands: 0
   spawnAttackSettings:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
-    spellsToCast: 8
-    spawnInterval: 1.5
-    spellSpeed: 12
+    attacksToCast: 6
+    spawnSettings:
+      delayBetweenAttacks: {x: 1, y: 2}
+      bothSlimesAliveProbabilities:
+        oneShot: 0.7
+        twoShots: 0
+        threeShot: 0.2
+        fourShots: 0.1
+        bulletHell: 0
+      notConnectedProbabilities:
+        oneShot: 0.3
+        twoShots: 0.6
+        threeShot: 0.05
+        fourShots: 0.05
+        bulletHell: 0
+      oneSlimeAliveProbabilities:
+        oneShot: 0.6
+        twoShots: 0.3
+        threeShot: 0
+        fourShots: 0.1
+        bulletHell: 0
+    spellSettings:
+      attackAccuracyRange: {x: 0.90000004, y: 1}
+      attackSpeedRange: {x: 14, y: 18}
+    specialAttacksSettings:
+      threeShotsAngle: 22.5
+      fourShotsWaitBetweenShots: 0.5
+      bulletHellTotalAngle: 22.5
+      bulletHellWaitBetweenShots: 0.2
   laserAttackSettings:
     rotationCurve:
       serializedVersion: 2
@@ -66,19 +92,19 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    rotationDuration: 8
+    rotationDuration: 5
     totalLoops: 1
   icicleSpawnSettings:
     minWaitTime: 4
     maxWaitTime: 6
     loopSpawning: 1
   bossCoreSettings:
-    maxHealth: 60
+    maxHealth: 600
   bossPhaseSettings:
     upperHealthThreshold: 500
     lowerHealthThreshold: 400
-    targetHitsToKill: 4
-    expectedAvgSpeedOfSpells: 18
+    targetHitsToKill: 5
+    expectedAvgSpeedOfSpells: 24
   littleBossMovementSettings:
     duration: 0
     waitUntilNextLoop: 0

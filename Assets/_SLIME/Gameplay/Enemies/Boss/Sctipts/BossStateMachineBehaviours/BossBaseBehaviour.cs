@@ -6,7 +6,7 @@ namespace _SLIME.Boss
     {
         protected BossBrain Data;
         public static int TotalAttacksPreformed = 0;
-        public void Initialize(BossBrain brain)
+        public virtual void Initialize(BossBrain brain)
         {
             Data = brain;
         }

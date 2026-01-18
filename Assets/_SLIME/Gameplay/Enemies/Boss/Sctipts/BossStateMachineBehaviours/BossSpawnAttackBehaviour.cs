@@ -1,90 +1,143 @@
 using System.Collections.Generic;
-using _SLIME.Projectiles;
 using _SLIME.Slime;
+using NaughtyAttributes;
 using UnityEngine;
-
 
 namespace _SLIME.Boss
 {
     public enum PossibleAttacks
     {
-        OneShot,
+        OneShot, // Main logic of attacks. One shot implementation
         TwoShots, // ONE SHOT TOWARDS slime1 AND THE OTHER TO slime2.
         ThreeShot, // THREE SHOTS TOGETHER, TWO SHOTS + One Shot
                    // (to the middle between the slimes)
-        FourShots, // Combination of ONE SHOT four times in consecutive intervals
-        BulletHell, // 8 Shots i consecutive intrvals in cylic order
-        
+        FourShots, // Combination of ONE SHOT four times in consecutive intervals, with a wait between each shot
+        BulletHell, // 8 Shots in consecutive intervals in cyclic order
     }
+    
+    [System.Serializable]
+    public struct SpawnSettings
+    {
+        [MinMaxSlider(0f,5f)]
+        public Vector2 delayBetweenAttacks;
+        
+        public AttackProbabilities bothSlimesAliveProbabilities;
+        
+        public AttackProbabilities notConnectedProbabilities;
+        
+        public AttackProbabilities oneSlimeAliveProbabilities;
+    }
+    
     public class BossSpawnAttackBehaviour : BossBaseBehaviour
     {
         private static readonly int AttackFinished = Animator.StringToHash("AttackFinished");
 
-        private int _spellCounter;
+        private int _attackCounter;
         private float _timer;
+        private float _currentDelay;
         
-        
+        private Dictionary<PossibleAttacks, ISpellAttackLogic> _attackLogics;
+        private ISpellAttackLogic _currentActiveLogic;
 
-        override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        public override void Initialize(BossBrain brain)
+        {
+            base.Initialize(brain);
+            
+            var oneSpellShotLogic = new OneSpellShotLogic(
+                Data.bossConfigurations.SpawnAttack.projectilePrefab,
+                Data
+            );
+            
+            _attackLogics = new Dictionary<PossibleAttacks, ISpellAttackLogic>
+            {
+                { PossibleAttacks.OneShot, oneSpellShotLogic },
+                { PossibleAttacks.TwoShots, new TwoShotsLogic(oneSpellShotLogic) },
+                { PossibleAttacks.ThreeShot, new ThreeShotsLogic(oneSpellShotLogic, Data) },
+                { PossibleAttacks.FourShots, new FourShotsLogic(oneSpellShotLogic, Data) },
+                { PossibleAttacks.BulletHell, new BulletHellLogic(oneSpellShotLogic, Data) },
+            };
+        }
+
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
             TotalAttacksPreformed++;
-            _spellCounter = 0;
+            _attackCounter = 0;
             _timer = 0f;
+            _currentDelay = 0f;
         }
 
-        override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-
-            if (_spellCounter >= Data.bossConfigurations.SpawnAttack.spellsToCast)
+            // If there's an active attack logic, update it and wait
+            if (_currentActiveLogic != null && _currentActiveLogic.IsActive)
+            {
+                _currentActiveLogic.UpdateAttack();
+                return;
+            }
+            
+            if (_attackCounter >= Data.bossConfigurations.SpawnAttack.attacksToCast
+            || Data.WaterStateActivated)
             {
                 animator.SetTrigger(AttackFinished);
+                return;
             }
-
+            
             _timer += Time.deltaTime;
-
-            if (_timer >= Data.bossConfigurations.SpawnAttack.spawnInterval)
+            
+            if (_timer >= _currentDelay)
             {
-                SpawnItem();
-                _spellCounter++;
+                PossibleAttacks chosenAttack = ChooseAttackByProbability();
+                ExecuteAttack(chosenAttack);
+                _attackCounter++;
                 _timer = 0f;
+            
+                Vector2 delayRange = Data.bossConfigurations.SpawnAttack.spawnSettings.delayBetweenAttacks;
+                _currentDelay = Random.Range(delayRange.x, delayRange.y);
             }
         }
         
-        private void SpawnItem()
+        private PossibleAttacks ChooseAttackByProbability()
         {
-            Transform leftSpawnPoint = Data.leftSpawnPoint;
-            Transform rightSpawnPoint = Data.rightSpawnPoint;
+            bool bothAlive = !SlimeData.instance.SideADead && !SlimeData.instance.SideBDead;
             
-            float randomX = Random.Range(leftSpawnPoint.position.x, rightSpawnPoint.position.x);
-            float fixedY = leftSpawnPoint.position.y;
+            AttackProbabilities probabilities;
             
-            GameObject item = Instantiate(Data.bossConfigurations.SpawnAttack.projectilePrefab,
-                new Vector2(randomX, fixedY), Quaternion.identity);
-            Spell spell = item.GetComponentInChildren<Spell>();
-            
-            Vector3 target = GetTargetPosition();
-            Vector3 direction = (target - item.transform.position).normalized;
-            spell.BossSetup(new SpellBossAttributes
+            if (!bothAlive)
             {
-                direction = direction,
-                moveSpeed = Data.bossConfigurations.SpawnAttack.spellSpeed
-            });
+                probabilities = Data.bossConfigurations.SpawnAttack.spawnSettings.oneSlimeAliveProbabilities;
+            }
+            else if (!Data.slimesConnected)
+            {
+                probabilities = Data.bossConfigurations.SpawnAttack.spawnSettings.notConnectedProbabilities;
+            }
+            else
+            {
+                probabilities = Data.bossConfigurations.SpawnAttack.spawnSettings.bothSlimesAliveProbabilities;
+            }
+                
+            return probabilities.GetRandomAttack();
         }
         
-        private Vector3 GetTargetPosition()
+        private void ExecuteAttack(PossibleAttacks attack)
         {
-            Vector3 slime1Pos = SlimeData.instance.SideATransform.position;
-            Vector3 slime2Pos = SlimeData.instance.SideBTransform.position;
+            if (_attackLogics.TryGetValue(attack, out var logic))
+            {
+                _currentActiveLogic = logic;
+                logic.Attack(Data.bossConfigurations.SpawnAttack.spellSettings);
+            }
+        }
 
-            if (SlimeData.instance.SideBDead) return slime1Pos;
-            if (SlimeData.instance.SideADead) return slime2Pos;
+        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            base.OnStateExit(animator, stateInfo, layerIndex);
             
-            Vector3 spawnPos = Data.leftSpawnPoint.position;
-            float dist1 = Vector3.Distance(spawnPos, slime1Pos);
-            float dist2 = Vector3.Distance(spawnPos, slime2Pos);
+            foreach (var logic in _attackLogics.Values)
+            {
+                logic.Reset();
+            }
             
-            return dist1 < dist2 ? slime1Pos : slime2Pos;
+            _currentActiveLogic = null;
         }
     }
 }
