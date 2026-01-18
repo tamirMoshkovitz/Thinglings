@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using _SLIME.Projectiles;
 using UnityEngine;
 
 namespace _SLIME.Tutorial
@@ -75,15 +76,17 @@ namespace _SLIME.Tutorial
         private void SpawnSpell(Transform spawnPoint, Vector3 targetPosition)
         {
             // Spawn spell
-            GameObject spell = GameObject.Instantiate(_deps.spellPrefab, spawnPoint.position, Quaternion.identity);
+            GameObject spellGO = GameObject.Instantiate(_deps.spellPrefab, spawnPoint.position, Quaternion.identity);
             
             // Calculate direction to target
             Vector3 direction = (targetPosition - spawnPoint.position).normalized;
             
-            // Set velocity
-            Rigidbody2D rb = spell.GetComponent<Rigidbody2D>();
-            rb.gravityScale = 0f;
-            rb.linearVelocity = direction * _set.spellSpeed;
+            Spell spell = spellGO.GetComponentInChildren<Spell>(); 
+            spell.BossSetup(new SpellBossAttributes
+            {
+                direction = direction,
+                moveSpeed = _set.spellSpeed,
+            });
         }
         
         private void OnBossHit()
