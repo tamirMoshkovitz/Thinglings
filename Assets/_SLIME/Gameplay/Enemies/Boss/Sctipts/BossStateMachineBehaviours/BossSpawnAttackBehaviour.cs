@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using _SLIME.Projectiles;
 using _SLIME.Slime;
 using UnityEngine;
@@ -5,12 +6,23 @@ using UnityEngine;
 
 namespace _SLIME.Boss
 {
+    public enum PossibleAttacks
+    {
+        OneShot,
+        TwoShots, // ONE SHOT TOWARDS slime1 AND THE OTHER TO slime2.
+        ThreeShot, // THREE SHOTS TOGETHER, TWO SHOTS + One Shot
+                   // (to the middle between the slimes)
+        FourShots, // Combination of ONE SHOT four times in consecutive intervals
+        BulletHell, // 8 Shots i consecutive intrvals in cylic order
+        
+    }
     public class BossSpawnAttackBehaviour : BossBaseBehaviour
     {
         private static readonly int AttackFinished = Animator.StringToHash("AttackFinished");
 
         private int _spellCounter;
         private float _timer;
+        
         
 
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

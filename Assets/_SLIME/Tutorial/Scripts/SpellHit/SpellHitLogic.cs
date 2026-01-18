@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using _SLIME.Projectiles;
 using DG.Tweening;
 using UnityEngine;
 
@@ -74,7 +75,7 @@ namespace _SLIME.Tutorial
         private void SpawnAndLaunchSpell()
         {
             Vector3 spawnPosition = _spellHitStateDeps.pointToSpawnSpell.position;
-            GameObject spell = GameObject.Instantiate(_spellHitStateDeps.spellPrefab, 
+            GameObject gameObject = GameObject.Instantiate(_spellHitStateDeps.spellPrefab, 
                 spawnPosition, Quaternion.identity);
             
             Vector3 slime1Pos = _spellHitStateDeps.slime1.position;
@@ -82,10 +83,14 @@ namespace _SLIME.Tutorial
             
             Vector3 spawnTarget = slime1Pos.x < slime2Pos.x ? slime1Pos : slime2Pos;
             Vector2 direction = (spawnTarget - spawnPosition).normalized;
-            
-            Rigidbody2D rb = spell.GetComponent<Rigidbody2D>();
-            rb.gravityScale = 0f;
-            rb.linearVelocity = direction * _spellHitStateSet.spellSpeed;
+
+            Spell spell = gameObject.GetComponentInChildren<Spell>();
+            spell.BossSetup(new SpellBossAttributes
+            {
+                direction = direction,
+                moveSpeed = _spellHitStateSet.spellSpeed,
+            });
+
         }
         
         private void OnSlimeGetHit()
