@@ -22,7 +22,6 @@ MonoBehaviour:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
     spellsToCast: 15
     spawnInterval: 1
-    spellLifeTime: 5
     spellSpeed: 20
   laserAttackSettings:
     rotationCurve:
@@ -74,7 +73,31 @@ MonoBehaviour:
     maxWaitTime: 4
     loopSpawning: 1
   bossCoreSettings:
-    maxHealth: 60
+    maxHealth: 600
   bossPhaseSettings:
-    upperHealthThreshold: 30
-    lowerHealthThreshold: 20
+    upperHealthThreshold: 300
+    lowerHealthThreshold: 200
+    targetHitsToKill: 5
+    expectedAvgSpeedOfSpells: 20
+  littleBossMovementSettings:
+    duration: 0
+    waitUntilNextLoop: 0
+    easeCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    useRefinedRotation: 0
+    startRotation: {x: 0, y: 0, z: 0}
+    endRotation: {x: 0, y: 0, z: 0}
+    chanceToAttack: {x: 0, y: 0}
+    chanceToAttackCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    timeToMaxChance: 0
+  littleBossHealthSettings:
+    health: 0

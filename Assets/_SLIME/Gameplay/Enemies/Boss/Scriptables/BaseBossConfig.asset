@@ -73,12 +73,12 @@ MonoBehaviour:
     maxWaitTime: 7
     loopSpawning: 1
   bossCoreSettings:
-    maxHealth: 60
-    targetHitsToKill: 25
-    expectedAvgSpeedOfSpells: 15
+    maxHealth: 600
   bossPhaseSettings:
-    upperHealthThreshold: 60
-    lowerHealthThreshold: 50
+    upperHealthThreshold: 600
+    lowerHealthThreshold: 500
+    targetHitsToKill: 10
+    expectedAvgSpeedOfSpells: 15
   littleBossMovementSettings:
     duration: 0
     waitUntilNextLoop: 0

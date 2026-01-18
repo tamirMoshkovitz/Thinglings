@@ -66,8 +66,7 @@ public class BaseBossConfigurations : TabbedScriptableObject
     {
         [Header("Health")]
         public float maxHealth;
-        public int targetHitsToKill;
-        public float expectedAvgSpeedOfSpells;
+        
     }
     
     [Serializable]
@@ -80,6 +79,12 @@ public class BaseBossConfigurations : TabbedScriptableObject
         
         [Tooltip("Lower health threshold to exit this phase")]
         public float lowerHealthThreshold;
+        
+        [Tooltip("Number of spell hits to pass the phase")]
+        public int targetHitsToKill;
+        
+        [Tooltip("Expected avg speed of spells in current phase")]
+        public float expectedAvgSpeedOfSpells;
     }
     
     [Serializable]
