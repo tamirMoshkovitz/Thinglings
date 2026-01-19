@@ -42,6 +42,14 @@ namespace _SLIME.Boss
         [Tooltip("List of right hand splines")]
         public List<GameObject> rightHandSplines;
         
+        [Tooltip("List of special left hand splines")]
+        [SerializeField] public List<GameObject> specialLeftHandSplines;
+        [Tooltip("List of special right hand splines")]
+        [SerializeField] public List<GameObject> specialRightHandSplines;
+        
+        [Tooltip("Center detector for hand attacks")]
+        [SerializeField] public PlayerInCenterDetector centerDetector;
+        
         [Header("Spawn Setup")]
         public Transform leftSpawnPoint;
         public Transform rightSpawnPoint;
