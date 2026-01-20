@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
+using _SLIME.Boss;
 using _SLIME.LittleBoss;
 using UnityEngine;
 [CreateAssetMenu(fileName = "BaseBossConfig", menuName = "BossConfig")]
@@ -35,15 +36,16 @@ public class BaseBossConfigurations : TabbedScriptableObject
         public GameObject projectilePrefab;
         
         [Tooltip("How many spells the sorcerer will create during the attack")]
-        public int spellsToCast;
-        
-        [Tooltip("How long will it take for a spell to spawn")]
-        public float spawnInterval;
-        
-        [Tooltip("Spell Speed")]
-        public float spellSpeed;
+        public int attacksToCast;
         
         
+        public SpawnSettings spawnSettings;
+        
+        [Tooltip("Spell Settings")]
+        public SpellSettings spellSettings;
+        
+        [Tooltip("Special Attacks Settings")]
+        public SpellSpecialAttacksSettings specialAttacksSettings;
     }
     
     [Serializable]
@@ -66,8 +68,7 @@ public class BaseBossConfigurations : TabbedScriptableObject
     {
         [Header("Health")]
         public float maxHealth;
-        public int targetHitsToKill;
-        public float expectedAvgSpeedOfSpells;
+        
     }
     
     [Serializable]
@@ -80,6 +81,12 @@ public class BaseBossConfigurations : TabbedScriptableObject
         
         [Tooltip("Lower health threshold to exit this phase")]
         public float lowerHealthThreshold;
+        
+        [Tooltip("Number of spell hits to pass the phase")]
+        public int targetHitsToKill;
+        
+        [Tooltip("Expected avg speed of spells in current phase")]
+        public float expectedAvgSpeedOfSpells;
     }
     
     [Serializable]

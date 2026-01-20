@@ -20,9 +20,7 @@ namespace _SLIME.Projectiles
         private BaseBossConfigurations bossConfiguration;
         private SpellBossAttributes _bossAttributes;
         private SpellState _currentState;
-        private float DamagePerSpeedUnit => bossConfiguration.CoreSettings.maxHealth
-                                    /(bossConfiguration.CoreSettings.targetHitsToKill
-                                    * bossConfiguration.CoreSettings.expectedAvgSpeedOfSpells);
+        
         
         public void BossSetup(SpellBossAttributes attributes)
         {
@@ -56,7 +54,6 @@ namespace _SLIME.Projectiles
         {
             if (_currentState != SpellState.Spawning) return;
             Shoot();
-           
         }
         
         public void OnHitFinished()
@@ -85,15 +82,11 @@ namespace _SLIME.Projectiles
             var currentSpeed = comp.rb.linearVelocity.magnitude;
             comp.rb.linearVelocity = Vector2.zero;
             comp.rb.bodyType = RigidbodyType2D.Kinematic;
-            if (target != null) target.TakeDamage(CalculateDamage(currentSpeed));
+            if (target != null) target.TakeDamage(Mathf.CeilToInt(currentSpeed));
             comp.animator.SetTrigger(Hit);
         }
         
-        private int CalculateDamage(float currentSpeed)
-        {
-            float rawDamage = currentSpeed * DamagePerSpeedUnit;
-            return Mathf.CeilToInt(rawDamage);
-        }
+        
         
         private int GetLayerFromMask(LayerMask mask)
         {

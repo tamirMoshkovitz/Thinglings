@@ -42,6 +42,14 @@ namespace _SLIME.Boss
         [Tooltip("List of right hand splines")]
         public List<GameObject> rightHandSplines;
         
+        [Tooltip("List of special left hand splines")]
+        [SerializeField] public List<GameObject> specialLeftHandSplines;
+        [Tooltip("List of special right hand splines")]
+        [SerializeField] public List<GameObject> specialRightHandSplines;
+        
+        [Tooltip("Center detector for hand attacks")]
+        [SerializeField] public PlayerInCenterDetector centerDetector;
+        
         [Header("Spawn Setup")]
         public Transform leftSpawnPoint;
         public Transform rightSpawnPoint;
@@ -67,7 +75,8 @@ namespace _SLIME.Boss
         public State SecondPhaseState { get; private set; }
         public State ThirdPhaseState { get; private set; }
         public State StartingPhaseState { get; private set; }
-            
+        
+        
         public bool WaterStateActivated { get; set;}
         private void Awake()
         {
@@ -114,14 +123,18 @@ namespace _SLIME.Boss
         private void OnSlimeTears() => slimesConnected = false;
 
         // ReSharper disable Unity.PerformanceAnalysis
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage) // damage here is the speed of the spell on boss
         {
-            currentHealth -= damage;
+            float finalDamageF = damage * (bossConfigurations.PhaseSettings.upperHealthThreshold - bossConfigurations.PhaseSettings.lowerHealthThreshold)
+                /(bossConfigurations.PhaseSettings.targetHitsToKill
+                  * bossConfigurations.PhaseSettings.expectedAvgSpeedOfSpells);
+            int finalDamage = Mathf.RoundToInt(finalDamageF);
+            currentHealth -= finalDamage;
             if (bossHealthBar) bossHealthBar.fillAmount = currentHealth / bossConfigurations.CoreSettings.maxHealth;
             PopupEventsRenderer.OnRenderPointsAbove(new RenderEvent
              {
                  eventType = EventType.BossHealth,
-                 value = -damage,
+                 value = -finalDamage,
                  fatherTransform = null,
                  position = transform.position,
                  OnFinish = null
