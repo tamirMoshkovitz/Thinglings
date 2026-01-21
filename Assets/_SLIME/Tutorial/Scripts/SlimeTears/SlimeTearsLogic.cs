@@ -13,7 +13,6 @@ namespace _SLIME.Tutorial
         public Renderer transitionRenderer;
         public GameObject sorcerer;
         public UnityEngine.InputSystem.PlayerInput slimeInput;
-        public GameObject tutorialBackground;
         public GameObject tutorialBoss;
         public Animator sketchStretchAnimator;
     }
@@ -74,7 +73,6 @@ namespace _SLIME.Tutorial
             _slimeTearsStateDeps.transitionAnimator.SetTrigger(_slimeTearsStateSet.transitionTriggerName);
             yield return WaitForAnimationState(_slimeTearsStateDeps.transitionAnimator, 
                 _slimeTearsStateSet.transitionWaitForStateName);
-            _slimeTearsStateDeps.tutorialBackground.SetActive(true);
             _slimeTearsStateDeps.tutorialBoss.SetActive(true);
             
         }
