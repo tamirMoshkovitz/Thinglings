@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using _SLIME.Boss;
 using _SLIME.GameLoop;
 using Unity.VisualScripting;
@@ -9,6 +10,7 @@ public class ThirdPhaseState : State
     private readonly BaseBossConfigurations _thirdPhaseConfigurations;
     private readonly BossBrain _bossBrain;
     public static event Action TunnelPhaseStarted;
+    public static event Action BossDead;
     private bool _hasInvokedTunnelStart;
 
     public ThirdPhaseState(StateMachine stateMachine, BossBrain bossBrain, BaseBossConfigurations thirdPhaseConfigurations) : base(stateMachine)
@@ -41,6 +43,11 @@ public class ThirdPhaseState : State
             _hasInvokedTunnelStart = true;
             
             GameEvents.FmodPhaseFour?.Invoke();
+        }
+
+        if (_bossBrain.currentHealth <= 0)
+        {
+            BossDead?.Invoke();
         }
     }
     

@@ -9,6 +9,7 @@ public class WaterAttackManager : MonoBehaviour
     private static readonly int AttackModeTrigger = Animator.StringToHash("Attack mode");
     private static readonly int MagicalWaterOutTrigger = Animator.StringToHash("Magical water out");
     private static readonly int SlimeWon = Animator.StringToHash("SlimeWon");
+    private static readonly int BossWon = Animator.StringToHash("BossWon");
 
     [Header("Settings")]
     [SerializeField] private float initialDelay = 1f;
@@ -23,6 +24,7 @@ public class WaterAttackManager : MonoBehaviour
 
     private bool _isLeftZoneActive;
     private bool _isRightZoneActive;
+    private int waterAttackResult = BossWon;
     
     private Coroutine _attackRoutine;
     public bool CanAttack { get; private set; }
@@ -80,7 +82,12 @@ public class WaterAttackManager : MonoBehaviour
         if(animatorLeft) animatorLeft.SetTrigger(hashId);
         if(animatorRight) animatorRight.SetTrigger(hashId);
         if (hashId != AttackModeTrigger) return;
-        bossBrain.animator.SetTrigger(SlimeWon);
         bossBrain.TakeDamage(waterAttackDamage);
+        bossBrain.animator.SetTrigger(waterAttackResult);
+    }
+
+    private void OnBossDead()
+    {
+        waterAttackResult = SlimeWon;
     }
 }

@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 06afce45a9a38410392aae24ef240188
+guid: f4184385b56ac4d7ca4be1dde159e3cd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8126007800182124566
-    second: Stalactite background_0
+      213: 3821608149902857604
+    second: frame_013_0
+  - first:
+      213: -8156386102531454665
+    second: frame_013_1
+  - first:
+      213: -3390937062321186269
+    second: frame_013_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Stalactite background_0
+      name: frame_013_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 5002
-        height: 4002
+        x: 242
+        y: 103
+        width: 959
+        height: 336
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: aef471c85fe9a3f80800000000000000
-      internalID: -8126007800182124566
+      spriteID: 48592b55d54190530800000000000000
+      internalID: 3821608149902857604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frame_013_1
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 330
+        width: 34
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7390eabdd02bece80800000000000000
+      internalID: -8156386102531454665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frame_013_2
+      rect:
+        serializedVersion: 2
+        x: 1198
+        y: 269
+        width: 13
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32a93a035b8f0f0d0800000000000000
+      internalID: -3390937062321186269
       vertices: []
       indices: 
       edges: []
@@ -135,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Stalactite background_0: -8126007800182124566
+      frame_013_0: 3821608149902857604
+      frame_013_1: -8156386102531454665
+      frame_013_2: -3390937062321186269
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
