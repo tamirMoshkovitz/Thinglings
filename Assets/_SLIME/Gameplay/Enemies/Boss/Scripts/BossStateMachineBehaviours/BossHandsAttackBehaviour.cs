@@ -41,6 +41,7 @@ namespace _SLIME.Boss
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
+            Data.BossCloseState();
             TotalAttacksPreformed++;
 
             _leftHands = Data.leftHandSplines.Select(h => new HandWrapper(h)).ToList();

@@ -61,6 +61,7 @@ namespace _SLIME.Boss
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
+            Data.BossFarState();
             TotalAttacksPreformed++;
             _attackCounter = 0;
             _timer = 0f;

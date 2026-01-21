@@ -11,43 +11,37 @@ using EventType = _SLIME.UI.EventType;
 public enum BossStates
 {
     FarState,
-    CloseState
+    CloseState,
+    LaserState
 }
 
 namespace _SLIME.Boss
 {
     public class BossBrain : ProjectMonoBehavior, IHealth
     {
-        
-
         private static readonly int Die = Animator.StringToHash("Die");
+        
         [Header("Camera Setup")] 
         public Camera mainCamera;
         
         [Header("Boss Data Setup")]
-        public BaseBossConfigurations bossConfigurations;
+        public BaseBossConfigurations bossConfigurations; 
+        
         [SerializeField] BaseBossConfigurations startingPhaseConfigurations;
         [SerializeField] BaseBossConfigurations firstPhaseConfigurations;
         [SerializeField] BaseBossConfigurations secondPhaseConfigurations;
         [SerializeField] BaseBossConfigurations thirdPhaseConfigurations;
         
         public GameObject waterStateBrain;
-        
         public GameObject bossCloseColliders;
         public GameObject bossFarColliders;
+        public GameObject bossLaserColliders;
         
         [Header("Hands Attack Setup")] 
-        [Tooltip("List of left hand splines")]
         public List<GameObject> leftHandSplines;
-        [Tooltip("List of right hand splines")]
         public List<GameObject> rightHandSplines;
-        
-        [Tooltip("List of special left hand splines")]
         [SerializeField] public List<GameObject> specialLeftHandSplines;
-        [Tooltip("List of special right hand splines")]
         [SerializeField] public List<GameObject> specialRightHandSplines;
-        
-        [Tooltip("Center detector for hand attacks")]
         [SerializeField] public PlayerInCenterDetector centerDetector;
         
         [Header("Spawn Setup")]
@@ -76,22 +70,58 @@ namespace _SLIME.Boss
         public State ThirdPhaseState { get; private set; }
         public State StartingPhaseState { get; private set; }
         
-        
         public bool WaterStateActivated { get; set;}
+
         private void Awake()
         {
             StateMachine = new StateMachine();
+            
             StartingPhaseState = new StartingPhaseState(StateMachine, this, startingPhaseConfigurations);
             FirstPhaseState = new FirstPhaseState(StateMachine, this, firstPhaseConfigurations);
             SecondPhaseState = new SecondPhaseState(StateMachine, this, secondPhaseConfigurations);
             ThirdPhaseState = new ThirdPhaseState(StateMachine, this, thirdPhaseConfigurations);
-            StateMachine.Initialize(StartingPhaseState);
+            
+            BossPhaseType savedPhase = BossPhaseType.Starting;
+            
+            if (BossCheckpointManager.Instance != null)
+            {
+                savedPhase = BossCheckpointManager.Instance.CurrentSavedPhase;
+            }
+
+            switch (savedPhase)
+            {
+                case BossPhaseType.FirstPhase:
+                    bossConfigurations = firstPhaseConfigurations;
+                    StateMachine.Initialize(FirstPhaseState);
+                    break;
+                case BossPhaseType.SecondPhase:
+                    bossConfigurations = secondPhaseConfigurations;
+                    StateMachine.Initialize(SecondPhaseState);
+                    break;
+                case BossPhaseType.ThirdPhase:
+                    bossConfigurations = thirdPhaseConfigurations;
+                    StateMachine.Initialize(ThirdPhaseState);
+                    break;
+                case BossPhaseType.Starting:
+                default:
+                    bossConfigurations = startingPhaseConfigurations;
+                    StateMachine.Initialize(StartingPhaseState);
+                    break;
+            }
         }
 
         private void Start()
         {
             if (!mainCamera) mainCamera = Camera.main;
-            currentHealth = bossConfigurations.CoreSettings.maxHealth;
+            
+            if (BossCheckpointManager.Instance != null && BossCheckpointManager.Instance.CurrentSavedPhase != BossPhaseType.Starting)
+            {
+                currentHealth = bossConfigurations.PhaseSettings.upperHealthThreshold;
+            }
+            else
+            {
+                currentHealth = bossConfigurations.CoreSettings.maxHealth;
+            }
 
             var allBehaviours = animator.GetBehaviours<BossBaseBehaviour>();
             foreach (var behaviour in allBehaviours)
@@ -99,6 +129,7 @@ namespace _SLIME.Boss
                 behaviour.Initialize(this);
             }
             
+            if (bossHealthBar) bossHealthBar.fillAmount = currentHealth / bossConfigurations.CoreSettings.maxHealth;
         }
 
         private void OnEnable(){
@@ -120,15 +151,20 @@ namespace _SLIME.Boss
         private void OnSlimeConnected() => slimesConnected = true;
         private void OnSlimeTears() => slimesConnected = false;
 
-        // ReSharper disable Unity.PerformanceAnalysis
-        public void TakeDamage(float damage) // damage here is the speed of the spell on boss
+        public void TakeDamage(float damage) 
         {
+            float denominator = bossConfigurations.PhaseSettings.targetHitsToKill * bossConfigurations.PhaseSettings.expectedAvgSpeedOfSpells;
+            if (denominator == 0) denominator = 1;
+
             float finalDamageF = damage * (bossConfigurations.PhaseSettings.upperHealthThreshold - bossConfigurations.PhaseSettings.lowerHealthThreshold)
-                /(bossConfigurations.PhaseSettings.targetHitsToKill
-                  * bossConfigurations.PhaseSettings.expectedAvgSpeedOfSpells);
+                / denominator;
+                
             int finalDamage = Mathf.RoundToInt(finalDamageF);
             currentHealth -= finalDamage;
+
+
             if (bossHealthBar) bossHealthBar.fillAmount = currentHealth / bossConfigurations.CoreSettings.maxHealth;
+            
             PopupEventsRenderer.OnRenderPointsAbove(new RenderEvent
              {
                  eventType = EventType.BossHealth,
@@ -138,12 +174,8 @@ namespace _SLIME.Boss
                  OnFinish = null
              });
             GameEvents.EnemyGotBricked?.Invoke();
-            
-            // if (currentHealth <= 0)
-            //     GetComponent<Animator>().SetTrigger(Die);
         }
         
-        //TODO: Reset with the game (doesn't go back to the base far state on reset)
         public void BossCloseState()
         {
             if (BossState == BossStates.CloseState) return;
@@ -160,6 +192,38 @@ namespace _SLIME.Boss
             bossCloseColliders.SetActive(false);
             bossFarColliders.SetActive(true);
             FarState?.Invoke();
+        }
+
+        public void BossLaserState()
+        {
+            if (BossState == BossStates.LaserState) return;
+            BossState = BossStates.LaserState;
+            bossLaserColliders.SetActive(true);
+            bossCloseColliders.SetActive(false);
+            bossFarColliders.SetActive(false);
+            FarState?.Invoke();
+        }
+        
+        public void BossWaterState()
+        {
+            bossCloseColliders.SetActive(false);
+            bossFarColliders.SetActive(false);
+            bossLaserColliders.SetActive(false);
+        }
+
+        public void SavePhaseCheckpoint(BossPhaseType phaseToSave)
+        {
+            if (BossCheckpointManager.Instance)
+            {
+                BossCheckpointManager.Instance.SaveCheckpoint(phaseToSave);
+                
+                switch (phaseToSave)
+                {
+                    case BossPhaseType.FirstPhase: bossConfigurations = firstPhaseConfigurations; break;
+                    case BossPhaseType.SecondPhase: bossConfigurations = secondPhaseConfigurations; break;
+                    case BossPhaseType.ThirdPhase: bossConfigurations = thirdPhaseConfigurations; break;
+                }
+            }
         }
 
         private void OnDrawGizmos()

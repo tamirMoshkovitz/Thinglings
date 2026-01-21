@@ -26,4 +26,11 @@ public class StartingPhaseState : State
             return;
         StateMachine.ChangeState(_bossBrain.FirstPhaseState);
     }
+    
+    public override void Exit()
+    {
+        base.Exit();
+        _bossBrain.WaterStateActivated = true;
+
+    }
 }

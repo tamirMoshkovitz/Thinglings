@@ -18,6 +18,7 @@ public class SecondPhaseState : State
         base.Enter();
         _bossBrain.bossConfigurations = _secondPhaseConfigurations;
         _bossBrain.WaterStateActivated = true;
+        _bossBrain.SavePhaseCheckpoint(BossPhaseType.SecondPhase);
     }
     
     public override void LogicUpdate()
@@ -27,5 +28,12 @@ public class SecondPhaseState : State
             && _bossBrain.currentHealth > _secondPhaseConfigurations.PhaseSettings.lowerHealthThreshold)
             return;
         StateMachine.ChangeState(_bossBrain.ThirdPhaseState);
+    }
+    
+    public override void Exit()
+    {
+        base.Exit();
+        _bossBrain.WaterStateActivated = true;
+
     }
 }

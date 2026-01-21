@@ -7,6 +7,7 @@ public class BossWaterAttackBehaviour : BossBaseBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Data.waterStateBrain.SetActive(true);
+        Data.BossWaterState();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
