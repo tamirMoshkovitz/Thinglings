@@ -113,7 +113,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 294922717
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 6854245509320896293, guid: 003378318071a43bcbbde5ea57d18291, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -162,6 +162,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcycleLogic
   icicleAnimator: {fileID: 2035072208797090170}
   spawnPoint: {fileID: 6575605041220246109}
+  turnOffGameobjectAfterTime: {fileID: 0}
+  IcicleBreakSFX:
+    Guid:
+      Data1: 753019380
+      Data2: 1146157109
+      Data3: -920693584
+      Data4: -157306441
+    Path: event:/icicle Break
 --- !u!50 &4034054936942171395
 Rigidbody2D:
   serializedVersion: 5

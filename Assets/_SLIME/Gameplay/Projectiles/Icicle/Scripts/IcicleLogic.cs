@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using _SLIME.BaseScripts;
+using _SLIME.Core.Audio.FMOD.Scripts;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -9,6 +11,7 @@ public class IcicleLogic : MonoBehaviour
     [SerializeField] private Animator icicleAnimator;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private TurnOffGameobjectAfterTime turnOffGameobjectAfterTime;
+    [SerializeField] private EventReference IcicleBreakSFX;
     private new Rigidbody2D _rigidbody2D;
     private Collider2D _col;
     private Coroutine _courtine;
@@ -53,6 +56,7 @@ public class IcicleLogic : MonoBehaviour
             h.TakeDamage();
         }
         icicleAnimator.SetTrigger("IcycleHit");
+        SFXPlayer.Play(IcicleBreakSFX);
         if(_courtine != null) return;
         _courtine = StartCoroutine(WaitForDissolveState());
     }
@@ -62,6 +66,7 @@ public class IcicleLogic : MonoBehaviour
         if(_hit) return;
         _hit = true;
         icicleAnimator.SetTrigger("IcycleHit");
+        SFXPlayer.Play(IcicleBreakSFX);
         if(_courtine != null) return;
         _courtine = StartCoroutine(WaitForDissolveState());
     }

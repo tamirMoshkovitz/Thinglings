@@ -4227,6 +4227,14 @@ MonoBehaviour:
   slimeStretchCameraShakeConfiguration: {fileID: 11400000, guid: a1cf7dba4bdbc4a818d462a52dfeab15, type: 2}
   mainCamera: {fileID: 0}
   shotTearConnectionDelay: 0.3
+  slimeTearSFX: {fileID: 8651461277326436365, guid: 4ae3d6250a6dc4818b68b3978b257e4f, type: 3}
+  deadSlimeSFX:
+    Guid:
+      Data1: 1184188917
+      Data2: 1282747556
+      Data3: -401581939
+      Data4: 1213437849
+    Path: event:/Slime Dead
 --- !u!114 &5495671162430005579
 MonoBehaviour:
   m_ObjectHideFlags: 0

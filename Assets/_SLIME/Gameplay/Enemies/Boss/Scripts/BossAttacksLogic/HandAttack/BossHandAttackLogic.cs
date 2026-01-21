@@ -1,6 +1,8 @@
 using System.Collections;
 using _SLIME.BaseScripts;
+using _SLIME.Core.Audio.FMOD.Scripts;
 using _SLIME.Slime;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -24,6 +26,9 @@ namespace _SLIME.Boss
         [SerializeField] private bool useRefinedRotation = true;
         [SerializeField] private Vector3 startRotation = new Vector3(0, 0, 0);
         [SerializeField] private Vector3 endRotation = new Vector3(0, 180, 0);
+        
+        [Header("Audio")]
+        [SerializeField] private EventReference handAttackSFX;
 
         public bool IsAttacking { get; private set; }
 
@@ -47,6 +52,7 @@ namespace _SLIME.Boss
 
             warningVisual.SetActive(true);
             yield return new WaitForSeconds(bossBrain.bossConfigurations.HandsAttack.handWarningDuration);
+            SFXPlayer.Play(handAttackSFX);
             warningVisual.SetActive(false);
 
             float timer = 0f;

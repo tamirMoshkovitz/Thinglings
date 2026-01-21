@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using _SLIME.BaseScripts;
 using DG.Tweening;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,6 +25,7 @@ namespace _SLIME.Tutorial
     {
         public static event Action JoystickMoved;
         [SerializeField] private TutorialScriptable tutorialScriptable;
+        [SerializeField] private ControlledSfx rockShakeSFX;
 
         private RockShakeSettings rockShakeSettings;
         private bool _isShaking;
@@ -43,6 +45,7 @@ namespace _SLIME.Tutorial
         {
             StopShake();
             JoystickMoved -= OnJoystickMoved;
+            SetAudioIntensity(1f);
         }
 
         private void Awake()
@@ -60,6 +63,7 @@ namespace _SLIME.Tutorial
                     JoystickMoved?.Invoke();
                     _accumulatedShakeTime = 0f;
                 }
+                UpdateAudioIntensity();
             }
         }
         
@@ -97,6 +101,7 @@ namespace _SLIME.Tutorial
         private IEnumerator ShakeCoroutine()
         {
             _isShaking = true;
+            rockShakeSFX.Play();
             
             while (_isShaking)
             {
@@ -117,11 +122,29 @@ namespace _SLIME.Tutorial
             if (!_isShaking) return;
             
             _isShaking = false;
+            rockShakeSFX.Stop();
             _currentShakeTween?.Kill();
             _currentShakeTween = null;
             _accumulatedShakeTime = 0f;
            transform.DOKill();
            transform.localPosition = Vector3.zero;
+        }
+        
+        private void UpdateAudioIntensity()
+        {
+            SetAudioIntensity(CalculateIntensity());
+        }
+
+        private float CalculateIntensity()
+        {
+            float currentShake = _accumulatedShakeTime / rockShakeSettings.requiredShakeTime[_currentShakeIndex];
+            
+            return (_currentShakeIndex + currentShake) / rockShakeSettings.requiredShakeTime.Length;
+        }
+        
+        private void SetAudioIntensity(float intensity)
+        {
+            RuntimeManager.StudioSystem.setParameterByName("first scene tension", intensity);
         }
     }
 }

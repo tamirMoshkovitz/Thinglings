@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{2c87a891-fc3b-4f32-9ef8-af7588fd44c1}">
+		<property name="name">
+			<value>first scene tension</value>
+		</property>
+		<relationship name="folder">
+			<destination>{e9be661c-660b-4f2c-820b-ed11e40c4884}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{d31e6a41-74fc-4c0c-9b71-b68a1227920a}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{d31e6a41-74fc-4c0c-9b71-b68a1227920a}">
+		<property name="isGlobal">
+			<value>true</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>

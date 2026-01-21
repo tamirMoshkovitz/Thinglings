@@ -10003,6 +10003,13 @@ MonoBehaviour:
     animator: {fileID: 8507901680545142086}
     collider: {fileID: 4038298892295797958}
   bossConfiguration: {fileID: 11400000, guid: debaec0eb2ac1664b8e380373e0a5233, type: 2}
+  spellShootSFX:
+    Guid:
+      Data1: -916256540
+      Data2: 1260889789
+      Data3: -1242466378
+      Data4: 1229598122
+    Path: event:/Spell bounce
 --- !u!1 &3716638526319800360
 GameObject:
   m_ObjectHideFlags: 0

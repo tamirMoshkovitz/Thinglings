@@ -3,6 +3,7 @@ using System.Collections;
 using _SLIME.BaseScripts;
 using _SLIME.GameLoop;
 using _SLIME.Projectiles;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -40,11 +41,14 @@ namespace _SLIME.Slime
         
         [Header("Slime Powers")]
         [SerializeField] private SparkPowerDep sparkPowerDep;
+        
         [Header("Feel Manager Settings")]
         [SerializeField] private ConrollerRumbleConfiguration controllerRumbleConfiguration;
         [SerializeField] private SlimeStretchCameraShakeConfiguration slimeStretchCameraShakeConfiguration;
         [SerializeField] private Camera mainCamera;
         [SerializeField] private float  shotTearConnectionDelay = .3f;
+        [SerializeField] private ControlledSfx slimeTearSFX;
+        [SerializeField] private EventReference deadSlimeSFX;
         #endregion
         
         private SlimeData _slimeData;
@@ -135,7 +139,8 @@ namespace _SLIME.Slime
                 rightSideHitPoint,
                 _slimeData,
                 slimeConfiguration.shootingSettings,
-                new SlimeSideShootingReqComponents(slimeRightSideRenderer, bossHitPoint,bossHitPointEyeRight, bulletPool)
+                new SlimeSideShootingReqComponents(slimeRightSideRenderer, bossHitPoint,bossHitPointEyeRight, bulletPool),
+                deadSlimeSFX
             ));
             _leftSide = new SlimeSide(new SlimeSide.SlimeSideFormat(
                 slimeLeftSide,
@@ -145,7 +150,8 @@ namespace _SLIME.Slime
                 leftSideHitPoint,
                 _slimeData,
                 slimeConfiguration.shootingSettings,
-                new SlimeSideShootingReqComponents(slimeLeftSideRenderer, bossHitPoint, bossHitPointEyeLeft, bulletPool)
+                new SlimeSideShootingReqComponents(slimeLeftSideRenderer, bossHitPoint, bossHitPointEyeLeft, bulletPool),
+                deadSlimeSFX
             ));
             
             _slimeData.Initialize(_rightSide, _leftSide);
@@ -157,7 +163,7 @@ namespace _SLIME.Slime
             _slimeConnections = new SlimeConnections(slimeConfiguration,_slimeData, conenctionsComponent );
             
             _feelManager = new SlimeFeelManager(this, controllerRumbleConfiguration,
-                slimeStretchCameraShakeConfiguration, mainCamera, shotTearConnectionDelay);
+                slimeStretchCameraShakeConfiguration, mainCamera, shotTearConnectionDelay, slimeTearSFX);
         }
 
         public void OnMoveRight(InputAction.CallbackContext context)

@@ -12,17 +12,19 @@ namespace _SLIME.Slime
 
         private SlimeBrain _slimeBrain;
         private List<ISlimeBehaviorComponent> _components = new ();
+        private SlimeStretchCameraShake _cameraShakeComponent;
 
         public SlimeFeelManager(SlimeBrain slimeBrain, ConrollerRumbleConfiguration controllerRumbleConfiguration,
-            SlimeStretchCameraShakeConfiguration slimeStretchCameraShakeConfiguration, Camera mainCamera, float onShotTearConnectionAfter)
+            SlimeStretchCameraShakeConfiguration slimeStretchCameraShakeConfiguration, Camera mainCamera, float onShotTearConnectionAfter, ControlledSfx slimeStretchSFX)
         {
             _slimeBrain = slimeBrain;
             _controllerRumbleConfiguration = controllerRumbleConfiguration;
             _onShotTearConnectionAfter = onShotTearConnectionAfter;
 
             _components.Add(new ControllerRumble(controllerRumbleConfiguration, slimeBrain.Data));
-            _components.Add(new SlimeAudio(slimeBrain.Data));
-            _components.Add(new SlimeStretchCameraShake(slimeStretchCameraShakeConfiguration, slimeBrain.Data, mainCamera));
+            _components.Add(new SlimeAudio(slimeBrain.Data, slimeStretchSFX));
+            _cameraShakeComponent = new SlimeStretchCameraShake(slimeStretchCameraShakeConfiguration, slimeBrain.Data, mainCamera);
+            OnAddCameraShake();
         }
         
         public void OnEnable()
@@ -32,6 +34,8 @@ namespace _SLIME.Slime
             
             SlimeEvents.SlimeConnected += OnSlimeConnected;
             SlimeEvents.SlimeTears += OnSlimeTears;
+            SlimeEvents.AddCameraShake += OnAddCameraShake;
+            SlimeEvents.RemoveCameraShake += OnRemoveCameraShake;
         }
         
         public void OnDisable()
@@ -114,6 +118,16 @@ namespace _SLIME.Slime
             {
                 component.OnResumeGame();
             }
+        }
+        
+        private void OnAddCameraShake()
+        {
+            _components.Add(_cameraShakeComponent);
+        }
+        
+        private void OnRemoveCameraShake()
+        {
+            _components.Remove(_cameraShakeComponent);
         }
     }
 }

@@ -3924,6 +3924,26 @@ PrefabInstance:
       value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 7305129285906949406, guid: 8d51a804fd8574b4687be85b0353c8ec, type: 3}
+      propertyPath: handAttackSFX.Path
+      value: event:/Hands
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305129285906949406, guid: 8d51a804fd8574b4687be85b0353c8ec, type: 3}
+      propertyPath: handAttackSFX.Guid.Data1
+      value: -1509206914
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305129285906949406, guid: 8d51a804fd8574b4687be85b0353c8ec, type: 3}
+      propertyPath: handAttackSFX.Guid.Data2
+      value: 1229707283
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305129285906949406, guid: 8d51a804fd8574b4687be85b0353c8ec, type: 3}
+      propertyPath: handAttackSFX.Guid.Data3
+      value: -421663612
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305129285906949406, guid: 8d51a804fd8574b4687be85b0353c8ec, type: 3}
+      propertyPath: handAttackSFX.Guid.Data4
+      value: -301365684
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305129285906949406, guid: 8d51a804fd8574b4687be85b0353c8ec, type: 3}
       propertyPath: easeCurve.m_Curve.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -4316,6 +4336,26 @@ PrefabInstance:
       propertyPath: warningVisual
       value: 
       objectReference: {fileID: 6586713634028309321}
+    - target: {fileID: 7305129285906949406, guid: 8d51a804fd8574b4687be85b0353c8ec, type: 3}
+      propertyPath: handAttackSFX.Path
+      value: event:/Hands
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305129285906949406, guid: 8d51a804fd8574b4687be85b0353c8ec, type: 3}
+      propertyPath: handAttackSFX.Guid.Data1
+      value: -1509206914
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305129285906949406, guid: 8d51a804fd8574b4687be85b0353c8ec, type: 3}
+      propertyPath: handAttackSFX.Guid.Data2
+      value: 1229707283
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305129285906949406, guid: 8d51a804fd8574b4687be85b0353c8ec, type: 3}
+      propertyPath: handAttackSFX.Guid.Data3
+      value: -421663612
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305129285906949406, guid: 8d51a804fd8574b4687be85b0353c8ec, type: 3}
+      propertyPath: handAttackSFX.Guid.Data4
+      value: -301365684
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3017264925232950386, guid: 8d51a804fd8574b4687be85b0353c8ec, type: 3}
     m_RemovedGameObjects: []
@@ -4417,6 +4457,26 @@ PrefabInstance:
       propertyPath: warningVisual
       value: 
       objectReference: {fileID: 6581341346731506244}
+    - target: {fileID: 1520157737225014640, guid: 7e7218cffee74b44393143f67b23f441, type: 3}
+      propertyPath: handAttackSFX.Path
+      value: event:/Hands
+      objectReference: {fileID: 0}
+    - target: {fileID: 1520157737225014640, guid: 7e7218cffee74b44393143f67b23f441, type: 3}
+      propertyPath: handAttackSFX.Guid.Data1
+      value: -1509206914
+      objectReference: {fileID: 0}
+    - target: {fileID: 1520157737225014640, guid: 7e7218cffee74b44393143f67b23f441, type: 3}
+      propertyPath: handAttackSFX.Guid.Data2
+      value: 1229707283
+      objectReference: {fileID: 0}
+    - target: {fileID: 1520157737225014640, guid: 7e7218cffee74b44393143f67b23f441, type: 3}
+      propertyPath: handAttackSFX.Guid.Data3
+      value: -421663612
+      objectReference: {fileID: 0}
+    - target: {fileID: 1520157737225014640, guid: 7e7218cffee74b44393143f67b23f441, type: 3}
+      propertyPath: handAttackSFX.Guid.Data4
+      value: -301365684
+      objectReference: {fileID: 0}
     - target: {fileID: 1520157737225014640, guid: 7e7218cffee74b44393143f67b23f441, type: 3}
       propertyPath: easeCurve.m_Curve.Array.size
       value: 2
@@ -4995,8 +5055,28 @@ PrefabInstance:
       value: -210
       objectReference: {fileID: 0}
     - target: {fileID: 2188139000791432754, guid: b471069b4082e1349803aafa6c0a2a8f, type: 3}
+      propertyPath: handAttackSFX.Path
+      value: event:/Hands
+      objectReference: {fileID: 0}
+    - target: {fileID: 2188139000791432754, guid: b471069b4082e1349803aafa6c0a2a8f, type: 3}
       propertyPath: useRefinedRotation
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2188139000791432754, guid: b471069b4082e1349803aafa6c0a2a8f, type: 3}
+      propertyPath: handAttackSFX.Guid.Data1
+      value: -1509206914
+      objectReference: {fileID: 0}
+    - target: {fileID: 2188139000791432754, guid: b471069b4082e1349803aafa6c0a2a8f, type: 3}
+      propertyPath: handAttackSFX.Guid.Data2
+      value: 1229707283
+      objectReference: {fileID: 0}
+    - target: {fileID: 2188139000791432754, guid: b471069b4082e1349803aafa6c0a2a8f, type: 3}
+      propertyPath: handAttackSFX.Guid.Data3
+      value: -421663612
+      objectReference: {fileID: 0}
+    - target: {fileID: 2188139000791432754, guid: b471069b4082e1349803aafa6c0a2a8f, type: 3}
+      propertyPath: handAttackSFX.Guid.Data4
+      value: -301365684
       objectReference: {fileID: 0}
     - target: {fileID: 2188139000791432754, guid: b471069b4082e1349803aafa6c0a2a8f, type: 3}
       propertyPath: easeCurve.m_Curve.Array.size
@@ -5687,6 +5767,26 @@ PrefabInstance:
       propertyPath: warningVisual
       value: 
       objectReference: {fileID: 3000471338306923355}
+    - target: {fileID: 2188139000791432754, guid: b471069b4082e1349803aafa6c0a2a8f, type: 3}
+      propertyPath: handAttackSFX.Path
+      value: event:/Hands
+      objectReference: {fileID: 0}
+    - target: {fileID: 2188139000791432754, guid: b471069b4082e1349803aafa6c0a2a8f, type: 3}
+      propertyPath: handAttackSFX.Guid.Data1
+      value: -1509206914
+      objectReference: {fileID: 0}
+    - target: {fileID: 2188139000791432754, guid: b471069b4082e1349803aafa6c0a2a8f, type: 3}
+      propertyPath: handAttackSFX.Guid.Data2
+      value: 1229707283
+      objectReference: {fileID: 0}
+    - target: {fileID: 2188139000791432754, guid: b471069b4082e1349803aafa6c0a2a8f, type: 3}
+      propertyPath: handAttackSFX.Guid.Data3
+      value: -421663612
+      objectReference: {fileID: 0}
+    - target: {fileID: 2188139000791432754, guid: b471069b4082e1349803aafa6c0a2a8f, type: 3}
+      propertyPath: handAttackSFX.Guid.Data4
+      value: -301365684
+      objectReference: {fileID: 0}
     - target: {fileID: 5085298192529446123, guid: b471069b4082e1349803aafa6c0a2a8f, type: 3}
       propertyPath: m_Name
       value: Left Hand 1
@@ -5988,6 +6088,26 @@ PrefabInstance:
       propertyPath: warningVisual
       value: 
       objectReference: {fileID: 4374389400247717769}
+    - target: {fileID: 2515445498361815559, guid: 0687dbaa7c1c39345a016a4eb7a3fc46, type: 3}
+      propertyPath: handAttackSFX.Path
+      value: event:/Hands
+      objectReference: {fileID: 0}
+    - target: {fileID: 2515445498361815559, guid: 0687dbaa7c1c39345a016a4eb7a3fc46, type: 3}
+      propertyPath: handAttackSFX.Guid.Data1
+      value: -1509206914
+      objectReference: {fileID: 0}
+    - target: {fileID: 2515445498361815559, guid: 0687dbaa7c1c39345a016a4eb7a3fc46, type: 3}
+      propertyPath: handAttackSFX.Guid.Data2
+      value: 1229707283
+      objectReference: {fileID: 0}
+    - target: {fileID: 2515445498361815559, guid: 0687dbaa7c1c39345a016a4eb7a3fc46, type: 3}
+      propertyPath: handAttackSFX.Guid.Data3
+      value: -421663612
+      objectReference: {fileID: 0}
+    - target: {fileID: 2515445498361815559, guid: 0687dbaa7c1c39345a016a4eb7a3fc46, type: 3}
+      propertyPath: handAttackSFX.Guid.Data4
+      value: -301365684
+      objectReference: {fileID: 0}
     - target: {fileID: 2712457243110703158, guid: 0687dbaa7c1c39345a016a4eb7a3fc46, type: 3}
       propertyPath: m_Name
       value: Spline Path
@@ -6497,6 +6617,26 @@ PrefabInstance:
       propertyPath: warningVisual
       value: 
       objectReference: {fileID: 2354778106186936796}
+    - target: {fileID: 7796226346756874547, guid: 72dc7362e85be9246ae128470d28a3f8, type: 3}
+      propertyPath: handAttackSFX.Path
+      value: event:/Hands
+      objectReference: {fileID: 0}
+    - target: {fileID: 7796226346756874547, guid: 72dc7362e85be9246ae128470d28a3f8, type: 3}
+      propertyPath: handAttackSFX.Guid.Data1
+      value: -1509206914
+      objectReference: {fileID: 0}
+    - target: {fileID: 7796226346756874547, guid: 72dc7362e85be9246ae128470d28a3f8, type: 3}
+      propertyPath: handAttackSFX.Guid.Data2
+      value: 1229707283
+      objectReference: {fileID: 0}
+    - target: {fileID: 7796226346756874547, guid: 72dc7362e85be9246ae128470d28a3f8, type: 3}
+      propertyPath: handAttackSFX.Guid.Data3
+      value: -421663612
+      objectReference: {fileID: 0}
+    - target: {fileID: 7796226346756874547, guid: 72dc7362e85be9246ae128470d28a3f8, type: 3}
+      propertyPath: handAttackSFX.Guid.Data4
+      value: -301365684
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2346288103736748127, guid: 72dc7362e85be9246ae128470d28a3f8, type: 3}
     m_RemovedGameObjects: []
@@ -6590,6 +6730,26 @@ PrefabInstance:
       propertyPath: warningVisual
       value: 
       objectReference: {fileID: 4219784540214292159}
+    - target: {fileID: 1974115759511081412, guid: d188f3c43a7b8e7438fb10dd7c0ee429, type: 3}
+      propertyPath: handAttackSFX.Path
+      value: event:/Hands
+      objectReference: {fileID: 0}
+    - target: {fileID: 1974115759511081412, guid: d188f3c43a7b8e7438fb10dd7c0ee429, type: 3}
+      propertyPath: handAttackSFX.Guid.Data1
+      value: -1509206914
+      objectReference: {fileID: 0}
+    - target: {fileID: 1974115759511081412, guid: d188f3c43a7b8e7438fb10dd7c0ee429, type: 3}
+      propertyPath: handAttackSFX.Guid.Data2
+      value: 1229707283
+      objectReference: {fileID: 0}
+    - target: {fileID: 1974115759511081412, guid: d188f3c43a7b8e7438fb10dd7c0ee429, type: 3}
+      propertyPath: handAttackSFX.Guid.Data3
+      value: -421663612
+      objectReference: {fileID: 0}
+    - target: {fileID: 1974115759511081412, guid: d188f3c43a7b8e7438fb10dd7c0ee429, type: 3}
+      propertyPath: handAttackSFX.Guid.Data4
+      value: -301365684
+      objectReference: {fileID: 0}
     - target: {fileID: 2029235524686984181, guid: d188f3c43a7b8e7438fb10dd7c0ee429, type: 3}
       propertyPath: m_Name
       value: Spline Path
@@ -6875,6 +7035,26 @@ PrefabInstance:
       propertyPath: warningVisual
       value: 
       objectReference: {fileID: 2420574173131811130}
+    - target: {fileID: 1520157737225014640, guid: 7e7218cffee74b44393143f67b23f441, type: 3}
+      propertyPath: handAttackSFX.Path
+      value: event:/Hands
+      objectReference: {fileID: 0}
+    - target: {fileID: 1520157737225014640, guid: 7e7218cffee74b44393143f67b23f441, type: 3}
+      propertyPath: handAttackSFX.Guid.Data1
+      value: -1509206914
+      objectReference: {fileID: 0}
+    - target: {fileID: 1520157737225014640, guid: 7e7218cffee74b44393143f67b23f441, type: 3}
+      propertyPath: handAttackSFX.Guid.Data2
+      value: 1229707283
+      objectReference: {fileID: 0}
+    - target: {fileID: 1520157737225014640, guid: 7e7218cffee74b44393143f67b23f441, type: 3}
+      propertyPath: handAttackSFX.Guid.Data3
+      value: -421663612
+      objectReference: {fileID: 0}
+    - target: {fileID: 1520157737225014640, guid: 7e7218cffee74b44393143f67b23f441, type: 3}
+      propertyPath: handAttackSFX.Guid.Data4
+      value: -301365684
+      objectReference: {fileID: 0}
     - target: {fileID: 4636846437767539733, guid: 7e7218cffee74b44393143f67b23f441, type: 3}
       propertyPath: m_LocalPosition.x
       value: 53.3
@@ -7321,6 +7501,10 @@ PrefabInstance:
       value: -1155970319
       objectReference: {fileID: 0}
     - target: {fileID: 7432639823482523507, guid: ff55e0208bdb80746bb81cfa63280428, type: 3}
+      propertyPath: laserSfx
+      value: 
+      objectReference: {fileID: 5296170136901531545, guid: d1e392667eb1840fdb9f99f8955f233e, type: 3}
+    - target: {fileID: 7432639823482523507, guid: ff55e0208bdb80746bb81cfa63280428, type: 3}
       propertyPath: leftLaserCollider
       value: 
       objectReference: {fileID: 2713811331693594455}
@@ -7514,6 +7698,26 @@ PrefabInstance:
     - target: {fileID: 2188139000791432754, guid: b471069b4082e1349803aafa6c0a2a8f, type: 3}
       propertyPath: startRotation.z
       value: -120
+      objectReference: {fileID: 0}
+    - target: {fileID: 2188139000791432754, guid: b471069b4082e1349803aafa6c0a2a8f, type: 3}
+      propertyPath: handAttackSFX.Path
+      value: event:/Hands
+      objectReference: {fileID: 0}
+    - target: {fileID: 2188139000791432754, guid: b471069b4082e1349803aafa6c0a2a8f, type: 3}
+      propertyPath: handAttackSFX.Guid.Data1
+      value: -1509206914
+      objectReference: {fileID: 0}
+    - target: {fileID: 2188139000791432754, guid: b471069b4082e1349803aafa6c0a2a8f, type: 3}
+      propertyPath: handAttackSFX.Guid.Data2
+      value: 1229707283
+      objectReference: {fileID: 0}
+    - target: {fileID: 2188139000791432754, guid: b471069b4082e1349803aafa6c0a2a8f, type: 3}
+      propertyPath: handAttackSFX.Guid.Data3
+      value: -421663612
+      objectReference: {fileID: 0}
+    - target: {fileID: 2188139000791432754, guid: b471069b4082e1349803aafa6c0a2a8f, type: 3}
+      propertyPath: handAttackSFX.Guid.Data4
+      value: -301365684
       objectReference: {fileID: 0}
     - target: {fileID: 5085298192529446123, guid: b471069b4082e1349803aafa6c0a2a8f, type: 3}
       propertyPath: m_Name

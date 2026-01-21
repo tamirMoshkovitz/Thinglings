@@ -389,6 +389,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0995350d3fd66e94793e51e7dc94f67a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FarToCloseTransition
+  transitionSFX:
+    Guid:
+      Data1: 2018029335
+      Data2: 1277280946
+      Data3: -1542840152
+      Data4: 2085248918
+    Path: event:/Boss Transform
 --- !u!1102 &-5029196545736835048
 AnimatorState:
   serializedVersion: 6
@@ -794,6 +801,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3586e84b18899034bbf87997925ea0d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CloseToFarTransition
+  transitionSFX:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!1101 &-1741202761471160443
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -850,6 +864,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0995350d3fd66e94793e51e7dc94f67a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FarToCloseTransition
+  transitionSFX:
+    Guid:
+      Data1: 2018029335
+      Data2: 1277280946
+      Data3: -1542840152
+      Data4: 2085248918
+    Path: event:/Boss Transform
 --- !u!114 &-1444618854934225490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -862,6 +883,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3586e84b18899034bbf87997925ea0d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CloseToFarTransition
+  transitionSFX:
+    Guid:
+      Data1: 2018029335
+      Data2: 1277280946
+      Data3: -1542840152
+      Data4: 2085248918
+    Path: event:/Boss Transform
 --- !u!1101 &-700985485008448299
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -1161,6 +1189,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0995350d3fd66e94793e51e7dc94f67a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FarToCloseTransition
+  transitionSFX:
+    Guid:
+      Data1: 2018029335
+      Data2: 1277280946
+      Data3: -1542840152
+      Data4: 2085248918
+    Path: event:/Boss Transform
 --- !u!1101 &1901009747187596951
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -1195,6 +1230,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3586e84b18899034bbf87997925ea0d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CloseToFarTransition
+  transitionSFX:
+    Guid:
+      Data1: 2018029335
+      Data2: 1277280946
+      Data3: -1542840152
+      Data4: 2085248918
+    Path: event:/Boss Transform
 --- !u!1102 &2220661767644269202
 AnimatorState:
   serializedVersion: 6
@@ -1384,6 +1426,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3586e84b18899034bbf87997925ea0d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CloseToFarTransition
+  transitionSFX:
+    Guid:
+      Data1: 2018029335
+      Data2: 1277280946
+      Data3: -1542840152
+      Data4: 2085248918
+    Path: event:/Boss Transform
 --- !u!1102 &4017052869558113136
 AnimatorState:
   serializedVersion: 6
@@ -1817,6 +1866,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3586e84b18899034bbf87997925ea0d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CloseToFarTransition
+  transitionSFX:
+    Guid:
+      Data1: 2018029335
+      Data2: 1277280946
+      Data3: -1542840152
+      Data4: 2085248918
+    Path: event:/Boss Transform
 --- !u!114 &7650846583242729287
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1928,6 +1984,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0995350d3fd66e94793e51e7dc94f67a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FarToCloseTransition
+  transitionSFX:
+    Guid:
+      Data1: 2018029335
+      Data2: 1277280946
+      Data3: -1542840152
+      Data4: 2085248918
+    Path: event:/Boss Transform
 --- !u!1102 &7939083928252084946
 AnimatorState:
   serializedVersion: 6

@@ -17,7 +17,7 @@ public class FmodManager : ProjectMonoBehavior
     
     void Awake()
     {
-        if (Instance != null) { Destroy(gameObject); return; }
+        if (Instance) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }

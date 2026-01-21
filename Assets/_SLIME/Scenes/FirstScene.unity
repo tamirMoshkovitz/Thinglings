@@ -476,7 +476,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 647506821}
-  - component: {fileID: 647506820}
+  - component: {fileID: 647506822}
   m_Layer: 0
   m_Name: phase 1 plaster
   m_TagString: Untagged
@@ -484,25 +484,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &647506820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 647506819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 744a208c85da6d04c861d81b992e4ead, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioParameterTrigger
-  CollisionTag: 
-  Emitters:
-  - Target: {fileID: 970605337}
-    Params:
-    - Name: battle scenes
-      Value: 1
-  TriggerEvent: 11
 --- !u!4 &647506821
 Transform:
   m_ObjectHideFlags: 0
@@ -518,6 +499,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 970605339}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &647506822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647506819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
+  CollisionTag: 
+  Parameter: battle scenes
+  TriggerEvent: 11
+  Value: 0
 --- !u!1001 &728586244
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1098,8 +1095,8 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  'm_MeshMetrics[0]': 1
-  'm_MeshMetrics[1]': 1
+  m_MeshMetrics[0]: 1
+  m_MeshMetrics[1]: 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2
@@ -1119,6 +1116,16 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!95 &916827277 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5804604204090866695, guid: a53fe4b8eb4bf47f29fb8a91ad764a0d, type: 3}
+  m_PrefabInstance: {fileID: 815380676}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &916827279 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5489906756674778591, guid: a53fe4b8eb4bf47f29fb8a91ad764a0d, type: 3}
+  m_PrefabInstance: {fileID: 815380676}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &910703646
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,7 +1135,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 910703648}
-  - component: {fileID: 910703647}
+  - component: {fileID: 910703649}
   m_Layer: 0
   m_Name: phase 4 plaster
   m_TagString: Untagged
@@ -1136,25 +1143,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &910703647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 910703646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 744a208c85da6d04c861d81b992e4ead, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioParameterTrigger
-  CollisionTag: 
-  Emitters:
-  - Target: {fileID: 970605337}
-    Params:
-    - Name: battle scenes
-      Value: 4
-  TriggerEvent: 11
 --- !u!4 &910703648
 Transform:
   m_ObjectHideFlags: 0
@@ -1170,16 +1158,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 970605339}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &916827277 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5804604204090866695, guid: a53fe4b8eb4bf47f29fb8a91ad764a0d, type: 3}
-  m_PrefabInstance: {fileID: 815380676}
+--- !u!114 &910703649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &916827279 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5489906756674778591, guid: a53fe4b8eb4bf47f29fb8a91ad764a0d, type: 3}
-  m_PrefabInstance: {fileID: 815380676}
-  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910703646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
+  CollisionTag: 
+  Parameter: battle scenes
+  TriggerEvent: 11
+  Value: 3
 --- !u!4 &937089654 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4509885564813134107, guid: 4d015c3b456644bdcb44e25e27c8181f, type: 3}
@@ -1195,17 +1189,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5298197006015784440, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
   m_PrefabInstance: {fileID: 1314635557}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &970605337 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8851890945874164764, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-  m_PrefabInstance: {fileID: 419671931}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
 --- !u!4 &970605339 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1704300714028428863, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
@@ -1434,8 +1417,8 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  'm_MeshMetrics[0]': 1
-  'm_MeshMetrics[1]': 1
+  m_MeshMetrics[0]: 1
+  m_MeshMetrics[1]: 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2
@@ -1470,6 +1453,30 @@ PrefabInstance:
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: currentState
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: bossFlySFX.Path
+      value: event:/Boss Tutorial End Animation
+      objectReference: {fileID: 0}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: endAnimationSFXDelay
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: bossFlySFX.Guid.Data1
+      value: 1699935534
+      objectReference: {fileID: 0}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: bossFlySFX.Guid.Data2
+      value: 1310563785
+      objectReference: {fileID: 0}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: bossFlySFX.Guid.Data3
+      value: -1975274581
+      objectReference: {fileID: 0}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: bossFlySFX.Guid.Data4
+      value: -1230001570
       objectReference: {fileID: 0}
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: rockStateDeps.mainCamera
@@ -1689,7 +1696,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1304116466}
-  - component: {fileID: 1304116465}
+  - component: {fileID: 1304116467}
   m_Layer: 0
   m_Name: phase 2 plaster
   m_TagString: Untagged
@@ -1697,25 +1704,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &1304116465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1304116464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 744a208c85da6d04c861d81b992e4ead, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioParameterTrigger
-  CollisionTag: 
-  Emitters:
-  - Target: {fileID: 970605337}
-    Params:
-    - Name: battle scenes
-      Value: 2
-  TriggerEvent: 11
 --- !u!4 &1304116466
 Transform:
   m_ObjectHideFlags: 0
@@ -1731,6 +1719,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 970605339}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1304116467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304116464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
+  CollisionTag: 
+  Parameter: battle scenes
+  TriggerEvent: 11
+  Value: 1
 --- !u!4 &1307573143 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5411358431574317746, guid: 47637439db76348ae94481f868aaf610, type: 3}
@@ -2052,8 +2056,8 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  'm_MeshMetrics[0]': 1
-  'm_MeshMetrics[1]': 1
+  m_MeshMetrics[0]: 1
+  m_MeshMetrics[1]: 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2
@@ -2248,57 +2252,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d015c3b456644bdcb44e25e27c8181f, type: 3}
---- !u!1 &1957751114
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1957751116}
-  - component: {fileID: 1957751115}
-  m_Layer: 0
-  m_Name: phase 3 plaster
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1957751115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1957751114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 744a208c85da6d04c861d81b992e4ead, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioParameterTrigger
-  CollisionTag: 
-  Emitters:
-  - Target: {fileID: 970605337}
-    Params:
-    - Name: battle scenes
-      Value: 3
-  TriggerEvent: 11
---- !u!4 &1957751116
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1957751114}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 970605339}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1988930930
 GameObject:
   m_ObjectHideFlags: 0
@@ -2332,6 +2285,54 @@ Transform:
   - {fileID: 916827279}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1957751114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1957751116}
+  - component: {fileID: 1957751117}
+  m_Layer: 0
+  m_Name: phase 3 plaster
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1957751116
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957751114}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 970605339}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1957751117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957751114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
+  CollisionTag: 
+  Parameter: battle scenes
+  TriggerEvent: 11
+  Value: 2
 --- !u!1001 &2033659488
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2575,8 +2576,8 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  'm_MeshMetrics[0]': 1
-  'm_MeshMetrics[1]': 1
+  m_MeshMetrics[0]: 1
+  m_MeshMetrics[1]: 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2

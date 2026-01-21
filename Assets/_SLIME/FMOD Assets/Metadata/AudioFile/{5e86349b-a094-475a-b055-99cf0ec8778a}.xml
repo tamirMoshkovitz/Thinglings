@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{5e86349b-a094-475a-b055-99cf0ec8778a}">
+		<property name="assetPath">
+			<value>Musix/first scene.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>42.666666666666664</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{51e98f54-bbac-4da6-a88a-a3691e25336c}</destination>
+		</relationship>
+	</object>
+</objects>

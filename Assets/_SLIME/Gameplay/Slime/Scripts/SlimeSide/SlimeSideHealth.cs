@@ -1,3 +1,5 @@
+using _SLIME.Core.Audio.FMOD.Scripts;
+using FMODUnity;
 using UnityEngine;
 
 namespace _SLIME.Slime
@@ -11,15 +13,17 @@ namespace _SLIME.Slime
             public GameObject PlayerHitPoint;
             public SlimeAnimatorController AnimatorController;
             public SlimeData Data;
+            public EventReference DeadSlimeSFX;
             
             public SlimeSideHealthFormat(SlimeSide parent, float maxHealth, GameObject playerHitPoint, 
-                SlimeAnimatorController animatorController, SlimeData data)
+                SlimeAnimatorController animatorController, SlimeData data, EventReference deadSlimeSFX)
             {
                 Parent = parent;
                 MaxHealth = maxHealth;
                 PlayerHitPoint = playerHitPoint;
                 AnimatorController = animatorController;
                 Data = data;
+                DeadSlimeSFX = deadSlimeSFX;
             }
         }
         
@@ -55,6 +59,7 @@ namespace _SLIME.Slime
         private readonly float _maxHealth;
         private SlimeAnimatorController _animatorController;
         private SlimeData _data;
+        private EventReference _deadSlimeSFX;
         #endregion
         
         public SlimeSideHealth(SlimeSideHealthFormat format)
@@ -65,6 +70,7 @@ namespace _SLIME.Slime
             CurrentHealth = _maxHealth;
             _animatorController = format.AnimatorController;
             _data = format.Data;
+            _deadSlimeSFX = format.DeadSlimeSFX;
             var hit = _parent.Transform.GetComponent<SlimeSideHitCollider>();
             if (hit != null) hit.Init(this);
         }
@@ -85,18 +91,12 @@ namespace _SLIME.Slime
 
         public void TakeDamage(float damage)
         {
+            if (!IsDead)
+                SFXPlayer.Play(_deadSlimeSFX);
+            
             IsDead = true;
             _data.OneSlimeDead = true;
             SlimeEvents.SlimeGetHit();
-            // TODO(Elad): I'm not sure for what this is required 
-            // if (IsDead) return;
-            //
-            // CurrentHealth -= damage;
-            // if (CurrentHealth <= 0)
-            // {
-            //     CurrentHealth = 0;
-            //     IsDead = true;
-            // } 
         }
 
         public void Resurrect()
@@ -108,9 +108,7 @@ namespace _SLIME.Slime
         private void OnSlimeConnected()
         {
             Resurrect();
-            
         }
-
         private void OnSlimeTear() { }
 
        

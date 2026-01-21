@@ -131,6 +131,13 @@ MonoBehaviour:
   icicleAnimator: {fileID: 4230565992337759478}
   spawnPoint: {fileID: 881067019563819620}
   turnOffGameobjectAfterTime: {fileID: 6370542759902954033}
+  IcicleBreakSFX:
+    Guid:
+      Data1: 753019380
+      Data2: 1146157109
+      Data3: -920693584
+      Data4: -157306441
+    Path: event:/icicle Break
 --- !u!50 &3658335590150810132
 Rigidbody2D:
   serializedVersion: 5

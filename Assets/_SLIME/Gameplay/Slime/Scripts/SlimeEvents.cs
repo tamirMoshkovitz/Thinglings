@@ -12,6 +12,7 @@ namespace _SLIME.Slime
         public static Action TrampolineDeActivated;
         public static Action SparkActivated;
         public static Action SlimeConnectionGotHitByIcicle;
-
+        public static Action AddCameraShake;
+        public static Action RemoveCameraShake;
     }
 }
