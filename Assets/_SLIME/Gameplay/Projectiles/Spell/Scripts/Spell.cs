@@ -1,6 +1,8 @@
 using System;
 using _SLIME.BaseScripts;
+using _SLIME.Core.Audio.FMOD.Scripts;
 using _SLIME.GameLoop;
+using FMODUnity;
 using UnityEngine;
 using NaughtyAttributes;
 
@@ -21,6 +23,7 @@ namespace _SLIME.Projectiles
         private SpellBossAttributes _bossAttributes;
         private SpellState _currentState;
         
+        [SerializeField] private EventReference spellShootSFX;
         
         public void BossSetup(SpellBossAttributes attributes)
         {
@@ -40,6 +43,8 @@ namespace _SLIME.Projectiles
             float finalPower = incomingSpeed * attributes.deflectionPower;
             comp.rb.AddForce(attributes.direction *  finalPower, ForceMode2D.Impulse);
             comp.animator.SetTrigger(PlayerMove);
+            
+            SFXPlayer.Play(spellShootSFX);
         }
         
         private void Shoot()
@@ -48,6 +53,7 @@ namespace _SLIME.Projectiles
             comp.rb.linearVelocity = _bossAttributes.direction.normalized
                                      * _bossAttributes.moveSpeed;
             comp.animator.SetTrigger(BossMove);
+            // SFXPlayer.Play(spellShootSFX); boss Shooting
         }
         
         public void OnSpawnFinished()

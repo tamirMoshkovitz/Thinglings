@@ -1,6 +1,8 @@
 using System;
 using _SLIME.BaseScripts;
+using _SLIME.Core.Audio.FMOD.Scripts;
 using _SLIME.GameLoop;
+using FMODUnity;
 using UnityEngine;
 
 namespace _SLIME.Scenes.Pinball.Scripts
@@ -11,6 +13,7 @@ namespace _SLIME.Scenes.Pinball.Scripts
         [SerializeField] private BoxCollider2D fullCollider;
         [SerializeField] private BoxCollider2D brokenCollider;
         [SerializeField] private float fallingGravityScale = 1f;
+        [SerializeField] private EventReference IcicleBreakSFX;
         
         private static readonly int HitCount = Animator.StringToHash("Hit Count");
         private static readonly int Crumble = Animator.StringToHash("Crumble");
@@ -70,6 +73,7 @@ namespace _SLIME.Scenes.Pinball.Scripts
 
         private void SelfDestroy()
         {
+            SFXPlayer.Play(IcicleBreakSFX);
             OnIcicleCrumbled();
             Destroy(gameObject);
         }

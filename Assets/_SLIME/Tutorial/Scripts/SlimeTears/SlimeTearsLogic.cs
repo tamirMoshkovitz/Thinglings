@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using _SLIME.GameLoop;
 using UnityEngine;
 
 namespace _SLIME.Tutorial
@@ -81,6 +82,7 @@ namespace _SLIME.Tutorial
         private void OnSlimeTears()
         {
             _eventTriggered = true;
+            GameEvents.FmodPhaseTwo?.Invoke();
         }
         
         private IEnumerator WaitForSlimeTears()

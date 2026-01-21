@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{b52e6c56-cc14-4afd-ad61-ff880f40cb20}">
+		<property name="name">
+			<value>stretch amount</value>
+		</property>
+		<relationship name="folder">
+			<destination>{e9be661c-660b-4f2c-820b-ed11e40c4884}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{d9faef0c-ad7e-4bce-b7e2-075818eefe1f}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{d9faef0c-ad7e-4bce-b7e2-075818eefe1f}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

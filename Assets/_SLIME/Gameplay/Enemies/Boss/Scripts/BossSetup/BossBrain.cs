@@ -104,8 +104,6 @@ namespace _SLIME.Boss
         private void OnEnable(){
             SlimeEvents.SlimeConnected += OnSlimeConnected;
             SlimeEvents.SlimeTears += OnSlimeTears;
-            
-            GameEvents.FmodPhaseTwo?.Invoke();
         }
         
         private void Update()

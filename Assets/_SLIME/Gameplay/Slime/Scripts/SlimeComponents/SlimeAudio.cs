@@ -6,36 +6,29 @@ namespace _SLIME.Slime
     public class SlimeAudio : ISlimeBehaviorComponent
     {
         private readonly SlimeData _slimeData;
-        // private SoundObject _tearSoundObject;
-        // private SoundObject _stretchSoundObject;
+        private ControlledSfx _slimeStretchSfx;
 
-        public SlimeAudio(SlimeData slimeData)
+        public SlimeAudio(SlimeData slimeData, ControlledSfx slimeStretchSfx)
         {
             _slimeData = slimeData;
+            _slimeStretchSfx = slimeStretchSfx;
         }
 
         public void OnSlimeTears()
         {
-            // _stretchSoundObject?.audioSource.Stop();
-            // if (!_tearSoundObject || !_tearSoundObject.audioSource.isPlaying)
-            // {
-            //     // _tearSoundObject = AudioManager.Instance.Play(AudioName.SlimeTear, Vector3.zero, true); TODO: change to FMOD
-            // }
+            _slimeStretchSfx.SetParameter("stretch amount", 1f);
         }
 
         public void OnSlimeConnected()
         {
-            // AudioManager.Instance.Play(AudioName.SlimeConnect, Vector3.zero, true);TODO: change to FMOD
+            _slimeStretchSfx.Play();
+            _slimeStretchSfx.SetParameter("stretch amount", 0f);
+            Debug.Log("Playing stretch SFX");
         }
 
         public void UpdateStretch()
         {
-            // if (!_stretchSoundObject || !_stretchSoundObject.audioSource.isPlaying)
-            // {
-            //     // _stretchSoundObject = AudioManager.Instance.Play(AudioName.SlimeStretch, Vector3.zero);TODO: change to FMOD
-            // }
-            //
-            // _stretchSoundObject.audioSource.pitch = _slimeData.StretchRatio;
+            _slimeStretchSfx.SetParameter("stretch amount", _slimeData.StretchRatio);
         }
 
         public void OnPauseGame()

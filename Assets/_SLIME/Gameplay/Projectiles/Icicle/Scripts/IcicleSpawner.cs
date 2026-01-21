@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _SLIME.Boss;
+using _SLIME.Core.Audio.FMOD.Scripts;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -10,6 +12,7 @@ public class IcicleSpawner : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private BossBrain bossBrain;
+    [SerializeField] private EventReference icicleSpawnSfx; 
 
     private readonly List<GameObject> _iciclePool = new List<GameObject>();
     private Coroutine _spawnCoroutine;
@@ -66,5 +69,7 @@ public class IcicleSpawner : MonoBehaviour
         int randomIndex = Random.Range(0, availableIcicles.Count);
         GameObject selectedIcicle = availableIcicles[randomIndex];
         selectedIcicle.SetActive(true);
+        
+        SFXPlayer.Play(icicleSpawnSfx);
     }
 }

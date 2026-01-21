@@ -1,5 +1,6 @@
 using System.Collections;
 using _SLIME.Boss;
+using _SLIME.GameLoop;
 using UnityEngine;
 
 public class WaterAttackManager : MonoBehaviour
@@ -70,6 +71,8 @@ public class WaterAttackManager : MonoBehaviour
         TriggerBoth(MagicalWaterOutTrigger);
 
         _attackRoutine = null;
+        
+        GameEvents.FmodPhaseThree?.Invoke();
     }
 
     private void TriggerBoth(int hashId)

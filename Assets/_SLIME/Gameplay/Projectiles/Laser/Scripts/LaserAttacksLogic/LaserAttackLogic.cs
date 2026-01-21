@@ -13,6 +13,7 @@ namespace _SLIME.Laser
         [SerializeField] List<GameObject> laserCollidersGameObjects;
         [SerializeField] Collider2D rightLaserCollider;
         [SerializeField] Collider2D leftLaserCollider;
+        [SerializeField] private ControlledSfx laserSfx;
         public bool IsRotating { get; private set; }
         
         public bool HasFinishedAction { get; set;}
@@ -26,14 +27,16 @@ namespace _SLIME.Laser
         private void OnDisable()
         {
             HasFinishedAction = false;
+            laserSfx.Stop();
         }
         
-            public void EnableRightLaserColliders() // called by animation event
-            {
-                rightLaserCollider.enabled = true;
-            }
+        public void EnableRightLaserColliders() // called by animation event
+        {
+            rightLaserCollider.enabled = true;
+            laserSfx.Play();
+        }
             
-            public void EnableLeftLaserColliders() // called by animation event
+        public void EnableLeftLaserColliders() // called by animation event
         {
             leftLaserCollider.enabled = true;
         }

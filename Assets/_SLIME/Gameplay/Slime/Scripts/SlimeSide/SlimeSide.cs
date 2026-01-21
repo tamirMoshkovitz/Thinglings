@@ -1,3 +1,4 @@
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,9 +16,11 @@ namespace _SLIME.Slime
             public SlimeData SlimeData;
             public SlimeSideShootingReqComponents ShootingReqComponents;
             public SlimeSideShootingSettings ShootingSettings;
+            public EventReference DeadSlimeSFX;
+
             public SlimeSideFormat(GameObject gameObject, Transform topTransform,
                 float moveSpeed, int maxHealth, GameObject playerHitPoint, SlimeData slimeData,
-                SlimeSideShootingSettings shootingSettings,SlimeSideShootingReqComponents shootingReqComponents)
+                SlimeSideShootingSettings shootingSettings,SlimeSideShootingReqComponents shootingReqComponents, EventReference deadSlimeSFX)
             {
                 GameObject = gameObject;
                 TopTransform = topTransform;
@@ -27,6 +30,7 @@ namespace _SLIME.Slime
                 SlimeData = slimeData;
                 ShootingReqComponents = shootingReqComponents;
                 ShootingSettings = shootingSettings;
+                DeadSlimeSFX = deadSlimeSFX;
             }
         }
         
@@ -55,7 +59,8 @@ namespace _SLIME.Slime
                 format.MaxHealth,
                 format.PlayerHitPoint,
                 _animatorController,
-                _slimeData
+                _slimeData,
+                format.DeadSlimeSFX
             ));
 
             _shooter = new SlimeSideShooting(this,

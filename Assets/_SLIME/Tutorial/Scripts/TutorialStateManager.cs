@@ -2,8 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
+using _SLIME.Core.Audio.FMOD.Scripts;
+using _SLIME.Slime;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
+using EventReference = FMODUnity.EventReference;
 
 namespace _SLIME.Tutorial
 {
@@ -26,6 +30,10 @@ namespace _SLIME.Tutorial
         
         [SerializeField] private TutorialState currentState;
         [SerializeField] private TutorialScriptable tutorialScriptable;
+        
+        [Header("End Animation SFX")]
+        [SerializeField] private EventReference bossFlySFX;
+        [SerializeField] private float endAnimationSFXDelay = 3f;
         
         public TutorialState CurrentState { get; private set; }
         
@@ -83,10 +91,12 @@ namespace _SLIME.Tutorial
         
         private IEnumerator RiseToBossCoroutine()
         {
+            SlimeEvents.RemoveCameraShake();
             CurrentState = TutorialState.RiseToBoss;
             var logic = new RiseToBossLogic(riseToBossStateDeps, tutorialScriptable.RiseToBossStateSet);
             _allLogics.Add(logic);
             yield return logic.Start();
+            SlimeEvents.AddCameraShake();
             StartCoroutine(SlimeTearCoroutine());
         }
         #endregion
@@ -189,10 +199,17 @@ namespace _SLIME.Tutorial
         
         private IEnumerator SceneMoveToFinalBattleCoroutine()
         {
+            StartCoroutine(PlayMoveToFinalBattleSFX(endAnimationSFXDelay));
             CurrentState = TutorialState.SceneMoveToFinalBattle;
             var logic = new SceneMoveToFinalBattleLogic(sceneMoveToFinalBattleStateDeps, tutorialScriptable.SceneMoveToFinalBattleStateSet);
             _allLogics.Add(logic);
             yield return logic.Start();
+        }
+        
+        private IEnumerator PlayMoveToFinalBattleSFX(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            SFXPlayer.Play(bossFlySFX);
         }
         #endregion
     }

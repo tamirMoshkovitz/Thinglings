@@ -18,8 +18,6 @@ public class FirstPhaseState : State
         base.Enter();
         _bossBrain.bossConfigurations = _firstPhaseConfigurations;
         _bossBrain.WaterStateActivated = true;
-        
-        GameEvents.FmodPhaseTwo?.Invoke();
     }
     
     public override void LogicUpdate()

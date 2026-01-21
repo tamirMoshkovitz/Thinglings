@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{fbe9ff2d-d9a4-4d50-978f-6d39558b81cc}">
+		<property name="assetPath">
+			<value>SFX/Runble.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>6.4800000000000004</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{51e98f54-bbac-4da6-a88a-a3691e25336c}</destination>
+		</relationship>
+	</object>
+</objects>
