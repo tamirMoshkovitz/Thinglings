@@ -21,7 +21,6 @@ public class ThirdPhaseState : State
     {
         base.Enter();
         _bossBrain.bossConfigurations = _thirdPhaseConfigurations;
-        _bossBrain.WaterStateActivated = true;
         _bossBrain.SavePhaseCheckpoint(BossPhaseType.ThirdPhase);
         // GameEvents.FmodPhaseFour?.Invoke();
     }

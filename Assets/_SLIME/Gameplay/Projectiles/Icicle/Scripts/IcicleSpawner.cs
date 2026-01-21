@@ -32,6 +32,11 @@ public class IcicleSpawner : MonoBehaviour
         StartSpawning();
     }
 
+    private void OnDisable()
+    {
+        ThirdPhaseState.TunnelPhaseStarted -= OnTunnelPhaseStarted;
+    }
+
     private void OnTunnelPhaseStarted()
     {
         gameObject.SetActive(false);

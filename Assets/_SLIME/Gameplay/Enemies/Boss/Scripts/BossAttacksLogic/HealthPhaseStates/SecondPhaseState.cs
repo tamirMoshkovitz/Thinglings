@@ -17,7 +17,6 @@ public class SecondPhaseState : State
     {
         base.Enter();
         _bossBrain.bossConfigurations = _secondPhaseConfigurations;
-        _bossBrain.WaterStateActivated = true;
         _bossBrain.SavePhaseCheckpoint(BossPhaseType.SecondPhase);
     }
     

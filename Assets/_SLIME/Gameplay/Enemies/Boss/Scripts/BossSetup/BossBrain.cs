@@ -12,7 +12,8 @@ public enum BossStates
 {
     FarState,
     CloseState,
-    LaserState
+    LaserState,
+    WaterState
 }
 
 namespace _SLIME.Boss
@@ -206,6 +207,8 @@ namespace _SLIME.Boss
         
         public void BossWaterState()
         {
+            if (BossState == BossStates.WaterState) return;
+            BossState = BossStates.WaterState;
             bossCloseColliders.SetActive(false);
             bossFarColliders.SetActive(false);
             bossLaserColliders.SetActive(false);
