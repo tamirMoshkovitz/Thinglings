@@ -8,6 +8,8 @@ namespace _SLIME.Slime
         private static readonly int IsStraining = Animator.StringToHash("isStraining");
         private static readonly int Heal = Animator.StringToHash("Heal");
         private static readonly int Hit = Animator.StringToHash("Hit");
+        private static readonly int StartChange = Animator.StringToHash("Start Change");
+        private static readonly int EndChange = Animator.StringToHash("End Change");
         private Animator _animator;
         private readonly Renderer _renderer;
 
@@ -37,6 +39,16 @@ namespace _SLIME.Slime
             // TODO: the upper line will be removed when we have animation of death
             _animator.SetTrigger(Hit);
             _animator.SetBool(IsStraining, false);
+        }
+
+        public void SetStartChange()
+        {
+            _animator.SetTrigger(StartChange);
+        }
+        
+        public void SetEndChange()
+        {
+            _animator.SetTrigger(EndChange);
         }
     }
 }
