@@ -76,7 +76,7 @@ namespace _SLIME.Boss
         
         public bool WaterStateActivated { get; set;}
 
-        private void Awake()
+        private void Start()
         {
             StateMachine = new StateMachine();
             
@@ -119,10 +119,6 @@ namespace _SLIME.Boss
                     break;
                 
             }
-        }
-
-        private void Start()
-        {
             if (!mainCamera) mainCamera = Camera.main;
             
             if (BossCheckpointManager.Instance != null && BossCheckpointManager.Instance.CurrentSavedPhase != BossPhaseType.Starting)
@@ -142,6 +138,8 @@ namespace _SLIME.Boss
             
             if (bossHealthBar) bossHealthBar.fillAmount = currentHealth / bossConfigurations.CoreSettings.maxHealth;
         }
+
+       
 
         private void OnEnable(){
             SlimeEvents.SlimeConnected += OnSlimeConnected;
@@ -235,6 +233,7 @@ namespace _SLIME.Boss
                     case BossPhaseType.FirstPhase: bossConfigurations = firstPhaseConfigurations; break;
                     case BossPhaseType.SecondPhase: bossConfigurations = secondPhaseConfigurations; break;
                     case BossPhaseType.ThirdPhase: bossConfigurations = thirdPhaseConfigurations; break;
+                    case BossPhaseType.TunnelPhase: bossConfigurations = tunnelPhaseConfigurations; break;
                 }
             }
         }
