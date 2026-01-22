@@ -1697,7 +1697,7 @@ Transform:
   m_GameObject: {fileID: 793601271816119973}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.71, y: -4, z: 0}
+  m_LocalPosition: {x: 14, y: -9, z: 0}
   m_LocalScale: {x: 0.43838847, y: 0.43838847, z: 0.43838847}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5106,6 +5106,8 @@ MonoBehaviour:
   slimeStretchCameraShakeConfiguration: {fileID: 11400000, guid: a1cf7dba4bdbc4a818d462a52dfeab15, type: 2}
   mainCamera: {fileID: 0}
   shotTearConnectionDelay: 0.3
+  leftSlimeSoulSprite: {fileID: 2713299108918152798}
+  rightSlimeSoulSprite: {fileID: 4714220196152464581}
   slimeTearSFX: {fileID: 8651461277326436365, guid: 4ae3d6250a6dc4818b68b3978b257e4f, type: 3}
   deadSlimeSFX:
     Guid:
@@ -5114,8 +5116,6 @@ MonoBehaviour:
       Data3: -401581939
       Data4: 1213437849
     Path: event:/Slime Dead
-  leftSlimeSoulSprite: {fileID: 2713299108918152798}
-  rightSlimeSoulSprite: {fileID: 4714220196152464581}
 --- !u!114 &5495671162430005579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5156,7 +5156,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 06c0dc47-2a3c-4111-a94d-e20050b6ede3
-    m_ActionName: Slime/Move Right[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+    m_ActionName: 'Slime/Move Right[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3524386366124774228}
@@ -5172,7 +5172,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: ecc01ad2-5f25-4ae9-a41a-274b99e48f6a
-    m_ActionName: Slime/Move Left[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+    m_ActionName: 'Slime/Move Left[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Slime

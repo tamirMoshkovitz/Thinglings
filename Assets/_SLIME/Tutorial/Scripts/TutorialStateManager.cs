@@ -14,6 +14,7 @@ namespace _SLIME.Tutorial
     [System.Serializable]
     public enum TutorialState
     {
+        LogoState,
         RockState,
         RiseToBoss,
         SlimeConnects,
@@ -58,6 +59,7 @@ namespace _SLIME.Tutorial
         {
             return state switch
             {
+                TutorialState.LogoState => LogoStateCoroutine(),
                 TutorialState.RockState => RockStateCoroutine(),
                 TutorialState.RiseToBoss => RiseToBossCoroutine(),
                 TutorialState.SlimeConnects => SlimeConnectsCoroutine(),
@@ -71,6 +73,21 @@ namespace _SLIME.Tutorial
                 _ => null
             };
         }
+        
+        
+        #region LogoState
+        
+        [SerializeField] private LogoStateDeps logoStateDeps;
+        private IEnumerator LogoStateCoroutine()
+        {
+            CurrentState = TutorialState.LogoState;
+            var logic = new LogoStateLogic(logoStateDeps, tutorialScriptable.LogoStateSet);
+            _allLogics.Add(logic);
+            yield return logic.Start();
+            StartCoroutine(RockStateCoroutine());
+        }
+        
+        #endregion
         
         #region RockState
         
@@ -91,12 +108,11 @@ namespace _SLIME.Tutorial
         
         private IEnumerator RiseToBossCoroutine()
         {
-            SlimeEvents.RemoveCameraShake();
+            
             CurrentState = TutorialState.RiseToBoss;
             var logic = new RiseToBossLogic(riseToBossStateDeps, tutorialScriptable.RiseToBossStateSet);
             _allLogics.Add(logic);
             yield return logic.Start();
-            SlimeEvents.AddCameraShake();
             StartCoroutine(SlimeTearCoroutine());
         }
         #endregion

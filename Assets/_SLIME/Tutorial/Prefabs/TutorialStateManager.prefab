@@ -77,8 +77,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa1139714132433cb807daea48a3104d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Tutorial.TutorialStateManager
-  currentState: 3
+  currentState: 0
   tutorialScriptable: {fileID: 11400000, guid: 86370ecb40a964e348b8bf0be8a9c021, type: 2}
+  bossFlySFX:
+    Guid:
+      Data1: 1699935534
+      Data2: 1310563785
+      Data3: -1975274581
+      Data4: -1230001570
+    Path: event:/Boss Tutorial End Animation
+  endAnimationSFXDelay: 2
+  logoStateDeps:
+    logo: {fileID: 0}
   rockStateDeps:
     rockAnimator: {fileID: 0}
     ExplosionAnimator: {fileID: 0}
@@ -104,7 +114,6 @@ MonoBehaviour:
     transitionRenderer: {fileID: 0}
     sorcerer: {fileID: 0}
     slimeInput: {fileID: 0}
-    tutorialBackground: {fileID: 0}
     tutorialBoss: {fileID: 0}
     sketchStretchAnimator: {fileID: 0}
   spellHitStateDeps:
@@ -131,6 +140,7 @@ MonoBehaviour:
     animatorForSketch: {fileID: 0}
   sceneMoveToFinalBattleStateDeps:
     transitionAnimator: {fileID: 0}
+    tutorialBoss: {fileID: 0}
 --- !u!114 &3284895816509918789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,7 +148,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6130210328053276549}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d955318fb2b74025adb2cf85292aacb, type: 3}
   m_Name: 

@@ -1,4 +1,5 @@
 using System.Collections;
+using _SLIME.Slime;
 using DG.Tweening;
 using UnityEngine;
 
@@ -45,9 +46,11 @@ namespace _SLIME.Tutorial
         
         public IEnumerator Start()
         {
+            SlimeEvents.RemoveCameraShake();
             yield return WaitForSlimesAtTop();
             TriggerArrowsOut();
             yield return MoveCameraToMax();
+            SlimeEvents.AddCameraShake();
         }
         
         private IEnumerator WaitForSlimesAtTop()
