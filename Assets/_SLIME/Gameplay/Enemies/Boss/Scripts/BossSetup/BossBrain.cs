@@ -174,14 +174,14 @@ namespace _SLIME.Boss
 
             if (bossHealthBar) bossHealthBar.fillAmount = currentHealth / bossConfigurations.CoreSettings.maxHealth;
             
-            PopupEventsRenderer.OnRenderPointsAbove(new RenderEvent
-             {
-                 eventType = EventType.BossHealth,
-                 value = -finalDamage,
-                 fatherTransform = null,
-                 position = transform.position,
-                 OnFinish = null
-             });
+            // PopupEventsRenderer.OnRenderPointsAbove(new RenderEvent
+            //  {
+            //      eventType = EventType.BossHealth,
+            //      value = -finalDamage,
+            //      fatherTransform = null,
+            //      position = transform.position,
+            //      OnFinish = null
+            //  });
             GameEvents.EnemyGotBricked?.Invoke();
         }
         

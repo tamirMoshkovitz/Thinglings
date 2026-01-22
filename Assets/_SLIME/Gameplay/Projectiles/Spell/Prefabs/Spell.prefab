@@ -10002,7 +10002,16 @@ MonoBehaviour:
     rb: {fileID: 1902457214140489492}
     animator: {fileID: 8507901680545142086}
     collider: {fileID: 4038298892295797958}
-  bossConfiguration: {fileID: 11400000, guid: debaec0eb2ac1664b8e380373e0a5233, type: 2}
+    spellHit:
+    - {fileID: 8102237381469321472}
+    - {fileID: 2754496037806637019}
+  bossConfigurations:
+  - {fileID: 11400000, guid: debaec0eb2ac1664b8e380373e0a5233, type: 2}
+  - {fileID: 11400000, guid: b06ef5967efb6aa42b959252fb25c5b8, type: 2}
+  - {fileID: 11400000, guid: d95a59b0b761e204b806107d420b8920, type: 2}
+  - {fileID: 11400000, guid: 2712f436d9dc8de4faf15e38dd31a061, type: 2}
+  - {fileID: 11400000, guid: d9463016bfec97445b1961299cab3382, type: 2}
+  spellScaleFactor: {x: 0.2, y: 1.1}
   spellShootSFX:
     Guid:
       Data1: -916256540

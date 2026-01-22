@@ -103,7 +103,7 @@ MonoBehaviour:
   bossPhaseSettings:
     upperHealthThreshold: 200
     lowerHealthThreshold: 0
-    targetHitsToKill: 10
+    targetHitsToKill: 4
     expectedAvgSpeedOfSpells: 30
   littleBossMovementSettings:
     duration: 0

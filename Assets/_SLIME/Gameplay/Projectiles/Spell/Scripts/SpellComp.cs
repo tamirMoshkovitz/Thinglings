@@ -10,5 +10,6 @@ namespace _SLIME.Projectiles
         public Rigidbody2D rb;
         public Animator animator;
         public Collider2D collider;
+        public Transform[] spellHit;
     }
 }
