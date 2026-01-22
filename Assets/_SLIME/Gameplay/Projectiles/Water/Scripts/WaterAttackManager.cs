@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using _SLIME.Boss;
 using _SLIME.GameLoop;
@@ -35,6 +36,16 @@ public class WaterAttackManager : MonoBehaviour
         else if (sensorId == 1) _isRightZoneActive = isActive;
 
         CheckSynchronization();
+    }
+
+    private void OnEnable()
+    {
+        TunnelPhaseState.BossDead += OnBossDead;
+    }
+    
+    private void OnDisable()
+    {
+        TunnelPhaseState.BossDead -= OnBossDead;
     }
 
     private void CheckSynchronization()
