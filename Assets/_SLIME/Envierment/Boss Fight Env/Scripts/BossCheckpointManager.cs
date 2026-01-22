@@ -7,7 +7,8 @@ namespace _SLIME.Boss
         Starting,
         FirstPhase,
         SecondPhase,
-        ThirdPhase
+        ThirdPhase,
+        TunnelPhase
     }
 
     public class BossCheckpointManager : MonoBehaviour

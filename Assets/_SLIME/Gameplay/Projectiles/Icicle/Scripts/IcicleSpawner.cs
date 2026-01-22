@@ -23,7 +23,7 @@ public class IcicleSpawner : MonoBehaviour
     private bool LoopSpawning => bossBrain.bossConfigurations.IcicleSpawn.loopSpawning;
     private void OnEnable()
     {
-        ThirdPhaseState.TunnelPhaseStarted += OnTunnelPhaseStarted;
+        TunnelPhaseState.TunnelPhaseStarted += OnTunnelPhaseStarted;
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(false);
@@ -34,7 +34,7 @@ public class IcicleSpawner : MonoBehaviour
 
     private void OnDisable()
     {
-        ThirdPhaseState.TunnelPhaseStarted -= OnTunnelPhaseStarted;
+        TunnelPhaseState.TunnelPhaseStarted -= OnTunnelPhaseStarted;
     }
 
     private void OnTunnelPhaseStarted()

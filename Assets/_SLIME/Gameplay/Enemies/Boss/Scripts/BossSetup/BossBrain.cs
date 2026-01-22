@@ -32,6 +32,7 @@ namespace _SLIME.Boss
         [SerializeField] BaseBossConfigurations firstPhaseConfigurations;
         [SerializeField] BaseBossConfigurations secondPhaseConfigurations;
         [SerializeField] BaseBossConfigurations thirdPhaseConfigurations;
+        [SerializeField] BaseBossConfigurations tunnelPhaseConfigurations;
         
         public GameObject waterStateBrain;
         public GameObject bossCloseColliders;
@@ -71,6 +72,8 @@ namespace _SLIME.Boss
         public State ThirdPhaseState { get; private set; }
         public State StartingPhaseState { get; private set; }
         
+        public State TunnelPhaseState { get; private set; }
+        
         public bool WaterStateActivated { get; set;}
 
         private void Awake()
@@ -81,6 +84,7 @@ namespace _SLIME.Boss
             FirstPhaseState = new FirstPhaseState(StateMachine, this, firstPhaseConfigurations);
             SecondPhaseState = new SecondPhaseState(StateMachine, this, secondPhaseConfigurations);
             ThirdPhaseState = new ThirdPhaseState(StateMachine, this, thirdPhaseConfigurations);
+            TunnelPhaseState = new TunnelPhaseState(StateMachine, this, tunnelPhaseConfigurations);
             
             BossPhaseType savedPhase = BossPhaseType.Starting;
             
@@ -91,6 +95,7 @@ namespace _SLIME.Boss
 
             switch (savedPhase)
             {
+
                 case BossPhaseType.FirstPhase:
                     bossConfigurations = firstPhaseConfigurations;
                     StateMachine.Initialize(FirstPhaseState);
@@ -103,11 +108,16 @@ namespace _SLIME.Boss
                     bossConfigurations = thirdPhaseConfigurations;
                     StateMachine.Initialize(ThirdPhaseState);
                     break;
+                case BossPhaseType.TunnelPhase:
+                    bossConfigurations = tunnelPhaseConfigurations;
+                    StateMachine.Initialize(TunnelPhaseState);
+                    break;
                 case BossPhaseType.Starting:
                 default:
                     bossConfigurations = startingPhaseConfigurations;
                     StateMachine.Initialize(StartingPhaseState);
                     break;
+                
             }
         }
 
