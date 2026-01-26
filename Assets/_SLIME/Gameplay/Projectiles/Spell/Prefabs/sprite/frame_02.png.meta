@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 03a685bb7c3274efcbf566f17ffc2818
+guid: 975a1d69dbf144cacbc6eef73754d5bf
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -11,6 +11,9 @@ TextureImporter:
   - first:
       213: 3715483114829586577
     second: frame_02_2
+  - first:
+      213: -7803386276689285470
+    second: frame_02_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,10 +112,10 @@ TextureImporter:
       name: frame_02_0
       rect:
         serializedVersion: 2
-        x: 20
-        y: 25
-        width: 18
-        height: 26
+        x: 111
+        y: 59
+        width: 8
+        height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,10 +134,10 @@ TextureImporter:
       name: frame_02_1
       rect:
         serializedVersion: 2
-        x: 35
-        y: 48
-        width: 29
-        height: 23
+        x: 124
+        y: 57
+        width: 12
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,10 +156,10 @@ TextureImporter:
       name: frame_02_2
       rect:
         serializedVersion: 2
-        x: 40
-        y: 16
-        width: 28
-        height: 25
+        x: 111
+        y: 43
+        width: 10
+        height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,6 +170,28 @@ TextureImporter:
       bones: []
       spriteID: 190216c153c009330800000000000000
       internalID: 3715483114829586577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frame_02_3
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 43
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2aee6c4868dc4b390800000000000000
+      internalID: -7803386276689285470
       vertices: []
       indices: 
       edges: []
@@ -188,6 +213,7 @@ TextureImporter:
       frame_02_0: -2958872766370934721
       frame_02_1: -8781508514902465736
       frame_02_2: 3715483114829586577
+      frame_02_3: -7803386276689285470
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
