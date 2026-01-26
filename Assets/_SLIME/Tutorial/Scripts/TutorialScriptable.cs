@@ -7,6 +7,9 @@ namespace _SLIME.Tutorial
     [CreateAssetMenu(fileName = "TutorialConfig", menuName = "Scriptable Objects/TutorialConfiguration")]
     public class TutorialScriptable : TabbedScriptableObject
     {
+        [Tab("Logo")]
+        [SerializeField] private LogoStateSet logoStateSet;
+        
         [Tab("Rock")]
         [SerializeField] private RockShakeSettings rockShakeSettings;
         [Tab("Rock")]
@@ -41,9 +44,12 @@ namespace _SLIME.Tutorial
         
         [Tab("BossThrowsSpell")]
         [SerializeField] private TutorialBossFlashSettings tutorialBossFlashSettings;
-
+        
+        [Tab("LogoSettings")]
+        [SerializeField] private LogoSettings logoSettings;
         public RockShakeSettings RockShakeSettings => rockShakeSettings;
         public TutorialBossFlashSettings TutorialBossFlashSettings => tutorialBossFlashSettings;
+        public LogoStateSet LogoStateSet => logoStateSet;
         public RockStateSet RockStateSet => rockStateSet;
         public RiseToBossStateSet RiseToBossStateSet => riseToBossStateSet;
         public SlimeConnectsStateSet SlimeConnectsStateSet => slimeConnectsStateSet;
@@ -54,5 +60,6 @@ namespace _SLIME.Tutorial
         public BossThrowsSpellStateSet BossThrowsSpellStateSet => bossThrowsSpellStateSet;
         public CaveShakeStateSet CaveShakeStateSet => caveShakeStateSet;
         public SceneMoveToFinalBattleStateSet SceneMoveToFinalBattleStateSet => sceneMoveToFinalBattleStateSet;
+        public LogoSettings LogoSettings => logoSettings;
     }
 }

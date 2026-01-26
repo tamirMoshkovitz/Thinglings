@@ -3,6 +3,7 @@ using System.Collections;
 using _SLIME.BaseScripts;
 using _SLIME.GameLoop;
 using _SLIME.Projectiles;
+using Unity.VisualScripting;
 using FMODUnity;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -32,6 +33,7 @@ namespace _SLIME.Slime
         [SerializeField] private TriggerSensor edgeColliderSensor;
         [SerializeField] private float controlSwitchDelay = 0.5f;
         [SerializeField] private float controlSwitchThreshold = 0.5f;
+        [SerializeField] private float controlSwitchDuration = 0.5f;
         
         [Header("Slime Shooting")]
         [SerializeField] private Transform bossHitPoint;
@@ -47,6 +49,10 @@ namespace _SLIME.Slime
         [SerializeField] private SlimeStretchCameraShakeConfiguration slimeStretchCameraShakeConfiguration;
         [SerializeField] private Camera mainCamera;
         [SerializeField] private float  shotTearConnectionDelay = .3f;
+
+        [Header("Controll Switch Animation Sprites")]
+        [SerializeField] private Renderer leftSlimeSoulSprite;
+        [SerializeField] private Renderer rightSlimeSoulSprite;
         [SerializeField] private ControlledSfx slimeTearSFX;
         [SerializeField] private EventReference deadSlimeSFX;
         #endregion
@@ -139,8 +145,9 @@ namespace _SLIME.Slime
                 rightSideHitPoint,
                 _slimeData,
                 slimeConfiguration.shootingSettings,
-                new SlimeSideShootingReqComponents(slimeRightSideRenderer, bossHitPoint,bossHitPointEyeRight, bulletPool),
-                deadSlimeSFX
+                new SlimeSideShootingReqComponents(slimeRightSideRenderer, bossHitPoint,bossHitPointEyeRight, bulletPool)
+                ,deadSlimeSFX,
+                rightSlimeSoulSprite
             ));
             _leftSide = new SlimeSide(new SlimeSide.SlimeSideFormat(
                 slimeLeftSide,
@@ -151,7 +158,8 @@ namespace _SLIME.Slime
                 _slimeData,
                 slimeConfiguration.shootingSettings,
                 new SlimeSideShootingReqComponents(slimeLeftSideRenderer, bossHitPoint, bossHitPointEyeLeft, bulletPool),
-                deadSlimeSFX
+                deadSlimeSFX,
+                leftSlimeSoulSprite
             ));
             
             _slimeData.Initialize(_rightSide, _leftSide);
@@ -206,6 +214,7 @@ namespace _SLIME.Slime
                 if (_controlSwitchCoroutine != null)
                 {
                     StopCoroutine(_controlSwitchCoroutine);
+                    StopControlSwitchAnimation();
                     _controlSwitchCoroutine = null;
                 }
             }
@@ -214,9 +223,6 @@ namespace _SLIME.Slime
         private void SwitchSlimeSides()
         {
             if (_rightSide.IsDead || _leftSide.IsDead) return;
-            
-            (_leftSide.Animator.runtimeAnimatorController, _rightSide.Animator.runtimeAnimatorController) =
-                (_rightSide.Animator.runtimeAnimatorController, _leftSide.Animator.runtimeAnimatorController);
             
             (_leftSide, _rightSide) = (_rightSide, _leftSide);
         }
@@ -238,10 +244,11 @@ namespace _SLIME.Slime
         private IEnumerator ControlSwitchCoroutine()
         {
             yield return new WaitForSeconds(controlSwitchDelay);
-        
-            if (_isMoveRightCancelled && _isMoveLeftCancelled && _leftSide.Position.x > _rightSide.Position.x + controlSwitchThreshold)
+            
+            if (ShouldSwitchControls())
             {
                 SwitchSlimeSides();
+                yield return AnimateControlSwitch(controlSwitchDuration);
             }
         
             _controlSwitchCoroutine = null;
@@ -267,6 +274,34 @@ namespace _SLIME.Slime
         {
             _slimeData.TopLineConnectionPositionLeft = _leftSide.TopPosition.position;
             _slimeData.TopLineConnectionPositionRight = _rightSide.TopPosition.position;
+        }
+        
+        private IEnumerator AnimateControlSwitch(float duration)
+        {
+            StartCoroutine(_rightSide.AnimateSideSwitch(_leftSide.Transform, duration));
+            StartCoroutine(_leftSide.AnimateSideSwitch(_rightSide.Transform, duration));
+            
+            yield return new WaitForSeconds(duration);
+            
+            (_leftSide.Animator.runtimeAnimatorController, _rightSide.Animator.runtimeAnimatorController) =
+                (_rightSide.Animator.runtimeAnimatorController, _leftSide.Animator.runtimeAnimatorController);
+            
+            StopControlSwitchAnimation();
+        }
+        
+        private void StopControlSwitchAnimation()
+        {
+            leftSlimeSoulSprite.gameObject.SetActive(false);
+            rightSlimeSoulSprite.gameObject.SetActive(false);
+        }
+        
+        private bool ShouldSwitchControls()
+        {
+            return (_isMoveRightCancelled && 
+                    _isMoveLeftCancelled &&
+                    _leftSide.Position.x > _rightSide.Position.x + controlSwitchThreshold && 
+                    !_rightSide.IsDead &&
+                    !_leftSide.IsDead);
         }
     }
 }

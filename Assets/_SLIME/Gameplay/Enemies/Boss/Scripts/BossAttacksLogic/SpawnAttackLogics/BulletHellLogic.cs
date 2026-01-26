@@ -1,11 +1,12 @@
-using _SLIME.Slime;
 using UnityEngine;
+using _SLIME.Slime;
 
 namespace _SLIME.Boss
 {
     public class BulletHellLogic : ISpellAttackLogic
     {
         private const int TotalShots = 8;
+        
         
         private readonly OneSpellShotLogic _oneSpellShotLogic;
         private readonly BossBrain _data;
@@ -18,13 +19,15 @@ namespace _SLIME.Boss
         private Vector3 _leftExtremeTarget;
         private Vector3 _rightExtremeTarget;
         private bool _goingRight;
-
+        private float _densityPower;
+        private SpellSpecialAttacksSettings _specials;
         public bool IsActive => _isActive;
 
         public BulletHellLogic(OneSpellShotLogic oneSpellShotLogic, BossBrain data)
         {
             _oneSpellShotLogic = oneSpellShotLogic;
             _data = data;
+            _specials = BossBrain.bossConfigurations.SpawnAttack.specialAttacksSettings;
         }
 
         public void Attack(SpellSettings spellSets)
@@ -40,22 +43,35 @@ namespace _SLIME.Boss
             
             Vector3 spawnPos = (_data.leftSpawnPoint.position + _data.rightSpawnPoint.position) / 2f;
             
+        
+            float configuredAngle = _specials.bulletHellTotalAngle;
+            float extraAngle = Mathf.Abs(configuredAngle);
+            _densityPower = _specials.bulletHellMiddleDensityPower;
+            
+            // Base direction: straight down from spawn position
+            Vector3 baseDirection = Vector3.down;
+            
+            var cam = Camera.main;
+            
+            float targetDistance = cam.orthographicSize * 2f;
+            
+
+            Quaternion leftRotation = Quaternion.Euler(0f, 0f, -extraAngle);
+            Vector3 leftDirection = leftRotation * baseDirection;
+            _leftExtremeTarget = spawnPos + leftDirection * targetDistance;
+            
+    
+            Quaternion rightRotation = Quaternion.Euler(0f, 0f, extraAngle);
+            Vector3 rightDirection = rightRotation * baseDirection;
+            _rightExtremeTarget = spawnPos + rightDirection * targetDistance;
+            
+            // Determine direction based on slime positions
+            // If slimes are more on the right side, start from right (going left)
+            // Otherwise start from left (going right)
             Vector3 slime1Pos = SlimeData.instance.SideATransform.position;
             Vector3 slime2Pos = SlimeData.instance.SideBTransform.position;
-            
-            Vector3 leftSlimePos = slime1Pos.x < slime2Pos.x ? slime1Pos : slime2Pos;
-            Vector3 rightSlimePos = slime1Pos.x < slime2Pos.x ? slime2Pos : slime1Pos;
-            
-            float extraAngle = _data.bossConfigurations.SpawnAttack.specialAttacksSettings.bulletHellTotalAngle;
-            
-            // Calculate extreme targets using CalculateOffsetTarget
-            // Left extreme: left slime + extra angle to the left (positive angle rotates counter-clockwise)
-            _leftExtremeTarget = CalculateOffsetTarget(spawnPos, leftSlimePos, -extraAngle);
-            // Right extreme: right slime + extra angle to the right (negative angle rotates clockwise)
-            _rightExtremeTarget = CalculateOffsetTarget(spawnPos, rightSlimePos, extraAngle);
-            
-            // Randomly decide direction
-            _goingRight = Random.value > 0.5f;
+            float avgSlimeX = (slime1Pos.x + slime2Pos.x) / 2f;
+            _goingRight = avgSlimeX <= spawnPos.x; // If slimes are left of center, go right (left->right)
             
             FireShot();
         }
@@ -64,7 +80,7 @@ namespace _SLIME.Boss
         {
             if (!_isActive) return;
             
-            float waitTime = _data.bossConfigurations.SpawnAttack.specialAttacksSettings.bulletHellWaitBetweenShots;
+            float waitTime = BossBrain.bossConfigurations.SpawnAttack.specialAttacksSettings.bulletHellWaitBetweenShots;
             
             _timer += Time.deltaTime;
             
@@ -87,16 +103,20 @@ namespace _SLIME.Boss
             // Interpolate between extremes based on shot number
             float t = _shotsFired / (float)(TotalShots - 1);
             
+            // Apply easing function to make shots denser in the middle
+            // This uses a smoothstep-like curve that concentrates more shots around 0.5
+            float easedT = ApplyDenseMiddleEasing(t);
+            
             Vector3 targetPos;
             if (_goingRight)
             {
                 // Start from left, go to right
-                targetPos = Vector3.Lerp(_leftExtremeTarget, _rightExtremeTarget, t);
+                targetPos = Vector3.Lerp(_leftExtremeTarget, _rightExtremeTarget, easedT);
             }
             else
             {
                 // Start from right, go to left
-                targetPos = Vector3.Lerp(_rightExtremeTarget, _leftExtremeTarget, t);
+                targetPos = Vector3.Lerp(_rightExtremeTarget, _leftExtremeTarget, easedT);
             }
             
             _oneSpellShotLogic.Attack(_currentSpellSettings, targetPos);
@@ -108,15 +128,30 @@ namespace _SLIME.Boss
             }
         }
         
-        private Vector3 CalculateOffsetTarget(Vector3 from, Vector3 to, float angleDegrees)
+        /// <summary>
+        /// Applies easing to concentrate more shots in the middle (around 0.5)
+        /// Uses a curve that slows down near the center, making shots denser there
+        /// </summary>
+        private float ApplyDenseMiddleEasing(float t)
         {
-            Vector3 direction = (to - from).normalized;
-            float distance = Vector3.Distance(from, to);
+            // Use a smoothstep-like function that concentrates values around 0.5
+            // This creates a curve that's steeper at the edges and flatter in the middle
+            // Formula: smoothstep with adjusted curve to push more values toward center
             
-            Quaternion rotation = Quaternion.Euler(0f, 0f, angleDegrees);
-            Vector3 rotatedDirection = rotation * direction;
+            // Normalize t to be centered around 0
+            float centered = (t - 0.5f) * 2f; // -1 to 1
             
-            return from + rotatedDirection * distance;
+            // Apply a curve that compresses the middle region
+            // Using a power function that makes the curve steeper at edges
+            float sign = Mathf.Sign(centered);
+            float absCentered = Mathf.Abs(centered);
+            
+            // Apply power curve - higher power = more compression in middle
+            float curved = Mathf.Pow(absCentered, _densityPower) * sign;
+            
+            // Convert back to 0-1 range
+            return (curved + 1f) * 0.5f;
         }
+        
     }
 }

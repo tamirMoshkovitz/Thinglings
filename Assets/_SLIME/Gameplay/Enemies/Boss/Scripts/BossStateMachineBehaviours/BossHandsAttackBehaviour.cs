@@ -41,6 +41,7 @@ namespace _SLIME.Boss
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
+            Data.BossCloseState();
             TotalAttacksPreformed++;
 
             _leftHands = Data.leftHandSplines.Select(h => new HandWrapper(h)).ToList();
@@ -54,8 +55,8 @@ namespace _SLIME.Boss
 
         private IEnumerator SmashRoutine(Animator animator)
         {
-            int totalAttacksToPerform = Data.bossConfigurations.HandsAttack.totalHandsToUse;
-            float cooldown = Data.bossConfigurations.HandsAttack.handCooldown;
+            int totalAttacksToPerform = BossBrain.bossConfigurations.HandsAttack.totalHandsToUse;
+            float cooldown = BossBrain.bossConfigurations.HandsAttack.handCooldown;
 
             int attacksLaunched = 0;
             bool isNextLeft = Random.value > 0.5f; 
@@ -64,6 +65,14 @@ namespace _SLIME.Boss
 
             while (attacksLaunched < totalAttacksToPerform)
             {
+                // Check if water state is activated - exit early if true
+                if (Data.WaterStateActivated)
+                {
+                    ForceStopAllHands();
+                    if (Data.centerDetector != null) Data.centerDetector.ResetTrigger();
+                    animator.SetTrigger(AttackFinished);
+                    yield break;
+                }
 
                 bool isSpecialTurn = Data.centerDetector 
                                      && Data.centerDetector.IsReadyToFire 
@@ -107,7 +116,15 @@ namespace _SLIME.Boss
                 }
             }
 
-            yield return new WaitUntil(AllHandsFinished);
+            // Wait until all hands finish OR water state is activated
+            yield return new WaitUntil(() => AllHandsFinished() || Data.WaterStateActivated);
+
+            // If water state activated, reset everything before exiting
+            if (Data.WaterStateActivated)
+            {
+                ForceStopAllHands();
+                if (Data.centerDetector != null) Data.centerDetector.ResetTrigger();
+            }
 
             animator.SetTrigger(AttackFinished);
         }

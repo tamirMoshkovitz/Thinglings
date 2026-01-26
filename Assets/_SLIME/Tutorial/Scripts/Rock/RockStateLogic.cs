@@ -40,9 +40,10 @@ namespace _SLIME.Tutorial
         public RockStateLogic(RockStateDeps rockStateDeps,
             RockStateSet rockStateSet)
         {
-
+            
             _rockStateDeps = rockStateDeps;
             _rockStateSet = rockStateSet;
+            _rockStateDeps.rockAnimator.gameObject.SetActive(true);
             Rock.JoystickMoved += OnJoystickMoved;
             
             _routines = new List<Func<IEnumerator>>()

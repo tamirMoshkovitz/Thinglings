@@ -10,7 +10,7 @@ namespace _SLIME.Slime
         {
             _slimeSideHealth = slimeSideHealth;
         }
-        public void TakeDamage(float damage = 0)
+        public void TakeDamage(float damage = 0F)
         {
             _slimeSideHealth.TakeDamage(damage);
         }

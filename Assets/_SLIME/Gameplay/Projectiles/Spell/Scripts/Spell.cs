@@ -1,5 +1,6 @@
 using System;
 using _SLIME.BaseScripts;
+using _SLIME.Boss;
 using _SLIME.Core.Audio.FMOD.Scripts;
 using _SLIME.GameLoop;
 using FMODUnity;
@@ -19,9 +20,12 @@ namespace _SLIME.Projectiles
         [SerializeField] private SpellComp comp;
 
         [SerializeField]
-        private BaseBossConfigurations bossConfiguration;
+        private BaseBossConfigurations[] bossConfigurations;
         private SpellBossAttributes _bossAttributes;
         private SpellState _currentState;
+        
+        [MinMaxSlider(0.1f, 10f)]
+        [SerializeField] private Vector2 spellScaleFactor;
         
         [SerializeField] private EventReference spellShootSFX;
         
@@ -88,12 +92,46 @@ namespace _SLIME.Projectiles
             var currentSpeed = comp.rb.linearVelocity.magnitude;
             comp.rb.linearVelocity = Vector2.zero;
             comp.rb.bodyType = RigidbodyType2D.Kinematic;
-            if (target != null) target.TakeDamage(Mathf.CeilToInt(currentSpeed));
+            if (target != null)
+            {
+                
+                target.TakeDamage(Mathf.CeilToInt(currentSpeed));
+            }
+            HitParticleScaleChange(currentSpeed);
             comp.animator.SetTrigger(Hit);
         }
-        
-        
-        
+
+        private void HitParticleScaleChange(float currentSpeed)
+        {
+            
+            float expectedSpeed = BossBrain.bossConfigurations ? BossBrain.bossConfigurations.PhaseSettings.expectedAvgSpeedOfSpells
+                    : currentSpeed;
+            float minScale = spellScaleFactor.x;
+            float maxScale = spellScaleFactor.y;
+            float midScale = (minScale + maxScale) * 0.5f;
+            
+            float speedRatio = currentSpeed / expectedSpeed;
+            
+            float scale;
+            if (speedRatio <= 1f)
+            {
+                scale = Mathf.Lerp(minScale, midScale, speedRatio);
+            }
+            else
+            {
+                float t = (speedRatio - 1f);
+                scale = Mathf.Lerp(midScale, maxScale, t);
+            }
+            
+            scale = Mathf.Clamp(scale, minScale, maxScale);
+            
+            foreach (var h in comp.spellHit)
+            {
+                h.localScale = Vector3.one * scale;
+            }
+        }
+
+
         private int GetLayerFromMask(LayerMask mask)
         {
             int layerNumber = 0;

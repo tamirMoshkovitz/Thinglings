@@ -18,18 +18,23 @@ public class IcicleSpawner : MonoBehaviour
     private Coroutine _spawnCoroutine;
     private float _timer;
     
-    private float MinWaitTime => bossBrain.bossConfigurations.IcicleSpawn.minWaitTime;
-    private float MaxWaitTime => bossBrain.bossConfigurations.IcicleSpawn.maxWaitTime;
-    private bool LoopSpawning => bossBrain.bossConfigurations.IcicleSpawn.loopSpawning;
+    private float MinWaitTime => BossBrain.bossConfigurations.IcicleSpawn.minWaitTime;
+    private float MaxWaitTime => BossBrain.bossConfigurations.IcicleSpawn.maxWaitTime;
+    private bool LoopSpawning => BossBrain.bossConfigurations.IcicleSpawn.loopSpawning;
     private void OnEnable()
     {
-        ThirdPhaseState.TunnelPhaseStarted += OnTunnelPhaseStarted;
+        TunnelPhaseState.TunnelPhaseStarted += OnTunnelPhaseStarted;
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(false);
             _iciclePool.Add(child.gameObject);
         }
         StartSpawning();
+    }
+
+    private void OnDisable()
+    {
+        TunnelPhaseState.TunnelPhaseStarted -= OnTunnelPhaseStarted;
     }
 
     private void OnTunnelPhaseStarted()

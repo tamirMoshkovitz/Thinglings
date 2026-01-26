@@ -33,7 +33,7 @@ namespace _SLIME.Boss
             
             Vector3 spawnPos = (_data.leftSpawnPoint.position + _data.rightSpawnPoint.position) / 2f;
             
-            float angleOffset = _data.bossConfigurations.SpawnAttack.specialAttacksSettings.threeShotsAngle;
+            float angleOffset = BossBrain.bossConfigurations.SpawnAttack.specialAttacksSettings.threeShotsAngle;
             Vector3 leftTargetWithOffset = CalculateOffsetTarget(spawnPos, leftSlimePos, -angleOffset);
             Vector3 rightTargetWithOffset = CalculateOffsetTarget(spawnPos, rightSlimePos, angleOffset);
             

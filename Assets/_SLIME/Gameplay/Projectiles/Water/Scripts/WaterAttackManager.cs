@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using _SLIME.Boss;
 using _SLIME.GameLoop;
@@ -9,12 +10,13 @@ public class WaterAttackManager : MonoBehaviour
     private static readonly int AttackModeTrigger = Animator.StringToHash("Attack mode");
     private static readonly int MagicalWaterOutTrigger = Animator.StringToHash("Magical water out");
     private static readonly int SlimeWon = Animator.StringToHash("SlimeWon");
+    private static readonly int BossWon = Animator.StringToHash("BossWon");
 
     [Header("Settings")]
     [SerializeField] private float initialDelay = 1f;
     [SerializeField] private float timeToAttackMode = 2f;
     [SerializeField] private float timeToMagicOut = 1f;
-    [SerializeField] private float waterAttackDamage = 10f;
+    private float waterAttackDamage => BossBrain.bossConfigurations.WaterAttack.waterDamage;
 
     [Header("References")]
     [SerializeField] private Animator animatorLeft;
@@ -23,6 +25,7 @@ public class WaterAttackManager : MonoBehaviour
 
     private bool _isLeftZoneActive;
     private bool _isRightZoneActive;
+    private int waterAttackResult = BossWon;
     
     private Coroutine _attackRoutine;
     public bool CanAttack { get; private set; }
@@ -33,6 +36,16 @@ public class WaterAttackManager : MonoBehaviour
         else if (sensorId == 1) _isRightZoneActive = isActive;
 
         CheckSynchronization();
+    }
+
+    private void OnEnable()
+    {
+        TunnelPhaseState.BossDead += OnBossDead;
+    }
+    
+    private void OnDisable()
+    {
+        TunnelPhaseState.BossDead -= OnBossDead;
     }
 
     private void CheckSynchronization()
@@ -80,7 +93,12 @@ public class WaterAttackManager : MonoBehaviour
         if(animatorLeft) animatorLeft.SetTrigger(hashId);
         if(animatorRight) animatorRight.SetTrigger(hashId);
         if (hashId != AttackModeTrigger) return;
-        bossBrain.animator.SetTrigger(SlimeWon);
-        bossBrain.TakeDamage(waterAttackDamage);
+        bossBrain.ApplyDamage(waterAttackDamage);
+        bossBrain.animator.SetTrigger(waterAttackResult);
+    }
+
+    private void OnBossDead()
+    {
+        waterAttackResult = SlimeWon;
     }
 }

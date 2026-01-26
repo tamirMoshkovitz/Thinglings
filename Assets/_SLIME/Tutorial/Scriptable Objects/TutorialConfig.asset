@@ -124,3 +124,6 @@ MonoBehaviour:
     shaderPropertyName: _Flash
     flashDuration: 0.2
     maxIntensity: 1
+  logoSettings:
+    requiredStretch: 0.1
+    timeToGoDown: 0.05

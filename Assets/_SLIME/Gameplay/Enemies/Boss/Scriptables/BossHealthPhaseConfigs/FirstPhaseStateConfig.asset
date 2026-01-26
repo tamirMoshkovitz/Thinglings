@@ -24,22 +24,22 @@ MonoBehaviour:
     spawnSettings:
       delayBetweenAttacks: {x: 1, y: 2}
       bothSlimesAliveProbabilities:
-        oneShot: 0.7
+        oneShot: 1
         twoShots: 0
-        threeShot: 0.2
-        fourShots: 0.1
+        threeShot: 0
+        fourShots: 0
         bulletHell: 0
       notConnectedProbabilities:
-        oneShot: 0.3
-        twoShots: 0.6
-        threeShot: 0.05
-        fourShots: 0.05
+        oneShot: 1
+        twoShots: 0
+        threeShot: 0
+        fourShots: 0
         bulletHell: 0
       oneSlimeAliveProbabilities:
-        oneShot: 0.6
-        twoShots: 0.3
+        oneShot: 1
+        twoShots: 0
         threeShot: 0
-        fourShots: 0.1
+        fourShots: 0
         bulletHell: 0
     spellSettings:
       attackAccuracyRange: {x: 0.90000004, y: 1}
@@ -47,8 +47,9 @@ MonoBehaviour:
     specialAttacksSettings:
       threeShotsAngle: 22.5
       fourShotsWaitBetweenShots: 0.5
-      bulletHellTotalAngle: 22.5
+      bulletHellTotalAngle: 45
       bulletHellWaitBetweenShots: 0.2
+      bulletHellMiddleDensityPower: 1.7
   laserAttackSettings:
     rotationCurve:
       serializedVersion: 2
@@ -92,19 +93,20 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    rotationDuration: 5
+    rotationDuration: 4
     totalLoops: 1
   icicleSpawnSettings:
     minWaitTime: 4
     maxWaitTime: 6
     loopSpawning: 1
+  waterAttackSettings:
+    waterDamage: 50
   bossCoreSettings:
-    maxHealth: 600
+    maxHealth: 400
   bossPhaseSettings:
-    upperHealthThreshold: 500
-    lowerHealthThreshold: 400
+    lowerHealthThreshold: 300
     targetHitsToKill: 5
-    expectedAvgSpeedOfSpells: 24
+    expectedAvgSpeedOfSpells: 20
   littleBossMovementSettings:
     duration: 0
     waitUntilNextLoop: 0

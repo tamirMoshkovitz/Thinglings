@@ -54,12 +54,12 @@ public class TempPhaseChanger : MonoBehaviour
 
     private void OnEnable()
     {
-        ThirdPhaseState.TunnelPhaseStarted += OnPhaseChangeToTunnel;
+        TunnelPhaseState.TunnelPhaseStarted += OnPhaseChangeToTunnel;
     }
     
     private void OnDisable()
     {
-        ThirdPhaseState.TunnelPhaseStarted -= OnPhaseChangeToTunnel;
+        TunnelPhaseState.TunnelPhaseStarted -= OnPhaseChangeToTunnel;
     }
 
     private void Start()

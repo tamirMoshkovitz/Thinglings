@@ -8,6 +8,7 @@ namespace _SLIME.Tutorial
     public struct SceneMoveToFinalBattleStateDeps
     {
         public Animator transitionAnimator;
+        public GameObject tutorialBoss;
     }
     
     [System.Serializable]
@@ -36,6 +37,7 @@ namespace _SLIME.Tutorial
         
         public IEnumerator Start()
         {
+            _deps.tutorialBoss.SetActive(false);
             TriggerTransitionAnimation();
             yield return WaitForAnimationEnd();
             LoadFinalBattleScene();

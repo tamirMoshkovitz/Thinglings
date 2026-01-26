@@ -1,3 +1,4 @@
+using System.Collections;
 using FMODUnity;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -18,9 +19,11 @@ namespace _SLIME.Slime
             public SlimeSideShootingSettings ShootingSettings;
             public EventReference DeadSlimeSFX;
 
+            public Renderer SoulSprite;
             public SlimeSideFormat(GameObject gameObject, Transform topTransform,
                 float moveSpeed, int maxHealth, GameObject playerHitPoint, SlimeData slimeData,
-                SlimeSideShootingSettings shootingSettings,SlimeSideShootingReqComponents shootingReqComponents, EventReference deadSlimeSFX)
+                SlimeSideShootingSettings shootingSettings,SlimeSideShootingReqComponents shootingReqComponents,
+                EventReference deadSlimeSFX,Renderer soulSprite)
             {
                 GameObject = gameObject;
                 TopTransform = topTransform;
@@ -31,6 +34,7 @@ namespace _SLIME.Slime
                 ShootingReqComponents = shootingReqComponents;
                 ShootingSettings = shootingSettings;
                 DeadSlimeSFX = deadSlimeSFX;
+                SoulSprite = soulSprite;
             }
         }
         
@@ -40,6 +44,7 @@ namespace _SLIME.Slime
         private SlimeData _slimeData;
         private SlimeAnimatorController _animatorController;
         private readonly SlimeSideShooting _shooter;
+        private Renderer _soulSprite;
 
         public SlimeSide(SlimeSideFormat format)
         {
@@ -66,49 +71,14 @@ namespace _SLIME.Slime
             _shooter = new SlimeSideShooting(this,
                 format.ShootingSettings,
                 format.ShootingReqComponents);
-
+            
+            _soulSprite = format.SoulSprite;
         }
         
         public Vector3 Position => _gameObject.transform.position;
         public Transform Transform => _gameObject.transform;
         public Transform TopPosition { get; private set; }
         public bool IsDead => _health.IsDead;
-        
-        public Animator Animator => _animatorController.Animator;
-        
-        public void OnEnable()
-        {
-            _movement.OnEnable();
-            _health.OnEnable();
-        }
-        
-        public void OnDisable()
-        {
-            _movement.OnDisable();
-            _health.OnDisable();
-        }
-        
-        public void Update()
-        {
-            _movement.Update();
-            _health.Update();
-            _animatorController.Update(_movement.IsMoving, _slimeData.IsStrained);
-        }
-        
-        public void FixedUpdate()
-        {
-            _movement.FixedUpdate();
-        }
-        
-        public void OnMove(InputAction.CallbackContext context)
-        {
-            _movement.OnMove(context);
-        }
-
-        public void OnShoot(InputAction.CallbackContext context)
-        {
-            if (!_slimeData.Connected) _shooter.OnShoot(context);
-        }
 
         public float Mass
         {
@@ -124,6 +94,71 @@ namespace _SLIME.Slime
                 return mass;
             }
         }
-        
+
+        public Animator Animator => _animatorController.Animator;
+
+        public void OnEnable()
+        {
+            _movement.OnEnable();
+            _health.OnEnable();
+        }
+
+        public void OnDisable()
+        {
+            _movement.OnDisable();
+            _health.OnDisable();
+        }
+
+        public void Update()
+        {
+            _movement.Update();
+            _health.Update();
+            _animatorController.Update(_movement.IsMoving, _slimeData.IsStrained);
+        }
+
+        public void FixedUpdate()
+        {
+            _movement.FixedUpdate();
+        }
+
+        public void OnMove(InputAction.CallbackContext context)
+        {
+            _movement.OnMove(context);
+        }
+
+        public void OnShoot(InputAction.CallbackContext context)
+        {
+            if (!_slimeData.Connected) _shooter.OnShoot(context);
+        }
+
+        public IEnumerator AnimateSideSwitch(Transform otherSlimeTransform, float duration)
+        {
+            StartChangeSides();
+
+            float elapsed = 0f;
+            while (elapsed < duration)
+            {
+                float t = elapsed / duration;
+                _soulSprite.transform.position = Vector3.Lerp(_gameObject.transform.position, otherSlimeTransform.position, t);
+                
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            
+            EndChangeSides(otherSlimeTransform.position);
+        }
+
+        private void StartChangeSides()
+        {
+            _soulSprite.gameObject.SetActive(true);
+            _animatorController.SetStartChange();
+            _soulSprite.transform.position = _gameObject.transform.position;
+        }
+
+        private void EndChangeSides(Vector3 endPosition)
+        {
+            _soulSprite.transform.position = endPosition;
+            _animatorController.SetEndChange(); 
+        }
     }
 }
