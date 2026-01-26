@@ -158,7 +158,7 @@ namespace _SLIME.Boss
         {
             finalDamage = Mathf.RoundToInt(finalDamage);
             currentHealth -= finalDamage;
-            if (bossHealthBar) bossHealthBar.fillAmount = currentHealth / bossConfigurations.CoreSettings.maxHealth;
+            if (bossHealthBar) bossHealthBar.fillAmount = currentHealth / firstPhaseConfigurations.CoreSettings.maxHealth;
             
             PopupEventsRenderer.OnRenderPointsAbove(new RenderEvent
             {

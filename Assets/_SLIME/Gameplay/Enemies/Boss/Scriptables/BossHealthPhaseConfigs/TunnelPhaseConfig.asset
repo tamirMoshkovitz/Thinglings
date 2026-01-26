@@ -49,7 +49,7 @@ MonoBehaviour:
       fourShotsWaitBetweenShots: 0.2
       bulletHellTotalAngle: 45
       bulletHellWaitBetweenShots: 0.2
-      bulletHellMiddleDensityPower: 0
+      bulletHellMiddleDensityPower: 1.7
   laserAttackSettings:
     rotationCurve:
       serializedVersion: 2

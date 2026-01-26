@@ -1,4 +1,5 @@
 using UnityEngine;
+using _SLIME.Slime;
 
 namespace _SLIME.Boss
 {
@@ -18,14 +19,15 @@ namespace _SLIME.Boss
         private Vector3 _leftExtremeTarget;
         private Vector3 _rightExtremeTarget;
         private bool _goingRight;
-        private float _densityPower = 1.5f;
-
+        private float _densityPower;
+        private SpellSpecialAttacksSettings _specials;
         public bool IsActive => _isActive;
 
         public BulletHellLogic(OneSpellShotLogic oneSpellShotLogic, BossBrain data)
         {
             _oneSpellShotLogic = oneSpellShotLogic;
             _data = data;
+            _specials = BossBrain.bossConfigurations.SpawnAttack.specialAttacksSettings;
         }
 
         public void Attack(SpellSettings spellSets)
@@ -41,10 +43,10 @@ namespace _SLIME.Boss
             
             Vector3 spawnPos = (_data.leftSpawnPoint.position + _data.rightSpawnPoint.position) / 2f;
             
-            var specials = BossBrain.bossConfigurations.SpawnAttack.specialAttacksSettings;
-            float configuredAngle = specials.bulletHellTotalAngle;
+        
+            float configuredAngle = _specials.bulletHellTotalAngle;
             float extraAngle = Mathf.Abs(configuredAngle);
-            _densityPower = Mathf.Max(0.5f, specials.bulletHellMiddleDensityPower <= 0f ? 1.5f : specials.bulletHellMiddleDensityPower);
+            _densityPower = _specials.bulletHellMiddleDensityPower;
             
             // Base direction: straight down from spawn position
             Vector3 baseDirection = Vector3.down;
@@ -63,7 +65,13 @@ namespace _SLIME.Boss
             Vector3 rightDirection = rightRotation * baseDirection;
             _rightExtremeTarget = spawnPos + rightDirection * targetDistance;
             
-            _goingRight = configuredAngle >= 0f;
+            // Determine direction based on slime positions
+            // If slimes are more on the right side, start from right (going left)
+            // Otherwise start from left (going right)
+            Vector3 slime1Pos = SlimeData.instance.SideATransform.position;
+            Vector3 slime2Pos = SlimeData.instance.SideBTransform.position;
+            float avgSlimeX = (slime1Pos.x + slime2Pos.x) / 2f;
+            _goingRight = avgSlimeX <= spawnPos.x; // If slimes are left of center, go right (left->right)
             
             FireShot();
         }
