@@ -79,8 +79,8 @@ MonoBehaviour:
     transitionTriggerName: to spell boss
     transitionWaitForStateName: in spell boss
   spellHitStateSet:
-    waitTimeBeforeSpawn: 0.5
-    spellSpeed: 5
+    waitTimeBeforeSpawn: 0.1
+    spellSpeed: 50
     cameraShakeIntensity: 0.5
     cameraShakeDuration: 0.2
     cameraShakeVibrato: 1
@@ -112,10 +112,10 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    spellSpeed: 10
+    spellSpeed: 20
   bossThrowsSpellStateSet:
     timeBetweenSpells: 4
-    spellSpeed: 10
+    spellSpeed: 20
   sceneMoveToFinalBattleStateSet:
     transitionTriggerName: to game
     transitionAnimationStateName: Boss spells to game
