@@ -65,6 +65,7 @@ namespace _SLIME.Slime
         
         private bool _isMoveLeftCancelled = true, _isMoveRightCancelled = true;
         private Coroutine _controlSwitchCoroutine;
+        private bool _hasLoadedDeathScene = false;
 
         public SlimeData Data => _slimeData;
         
@@ -110,8 +111,11 @@ namespace _SLIME.Slime
 
         private void CheckDeath()
         {
+            if (_hasLoadedDeathScene) return;
+            
             if (_rightSide.IsDead && _leftSide.IsDead)
             {
+                _hasLoadedDeathScene = true;
                 if(SceneLoader.CurrentSceneType == SceneType.BossFinalBattleScene) SceneLoader.LoadScene(SceneType.BossFinalBattleScene);
                 if(SceneLoader.CurrentSceneType == SceneType.StartScene) SceneLoader.LoadScene(SceneType.StartSceneAfterDeath);
                 if(SceneLoader.CurrentSceneType == SceneType.StartSceneAfterDeath) SceneLoader.LoadScene(SceneType.StartSceneAfterDeath);

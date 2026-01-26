@@ -58,9 +58,9 @@ namespace _SLIME.Tutorial
         public IEnumerator Start()
         {
             yield return WaitForSlimeTears();
-            DisableSlimeInput(); 
+            // DisableSlimeInput(); 
             yield return PlayAnimations();
-            EnableSlimeInput();
+            // EnableSlimeInput();
         }
 
         private IEnumerator PlayAnimations()

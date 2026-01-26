@@ -68,7 +68,7 @@ namespace _SLIME.Projectiles
         
         public void OnHitFinished()
         {
-            Destroy(gameObject);
+            Destroy(gameObject.transform.parent.gameObject);
         }
         
         private void OnTriggerEnter2D(Collider2D other)

@@ -33,6 +33,9 @@ namespace _SLIME.Tutorial
         private SpellHitStateDeps _spellHitStateDeps;
         private SpellHitStateSet _spellHitStateSet;
         private bool _slimeGetHit = false;
+        private GameObject _currentSpell;
+        private Vector2 _currentDirection;
+        private Vector3 _currentSpawnPosition;
         
         public SpellHitLogic(SpellHitStateDeps spellHitStateDeps,
             SpellHitStateSet spellHitStateSet)
@@ -49,17 +52,26 @@ namespace _SLIME.Tutorial
         
         public IEnumerator Start()
         {
-            DisableSlimeInput();
+            // DisableSlimeInput();
             
             yield return new WaitForSeconds(_spellHitStateSet.waitTimeBeforeSpawn);
             
             SpawnAndLaunchSpell();
             
-            yield return WaitForSlimeGetHit();
+            while (!_slimeGetHit)
+            {
+                // Check if current spell was destroyed without hitting
+                if (_currentSpell == null)
+                {
+                    // Spell was destroyed without hitting slime, spawn a new one
+                    SpawnAndLaunchSpell();
+                }
+                yield return null;
+            }
             
             ShakeCamera();
             
-            EnableSlimeInput();
+            // EnableSlimeInput();
         }
         
         private void DisableSlimeInput()
@@ -74,20 +86,20 @@ namespace _SLIME.Tutorial
         
         private void SpawnAndLaunchSpell()
         {
-            Vector3 spawnPosition = _spellHitStateDeps.pointToSpawnSpell.position;
-            GameObject gameObject = GameObject.Instantiate(_spellHitStateDeps.spellPrefab, 
-                spawnPosition, Quaternion.identity);
+            _currentSpawnPosition = _spellHitStateDeps.pointToSpawnSpell.position;
+            _currentSpell = GameObject.Instantiate(_spellHitStateDeps.spellPrefab, 
+                _currentSpawnPosition, Quaternion.identity);
             
             Vector3 slime1Pos = _spellHitStateDeps.slime1.position;
             Vector3 slime2Pos = _spellHitStateDeps.slime2.position;
             
             Vector3 spawnTarget = slime1Pos.x < slime2Pos.x ? slime1Pos : slime2Pos;
-            Vector2 direction = (spawnTarget - spawnPosition).normalized;
+            _currentDirection = (spawnTarget - _currentSpawnPosition).normalized;
 
-            Spell spell = gameObject.GetComponentInChildren<Spell>();
+            Spell spell = _currentSpell.GetComponentInChildren<Spell>();
             spell.BossSetup(new SpellBossAttributes
             {
-                direction = direction,
+                direction = _currentDirection,
                 moveSpeed = _spellHitStateSet.spellSpeed,
             });
 

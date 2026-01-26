@@ -9,6 +9,7 @@ namespace _SLIME.Tutorial
     {
         public Animator transitionAnimator;
         public GameObject tutorialBoss;
+        public GameObject slime;
     }
     
     [System.Serializable]
@@ -37,6 +38,7 @@ namespace _SLIME.Tutorial
         
         public IEnumerator Start()
         {
+            _deps.slime.SetActive(false);
             _deps.tutorialBoss.SetActive(false);
             TriggerTransitionAnimation();
             yield return WaitForAnimationEnd();

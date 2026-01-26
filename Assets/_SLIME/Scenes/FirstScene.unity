@@ -1577,6 +1577,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 194749317}
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: sceneMoveToFinalBattleStateDeps.slime
+      value: 
+      objectReference: {fileID: 819180594}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: slimeTearsStateDeps.transitionAnimator
       value: 
       objectReference: {fileID: 1307573145}
