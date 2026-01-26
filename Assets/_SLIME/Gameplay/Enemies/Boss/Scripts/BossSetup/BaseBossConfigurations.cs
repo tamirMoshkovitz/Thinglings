@@ -35,6 +35,8 @@ public class BaseBossConfigurations : TabbedScriptableObject
         [Tooltip("Projectile prefab to spawn")]
         public GameObject projectilePrefab;
         
+        public GameObject projectileBeforeSpawnPrefab;
+        
         [Tooltip("How many spells the sorcerer will create during the attack")]
         public int attacksToCast;
         

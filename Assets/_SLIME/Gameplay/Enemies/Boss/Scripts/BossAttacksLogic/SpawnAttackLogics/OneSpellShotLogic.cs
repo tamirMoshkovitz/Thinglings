@@ -8,55 +8,85 @@ namespace _SLIME.Boss
     {
         private readonly GameObject _spellPrefab;
         private readonly BossBrain _data;
+        private readonly GameObject _spellSpawnPrefab;
+        private SpellBeforeSpawn _spellBeforeSpawn;
+        private Vector3 _targetPosition;
+        private SpellSettings? _spellSets;
+        private bool _isActive;
+        public bool IsActive => _isActive;
 
-        public bool IsActive => false;
-
-        public OneSpellShotLogic(GameObject spellPrefab, BossBrain data)
+        public OneSpellShotLogic(GameObject spellPrefab,
+            GameObject spellSpawnPrefab, BossBrain data)
         {
             _spellPrefab = spellPrefab;
+            _spellSpawnPrefab = spellSpawnPrefab;
             _data = data;
         }
 
-        public void UpdateAttack() { }
-        
-        public void Reset() { }
+        public void UpdateAttack()
+        {
+            if (!_spellBeforeSpawn.GetState()) return;
+            Vector3 spawnPos = _spellBeforeSpawn.GetSpawnPoint();
+            var z = _spellBeforeSpawn.transform.eulerAngles.z;
+            Object.Destroy(_spellBeforeSpawn.gameObject);
+            _spellBeforeSpawn = null;
+            Attack(_spellSets.Value, _targetPosition,spawnPos, z);
+            _isActive = false;
+        }
+
+        public void Reset()
+        {
+            _isActive = false;
+            _targetPosition = Vector3.zero;
+            if(_spellBeforeSpawn) Object.Destroy(_spellBeforeSpawn.gameObject);
+            _spellBeforeSpawn = null;
+            _spellSets = null;
+        }
     
         public void Attack(SpellSettings spellSets)
         {
-            Vector3 targetPosition = GetTargetPosition();
-            Attack(spellSets, targetPosition);
+            _isActive = true;
+            _spellSets = spellSets;
+            _targetPosition = GetTargetPosition();
+            _spellBeforeSpawn = BeforeAttackEffect(_targetPosition);
         }
-        
-    
-        public void Attack(SpellSettings spellSets, Vector3 targetPosition)
+
+        public SpellBeforeSpawn BeforeAttackEffect(Vector3 targetPosition)
         {
-            Vector3 spawnPosition = GetSpawnPosition();
+            Vector3 spawnPos = _data.spawnDeps.spawnPoint.position;
+            GameObject item = Object.Instantiate(_spellSpawnPrefab, spawnPos, _spellSpawnPrefab.transform.rotation, _data.animator.transform);
+            var spellBeforeSpawn = item.GetComponent<SpellBeforeSpawn>();
             
+            Vector2 dir = (targetPosition - spawnPos).normalized;
+            float angleToAdd = Mathf.Atan2(dir.x, -dir.y) * Mathf.Rad2Deg;
+            if (angleToAdd < 0f) angleToAdd += 360f;
+            float currentZ = spellBeforeSpawn.transform.eulerAngles.z;
+            float totalZ = currentZ + angleToAdd;
+            if (totalZ >= 360f) totalZ -= 360f;
+            if (totalZ < 0f) totalZ += 360f;
+            spellBeforeSpawn.transform.rotation = Quaternion.Euler(0f, 0f, totalZ);
+            return spellBeforeSpawn;
+        }
+
+
+        public void Attack(SpellSettings spellSets, Vector3 targetPosition, Vector3 spawnPoint, float z)
+        {
             float accuracy = Random.Range(spellSets.attackAccuracyRange.x, spellSets.attackAccuracyRange.y);
-            Vector3 direction = CalculateDirectionWithAccuracy(spawnPosition, targetPosition, accuracy);
+            Vector3 direction = CalculateDirectionWithAccuracy(spawnPoint, targetPosition, accuracy);
             
             float speed = Random.Range(spellSets.attackSpeedRange.x, spellSets.attackSpeedRange.y);
             
-            GameObject item = Object.Instantiate(_spellPrefab, spawnPosition, Quaternion.identity);
+            GameObject item = Object.Instantiate(_spellPrefab, spawnPoint, Quaternion.identity);
             Spell spell = item.GetComponentInChildren<Spell>();
             
             spell.BossSetup(new SpellBossAttributes
             {
                 direction = direction,
-                moveSpeed = speed
+                moveSpeed = speed,
+                z = z
             });
         }
         
-        private Vector3 GetSpawnPosition()
-        {
-            Transform leftSpawnPoint = _data.leftSpawnPoint;
-            Transform rightSpawnPoint = _data.rightSpawnPoint;
-            
-            float randomX = Random.Range(leftSpawnPoint.position.x, rightSpawnPoint.position.x);
-            float fixedY = leftSpawnPoint.position.y;
-            
-            return new Vector3(randomX, fixedY, 0f);
-        }
         
         private Vector3 GetTargetPosition()
         {
@@ -66,7 +96,7 @@ namespace _SLIME.Boss
             if (SlimeData.instance.SideBDead) return slime1Pos;
             if (SlimeData.instance.SideADead) return slime2Pos;
             
-            Vector3 spawnPos = _data.leftSpawnPoint.position;
+            Vector3 spawnPos = _data.spawnDeps.spawnPoint.position;
             float dist1 = Vector3.Distance(spawnPos, slime1Pos);
             float dist2 = Vector3.Distance(spawnPos, slime2Pos);
             

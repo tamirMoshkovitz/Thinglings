@@ -47,8 +47,7 @@ namespace _SLIME.Boss
         [SerializeField] public PlayerInCenterDetector centerDetector;
         
         [Header("Spawn Setup")]
-        public Transform leftSpawnPoint;
-        public Transform rightSpawnPoint;
+        public SpawnDeps spawnDeps;
         [HideInInspector] public bool slimesConnected = false;
         
         [Header("Health Setup")] 
@@ -224,14 +223,7 @@ namespace _SLIME.Boss
             }
         }
 
-        private void OnDrawGizmos()
-        {
-            if (leftSpawnPoint == null || rightSpawnPoint == null) return;
-            Gizmos.color = Color.green;
-            Vector3 center = (leftSpawnPoint.position + rightSpawnPoint.position) / 2;
-            Vector3 size = new Vector3(Mathf.Abs(rightSpawnPoint.position.x -leftSpawnPoint.position.x), 1f, 1f);
-            Gizmos.DrawWireCube(center, size);
-        }
+        
 
         
     }

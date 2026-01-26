@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 671653929157809193}
   m_Layer: 12
-  m_Name: Left Spell Spawn Point
+  m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 280750859429822364}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.2, y: 8, z: 0}
+  m_LocalPosition: {x: 2.67, y: 7.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -121,37 +121,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &852582315821136416
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4939076224726718476}
-  m_Layer: 12
-  m_Name: Right Spell Spawn Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4939076224726718476
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 852582315821136416}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.2, y: 8, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5738476046550801874}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1191937325131299213
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,7 +611,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 671653929157809193}
-  - {fileID: 4939076224726718476}
   m_Father: {fileID: 3025898858781400177}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2186003916061129083
@@ -1903,11 +1871,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossController
   mainCamera: {fileID: 0}
-  bossConfigurations: {fileID: 11400000, guid: debaec0eb2ac1664b8e380373e0a5233, type: 2}
-  startingPhaseConfigurations: {fileID: 11400000, guid: debaec0eb2ac1664b8e380373e0a5233, type: 2}
   firstPhaseConfigurations: {fileID: 11400000, guid: b06ef5967efb6aa42b959252fb25c5b8, type: 2}
   secondPhaseConfigurations: {fileID: 11400000, guid: d95a59b0b761e204b806107d420b8920, type: 2}
-  thirdPhaseConfigurations: {fileID: 11400000, guid: 2712f436d9dc8de4faf15e38dd31a061, type: 2}
+  tunnelPhaseConfigurations: {fileID: 0}
   waterStateBrain: {fileID: 0}
   bossCloseColliders: {fileID: 4060849710957457534}
   bossFarColliders: {fileID: 5776473476575897784}
@@ -1927,8 +1893,9 @@ MonoBehaviour:
   - {fileID: 3798593013616023887}
   - {fileID: 8902209102438488327}
   centerDetector: {fileID: 0}
-  leftSpawnPoint: {fileID: 671653929157809193}
-  rightSpawnPoint: {fileID: 4939076224726718476}
+  spawnDeps:
+    spawnPoint: {fileID: 671653929157809193}
+    spawnRadius: 0
   slimesConnected: 0
   bossHealthBar: {fileID: 0}
   currentHealth: 0

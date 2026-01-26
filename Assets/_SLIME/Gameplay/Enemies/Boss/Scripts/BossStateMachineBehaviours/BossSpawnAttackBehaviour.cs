@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using _SLIME.Slime;
 using NaughtyAttributes;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace _SLIME.Boss
 {
@@ -26,12 +28,20 @@ namespace _SLIME.Boss
         public AttackProbabilities notConnectedProbabilities;
         
         public AttackProbabilities oneSlimeAliveProbabilities;
+        
+    }
+
+    [Serializable]
+    public struct SpawnDeps
+    {
+        public Transform spawnPoint;
+        public float spawnRadius;
     }
     
     public class BossSpawnAttackBehaviour : BossBaseBehaviour
     {
         private static readonly int AttackFinished = Animator.StringToHash("AttackFinished");
-
+        
         private int _attackCounter;
         private float _timer;
         private float _currentDelay;
@@ -45,6 +55,7 @@ namespace _SLIME.Boss
             
             var oneSpellShotLogic = new OneSpellShotLogic(
                 BossBrain.bossConfigurations.SpawnAttack.projectilePrefab,
+                BossBrain.bossConfigurations.SpawnAttack.projectileBeforeSpawnPrefab,
                 Data
             );
             

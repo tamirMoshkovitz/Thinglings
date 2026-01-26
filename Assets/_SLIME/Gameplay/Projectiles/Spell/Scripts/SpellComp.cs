@@ -11,5 +11,14 @@ namespace _SLIME.Projectiles
         public Animator animator;
         public Collider2D collider;
         public Transform[] spellHit;
+        public Transform spellHead;
+    }
+
+
+    [Serializable]
+    public struct SpellBeforeSpawnComp
+    {
+        public Animator animator;
+        public Transform spawnPoint;
     }
 }
