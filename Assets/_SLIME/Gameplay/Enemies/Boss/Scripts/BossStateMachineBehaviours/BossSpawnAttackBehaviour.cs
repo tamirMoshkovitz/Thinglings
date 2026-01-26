@@ -44,7 +44,7 @@ namespace _SLIME.Boss
             base.Initialize(brain);
             
             var oneSpellShotLogic = new OneSpellShotLogic(
-                Data.bossConfigurations.SpawnAttack.projectilePrefab,
+                BossBrain.bossConfigurations.SpawnAttack.projectilePrefab,
                 Data
             );
             
@@ -77,7 +77,7 @@ namespace _SLIME.Boss
                 return;
             }
             
-            if (_attackCounter >= Data.bossConfigurations.SpawnAttack.attacksToCast
+            if (_attackCounter >= BossBrain.bossConfigurations.SpawnAttack.attacksToCast
             || Data.WaterStateActivated)
             {
                 animator.SetTrigger(AttackFinished);
@@ -93,7 +93,7 @@ namespace _SLIME.Boss
                 _attackCounter++;
                 _timer = 0f;
             
-                Vector2 delayRange = Data.bossConfigurations.SpawnAttack.spawnSettings.delayBetweenAttacks;
+                Vector2 delayRange = BossBrain.bossConfigurations.SpawnAttack.spawnSettings.delayBetweenAttacks;
                 _currentDelay = Random.Range(delayRange.x, delayRange.y);
             }
         }
@@ -106,15 +106,15 @@ namespace _SLIME.Boss
             
             if (!bothAlive)
             {
-                probabilities = Data.bossConfigurations.SpawnAttack.spawnSettings.oneSlimeAliveProbabilities;
+                probabilities = BossBrain.bossConfigurations.SpawnAttack.spawnSettings.oneSlimeAliveProbabilities;
             }
             else if (!Data.slimesConnected)
             {
-                probabilities = Data.bossConfigurations.SpawnAttack.spawnSettings.notConnectedProbabilities;
+                probabilities = BossBrain.bossConfigurations.SpawnAttack.spawnSettings.notConnectedProbabilities;
             }
             else
             {
-                probabilities = Data.bossConfigurations.SpawnAttack.spawnSettings.bothSlimesAliveProbabilities;
+                probabilities = BossBrain.bossConfigurations.SpawnAttack.spawnSettings.bothSlimesAliveProbabilities;
             }
                 
             return probabilities.GetRandomAttack();
@@ -125,7 +125,7 @@ namespace _SLIME.Boss
             if (_attackLogics.TryGetValue(attack, out var logic))
             {
                 _currentActiveLogic = logic;
-                logic.Attack(Data.bossConfigurations.SpawnAttack.spellSettings);
+                logic.Attack(BossBrain.bossConfigurations.SpawnAttack.spellSettings);
             }
         }
 

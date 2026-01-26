@@ -47,7 +47,6 @@ namespace _SLIME.Boss
             if (Data.WaterStateActivated)
             {
                 animator.SetTrigger(DoWater);
-                Data.WaterStateActivated = false;
                 Debug.Log("Water Attack Activated");
                 return;
             }

@@ -252,9 +252,9 @@ namespace _SLIME.DevScripts
             GUILayout.Space(5);
             
             // Config info
-            if (_bossBrain.bossConfigurations != null)
+            if (BossBrain.bossConfigurations != null)
             {
-                var config = _bossBrain.bossConfigurations.HandsAttack;
+                var config = BossBrain.bossConfigurations.HandsAttack;
                 GUILayout.Label("<b>Configuration:</b>", titleStyle);
                 GUILayout.Label($"  Warning Duration: {config.handWarningDuration:F2}s");
                 GUILayout.Label($"  Attack Duration: {config.handAttackDuration:F2}s");

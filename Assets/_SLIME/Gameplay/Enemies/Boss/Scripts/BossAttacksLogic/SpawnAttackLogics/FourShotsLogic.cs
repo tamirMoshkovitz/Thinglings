@@ -35,7 +35,7 @@ namespace _SLIME.Boss
         {
             if (!_isActive) return;
             
-            float waitTime = _data.bossConfigurations.SpawnAttack.specialAttacksSettings.fourShotsWaitBetweenShots;
+            float waitTime = BossBrain.bossConfigurations.SpawnAttack.specialAttacksSettings.fourShotsWaitBetweenShots;
             
             _timer += Time.deltaTime;
             

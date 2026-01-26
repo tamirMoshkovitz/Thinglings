@@ -48,7 +48,7 @@ namespace _SLIME.Tutorial
             ResetFlash();
         }
 
-        public void TakeDamage(float damage = 0f)
+        public void TakeDamage(float damage = 0F)
         {
             TriggerFlash();
             BossHit?.Invoke();

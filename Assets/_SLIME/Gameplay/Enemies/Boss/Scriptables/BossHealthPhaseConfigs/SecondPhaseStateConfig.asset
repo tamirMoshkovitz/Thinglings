@@ -26,20 +26,20 @@ MonoBehaviour:
       bothSlimesAliveProbabilities:
         oneShot: 0.5
         twoShots: 0
-        threeShot: 0.35
-        fourShots: 0.15
+        threeShot: 0.5
+        fourShots: 0
         bulletHell: 0
       notConnectedProbabilities:
-        oneShot: 0.1
-        twoShots: 0.4
-        threeShot: 0.1
-        fourShots: 0.4
+        oneShot: 0.5
+        twoShots: 0.5
+        threeShot: 0
+        fourShots: 0
         bulletHell: 0
       oneSlimeAliveProbabilities:
-        oneShot: 0.6
-        twoShots: 0.2
+        oneShot: 0.5
+        twoShots: 0.5
         threeShot: 0
-        fourShots: 0.2
+        fourShots: 0
         bulletHell: 0
     spellSettings:
       attackAccuracyRange: {x: 0.90000004, y: 1}
@@ -47,8 +47,9 @@ MonoBehaviour:
     specialAttacksSettings:
       threeShotsAngle: 22.5
       fourShotsWaitBetweenShots: 0.4
-      bulletHellTotalAngle: 22.5
+      bulletHellTotalAngle: 45
       bulletHellWaitBetweenShots: 0.2
+      bulletHellMiddleDensityPower: 1.7
   laserAttackSettings:
     rotationCurve:
       serializedVersion: 2
@@ -98,12 +99,13 @@ MonoBehaviour:
     minWaitTime: 3
     maxWaitTime: 5
     loopSpawning: 1
+  waterAttackSettings:
+    waterDamage: 50
   bossCoreSettings:
-    maxHealth: 600
+    maxHealth: 250
   bossPhaseSettings:
-    upperHealthThreshold: 400
-    lowerHealthThreshold: 300
-    targetHitsToKill: 6
+    lowerHealthThreshold: 150
+    targetHitsToKill: 4
     expectedAvgSpeedOfSpells: 25
   littleBossMovementSettings:
     duration: 0

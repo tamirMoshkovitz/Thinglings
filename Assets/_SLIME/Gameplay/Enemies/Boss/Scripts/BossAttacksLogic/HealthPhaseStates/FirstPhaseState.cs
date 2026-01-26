@@ -1,3 +1,4 @@
+using System.Collections;
 using _SLIME.Boss;
 using _SLIME.GameLoop;
 using UnityEngine;
@@ -13,18 +14,22 @@ public class FirstPhaseState : State
         _firstPhaseConfigurations = firstPhaseConfigurations;
     }
     
-    public override void Enter()
+    public override IEnumerator Enter()
     {
-        base.Enter();
-        _bossBrain.bossConfigurations = _firstPhaseConfigurations;
+        while(_bossBrain.WaterStateActivated) yield return null;
+        yield return base.Enter();
+        
+        EnterHealth = _bossBrain.currentHealth;
+        BossBrain.bossConfigurations = _firstPhaseConfigurations;
         _bossBrain.SavePhaseCheckpoint(BossPhaseType.FirstPhase);
+        
     }
     
     public override void LogicUpdate()
     {
+        if(!active) return;
         base.LogicUpdate();
-        if (_bossBrain.currentHealth <= _firstPhaseConfigurations.PhaseSettings.upperHealthThreshold
-            && _bossBrain.currentHealth > _firstPhaseConfigurations.PhaseSettings.lowerHealthThreshold)
+        if (_bossBrain.currentHealth > _firstPhaseConfigurations.PhaseSettings.lowerHealthThreshold)
             return;
         StateMachine.ChangeState(_bossBrain.SecondPhaseState);
     }

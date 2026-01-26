@@ -49,6 +49,12 @@ public class BaseBossConfigurations : TabbedScriptableObject
     }
     
     [Serializable]
+    public struct WaterAttackSettings
+    {
+        public float waterDamage;
+    }
+    
+    [Serializable]
     public struct LaserAttackSettings
     {
         [Header("Laser Attack")]
@@ -75,9 +81,6 @@ public class BaseBossConfigurations : TabbedScriptableObject
     public struct BossPhaseSettings
     {
         [Header("Phase Settings")]
-        
-        [Tooltip("Upper health threshold to enter this phase")]
-        public float upperHealthThreshold;
         
         [Tooltip("Lower health threshold to exit this phase")]
         public float lowerHealthThreshold;
@@ -112,7 +115,9 @@ public class BaseBossConfigurations : TabbedScriptableObject
     [SerializeField] private LaserAttackSettings laserAttackSettings;
     [Tab("Attacks Settings")]
     [SerializeField] private IcicleSpawnSettings icicleSpawnSettings;
-    
+
+    [Tab("Attacks Settings")] [SerializeField]
+    private WaterAttackSettings waterAttackSettings;
     
     [Tab("Boss Core Settings")]
     [SerializeField] private BossCoreSettings bossCoreSettings;
@@ -140,4 +145,5 @@ public class BaseBossConfigurations : TabbedScriptableObject
     public LittleBossHealthSet LittleBossHealth => littleBossHealthSettings;
     public LittleBossMovementSettings LittleBossMovement => littleBossMovementSettings;
     public LittleBossSpellAttackSettings LittleBossSpellAttack => littleBossSpellAttackSettings;
+    public WaterAttackSettings WaterAttack => waterAttackSettings;
 }

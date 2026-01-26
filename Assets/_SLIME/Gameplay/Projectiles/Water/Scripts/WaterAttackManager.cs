@@ -16,7 +16,7 @@ public class WaterAttackManager : MonoBehaviour
     [SerializeField] private float initialDelay = 1f;
     [SerializeField] private float timeToAttackMode = 2f;
     [SerializeField] private float timeToMagicOut = 1f;
-    [SerializeField] private float waterAttackDamage = 10f;
+    private float waterAttackDamage => BossBrain.bossConfigurations.WaterAttack.waterDamage;
 
     [Header("References")]
     [SerializeField] private Animator animatorLeft;
@@ -93,7 +93,7 @@ public class WaterAttackManager : MonoBehaviour
         if(animatorLeft) animatorLeft.SetTrigger(hashId);
         if(animatorRight) animatorRight.SetTrigger(hashId);
         if (hashId != AttackModeTrigger) return;
-        bossBrain.TakeDamage(waterAttackDamage);
+        bossBrain.ApplyDamage(waterAttackDamage);
         bossBrain.animator.SetTrigger(waterAttackResult);
     }
 

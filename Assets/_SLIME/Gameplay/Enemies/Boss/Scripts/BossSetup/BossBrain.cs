@@ -26,12 +26,12 @@ namespace _SLIME.Boss
         public Camera mainCamera;
         
         [Header("Boss Data Setup")]
-        public BaseBossConfigurations bossConfigurations; 
+        // this is static to make life easier 
+        public static BaseBossConfigurations bossConfigurations; 
         
-        [SerializeField] BaseBossConfigurations startingPhaseConfigurations;
+        
         [SerializeField] BaseBossConfigurations firstPhaseConfigurations;
         [SerializeField] BaseBossConfigurations secondPhaseConfigurations;
-        [SerializeField] BaseBossConfigurations thirdPhaseConfigurations;
         [SerializeField] BaseBossConfigurations tunnelPhaseConfigurations;
         
         public GameObject waterStateBrain;
@@ -69,8 +69,6 @@ namespace _SLIME.Boss
         private StateMachine StateMachine { get; set; }
         public State FirstPhaseState { get; private set; }
         public State SecondPhaseState { get; private set; }
-        public State ThirdPhaseState { get; private set; }
-        public State StartingPhaseState { get; private set; }
         
         public State TunnelPhaseState { get; private set; }
         
@@ -78,15 +76,14 @@ namespace _SLIME.Boss
 
         private void Start()
         {
-            StateMachine = new StateMachine();
             
-            StartingPhaseState = new StartingPhaseState(StateMachine, this, startingPhaseConfigurations);
+            StateMachine = new StateMachine(this);
+            
             FirstPhaseState = new FirstPhaseState(StateMachine, this, firstPhaseConfigurations);
             SecondPhaseState = new SecondPhaseState(StateMachine, this, secondPhaseConfigurations);
-            ThirdPhaseState = new ThirdPhaseState(StateMachine, this, thirdPhaseConfigurations);
             TunnelPhaseState = new TunnelPhaseState(StateMachine, this, tunnelPhaseConfigurations);
-            
-            BossPhaseType savedPhase = BossPhaseType.Starting;
+
+            BossPhaseType savedPhase = BossPhaseType.FirstPhase;
             
             if (BossCheckpointManager.Instance != null)
             {
@@ -98,37 +95,22 @@ namespace _SLIME.Boss
 
                 case BossPhaseType.FirstPhase:
                     bossConfigurations = firstPhaseConfigurations;
+                    currentHealth = bossConfigurations.CoreSettings.maxHealth;
                     StateMachine.Initialize(FirstPhaseState);
                     break;
                 case BossPhaseType.SecondPhase:
                     bossConfigurations = secondPhaseConfigurations;
+                    currentHealth = bossConfigurations.CoreSettings.maxHealth;
                     StateMachine.Initialize(SecondPhaseState);
-                    break;
-                case BossPhaseType.ThirdPhase:
-                    bossConfigurations = thirdPhaseConfigurations;
-                    StateMachine.Initialize(ThirdPhaseState);
                     break;
                 case BossPhaseType.TunnelPhase:
                     bossConfigurations = tunnelPhaseConfigurations;
+                    currentHealth = bossConfigurations.CoreSettings.maxHealth;
                     StateMachine.Initialize(TunnelPhaseState);
                     break;
-                case BossPhaseType.Starting:
-                default:
-                    bossConfigurations = startingPhaseConfigurations;
-                    StateMachine.Initialize(StartingPhaseState);
-                    break;
-                
             }
             if (!mainCamera) mainCamera = Camera.main;
-            
-            if (BossCheckpointManager.Instance != null && BossCheckpointManager.Instance.CurrentSavedPhase != BossPhaseType.Starting)
-            {
-                currentHealth = bossConfigurations.PhaseSettings.upperHealthThreshold;
-            }
-            else
-            {
-                currentHealth = bossConfigurations.CoreSettings.maxHealth;
-            }
+           
 
             var allBehaviours = animator.GetBehaviours<BossBaseBehaviour>();
             foreach (var behaviour in allBehaviours)
@@ -136,7 +118,7 @@ namespace _SLIME.Boss
                 behaviour.Initialize(this);
             }
             
-            if (bossHealthBar) bossHealthBar.fillAmount = currentHealth / bossConfigurations.CoreSettings.maxHealth;
+            if (bossHealthBar) bossHealthBar.fillAmount = currentHealth / firstPhaseConfigurations.CoreSettings.maxHealth;
         }
 
        
@@ -165,26 +147,31 @@ namespace _SLIME.Boss
             float denominator = bossConfigurations.PhaseSettings.targetHitsToKill * bossConfigurations.PhaseSettings.expectedAvgSpeedOfSpells;
             if (denominator == 0) denominator = 1;
 
-            float finalDamageF = damage * (bossConfigurations.PhaseSettings.upperHealthThreshold - bossConfigurations.PhaseSettings.lowerHealthThreshold)
+            float finalDamageF = damage * (StateMachine.CurrentState.EnterHealth - bossConfigurations.PhaseSettings.lowerHealthThreshold)
                 / denominator;
-                
-            int finalDamage = Mathf.RoundToInt(finalDamageF);
+            
+            ApplyDamage(finalDamageF);
+        }
+
+        // this stupid to separate them, but I did for damage from water is different from spell damage
+        public void ApplyDamage(float finalDamage)
+        {
+            finalDamage = Mathf.RoundToInt(finalDamage);
             currentHealth -= finalDamage;
-
-
             if (bossHealthBar) bossHealthBar.fillAmount = currentHealth / bossConfigurations.CoreSettings.maxHealth;
             
-            // PopupEventsRenderer.OnRenderPointsAbove(new RenderEvent
-            //  {
-            //      eventType = EventType.BossHealth,
-            //      value = -finalDamage,
-            //      fatherTransform = null,
-            //      position = transform.position,
-            //      OnFinish = null
-            //  });
+            PopupEventsRenderer.OnRenderPointsAbove(new RenderEvent
+            {
+                eventType = EventType.BossHealth,
+                value = -finalDamage,
+                fatherTransform = null,
+                position = transform.position,
+                OnFinish = null
+            });
             GameEvents.EnemyGotBricked?.Invoke();
         }
-        
+
+
         public void BossCloseState()
         {
             if (BossState == BossStates.CloseState) return;
@@ -232,7 +219,6 @@ namespace _SLIME.Boss
                 {
                     case BossPhaseType.FirstPhase: bossConfigurations = firstPhaseConfigurations; break;
                     case BossPhaseType.SecondPhase: bossConfigurations = secondPhaseConfigurations; break;
-                    case BossPhaseType.ThirdPhase: bossConfigurations = thirdPhaseConfigurations; break;
                     case BossPhaseType.TunnelPhase: bossConfigurations = tunnelPhaseConfigurations; break;
                 }
             }
@@ -246,5 +232,7 @@ namespace _SLIME.Boss
             Vector3 size = new Vector3(Mathf.Abs(rightSpawnPoint.position.x -leftSpawnPoint.position.x), 1f, 1f);
             Gizmos.DrawWireCube(center, size);
         }
+
+        
     }
 }

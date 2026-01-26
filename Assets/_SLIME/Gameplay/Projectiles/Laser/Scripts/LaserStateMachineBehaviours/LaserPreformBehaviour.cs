@@ -6,7 +6,7 @@ namespace _SLIME.Laser
 {
     public class LaserPreformBehaviour : StateMachineBehaviour
     {
-        [FormerlySerializedAs("bossSettings")] [SerializeField] private BaseBossConfigurations bossConfigurations;
+       
         private static readonly int ExitLaser = Animator.StringToHash("ExitLaser");
 
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -16,9 +16,9 @@ namespace _SLIME.Laser
             if (logic != null)
             {
                 logic.PlayRotation(
-                    bossConfigurations.LaserAttack.rotationCurve,
-                    bossConfigurations.LaserAttack.rotationDuration,
-                    bossConfigurations.LaserAttack.totalLoops
+                    BossBrain.bossConfigurations.LaserAttack.rotationCurve,
+                    BossBrain.bossConfigurations.LaserAttack.rotationDuration,
+                    BossBrain.bossConfigurations.LaserAttack.totalLoops
                 );
             }
         }
