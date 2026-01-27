@@ -17,7 +17,7 @@ namespace _SLIME.Tutorial
         LogoState,
         RockState,
         RiseToBoss,
-        SlimeConnects,
+        BossExcited,
         SlimeTear,
         SpellHit,
         LearnSlimeToConnect,
@@ -62,7 +62,7 @@ namespace _SLIME.Tutorial
                 TutorialState.LogoState => LogoStateCoroutine(),
                 TutorialState.RockState => RockStateCoroutine(),
                 TutorialState.RiseToBoss => RiseToBossCoroutine(),
-                TutorialState.SlimeConnects => SlimeConnectsCoroutine(),
+                TutorialState.BossExcited => BossExcitedCoroutine(),
                 TutorialState.SlimeTear => SlimeTearCoroutine(),
                 TutorialState.SpellHit => SpellHitCoroutine(),
                 TutorialState.LearnSlimeToConnect => LearnSlimeToConnectCoroutine(),
@@ -113,17 +113,17 @@ namespace _SLIME.Tutorial
             var logic = new RiseToBossLogic(riseToBossStateDeps, tutorialScriptable.RiseToBossStateSet);
             _allLogics.Add(logic);
             yield return logic.Start();
-            StartCoroutine(SlimeTearCoroutine());
+            StartCoroutine(BossExcitedCoroutine());
         }
         #endregion
-        // TODO: FOR NOW THIS STATE IS NOT ACTIVE, AND MAYBE FOREVER
-        #region SlimeConnects
-        [SerializeField] private SlimeConnectsStateDeps slimeConnectsStateDeps;
         
-        private IEnumerator SlimeConnectsCoroutine()
+        #region SlimeConnects
+        [SerializeField] private BossExcitedStateDeps slimeConnectsStateDeps;
+        
+        private IEnumerator BossExcitedCoroutine()
         {
-            CurrentState = TutorialState.SlimeConnects;
-            var logic = new SlimeConnectsLogic(slimeConnectsStateDeps, tutorialScriptable.SlimeConnectsStateSet);
+            CurrentState = TutorialState.BossExcited;
+            var logic = new BossExcitedLogic(slimeConnectsStateDeps, tutorialScriptable.SlimeConnectsStateSet);
             _allLogics.Add(logic);
             yield return logic.Start();
             StartCoroutine(SlimeTearCoroutine());

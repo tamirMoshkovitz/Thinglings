@@ -62,6 +62,9 @@ namespace _SLIME.Boss
         public GameObject laserAttackGameObject;
         
         public static BossStates BossState = BossStates.FarState;
+        private static readonly int CloseHit = Animator.StringToHash("CloseHit");
+        private static readonly int FarHit = Animator.StringToHash("FarHit");
+        private static readonly int LaserHit = Animator.StringToHash("LaserHit");
         public static event Action CloseState;
         public static event Action FarState;
 
@@ -72,7 +75,10 @@ namespace _SLIME.Boss
         public State TunnelPhaseState { get; private set; }
         
         public bool WaterStateActivated { get; set;}
+        
+        public bool IsTakingDamage { get;  set; }
 
+        public int HitCounter { get; set; }
         private void Start()
         {
             
@@ -168,6 +174,20 @@ namespace _SLIME.Boss
                 OnFinish = null
             });
             GameEvents.EnemyGotBricked?.Invoke();
+            switch (BossState)
+            {
+                case BossStates.FarState:
+                    animator.SetTrigger(FarHit);
+                    break;
+                case BossStates.CloseState:
+                    animator.SetTrigger(CloseHit);
+                    break;
+                case BossStates.LaserState:
+                    animator.SetTrigger(LaserHit);
+                    break;
+            }
+            HitCounter++;
+            
         }
 
 
