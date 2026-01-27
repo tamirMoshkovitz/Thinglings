@@ -6,7 +6,7 @@ using UnityEngine;
 namespace _SLIME.Tutorial
 {
     [System.Serializable]
-    public struct SlimeConnectsStateDeps
+    public struct BossExcitedStateDeps
     {
         public Animator sorcererAnimator;
         public Transform slime1;
@@ -15,7 +15,7 @@ namespace _SLIME.Tutorial
     }
     
     [System.Serializable]
-    public struct SlimeConnectsStateSet
+    public struct BossExcitedStateSet
     {
         public string excitedTriggerName;
         public string waitForStateName;
@@ -24,13 +24,13 @@ namespace _SLIME.Tutorial
         public AnimationCurve moveEase;
     }
     
-    public class SlimeConnectsLogic : ITutorialStateLogic
+    public class BossExcitedLogic : ITutorialStateLogic
     {
-        private SlimeConnectsStateDeps _slimeConnectsStateDeps;
-        private SlimeConnectsStateSet _slimeConnectsStateSet;
+        private BossExcitedStateDeps _slimeConnectsStateDeps;
+        private BossExcitedStateSet _slimeConnectsStateSet;
         
-        public SlimeConnectsLogic(SlimeConnectsStateDeps slimeConnectsStateDeps,
-            SlimeConnectsStateSet slimeConnectsStateSet)
+        public BossExcitedLogic(BossExcitedStateDeps slimeConnectsStateDeps,
+            BossExcitedStateSet slimeConnectsStateSet)
         {
             _slimeConnectsStateDeps = slimeConnectsStateDeps;
             _slimeConnectsStateSet = slimeConnectsStateSet;
@@ -43,11 +43,8 @@ namespace _SLIME.Tutorial
         
         public IEnumerator Start()
         {
-            DisableSlimeInput();
             TriggerSorcererExcited();
             yield return WaitForAnimationToEnd();
-            yield return MoveSlimesTogether();
-            EnableSlimeInput();
         }
         
         private void DisableSlimeInput()
