@@ -81,17 +81,21 @@ namespace _SLIME.Boss
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            // If there's an active attack logic, update it and wait
-            if (_currentActiveLogic != null && _currentActiveLogic.IsActive)
-            {
-                _currentActiveLogic.UpdateAttack();
-                return;
-            }
+            
+            if(Data.IsTakingDamage) return;
             
             if (_attackCounter >= BossBrain.bossConfigurations.SpawnAttack.attacksToCast
             || Data.WaterStateActivated)
             {
                 animator.SetTrigger(AttackFinished);
+                return;
+            }
+            
+            
+            // If there's an active attack logic, update it and wait
+            if (_currentActiveLogic != null && _currentActiveLogic.IsActive)
+            {
+                _currentActiveLogic.UpdateAttack();
                 return;
             }
             
