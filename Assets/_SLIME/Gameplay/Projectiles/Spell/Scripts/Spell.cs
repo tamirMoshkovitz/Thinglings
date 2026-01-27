@@ -34,7 +34,9 @@ namespace _SLIME.Projectiles
             
             _bossAttributes = attributes;
             comp.rb.linearVelocity = Vector2.zero;
-            comp.rb.bodyType = RigidbodyType2D.Kinematic; 
+            comp.rb.bodyType = RigidbodyType2D.Kinematic;
+            comp.spellHead.transform.rotation = Quaternion.Euler(0f, 0f, attributes.z);
+
         }
         
         public void Deflect(SpellSlimeAttributes attributes)
@@ -68,7 +70,7 @@ namespace _SLIME.Projectiles
         
         public void OnHitFinished()
         {
-            Destroy(gameObject.transform.parent.gameObject);
+            Destroy(gameObject);
         }
         
         private void OnTriggerEnter2D(Collider2D other)
