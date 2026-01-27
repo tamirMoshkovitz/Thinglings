@@ -40,6 +40,8 @@ public class BaseBossConfigurations : TabbedScriptableObject
         [Tooltip("How many spells the sorcerer will create during the attack")]
         public int attacksToCast;
         
+        [Tooltip("How many spells the sorcerer will get until changing to laser/hands")]
+        public int hitThreshold;
         
         public SpawnSettings spawnSettings;
         
@@ -48,6 +50,7 @@ public class BaseBossConfigurations : TabbedScriptableObject
         
         [Tooltip("Special Attacks Settings")]
         public SpellSpecialAttacksSettings specialAttacksSettings;
+
     }
     
     [Serializable]

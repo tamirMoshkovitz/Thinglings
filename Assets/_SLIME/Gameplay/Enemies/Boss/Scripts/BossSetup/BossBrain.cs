@@ -78,6 +78,7 @@ namespace _SLIME.Boss
         
         public bool IsTakingDamage { get;  set; }
 
+        public int HitCounter { get; set; }
         private void Start()
         {
             
@@ -185,6 +186,8 @@ namespace _SLIME.Boss
                     animator.SetTrigger(LaserHit);
                     break;
             }
+            HitCounter++;
+            
         }
 
 

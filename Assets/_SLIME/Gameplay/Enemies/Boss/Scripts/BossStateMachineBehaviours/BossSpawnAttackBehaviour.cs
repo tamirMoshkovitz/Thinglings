@@ -48,6 +48,7 @@ namespace _SLIME.Boss
         
         private Dictionary<PossibleAttacks, ISpellAttackLogic> _attackLogics;
         private ISpellAttackLogic _currentActiveLogic;
+       
 
         public override void Initialize(BossBrain brain)
         {
@@ -77,7 +78,9 @@ namespace _SLIME.Boss
             _attackCounter = 0;
             _timer = 0f;
             _currentDelay = 0f;
+            Data.HitCounter = 0;
         }
+        
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
@@ -85,7 +88,7 @@ namespace _SLIME.Boss
             if(Data.IsTakingDamage) return;
             
             if (_attackCounter >= BossBrain.bossConfigurations.SpawnAttack.attacksToCast
-            || Data.WaterStateActivated)
+            || Data.WaterStateActivated || Data.HitCounter >= BossBrain.bossConfigurations.SpawnAttack.hitThreshold)
             {
                 animator.SetTrigger(AttackFinished);
                 return;
@@ -154,6 +157,7 @@ namespace _SLIME.Boss
             }
             
             _currentActiveLogic = null;
+            Data.HitCounter = 0;
         }
     }
 }
