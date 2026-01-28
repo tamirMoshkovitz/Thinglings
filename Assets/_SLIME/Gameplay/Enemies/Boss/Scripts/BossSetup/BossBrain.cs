@@ -187,7 +187,7 @@ namespace _SLIME.Boss
                     break;
             }
             HitCounter++;
-            
+            IsTakingDamage = true;
         }
 
 
