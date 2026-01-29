@@ -956,6 +956,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4622440772077818780, guid: 9282f6fc0abe4479b9c557861dd0467c, type: 3}
   m_PrefabInstance: {fileID: 3346243743947891324}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &820194646 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1824815647352372669, guid: 9282f6fc0abe4479b9c557861dd0467c, type: 3}
+  m_PrefabInstance: {fileID: 3346243743947891324}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &832515194
 Mesh:
   m_ObjectHideFlags: 0
@@ -1231,7 +1236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2042281858186404324, guid: 360b175a27bd442d69d4f7cc2c2b7616, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2042281858186404324, guid: 360b175a27bd442d69d4f7cc2c2b7616, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1529,6 +1534,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 194749317}
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: riseToBossStateDeps.Backgorund
+      value: 
+      objectReference: {fileID: 820194646}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: riseToBossStateDeps.mainCamera
       value: 
       objectReference: {fileID: 230139385}
@@ -1758,7 +1767,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 116590879119255957, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.48
+      value: 0.58
       objectReference: {fileID: 0}
     - target: {fileID: 116590879119255957, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
       propertyPath: m_LocalPosition.z
