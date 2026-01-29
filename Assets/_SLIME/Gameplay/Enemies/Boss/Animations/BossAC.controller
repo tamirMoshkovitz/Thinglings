@@ -465,7 +465,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: HandsToSpawnTransition
-  m_Speed: -1
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 4478506374506996456}
@@ -479,7 +479,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: a3139e8c4bc834a8fbd577281ea1e7c2, type: 2}
+  m_Motion: {fileID: 7400000, guid: 726fc574f5d3a4d76a31773b27de49d3, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1908,7 +1908,7 @@ AnimatorStateMachine:
     m_Position: {x: -30, y: 390, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4641653503138858233}
-    m_Position: {x: 440, y: 390, z: 0}
+    m_Position: {x: 440, y: 380, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 9158375251069405680}
     m_Position: {x: 440, y: 250, z: 0}
