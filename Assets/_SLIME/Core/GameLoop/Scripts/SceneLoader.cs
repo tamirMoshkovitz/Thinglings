@@ -167,7 +167,8 @@ namespace _SLIME.GameLoop
             if (opts.animator.updateMode != AnimatorUpdateMode.UnscaledTime)
                 opts.animator.updateMode = AnimatorUpdateMode.UnscaledTime;
             opts.animator.SetTrigger(opts.triggerName);
-            yield return new WaitForSeconds(1.3f);
+            yield return new WaitForSeconds(3f);
+            opts.animator.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("UI");
             AsyncOperation loadOp;
             if (_preloadedScenes.TryGetValue(newSceneType, out AsyncOperation preloadedOp))
             {

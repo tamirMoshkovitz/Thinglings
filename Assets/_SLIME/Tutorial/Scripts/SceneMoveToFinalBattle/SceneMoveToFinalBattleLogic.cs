@@ -2,6 +2,8 @@ using System.Collections;
 using _SLIME.GameLoop;
 using _SLIME.Slime;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 namespace _SLIME.Tutorial
 {
@@ -12,6 +14,7 @@ namespace _SLIME.Tutorial
         public Animator transitionAnimator;
         public GameObject tutorialBoss;
         public GameObject slime;
+        public UnityEngine.InputSystem.PlayerInput slimeInput;
     }
     
     [System.Serializable]
@@ -40,7 +43,8 @@ namespace _SLIME.Tutorial
         
         public IEnumerator Start()
         {
-            _deps.slime.SetActive(false);
+            // DisableSlimeInput();
+            // SetSlimeRenderersToUILayer();
             _deps.tutorialBoss.SetActive(false); 
             _deps.transitionAnimator.transform.SetParent(null, true);
             Object.DontDestroyOnLoad(_deps.transitionAnimator.gameObject);
@@ -48,6 +52,29 @@ namespace _SLIME.Tutorial
             LoadFinalBattleSceneWithAnimationTransition();
             
             yield break;
+        }
+        
+        private void SetSlimeRenderersToUILayer()
+        {
+            if (_deps.slime == null) return;
+            int uiLayerId = SortingLayer.NameToID("UI");
+            const int order = 10;
+            foreach (var r in _deps.slime.GetComponentsInChildren<Renderer>(true))
+            {
+                r.sortingLayerID = uiLayerId;
+                r.sortingOrder = order;
+            }
+            foreach (var g in _deps.slime.GetComponentsInChildren<SortingGroup>(true))
+            {
+                g.sortingLayerID = uiLayerId;
+                g.sortingOrder = order;
+            }
+        }
+        
+        private void DisableSlimeInput()
+        {
+            if (_deps.slimeInput != null)
+                _deps.slimeInput.enabled = false;
         }
         
         
