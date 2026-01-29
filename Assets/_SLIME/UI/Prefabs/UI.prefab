@@ -32,8 +32,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6866069895686871503}
-  - {fileID: 6313811129003224179}
   - {fileID: 6933584702658794541}
+  - {fileID: 6313811129003224179}
   m_Father: {fileID: 6539070459137520327}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -254,8 +254,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 41.44586, y: 475.44006}
-  m_SizeDelta: {x: 464.5968, y: 38.6529}
+  m_AnchoredPosition: {x: 18.1823, y: 430.1427}
+  m_SizeDelta: {x: 533.3154, y: 82.9383}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &431164213483153897
 CanvasRenderer:
@@ -330,7 +330,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 14, y: 451}
-  m_SizeDelta: {x: 868.9786, y: 488.8006}
+  m_SizeDelta: {x: 566, y: 258}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8156287765728931289
 CanvasRenderer:
@@ -360,7 +360,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 2632cf6717209fb4aa254020b2430f66, type: 3}
+  m_Texture: {fileID: 2800000, guid: db728c2c58dbe4948870fd38a24691a4, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -384,7 +384,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6866069895686871503
 RectTransform:
   m_ObjectHideFlags: 0
