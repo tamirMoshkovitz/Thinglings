@@ -51,7 +51,19 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 31a589130d44a42b793651bf43ab24f5, type: 3}
+      value: {fileID: 21300000, guid: 8ac4c0505eaa24d7e8a733fd041d7637, type: 3}
+    - time: 0.083333336
+      value: {fileID: 21300000, guid: 468b69c1e9af34286848cb1a4551c9d4, type: 3}
+    - time: 0.16666667
+      value: {fileID: 21300000, guid: 5b3eb086cd0db4aea9ad1f1a6cb4a1a9, type: 3}
+    - time: 0.25
+      value: {fileID: 21300000, guid: f77a9bdbb49874855843cd78e7d5143a, type: 3}
+    - time: 0.33333334
+      value: {fileID: 21300000, guid: be612c3f3711a4681985fcf5048abd8a, type: 3}
+    - time: 0.41666666
+      value: {fileID: 21300000, guid: 9452b616deb7c42be90c6d122060ef0d, type: 3}
+    - time: 0.5
+      value: {fileID: 21300000, guid: 37e38a814b2084941b6e73388e72cd38, type: 3}
     attribute: m_Sprite
     path: Visuals/ThinglingEyes/ThinglingBody
     classID: 212
@@ -93,13 +105,19 @@ AnimationClip:
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
     - {fileID: 21300000, guid: 263b6347a4dec4ef098dd93a450c57c6, type: 3}
-    - {fileID: 21300000, guid: 31a589130d44a42b793651bf43ab24f5, type: 3}
+    - {fileID: 21300000, guid: 8ac4c0505eaa24d7e8a733fd041d7637, type: 3}
+    - {fileID: 21300000, guid: 468b69c1e9af34286848cb1a4551c9d4, type: 3}
+    - {fileID: 21300000, guid: 5b3eb086cd0db4aea9ad1f1a6cb4a1a9, type: 3}
+    - {fileID: 21300000, guid: f77a9bdbb49874855843cd78e7d5143a, type: 3}
+    - {fileID: 21300000, guid: be612c3f3711a4681985fcf5048abd8a, type: 3}
+    - {fileID: 21300000, guid: 9452b616deb7c42be90c6d122060ef0d, type: 3}
+    - {fileID: 21300000, guid: 37e38a814b2084941b6e73388e72cd38, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.083333336
+    m_StopTime: 0.5833333
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
