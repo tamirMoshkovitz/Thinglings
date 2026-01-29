@@ -1,5 +1,6 @@
 using System.Collections;
 using _SLIME.GameLoop;
+using _SLIME.Slime;
 using UnityEngine;
 
 namespace _SLIME.Tutorial
@@ -7,6 +8,7 @@ namespace _SLIME.Tutorial
     [System.Serializable]
     public struct SceneMoveToFinalBattleStateDeps
     {
+        [Tooltip("Root of transition UI (Animator on it). Moved to DontDestroyOnLoad before unload, destroyed at end of transition.")]
         public Animator transitionAnimator;
         public GameObject tutorialBoss;
         public GameObject slime;
@@ -39,33 +41,25 @@ namespace _SLIME.Tutorial
         public IEnumerator Start()
         {
             _deps.slime.SetActive(false);
-            _deps.tutorialBoss.SetActive(false);
-            TriggerTransitionAnimation();
-            yield return WaitForAnimationEnd();
-            LoadFinalBattleScene();
-        }
-        
-        private void TriggerTransitionAnimation()
-        {
-            _deps.transitionAnimator.SetTrigger(_set.transitionTriggerName);
-        }
-        
-        private IEnumerator WaitForAnimationEnd()
-        {
-            while (!_deps.transitionAnimator.GetCurrentAnimatorStateInfo(0).IsName(_set.transitionAnimationStateName))
-            {
-                yield return null;
-            }
+            _deps.tutorialBoss.SetActive(false); 
+            _deps.transitionAnimator.transform.SetParent(null, true);
+            Object.DontDestroyOnLoad(_deps.transitionAnimator.gameObject);
+            SlimeEvents.RemoveCameraShake();
+            LoadFinalBattleSceneWithAnimationTransition();
             
-            while (_deps.transitionAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
-            {
-                yield return null;
-            }
+            yield break;
         }
         
-        private void LoadFinalBattleScene()
+        
+        private void LoadFinalBattleSceneWithAnimationTransition()
         {
-            SceneLoader.LoadScene(SceneType.BossFinalBattleScene);
+            var opts = new AnimationTransitionOptions
+            {
+                animator = _deps.transitionAnimator,
+                triggerName = _set.transitionTriggerName,
+                stateName = _set.transitionAnimationStateName
+            };
+            SceneLoader.LoadScene(SceneType.BossFinalBattleScene, SlimeEvents.AddCameraShake, opts);
         }
     }
 }

@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using _SLIME.Generics; 
+using _SLIME.Generics;
+using _SLIME.Slime;
 
 namespace _SLIME.GameLoop
 {
@@ -14,6 +15,18 @@ namespace _SLIME.GameLoop
         StartSceneAfterDeath,
         BossFinalBattleScene,
         ManagerScene
+    }
+
+    /// <summary>
+    /// Use for transition-to-final-battle: no fade, animation plays during load.
+    /// Caller must DontDestroyOnLoad(animator.gameObject) before load; animator is destroyed at end of transition.
+    /// Uses UnscaledTime so it keeps playing while Time.timeScale = 0.
+    /// </summary>
+    public struct AnimationTransitionOptions
+    {
+        public Animator animator;
+        public string triggerName;
+        public string stateName;
     }
     
     public class SceneLoader : MonoSingleton<SceneLoader>
@@ -31,7 +44,58 @@ namespace _SLIME.GameLoop
         private static readonly List<Action> _oneTimeActions = new();
         
         public static SceneType CurrentSceneType => indexToSceneType[SceneManager.GetActiveScene().name];
+        
+        private static Dictionary<SceneType, AsyncOperation> _preloadedScenes = new Dictionary<SceneType, AsyncOperation>();
 
+        public static void StartBackgroundLoading(SceneType sceneType)
+        {
+            
+            if (_preloadedScenes.ContainsKey(sceneType))
+            {
+                Debug.LogWarning($"Scene '{sceneType}' is already pre-loading.");
+                return;
+            }
+
+            Instance.StartCoroutine(Instance.LoadSceneInBackground(sceneType));
+        }
+
+        private IEnumerator LoadSceneInBackground(SceneType sceneType)
+        {
+            string sceneName = sceneTypeToIndex[sceneType];
+            Debug.Log($"[SceneLoader] Starting secure background load for: {sceneName}");
+
+            Application.backgroundLoadingPriority = ThreadPriority.Low;
+
+            AsyncOperation op = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+    
+         
+            op.allowSceneActivation = false;
+            
+            if (!_preloadedScenes.ContainsKey(sceneType))
+            {
+                _preloadedScenes.Add(sceneType, op);
+            }
+
+  
+            while (!op.isDone)
+            {
+                
+                if (op.progress >= 0.9f)
+                {
+                    Debug.Log($"[SceneLoader] Scene {sceneName} ready at 90% and waiting (Activation: {op.allowSceneActivation})");
+                    break; 
+                }
+                yield return null;
+            }
+        }
+        
+        public static void CancelPreload(SceneType sceneType)
+        {
+            if (_preloadedScenes.ContainsKey(sceneType))
+            {
+                _preloadedScenes.Remove(sceneType);
+            }
+        }
         static SceneLoader()
         {
             sceneTypeToIndex.Add(SceneType.StartScene, "FirstScene");
@@ -51,7 +115,14 @@ namespace _SLIME.GameLoop
         {
             SceneManager.LoadSceneAsync(sceneTypeToIndex[SceneType.ManagerScene], LoadSceneMode.Additive);
         }
-        
+
+
+        private void Start()
+        {
+            if(SceneManager.GetActiveScene().name != sceneTypeToIndex[SceneType.BossFinalBattleScene]) 
+                StartBackgroundLoading(SceneType.BossFinalBattleScene);
+        }
+
 
         protected override void Awake()
         {
@@ -72,14 +143,64 @@ namespace _SLIME.GameLoop
         
         // --- Load Logic ---
         
-        public static void LoadScene(SceneType sceneType, Action callback = null)
+        public static void LoadScene(SceneType sceneType, Action callback = null, AnimationTransitionOptions? transitionOptions = null)
         {
             if (callback != null) AddOneTimeAction(callback);
             
-            Instance.StartCoroutine(Instance.ProcessSceneLoading(sceneTypeToIndex[sceneType]));
+            Instance.StartCoroutine(Instance.ProcessSceneLoading(sceneType, transitionOptions));
         }
 
-        private IEnumerator ProcessSceneLoading(string newSceneName)
+        private IEnumerator ProcessSceneLoading(SceneType newSceneType, AnimationTransitionOptions? transitionOptions = null)
+        {
+            string newSceneName = sceneTypeToIndex[newSceneType];
+            bool useAnimationTransition = transitionOptions.HasValue &&
+                transitionOptions.Value.animator != null &&
+                !string.IsNullOrEmpty(transitionOptions.Value.stateName);
+
+            if (!useAnimationTransition)
+            {
+                yield return StartCoroutine(ProcessSceneLoadingWithFade(newSceneName));
+                yield break;
+            }
+            
+            var opts = transitionOptions.Value;
+            if (opts.animator.updateMode != AnimatorUpdateMode.UnscaledTime)
+                opts.animator.updateMode = AnimatorUpdateMode.UnscaledTime;
+            opts.animator.SetTrigger(opts.triggerName);
+            yield return new WaitForSeconds(1.3f);
+            AsyncOperation loadOp;
+            if (_preloadedScenes.TryGetValue(newSceneType, out AsyncOperation preloadedOp))
+            {
+                Debug.Log($"Using preloaded scene for type: {newSceneType}");
+                loadOp = preloadedOp;
+                _preloadedScenes.Remove(newSceneType); 
+                loadOp.allowSceneActivation = true;
+            }
+            else
+            {
+                Debug.Log($"No preload found for {newSceneType}. Starting fresh load.");
+                loadOp = SceneManager.LoadSceneAsync(newSceneName, LoadSceneMode.Additive);
+            }
+            Scene currentScene = SceneManager.GetActiveScene();
+            yield return SceneManager.UnloadSceneAsync(currentScene);
+            Application.backgroundLoadingPriority = ThreadPriority.Low;
+            while (!loadOp.isDone) yield return null;
+            Application.backgroundLoadingPriority = ThreadPriority.Normal;
+            opts.animator.transform.position = Vector3.zero;
+            Scene newScene = SceneManager.GetSceneByName(newSceneName);
+            Scene managerScene = SceneManager.GetSceneByName(sceneTypeToIndex[SceneType.ManagerScene]);
+            SceneManager.SetActiveScene(managerScene);
+            Time.timeScale = 0f;
+            
+            
+            yield return WaitForAnimationEnd(opts.animator, opts.stateName);
+
+            SceneManager.SetActiveScene(newScene);
+            Time.timeScale = 1f;
+            Destroy(opts.animator.gameObject);
+        }
+
+        private IEnumerator ProcessSceneLoadingWithFade(string newSceneName)
         {
             GameObject loadingScreenInstance = Instantiate(_loadingScreenPrefab, transform);
             Image fadeImage = loadingScreenInstance.GetComponentInChildren<Image>();
@@ -87,10 +208,7 @@ namespace _SLIME.GameLoop
             yield return StartCoroutine(Fade(fadeImage, 0, 1));
 
             Scene currentScene = SceneManager.GetActiveScene();
-
-            
             yield return SceneManager.UnloadSceneAsync(currentScene);
-            
 
             AsyncOperation loadOp = SceneManager.LoadSceneAsync(newSceneName, LoadSceneMode.Additive);
             while (!loadOp.isDone) yield return null;
@@ -103,6 +221,15 @@ namespace _SLIME.GameLoop
             Time.timeScale = 1f;
 
             Destroy(loadingScreenInstance);
+        }
+
+        private static IEnumerator WaitForAnimationEnd(Animator animator, string stateName)
+        {
+            while (!animator.GetCurrentAnimatorStateInfo(0).IsName(stateName))
+                yield return null;
+
+            while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+                yield return null;
         }
 
         private IEnumerator Fade(Image targetImage, float startAlpha, float endAlpha)
