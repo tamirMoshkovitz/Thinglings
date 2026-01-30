@@ -123,7 +123,7 @@ MonoBehaviour:
   Name: battle scenes
   StudioPath: 
   Min: 0
-  Max: 3
+  Max: 4
   Default: 0
   ID:
     data1: 3574550863
@@ -135,6 +135,7 @@ MonoBehaviour:
   - boss phase1
   - boss phase 2
   - boss phase 3
+  - boss phase 4
   Exists: 1
 --- !u!114 &-6245422734093149467
 MonoBehaviour:
@@ -151,7 +152,7 @@ MonoBehaviour:
   Name: battle scenes
   StudioPath: parameter:/battle scenes
   Min: 0
-  Max: 3
+  Max: 4
   Default: 0
   ID:
     data1: 3574550863
@@ -163,6 +164,7 @@ MonoBehaviour:
   - boss phase1
   - boss phase 2
   - boss phase 3
+  - boss phase 4
   Exists: 1
 --- !u!114 &-5650856591127531539
 MonoBehaviour:
@@ -233,10 +235,10 @@ MonoBehaviour:
   Path: Assets/_SLIME/FMOD Assets/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639051278833852809
+  lastModified: 639052824729433734
   FileSizes:
   - Name: Desktop
-    Value: 1384
+    Value: 1430
   Exists: 1
 --- !u!114 &-4823524259861096094
 MonoBehaviour:
@@ -345,9 +347,34 @@ MonoBehaviour:
   Parameters:
   - {fileID: -6342316690607164867}
   - {fileID: 6342239711308556801}
+  - {fileID: -3515608019214814385}
   MinDistance: 1
   MaxDistance: 20
-  Length: 333333
+  Length: 397333
+--- !u!114 &-3515608019214814385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Music/water checkpoint
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
+  Name: water checkpoint
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3882323861
+    data2: 2845666611
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-2838178896613638855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,10 +499,10 @@ MonoBehaviour:
   Path: Assets/_SLIME/FMOD Assets/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639051278833822958
+  lastModified: 639052824729412043
   FileSizes:
   - Name: Desktop
-    Value: 6515776
+    Value: 7130816
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -512,7 +539,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: -5000869514876377611}
   cacheVersion: 131857
-  cacheTime: 639051278833852809
+  cacheTime: 639052824729433734
   SerializableEventsDict:
   - key: event:/Music
     index: 0

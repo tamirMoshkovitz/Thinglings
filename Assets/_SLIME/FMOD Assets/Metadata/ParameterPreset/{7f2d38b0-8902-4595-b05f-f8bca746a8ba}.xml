@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{7f2d38b0-8902-4595-b05f-f8bca746a8ba}">
+		<property name="name">
+			<value>water checkpoint</value>
+		</property>
+		<relationship name="folder">
+			<destination>{e9be661c-660b-4f2c-820b-ed11e40c4884}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{b22a19ca-dfbb-4f78-b4f3-4027020dedef}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{b22a19ca-dfbb-4f78-b4f3-4027020dedef}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
