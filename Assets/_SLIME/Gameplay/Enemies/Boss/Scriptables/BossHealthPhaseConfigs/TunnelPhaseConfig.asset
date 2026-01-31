@@ -27,21 +27,21 @@ MonoBehaviour:
       delayBetweenAttacks: {x: 1, y: 1.5}
       bothSlimesAliveProbabilities:
         oneShot: 0
-        twoShots: 0
+        twoShots: 0.1
         threeShot: 0.4
-        fourShots: 0.1
+        fourShots: 0
         bulletHell: 0.5
       notConnectedProbabilities:
         oneShot: 0
-        twoShots: 0
-        threeShot: 0
-        fourShots: 0.5
-        bulletHell: 0.5
-      oneSlimeAliveProbabilities:
-        oneShot: 0.25
         twoShots: 0.5
         threeShot: 0
         fourShots: 0
+        bulletHell: 0.5
+      oneSlimeAliveProbabilities:
+        oneShot: 0.25
+        twoShots: 0
+        threeShot: 0
+        fourShots: 0.5
         bulletHell: 0.25
     spellSettings:
       attackAccuracyRange: {x: 0.9, y: 1}
@@ -104,13 +104,19 @@ MonoBehaviour:
   waterAttackSettings:
     waterDamage: 50
   lightHouseSettings:
-    attackDuration: {x: 4, y: 4}
-    mainBeamSpeedPerSecond: {x: 120, y: 160}
-    otherBeamsSpeedPerSecond: {x: 80, y: 120}
+    attackDuration: {x: 10, y: 10}
+    mainBeamSpeedPerSecond: {x: 120, y: 200}
+    otherBeamsSpeedPerSecond: {x: 120, y: 180}
     angleFromMainBeam: {x: 45, y: 200.21394}
     mainBeamAngleFromSlimes: {x: 15, y: 20}
     minBeamAngleDistance: 45
     timeToCheckForMainBeanSwitch: 0.5
+    directionFlipTransitionDuration: 1.5
+    minSpeedDifference: 15
+    beamShakeDuration: 0.5
+    beamShakeStrength: 0.5
+    beamShakeVibrato: 2
+    beamShakeRandomness: 5
   bossCoreSettings:
     maxHealth: 150
   bossPhaseSettings:

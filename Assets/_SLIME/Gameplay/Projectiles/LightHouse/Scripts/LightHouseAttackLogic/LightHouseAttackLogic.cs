@@ -14,6 +14,9 @@ namespace _SLIME.LightHouse
         private LightHouseSets _lightHouseSets;
         public bool HasFinishedAction { get; set; }
         public bool FinishedAttack { get; set; }
+        private float _mainDirectionEffective;
+        private int _mainBeamIndex;
+        private bool _transitionInProgress;
         
         private struct LaserInfo
         {
@@ -31,6 +34,8 @@ namespace _SLIME.LightHouse
         private void InitializeLocations()
         {
             Transform furthestSlime = GetFurthestSlime();
+          
+
             Transform center = lightHouseDeps.lighthouseCenter;
             Vector3 centerPos = center.position;
             float furthestSlimeDist = Vector2.Distance(centerPos, furthestSlime.position);
@@ -42,7 +47,7 @@ namespace _SLIME.LightHouse
                 new() { rotationPoint = lightHouseDeps.farLaserRotationPoint, distanceFromCenter = Vector2.Distance(centerPos, lightHouseDeps.farLaserHitPoint.position) }
             };
             
-            int mainIndex = 0;
+            _mainBeamIndex = 0;
             float bestDiff = Mathf.Abs(lasers[0].distanceFromCenter - furthestSlimeDist);
             for (int i = 1; i < lasers.Count; i++)
             {
@@ -50,7 +55,7 @@ namespace _SLIME.LightHouse
                 if (diff < bestDiff)
                 {
                     bestDiff = diff;
-                    mainIndex = i;
+                    _mainBeamIndex = i;
                 }
             }
             
@@ -61,11 +66,11 @@ namespace _SLIME.LightHouse
             if (Random.value > 0.5f) deviation = -deviation;
             float mainAngle = slimeAngle + deviation;
             
-            lasers[mainIndex].rotationPoint.rotation = Quaternion.Euler(0f, 0f, mainAngle);
+            lasers[_mainBeamIndex].rotationPoint.rotation = Quaternion.Euler(0f, 0f, mainAngle);
             
             var otherIndices = new List<int>();
             for (int i = 0; i < lasers.Count; i++)
-                if (i != mainIndex) otherIndices.Add(i);
+                if (i != _mainBeamIndex) otherIndices.Add(i);
             
             float minDist = _lightHouseSets.minBeamAngleDistance;
             var usedAngles = new List<float> { mainAngle };
@@ -141,74 +146,94 @@ namespace _SLIME.LightHouse
             float duration = Random.Range(_lightHouseSets.attackDuration.x, _lightHouseSets.attackDuration.y);
             float mainSpeed = Random.Range(_lightHouseSets.mainBeamSpeedPerSecond.x, _lightHouseSets.mainBeamSpeedPerSecond.y);
             float otherSpeed = Random.Range(_lightHouseSets.otherBeamsSpeedPerSecond.x, _lightHouseSets.otherBeamsSpeedPerSecond.y);
+            float minDiff = _lightHouseSets.minSpeedDifference;
+            if (Mathf.Abs(mainSpeed - otherSpeed) < minDiff)
+            {
+                float mid = (mainSpeed + otherSpeed) * 0.5f;
+                mainSpeed = mid + minDiff * 0.5f;
+                otherSpeed = mid - minDiff * 0.5f;
+                if (otherSpeed < 1f) { otherSpeed = 1f; mainSpeed = otherSpeed + minDiff; }
+            }
+            float transitionDuration = Mathf.Max(0.01f, _lightHouseSets.directionFlipTransitionDuration);
+            float checkInterval = Mathf.Max(0.1f, _lightHouseSets.timeToCheckForMainBeanSwitch);
+            
+            int desiredDir = GetDesiredMainDirection();
+            _mainDirectionEffective = desiredDir;
             
             var rotPoints = new[] { lightHouseDeps.closeLaserRotationPoint, lightHouseDeps.midLaserRotationPoint, lightHouseDeps.farLaserRotationPoint };
-            var hitPoints = new[] { lightHouseDeps.closeLaserHitPoint, lightHouseDeps.midLaserHitPoint, lightHouseDeps.farLaserHitPoint };
-            
-            int mainIndex = GetMainBeamIndex(rotPoints, hitPoints);
-            int mainDir = GetMainBeamDirection(rotPoints[mainIndex]);
-            int otherDir = -mainDir;
-            
-            float checkTimer = 0f;
+            float timeSinceLastCheck = 0f;
             
             while (duration > 0f)
             {
                 float dt = Time.deltaTime;
                 duration -= dt;
-                checkTimer += dt;
+                timeSinceLastCheck += dt;
                 
-                if (checkTimer >= _lightHouseSets.timeToCheckForMainBeanSwitch)
+                if (!_transitionInProgress && timeSinceLastCheck >= checkInterval)
                 {
-                    checkTimer = 0f;
-                    int newMain = GetMainBeamIndex(rotPoints, hitPoints);
-                    if (newMain != mainIndex)
+                    timeSinceLastCheck = 0f;
+                    int newDesired = GetDesiredMainDirection();
+                    int currentDir = _mainDirectionEffective >= 0 ? 1 : -1;
+                    if (newDesired != currentDir && duration > transitionDuration)
                     {
-                        mainIndex = newMain;
-                        mainDir = GetMainBeamDirection(rotPoints[mainIndex]);
-                        otherDir = -mainDir;
+                        _transitionInProgress = true;
+                        StartCoroutine(TransitionDirection(newDesired, transitionDuration));
                     }
                 }
                 
                 for (int i = 0; i < 3; i++)
                 {
-                    float speed = i == mainIndex ? mainSpeed : otherSpeed;
-                    int dir = i == mainIndex ? mainDir : otherDir;
+                    float beamSpeed = i == _mainBeamIndex ? mainSpeed : otherSpeed;
+                    float effective = i == _mainBeamIndex ? _mainDirectionEffective : -_mainDirectionEffective;
                     float currentZ = rotPoints[i].eulerAngles.z;
-                    rotPoints[i].rotation = Quaternion.Euler(0f, 0f, NormalizeAngle(currentZ + speed * dir * dt));
+                    rotPoints[i].rotation = Quaternion.Euler(0f, 0f, NormalizeAngle(currentZ + beamSpeed * effective * dt));
                 }
                 
                 yield return null;
             }
             
             FinishedAttack = true;
-            HasFinishedAction = true;
         }
         
-        private int GetMainBeamIndex(Transform[] rotPoints, Transform[] hitPoints)
+        private IEnumerator TransitionDirection(int mainTarget, float transitionDuration)
         {
-            Transform furthest = GetFurthestSlime();
-            Vector3 centerPos = lightHouseDeps.lighthouseCenter.position;
-            float furthestDist = Vector2.Distance(centerPos, furthest.position);
-            
-            int best = 0;
-            float bestDiff = float.MaxValue;
-            for (int i = 0; i < 3; i++)
+            float oldDir = _mainDirectionEffective;
+            float t = 0f;
+            while (t < 1f)
             {
-                float hd = Vector2.Distance(centerPos, hitPoints[i].position);
-                float diff = Mathf.Abs(hd - furthestDist);
-                if (diff < bestDiff) { bestDiff = diff; best = i; }
+                t += Time.deltaTime / transitionDuration;
+                t = Mathf.Clamp01(t);
+                float param = (1f - Mathf.Cos(Mathf.PI * t)) * 0.5f;
+                _mainDirectionEffective = Mathf.Lerp(oldDir, mainTarget, param);
+                yield return null;
             }
-            return best;
+            _mainDirectionEffective = mainTarget;
+            _transitionInProgress = false;
         }
         
-        private int GetMainBeamDirection(Transform mainBeam)
+        private int GetDesiredMainDirection()
         {
             Transform furthest = GetFurthestSlime();
-            Vector2 toSlime = (Vector2)(furthest.position - lightHouseDeps.lighthouseCenter.position);
-            float targetZ = DirectionToLaserRotationZ(Mathf.Atan2(toSlime.y, toSlime.x) * Mathf.Rad2Deg);
-            float currentZ = mainBeam.eulerAngles.z;
-            float delta = Mathf.DeltaAngle(currentZ, targetZ);
-            return Mathf.Abs(delta) < 0.1f ? 1 : (delta > 0 ? 1 : -1);
+            Transform mainRotation = GetMainBeamRotationPoint();
+            Vector3 centerPos = lightHouseDeps.lighthouseCenter.position;
+            Vector2 toSlime = (Vector2)(furthest.position - centerPos);
+            float atan2Deg = Mathf.Atan2(toSlime.y, toSlime.x) * Mathf.Rad2Deg;
+            float slimeAngle = DirectionToLaserRotationZ(atan2Deg);
+            float beamAngle = mainRotation.eulerAngles.z;
+            float delta = Mathf.DeltaAngle(beamAngle, slimeAngle);
+            if (Mathf.Abs(delta) < 1f) return _mainDirectionEffective >= 0 ? 1 : -1;
+            return delta > 0 ? 1 : -1;
+        }
+        
+        private Transform GetMainBeamRotationPoint()
+        {
+            return _mainBeamIndex switch
+            {
+                0 => lightHouseDeps.closeLaserRotationPoint,
+                1 => lightHouseDeps.midLaserRotationPoint,
+                2 => lightHouseDeps.farLaserRotationPoint,
+                _ => lightHouseDeps.midLaserRotationPoint
+            };
         }
         
         private Transform GetFurthestSlime()
