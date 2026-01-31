@@ -62,7 +62,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d31fb1fcfaa97034485a13bf118e0dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Boss.BossAttackRandomizer
-  availableAttacks: 01000000
+  firstPhaseAttacks: 01000000
+  secondPhaseAttacks: 01000000
+  tunnelPhaseAttacks: 01000000
   duration: 0
 --- !u!114 &-8619667612192824893
 MonoBehaviour:
@@ -76,7 +78,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d31fb1fcfaa97034485a13bf118e0dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Boss.BossAttackRandomizer
-  availableAttacks: 01000000
+  firstPhaseAttacks: 01000000
+  secondPhaseAttacks: 01000000
+  tunnelPhaseAttacks: 01000000
   duration: 0
 --- !u!1101 &-8576174175351660264
 AnimatorStateTransition:
@@ -589,7 +593,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d31fb1fcfaa97034485a13bf118e0dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Boss.BossAttackRandomizer
-  availableAttacks: 01000000
+  firstPhaseAttacks: 01000000
+  secondPhaseAttacks: 01000000
+  tunnelPhaseAttacks: 01000000
   duration: 0
 --- !u!1102 &-3932589265828635652
 AnimatorState:
@@ -1069,7 +1075,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d31fb1fcfaa97034485a13bf118e0dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Boss.BossAttackRandomizer
-  availableAttacks: 0200000000000000
+  firstPhaseAttacks: 0200000000000000
+  secondPhaseAttacks: 0200000000000000
+  tunnelPhaseAttacks: 0200000000000000
   duration: 0
 --- !u!1102 &-322437260132301702
 AnimatorState:

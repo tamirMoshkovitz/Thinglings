@@ -15,9 +15,10 @@ namespace _SLIME.Boss
 {
     public class BossAttackRandomizer : BossBaseBehaviour
     {
-        
-        [Header("Attacks Configurations")]
-        [SerializeField] List<BossAttackType> availableAttacks;
+        [Header("Attacks Per Phase")]
+        [SerializeField] List<BossAttackType> firstPhaseAttacks;
+        [SerializeField] List<BossAttackType> secondPhaseAttacks;
+        [SerializeField] List<BossAttackType> tunnelPhaseAttacks;
         
         [Header("Hold Settings")] 
         public float duration = 1f;
@@ -29,6 +30,7 @@ namespace _SLIME.Boss
         private static readonly int DoWater = Animator.StringToHash("DoWater");
 
         private float _timer;
+        private Dictionary<BossAttackType, float> _lastUsedTime = new();
         
         
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -37,9 +39,49 @@ namespace _SLIME.Boss
             _timer += Time.deltaTime;
 
             if (!(_timer >= duration)) return;
-            int index = Random.Range(0, availableAttacks.Count);
-            BossAttackType selectedAttack = availableAttacks[index];
+            
+            List<BossAttackType> availableAttacks = GetAttacksForCurrentState();
+            if (availableAttacks == null || availableAttacks.Count == 0) return;
+            
+            BossAttackType selectedAttack = SelectLeastRecentlyUsed(availableAttacks);
+            _lastUsedTime[selectedAttack] = Time.time;
+            _timer = 0f;
             PreformSelectedAttack(animator, selectedAttack);
+        }
+        
+        private BossAttackType SelectLeastRecentlyUsed(List<BossAttackType> attacks)
+        {
+            if (attacks.Count == 1) return attacks[0];
+            
+            float oldestTime = _lastUsedTime.TryGetValue(attacks[0], out float t) ? t : float.MinValue;
+            var candidates = new List<BossAttackType> { attacks[0] };
+            for (int i = 1; i < attacks.Count; i++)
+            {
+                float lastTime = _lastUsedTime.TryGetValue(attacks[i], out float lt) ? lt : float.MinValue;
+                if (lastTime < oldestTime)
+                {
+                    oldestTime = lastTime;
+                    candidates.Clear();
+                    candidates.Add(attacks[i]);
+                }
+                else if (lastTime == oldestTime)
+                {
+                    candidates.Add(attacks[i]);
+                }
+            }
+            return candidates[Random.Range(0, candidates.Count)];
+        }
+        
+        private List<BossAttackType> GetAttacksForCurrentState()
+        {
+            if (Data == null) return null;
+            return Data.CurrentPhase switch
+            {
+                BossPhaseType.FirstPhase => firstPhaseAttacks,
+                BossPhaseType.SecondPhase => secondPhaseAttacks,
+                BossPhaseType.TunnelPhase => tunnelPhaseAttacks,
+                _ => firstPhaseAttacks
+            };
         }
 
         private void PreformSelectedAttack(Animator animator, BossAttackType selectedAttack)

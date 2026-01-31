@@ -68,7 +68,18 @@ namespace _SLIME.Boss
         public static event Action CloseState;
         public static event Action FarState;
 
-        private StateMachine StateMachine { get; set; }
+        public StateMachine StateMachine { get; private set; }
+        public BossPhaseType CurrentPhase
+        {
+            get
+            {
+                var current = StateMachine?.CurrentState;
+                if (current == FirstPhaseState) return BossPhaseType.FirstPhase;
+                if (current == SecondPhaseState) return BossPhaseType.SecondPhase;
+                if (current == TunnelPhaseState) return BossPhaseType.TunnelPhase;
+                return BossPhaseType.FirstPhase;
+            }
+        }
         public State FirstPhaseState { get; private set; }
         public State SecondPhaseState { get; private set; }
         
