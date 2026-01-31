@@ -199,7 +199,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 206129999
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4c62c5494019242ae91cd005bcd7b858, type: 3}
   m_Color: {r: 0.60784316, g: 0.21568628, b: 0.13333334, a: 0.65882355}
@@ -962,7 +962,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 206129999
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 110a25cd101f54b2eac50dc060be865f, type: 3}
   m_Color: {r: 0.60784316, g: 0.21568628, b: 0.13333334, a: 0.65882355}
@@ -1067,7 +1067,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 206129999
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d6bd23edf1d1442e89ebb2887f161685, type: 3}
   m_Color: {r: 0.60784316, g: 0.21568628, b: 0.13333334, a: 0.65882355}
@@ -1702,7 +1702,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 206129999
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 210d82eee4acd45e5bcf64ce543e1d5b, type: 3}
   m_Color: {r: 0.60784316, g: 0.21568628, b: 0.13333334, a: 0.65882355}
@@ -1926,12 +1926,12 @@ MonoBehaviour:
   centerDetector: {fileID: 0}
   spawnDeps:
     spawnPoint: {fileID: 671653929157809193}
-    spawnRadius: 0
   slimesConnected: 0
   bossHealthBar: {fileID: 0}
   currentHealth: 0
   animator: {fileID: 451608181353722099}
   laserAttackGameObject: {fileID: 8794663172861724813}
+  lightHouseAttackGameObject: {fileID: 8821654124002499917}
 --- !u!114 &3900303270651239191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2072,7 +2072,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 206129999
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1d3bdc83534a5422ea8065a599348cec, type: 3}
   m_Color: {r: 0.60784316, g: 0.21568628, b: 0.13333334, a: 0.65882355}
@@ -2177,7 +2177,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 206129999
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 525d0313e0b794c0db156102890c34f2, type: 3}
   m_Color: {r: 0.60784316, g: 0.21568628, b: 0.13333334, a: 0.65882355}
@@ -2681,7 +2681,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 206129999
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f6b26d2196298401ba0f052d80dc0eec, type: 3}
   m_Color: {r: 0.60784316, g: 0.21568628, b: 0.13333334, a: 0.65882355}
@@ -2786,7 +2786,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 206129999
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2bf28cad9adba4d3490268b8ef191c6d, type: 3}
   m_Color: {r: 0.60784316, g: 0.21568628, b: 0.13333334, a: 0.65882355}
@@ -3230,7 +3230,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 206129999
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 00a051fd99e7b43ce80ae67cf85b0567, type: 3}
   m_Color: {r: 0.60784316, g: 0.21568628, b: 0.13333334, a: 0.65882355}
@@ -3290,6 +3290,7 @@ Transform:
   - {fileID: 5738476046550801874}
   - {fileID: 7313352397887538426}
   - {fileID: 6715623432007922964}
+  - {fileID: 1716141235896107580}
   m_Father: {fileID: 8187071179226125514}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8421745488677731620
@@ -3370,7 +3371,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 206129999
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 28fbf0a5650fd4341b09aa46964ff618, type: 3}
   m_Color: {r: 0.60784316, g: 0.21568628, b: 0.13333334, a: 0.65882355}
@@ -4497,6 +4498,77 @@ Transform:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4444568433978757063, guid: 8d51a804fd8574b4687be85b0353c8ec, type: 3}
   m_PrefabInstance: {fileID: 938264416706711390}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1292943878280593373
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3025898858781400177}
+    m_Modifications:
+    - target: {fileID: 441775834648477153, guid: ff131a137c07f486193ebf4995e2555f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 441775834648477153, guid: ff131a137c07f486193ebf4995e2555f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 441775834648477153, guid: ff131a137c07f486193ebf4995e2555f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 441775834648477153, guid: ff131a137c07f486193ebf4995e2555f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 441775834648477153, guid: ff131a137c07f486193ebf4995e2555f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 441775834648477153, guid: ff131a137c07f486193ebf4995e2555f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 441775834648477153, guid: ff131a137c07f486193ebf4995e2555f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 441775834648477153, guid: ff131a137c07f486193ebf4995e2555f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 441775834648477153, guid: ff131a137c07f486193ebf4995e2555f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 441775834648477153, guid: ff131a137c07f486193ebf4995e2555f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 441775834648477153, guid: ff131a137c07f486193ebf4995e2555f, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7754558868787126928, guid: ff131a137c07f486193ebf4995e2555f, type: 3}
+      propertyPath: m_Name
+      value: LightHouse Attack
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ff131a137c07f486193ebf4995e2555f, type: 3}
+--- !u!4 &1716141235896107580 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 441775834648477153, guid: ff131a137c07f486193ebf4995e2555f, type: 3}
+  m_PrefabInstance: {fileID: 1292943878280593373}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8821654124002499917 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7754558868787126928, guid: ff131a137c07f486193ebf4995e2555f, type: 3}
+  m_PrefabInstance: {fileID: 1292943878280593373}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3917252597093580462
 PrefabInstance:

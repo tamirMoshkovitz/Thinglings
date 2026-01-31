@@ -61,6 +61,10 @@ namespace _SLIME.Boss
         [Header("Laser Attack Setup")] 
         public GameObject laserAttackGameObject;
         
+        
+        [Header("Light House Attack Setup")] 
+        public GameObject lightHouseAttackGameObject;
+        
         public static BossStates BossState = BossStates.FarState;
         private static readonly int CloseHit = Animator.StringToHash("CloseHit");
         private static readonly int FarHit = Animator.StringToHash("FarHit");
