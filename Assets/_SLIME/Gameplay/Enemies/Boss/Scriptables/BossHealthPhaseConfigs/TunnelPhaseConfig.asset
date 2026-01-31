@@ -110,13 +110,9 @@ MonoBehaviour:
     angleFromMainBeam: {x: 45, y: 200.21394}
     mainBeamAngleFromSlimes: {x: 15, y: 20}
     minBeamAngleDistance: 45
-    timeToCheckForMainBeanSwitch: 0.5
-    directionFlipTransitionDuration: 1.5
-    minSpeedDifference: 15
-    beamShakeDuration: 0.5
-    beamShakeStrength: 0.5
-    beamShakeVibrato: 2
-    beamShakeRandomness: 5
+    timeToCheckForMainBeanSwitch: 1
+    directionFlipTransitionDuration: 0.5
+    minSpeedDifference: 50
   bossCoreSettings:
     maxHealth: 150
   bossPhaseSettings:

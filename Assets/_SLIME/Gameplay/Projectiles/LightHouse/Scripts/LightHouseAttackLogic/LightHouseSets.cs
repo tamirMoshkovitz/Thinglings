@@ -21,11 +21,6 @@ namespace _SLIME.LightHouse
 
         [Tooltip("Minimum absolute speed difference (deg/s) between main beam and other beams.")]
         public float minSpeedDifference;
-
-        [Header("Beam Shake During Attack")]
-        public float beamShakeDuration;
-        public float beamShakeStrength;
-        public int beamShakeVibrato;
-        public float beamShakeRandomness;
+        
     }
 }
