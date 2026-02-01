@@ -105,8 +105,8 @@ MonoBehaviour:
     waterDamage: 50
   lightHouseSettings:
     attackDuration: {x: 10, y: 10}
-    mainBeamSpeedPerSecond: {x: 120, y: 200}
-    otherBeamsSpeedPerSecond: {x: 120, y: 180}
+    mainBeamSpeedPerSecond: {x: 108, y: 180}
+    otherBeamsSpeedPerSecond: {x: 108, y: 168}
     angleFromMainBeam: {x: 45, y: 200.21394}
     mainBeamAngleFromSlimes: {x: 15, y: 20}
     minBeamAngleDistance: 45
