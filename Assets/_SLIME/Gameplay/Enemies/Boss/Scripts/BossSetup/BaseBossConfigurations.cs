@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
 using _SLIME.Boss;
+using _SLIME.LightHouse;
 using _SLIME.LittleBoss;
 using UnityEngine;
 [CreateAssetMenu(fileName = "BaseBossConfig", menuName = "BossConfig")]
@@ -35,9 +36,13 @@ public class BaseBossConfigurations : TabbedScriptableObject
         [Tooltip("Projectile prefab to spawn")]
         public GameObject projectilePrefab;
         
+        public GameObject projectileBeforeSpawnPrefab;
+        
         [Tooltip("How many spells the sorcerer will create during the attack")]
         public int attacksToCast;
         
+        [Tooltip("How many spells the sorcerer will get until changing to laser/hands")]
+        public int hitThreshold;
         
         public SpawnSettings spawnSettings;
         
@@ -46,6 +51,13 @@ public class BaseBossConfigurations : TabbedScriptableObject
         
         [Tooltip("Special Attacks Settings")]
         public SpellSpecialAttacksSettings specialAttacksSettings;
+
+    }
+    
+    [Serializable]
+    public struct WaterAttackSettings
+    {
+        public float waterDamage;
     }
     
     [Serializable]
@@ -75,9 +87,6 @@ public class BaseBossConfigurations : TabbedScriptableObject
     public struct BossPhaseSettings
     {
         [Header("Phase Settings")]
-        
-        [Tooltip("Upper health threshold to enter this phase")]
-        public float upperHealthThreshold;
         
         [Tooltip("Lower health threshold to exit this phase")]
         public float lowerHealthThreshold;
@@ -112,7 +121,10 @@ public class BaseBossConfigurations : TabbedScriptableObject
     [SerializeField] private LaserAttackSettings laserAttackSettings;
     [Tab("Attacks Settings")]
     [SerializeField] private IcicleSpawnSettings icicleSpawnSettings;
-    
+    [Tab("Attacks Settings")] [SerializeField]
+    private WaterAttackSettings waterAttackSettings;
+    [Tab("Attacks Settings")]
+    [SerializeField] private LightHouseSets lightHouseSettings;
     
     [Tab("Boss Core Settings")]
     [SerializeField] private BossCoreSettings bossCoreSettings;
@@ -129,8 +141,8 @@ public class BaseBossConfigurations : TabbedScriptableObject
     [Tab("Little Boss Settings")]
     [SerializeField] private LittleBossHealthSet littleBossHealthSettings;
 
-    
-    
+
+
     public HandsAttackSettings HandsAttack => handsAttackSettings;
     public SpawnAttackSettings SpawnAttack => spawnAttackSettings;
     public LaserAttackSettings LaserAttack => laserAttackSettings;
@@ -140,4 +152,6 @@ public class BaseBossConfigurations : TabbedScriptableObject
     public LittleBossHealthSet LittleBossHealth => littleBossHealthSettings;
     public LittleBossMovementSettings LittleBossMovement => littleBossMovementSettings;
     public LittleBossSpellAttackSettings LittleBossSpellAttack => littleBossSpellAttackSettings;
+    public WaterAttackSettings WaterAttack => waterAttackSettings;
+    public LightHouseSets LightHouse => lightHouseSettings;
 }

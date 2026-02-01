@@ -1,5 +1,6 @@
 using System;
 using _SLIME.BaseScripts;
+using _SLIME.Boss;
 using _SLIME.Core.Audio.FMOD.Scripts;
 using _SLIME.GameLoop;
 using FMODUnity;
@@ -33,7 +34,9 @@ namespace _SLIME.Projectiles
             
             _bossAttributes = attributes;
             comp.rb.linearVelocity = Vector2.zero;
-            comp.rb.bodyType = RigidbodyType2D.Kinematic; 
+            comp.rb.bodyType = RigidbodyType2D.Kinematic;
+            comp.spellHead.transform.rotation = Quaternion.Euler(0f, 0f, attributes.z);
+
         }
         
         public void Deflect(SpellSlimeAttributes attributes)
@@ -67,7 +70,7 @@ namespace _SLIME.Projectiles
         
         public void OnHitFinished()
         {
-            Destroy(gameObject);
+            Destroy(transform.parent.gameObject);
         }
         
         private void OnTriggerEnter2D(Collider2D other)
@@ -91,72 +94,46 @@ namespace _SLIME.Projectiles
             var currentSpeed = comp.rb.linearVelocity.magnitude;
             comp.rb.linearVelocity = Vector2.zero;
             comp.rb.bodyType = RigidbodyType2D.Kinematic;
-            if (target != null) target.TakeDamage(Mathf.CeilToInt(currentSpeed));
-            BaseBossConfigurations selectedConfig = null;
-            
-            if (StateMachine.CurrentState != null)
+            if (target != null)
             {
-                string stateTypeName = StateMachine.CurrentState.GetType().Name;
                 
-                switch (stateTypeName)
-                {
-                    case nameof(StartingPhaseState):
-                        selectedConfig = bossConfigurations[0];
-                        break;
-                    case nameof(FirstPhaseState):
-                        selectedConfig = bossConfigurations[1];
-                        break;
-                    case nameof(SecondPhaseState):
-                        selectedConfig = bossConfigurations[2];
-                        break;
-                    case nameof(ThirdPhaseState):
-                        selectedConfig = bossConfigurations[3];
-                        break;
-                    case nameof(TunnelPhaseState):
-                        selectedConfig = bossConfigurations[4];
-                        break;
-                    default:
-                        selectedConfig = bossConfigurations[0];
-                        break;
-                }
+                target.TakeDamage(Mathf.CeilToInt(currentSpeed));
+            }
+            HitParticleScaleChange(currentSpeed);
+            comp.animator.SetTrigger(Hit);
+        }
+
+        private void HitParticleScaleChange(float currentSpeed)
+        {
+            
+            float expectedSpeed = BossBrain.bossConfigurations ? BossBrain.bossConfigurations.PhaseSettings.expectedAvgSpeedOfSpells
+                    : currentSpeed;
+            float minScale = spellScaleFactor.x;
+            float maxScale = spellScaleFactor.y;
+            float midScale = (minScale + maxScale) * 0.5f;
+            
+            float speedRatio = currentSpeed / expectedSpeed;
+            
+            float scale;
+            if (speedRatio <= 1f)
+            {
+                scale = Mathf.Lerp(minScale, midScale, speedRatio);
             }
             else
             {
-                selectedConfig = bossConfigurations[0];
+                float t = (speedRatio - 1f);
+                scale = Mathf.Lerp(midScale, maxScale, t);
             }
             
-            if (selectedConfig != null)
+            scale = Mathf.Clamp(scale, minScale, maxScale);
+            
+            foreach (var h in comp.spellHit)
             {
-                float expectedSpeed = selectedConfig.PhaseSettings.expectedAvgSpeedOfSpells;
-                float minScale = spellScaleFactor.x;
-                float maxScale = spellScaleFactor.y;
-                float midScale = (minScale + maxScale) * 0.5f;
-                
-                float speedRatio = currentSpeed / expectedSpeed;
-                
-                float scale;
-                if (speedRatio <= 1f)
-                {
-                    scale = Mathf.Lerp(minScale, midScale, speedRatio);
-                }
-                else
-                {
-                    float t = (speedRatio - 1f);
-                    scale = Mathf.Lerp(midScale, maxScale, t);
-                }
-                
-                scale = Mathf.Clamp(scale, minScale, maxScale);
-                
-                foreach (var h in comp.spellHit)
-                {
-                    h.localScale = Vector3.one * scale;
-                }
+                h.localScale = Vector3.one * scale;
             }
-            comp.animator.SetTrigger(Hit);
         }
-        
-        
-        
+
+
         private int GetLayerFromMask(LayerMask mask)
         {
             int layerNumber = 0;

@@ -20,35 +20,38 @@ MonoBehaviour:
     useBothHands: 0
   spawnAttackSettings:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
+    projectileBeforeSpawnPrefab: {fileID: 4899053137042385202, guid: c35248b870a664833961bec195804c32, type: 3}
     attacksToCast: 6
+    hitThreshold: 2
     spawnSettings:
       delayBetweenAttacks: {x: 1, y: 1.5}
       bothSlimesAliveProbabilities:
-        oneShot: 0.3
-        twoShots: 0
-        threeShot: 0.2
-        fourShots: 0.2
-        bulletHell: 0.3
+        oneShot: 0
+        twoShots: 0.1
+        threeShot: 0.4
+        fourShots: 0
+        bulletHell: 0.5
       notConnectedProbabilities:
         oneShot: 0
-        twoShots: 0.2
-        threeShot: 0.1
-        fourShots: 0.4
-        bulletHell: 0.3
+        twoShots: 0.5
+        threeShot: 0
+        fourShots: 0
+        bulletHell: 0.5
       oneSlimeAliveProbabilities:
-        oneShot: 0
-        twoShots: 0.25
-        threeShot: 0.15
-        fourShots: 0.3
-        bulletHell: 0.3
+        oneShot: 0.25
+        twoShots: 0
+        threeShot: 0
+        fourShots: 0.5
+        bulletHell: 0.25
     spellSettings:
       attackAccuracyRange: {x: 0.9, y: 1}
       attackSpeedRange: {x: 20, y: 25}
     specialAttacksSettings:
       threeShotsAngle: 22.5
       fourShotsWaitBetweenShots: 0.2
-      bulletHellTotalAngle: 22.5
+      bulletHellTotalAngle: 45
       bulletHellWaitBetweenShots: 0.2
+      bulletHellMiddleDensityPower: 1.7
   laserAttackSettings:
     rotationCurve:
       serializedVersion: 2
@@ -98,13 +101,24 @@ MonoBehaviour:
     minWaitTime: 2
     maxWaitTime: 4
     loopSpawning: 1
+  waterAttackSettings:
+    waterDamage: 50
+  lightHouseSettings:
+    attackDuration: {x: 10, y: 10}
+    mainBeamSpeedPerSecond: {x: 108, y: 180}
+    otherBeamsSpeedPerSecond: {x: 108, y: 168}
+    angleFromMainBeam: {x: 45, y: 200.21394}
+    mainBeamAngleFromSlimes: {x: 15, y: 20}
+    minBeamAngleDistance: 45
+    timeToCheckForMainBeanSwitch: 1
+    directionFlipTransitionDuration: 0.5
+    minSpeedDifference: 50
   bossCoreSettings:
-    maxHealth: 600
+    maxHealth: 150
   bossPhaseSettings:
-    upperHealthThreshold: 200
     lowerHealthThreshold: 0
-    targetHitsToKill: 4
-    expectedAvgSpeedOfSpells: 30
+    targetHitsToKill: 6
+    expectedAvgSpeedOfSpells: 40
   littleBossMovementSettings:
     duration: 0
     waitUntilNextLoop: 0

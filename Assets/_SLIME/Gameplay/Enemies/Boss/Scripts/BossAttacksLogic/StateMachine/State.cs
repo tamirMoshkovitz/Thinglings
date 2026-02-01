@@ -1,22 +1,30 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class State
 {
     protected StateMachine StateMachine;
+    public float EnterHealth;
+    protected bool active = false;
     
     public State(StateMachine stateMachine)
     {
         this.StateMachine = stateMachine;
     }
     
-    public virtual void Enter()
+    // this is enumerator because we dont wont the phase to start before water attack finished
+    public virtual IEnumerator Enter()
     {
         Debug.Log("Entering State: " + this.GetType().Name);
+        active = true;
         DoChecks();
+        yield break;
     }
     
     public virtual void Exit()
     {
+        active = false;
     }
     
     public virtual void LogicUpdate()

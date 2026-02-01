@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using _SLIME.Slime;
 using NaughtyAttributes;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace _SLIME.Boss
 {
@@ -26,25 +28,34 @@ namespace _SLIME.Boss
         public AttackProbabilities notConnectedProbabilities;
         
         public AttackProbabilities oneSlimeAliveProbabilities;
+        
+    }
+
+    [Serializable]
+    public struct SpawnDeps
+    {
+        public Transform spawnPoint;
     }
     
     public class BossSpawnAttackBehaviour : BossBaseBehaviour
     {
         private static readonly int AttackFinished = Animator.StringToHash("AttackFinished");
-
+        
         private int _attackCounter;
         private float _timer;
         private float _currentDelay;
         
         private Dictionary<PossibleAttacks, ISpellAttackLogic> _attackLogics;
         private ISpellAttackLogic _currentActiveLogic;
+       
 
         public override void Initialize(BossBrain brain)
         {
             base.Initialize(brain);
             
             var oneSpellShotLogic = new OneSpellShotLogic(
-                Data.bossConfigurations.SpawnAttack.projectilePrefab,
+                BossBrain.bossConfigurations.SpawnAttack.projectilePrefab,
+                BossBrain.bossConfigurations.SpawnAttack.projectileBeforeSpawnPrefab,
                 Data
             );
             
@@ -66,21 +77,27 @@ namespace _SLIME.Boss
             _attackCounter = 0;
             _timer = 0f;
             _currentDelay = 0f;
+            Data.HitCounter = 0;
         }
+        
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
+            
+            if(Data.IsTakingDamage) return;
+            
+            if (_attackCounter >= BossBrain.bossConfigurations.SpawnAttack.attacksToCast
+            || Data.WaterStateActivated || Data.HitCounter >= BossBrain.bossConfigurations.SpawnAttack.hitThreshold)
+            {
+                animator.SetTrigger(AttackFinished);
+                return;
+            }
+            
+            
             // If there's an active attack logic, update it and wait
             if (_currentActiveLogic != null && _currentActiveLogic.IsActive)
             {
                 _currentActiveLogic.UpdateAttack();
-                return;
-            }
-            
-            if (_attackCounter >= Data.bossConfigurations.SpawnAttack.attacksToCast
-            || Data.WaterStateActivated)
-            {
-                animator.SetTrigger(AttackFinished);
                 return;
             }
             
@@ -93,7 +110,7 @@ namespace _SLIME.Boss
                 _attackCounter++;
                 _timer = 0f;
             
-                Vector2 delayRange = Data.bossConfigurations.SpawnAttack.spawnSettings.delayBetweenAttacks;
+                Vector2 delayRange = BossBrain.bossConfigurations.SpawnAttack.spawnSettings.delayBetweenAttacks;
                 _currentDelay = Random.Range(delayRange.x, delayRange.y);
             }
         }
@@ -106,15 +123,15 @@ namespace _SLIME.Boss
             
             if (!bothAlive)
             {
-                probabilities = Data.bossConfigurations.SpawnAttack.spawnSettings.oneSlimeAliveProbabilities;
+                probabilities = BossBrain.bossConfigurations.SpawnAttack.spawnSettings.oneSlimeAliveProbabilities;
             }
             else if (!Data.slimesConnected)
             {
-                probabilities = Data.bossConfigurations.SpawnAttack.spawnSettings.notConnectedProbabilities;
+                probabilities = BossBrain.bossConfigurations.SpawnAttack.spawnSettings.notConnectedProbabilities;
             }
             else
             {
-                probabilities = Data.bossConfigurations.SpawnAttack.spawnSettings.bothSlimesAliveProbabilities;
+                probabilities = BossBrain.bossConfigurations.SpawnAttack.spawnSettings.bothSlimesAliveProbabilities;
             }
                 
             return probabilities.GetRandomAttack();
@@ -125,7 +142,7 @@ namespace _SLIME.Boss
             if (_attackLogics.TryGetValue(attack, out var logic))
             {
                 _currentActiveLogic = logic;
-                logic.Attack(Data.bossConfigurations.SpawnAttack.spellSettings);
+                logic.Attack(BossBrain.bossConfigurations.SpawnAttack.spellSettings);
             }
         }
 
@@ -139,6 +156,7 @@ namespace _SLIME.Boss
             }
             
             _currentActiveLogic = null;
+            Data.HitCounter = 0;
         }
     }
 }

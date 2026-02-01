@@ -1,14 +1,20 @@
 using System.Collections;
 using _SLIME.GameLoop;
+using _SLIME.Slime;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 namespace _SLIME.Tutorial
 {
     [System.Serializable]
     public struct SceneMoveToFinalBattleStateDeps
     {
+        [Tooltip("Root of transition UI (Animator on it). Moved to DontDestroyOnLoad before unload, destroyed at end of transition.")]
         public Animator transitionAnimator;
         public GameObject tutorialBoss;
+        public GameObject slime;
+        public UnityEngine.InputSystem.PlayerInput slimeInput;
     }
     
     [System.Serializable]
@@ -37,33 +43,50 @@ namespace _SLIME.Tutorial
         
         public IEnumerator Start()
         {
-            _deps.tutorialBoss.SetActive(false);
-            TriggerTransitionAnimation();
-            yield return WaitForAnimationEnd();
-            LoadFinalBattleScene();
-        }
-        
-        private void TriggerTransitionAnimation()
-        {
-            _deps.transitionAnimator.SetTrigger(_set.transitionTriggerName);
-        }
-        
-        private IEnumerator WaitForAnimationEnd()
-        {
-            while (!_deps.transitionAnimator.GetCurrentAnimatorStateInfo(0).IsName(_set.transitionAnimationStateName))
-            {
-                yield return null;
-            }
+            // DisableSlimeInput();
+            // SetSlimeRenderersToUILayer();
+            _deps.tutorialBoss.SetActive(false); 
+            _deps.transitionAnimator.transform.SetParent(null, true);
+            Object.DontDestroyOnLoad(_deps.transitionAnimator.gameObject);
+            SlimeEvents.RemoveCameraShake();
+            LoadFinalBattleSceneWithAnimationTransition();
             
-            while (_deps.transitionAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+            yield break;
+        }
+        
+        private void SetSlimeRenderersToUILayer()
+        {
+            if (_deps.slime == null) return;
+            int uiLayerId = SortingLayer.NameToID("UI");
+            const int order = 10;
+            foreach (var r in _deps.slime.GetComponentsInChildren<Renderer>(true))
             {
-                yield return null;
+                r.sortingLayerID = uiLayerId;
+                r.sortingOrder = order;
+            }
+            foreach (var g in _deps.slime.GetComponentsInChildren<SortingGroup>(true))
+            {
+                g.sortingLayerID = uiLayerId;
+                g.sortingOrder = order;
             }
         }
         
-        private void LoadFinalBattleScene()
+        private void DisableSlimeInput()
         {
-            SceneLoader.LoadScene(SceneType.BossFinalBattleScene);
+            if (_deps.slimeInput != null)
+                _deps.slimeInput.enabled = false;
+        }
+        
+        
+        private void LoadFinalBattleSceneWithAnimationTransition()
+        {
+            var opts = new AnimationTransitionOptions
+            {
+                animator = _deps.transitionAnimator,
+                triggerName = _set.transitionTriggerName,
+                stateName = _set.transitionAnimationStateName
+            };
+            SceneLoader.LoadScene(SceneType.BossFinalBattleScene, SlimeEvents.AddCameraShake, opts);
         }
     }
 }

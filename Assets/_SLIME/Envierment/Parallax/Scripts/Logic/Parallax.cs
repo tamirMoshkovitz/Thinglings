@@ -95,6 +95,7 @@ public class Parallax : MonoBehaviour
 
             // FIX: Use current Z (transform.position.z) instead of start Z
             // This allows other scripts (like TunnelMovement) to change Z without this script fighting back.
+            if (float.IsNaN(newX) || float.IsNaN(newY)) continue;
             layer.transform.position = new Vector3(newX, newY, layer.transform.position.z);
         }
     }

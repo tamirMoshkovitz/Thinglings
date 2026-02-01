@@ -4,10 +4,8 @@ namespace _SLIME.Boss
 {
     public enum BossPhaseType
     {
-        Starting,
         FirstPhase,
         SecondPhase,
-        ThirdPhase,
         TunnelPhase
     }
 
@@ -15,7 +13,7 @@ namespace _SLIME.Boss
     {
         public static BossCheckpointManager Instance { get; private set; }
 
-        public BossPhaseType CurrentSavedPhase = BossPhaseType.Starting;
+        public BossPhaseType CurrentSavedPhase = BossPhaseType.FirstPhase;
 
         private void Awake()
         {
@@ -37,7 +35,7 @@ namespace _SLIME.Boss
 
         public void ResetCheckpoint()
         {
-            CurrentSavedPhase = BossPhaseType.Starting;
+            CurrentSavedPhase = BossPhaseType.FirstPhase;
         }
     }
 }

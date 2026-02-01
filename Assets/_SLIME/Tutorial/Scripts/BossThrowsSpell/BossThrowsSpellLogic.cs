@@ -25,6 +25,7 @@ namespace _SLIME.Tutorial
     
     public class BossThrowsSpellLogic : ITutorialStateLogic
     {
+        private static readonly int SpellReturn = Animator.StringToHash("spell return");
         private BossThrowsSpellStateDeps _deps;
         private BossThrowsSpellStateSet _set;
         private bool _bossHit;
@@ -45,7 +46,7 @@ namespace _SLIME.Tutorial
         
         public IEnumerator Start()
         {
-            _deps.animatorForSketch.SetTrigger("spell return");
+            _deps.animatorForSketch.SetTrigger(SpellReturn);
             yield return ThrowSpellsUntilBossHit();
         }
         

@@ -17,10 +17,10 @@ MonoBehaviour:
     moveSpeed: 15
     maxHealth: 100
     breakForce: 80
-    connectionFrequency: 0.8
+    connectionFrequency: 0.727
     connectionDampingRatio: 0.5
-    maxStretchTimeThreshold: 5
-    maxStretchPercentThreshold: 85
+    maxStretchTimeThreshold: 0.01
+    maxStretchPercentThreshold: 140
   LineAboveSettings:
     linePrefab: {fileID: 7469158195929653497, guid: 8a68228252b0e442ba267d892a357a98, type: 3}
     visualResolution: 40

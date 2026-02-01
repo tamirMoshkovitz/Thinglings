@@ -20,26 +20,28 @@ MonoBehaviour:
     useBothHands: 0
   spawnAttackSettings:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
+    projectileBeforeSpawnPrefab: {fileID: 4899053137042385202, guid: c35248b870a664833961bec195804c32, type: 3}
     attacksToCast: 6
+    hitThreshold: 2
     spawnSettings:
       delayBetweenAttacks: {x: 1, y: 2}
       bothSlimesAliveProbabilities:
         oneShot: 0.5
         twoShots: 0
-        threeShot: 0.35
-        fourShots: 0.15
+        threeShot: 0.5
+        fourShots: 0
         bulletHell: 0
       notConnectedProbabilities:
-        oneShot: 0.1
-        twoShots: 0.4
-        threeShot: 0.1
-        fourShots: 0.4
+        oneShot: 0.5
+        twoShots: 0.5
+        threeShot: 0
+        fourShots: 0
         bulletHell: 0
       oneSlimeAliveProbabilities:
-        oneShot: 0.6
-        twoShots: 0.2
+        oneShot: 0.5
+        twoShots: 0.5
         threeShot: 0
-        fourShots: 0.2
+        fourShots: 0
         bulletHell: 0
     spellSettings:
       attackAccuracyRange: {x: 0.90000004, y: 1}
@@ -47,8 +49,9 @@ MonoBehaviour:
     specialAttacksSettings:
       threeShotsAngle: 22.5
       fourShotsWaitBetweenShots: 0.4
-      bulletHellTotalAngle: 22.5
+      bulletHellTotalAngle: 45
       bulletHellWaitBetweenShots: 0.2
+      bulletHellMiddleDensityPower: 1.7
   laserAttackSettings:
     rotationCurve:
       serializedVersion: 2
@@ -98,13 +101,22 @@ MonoBehaviour:
     minWaitTime: 3
     maxWaitTime: 5
     loopSpawning: 1
+  waterAttackSettings:
+    waterDamage: 50
+  lightHouseSettings:
+    attackDuration: {x: 4, y: 4}
+    mainBeamSpeedPerSecond: {x: 120, y: 160}
+    otherBeamsSpeedPerSecond: {x: 80, y: 120}
+    angleFromMainBeam: {x: 45, y: 200.21394}
+    mainBeamAngleFromSlimes: {x: 15, y: 20}
+    minBeamAngleDistance: 45
+    timeToCheckForMainBeanSwitch: 0.5
   bossCoreSettings:
-    maxHealth: 600
+    maxHealth: 250
   bossPhaseSettings:
-    upperHealthThreshold: 400
-    lowerHealthThreshold: 300
-    targetHitsToKill: 6
-    expectedAvgSpeedOfSpells: 25
+    lowerHealthThreshold: 150
+    targetHitsToKill: 5
+    expectedAvgSpeedOfSpells: 35
   littleBossMovementSettings:
     duration: 0
     waitUntilNextLoop: 0

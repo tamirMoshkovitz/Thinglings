@@ -51,7 +51,7 @@ namespace _SLIME.Boss
             IsAttacking = true;
 
             warningVisual.SetActive(true);
-            yield return new WaitForSeconds(bossBrain.bossConfigurations.HandsAttack.handWarningDuration);
+            yield return new WaitForSeconds(BossBrain.bossConfigurations.HandsAttack.handWarningDuration);
             SFXPlayer.Play(handAttackSFX);
             warningVisual.SetActive(false);
 
@@ -61,7 +61,7 @@ namespace _SLIME.Boss
             Quaternion rotationFrom = Quaternion.Euler(startRotation);
             Quaternion rotationTo = Quaternion.Euler(endRotation);
             
-            float duration = bossBrain.bossConfigurations.HandsAttack.handAttackDuration;
+            float duration = BossBrain.bossConfigurations.HandsAttack.handAttackDuration;
 
             while (timer < duration)
             {

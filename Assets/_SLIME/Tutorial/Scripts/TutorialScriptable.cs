@@ -19,7 +19,7 @@ namespace _SLIME.Tutorial
         [SerializeField] private RiseToBossStateSet riseToBossStateSet;
         
         [Tab("SlimeConnects")]
-        [SerializeField] private SlimeConnectsStateSet slimeConnectsStateSet;
+        [SerializeField] private BossExcitedStateSet slimeConnectsStateSet;
         
         [Tab("SlimeTears")]
         [SerializeField] private SlimeTearsStateSet slimeTearsStateSet;
@@ -52,7 +52,7 @@ namespace _SLIME.Tutorial
         public LogoStateSet LogoStateSet => logoStateSet;
         public RockStateSet RockStateSet => rockStateSet;
         public RiseToBossStateSet RiseToBossStateSet => riseToBossStateSet;
-        public SlimeConnectsStateSet SlimeConnectsStateSet => slimeConnectsStateSet;
+        public BossExcitedStateSet SlimeConnectsStateSet => slimeConnectsStateSet;
         public SlimeTearsStateSet SlimeTearsStateSet => slimeTearsStateSet;
         public SpellHitStateSet SpellHitStateSet => spellHitStateSet;
         public LearnSlimeToConnectStateSet LearnSlimeToConnectStateSet => learnSlimeToConnectStateSet;

@@ -38,6 +38,7 @@ namespace _SLIME.Tutorial
         
         private void Update()
         {
+            if (_number >= MaxNumber) return;
             if (_isRightHeld && _isLeftHeld)
             {
                
@@ -71,10 +72,6 @@ namespace _SLIME.Tutorial
             _number++;
             UpdateAnimator();
             
-            if (_number >= MaxNumber)
-            {
-                JoystickMovedEnough?.Invoke();
-            }
         }
         
         private void DecreaseNumber()
@@ -112,6 +109,11 @@ namespace _SLIME.Tutorial
             
             Vector2 input = context.ReadValue<Vector2>();
             _isLeftHeld = input.x < 0; // Left joystick must point left (-X)
+        }
+
+        public void OnJoystickMovedEnough()
+        {
+            JoystickMovedEnough?.Invoke();
         }
     }
 }

@@ -9,6 +9,7 @@ namespace _SLIME.Projectiles
     {
         public float moveSpeed;
         public Vector3 direction;
+        public float z;
     }
     
     

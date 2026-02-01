@@ -2,18 +2,23 @@ using UnityEngine;
 
 public class StateMachine
 {
-    public static State CurrentState { get; private set; }
-    
+    private readonly MonoBehaviour _monoCoroutineRunner;
+    public State CurrentState { get; private set; }
+
+    public StateMachine(MonoBehaviour monoCoroutineRunner)
+    {
+        _monoCoroutineRunner  = monoCoroutineRunner;
+    }
     public void Initialize(State startingState)
     {
         CurrentState = startingState;
-        CurrentState.Enter();
+        _monoCoroutineRunner.StartCoroutine(CurrentState.Enter());
     }
 
     public void ChangeState(State newState)
     {
         CurrentState.Exit();
         CurrentState = newState;
-        CurrentState.Enter();
+        _monoCoroutineRunner.StartCoroutine(CurrentState.Enter());
     }
 }

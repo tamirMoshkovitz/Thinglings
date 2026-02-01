@@ -14,6 +14,7 @@ namespace _SLIME.Tutorial
         public Animator Arrow2;
         public Camera mainCamera;
         public Transform maxCameraPosition;
+        public Transform Backgorund;
     }
     
     [System.Serializable]
@@ -30,7 +31,7 @@ namespace _SLIME.Tutorial
     {
         private RiseToBossStateDeps _riseToBossStateDeps;
         private RiseToBossStateSet _riseToBossStateSet;
-        private Tween _cameraMoveTween;
+        private Tween _backgroundMoveTween;
         
         public RiseToBossLogic(RiseToBossStateDeps riseToBossStateDeps,
             RiseToBossStateSet riseToBossStateSet)
@@ -49,7 +50,7 @@ namespace _SLIME.Tutorial
             SlimeEvents.RemoveCameraShake();
             yield return WaitForSlimesAtTop();
             TriggerArrowsOut();
-            yield return MoveCameraToMax();
+            yield return MoveBackgroundDown();
             SlimeEvents.AddCameraShake();
         }
         
@@ -99,19 +100,16 @@ namespace _SLIME.Tutorial
             return slime1Y >= threshold && slime2Y >= threshold;
         }
         
-        private IEnumerator MoveCameraToMax()
+        private IEnumerator MoveBackgroundDown()
         {
-            Vector3 targetPosition = new Vector3(
-                _riseToBossStateDeps.mainCamera.transform.position.x,
-                _riseToBossStateDeps.maxCameraPosition.position.y,
-                _riseToBossStateDeps.mainCamera.transform.position.z
-            );
+            Transform bg = _riseToBossStateDeps.Backgorund;
+            float targetY = bg.position.y - _riseToBossStateDeps.maxCameraPosition.position.y;
             
-            _cameraMoveTween = _riseToBossStateDeps.mainCamera.transform
-                .DOMoveY(targetPosition.y, _riseToBossStateSet.moveSpeed)
+            _backgroundMoveTween = bg
+                .DOMoveY(targetY, _riseToBossStateSet.moveSpeed)
                 .SetEase(_riseToBossStateSet.moveEase);
             
-            yield return _cameraMoveTween.WaitForCompletion();
+            yield return _backgroundMoveTween.WaitForCompletion();
         }
     }
 }

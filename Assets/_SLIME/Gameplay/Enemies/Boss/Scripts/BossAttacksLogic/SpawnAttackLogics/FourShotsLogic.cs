@@ -1,3 +1,4 @@
+using _SLIME.Projectiles;
 using _SLIME.Slime;
 using UnityEngine;
 
@@ -5,13 +6,18 @@ namespace _SLIME.Boss
 {
     public class FourShotsLogic : ISpellAttackLogic
     {
+        private const int TotalShots = 4;
+
         private readonly OneSpellShotLogic _oneSpellShotLogic;
         private readonly BossBrain _data;
-        
+
         private bool _isActive;
         private int _shotsFired;
         private float _timer;
-        private SpellSettings _currentSpellSettings;
+        private SpellSettings _spellSets;
+
+        private SpellBeforeSpawn[] _spellBefores = new SpellBeforeSpawn[TotalShots];
+        private Vector3[] _targets = new Vector3[TotalShots];
 
         public bool IsActive => _isActive;
 
@@ -23,27 +29,53 @@ namespace _SLIME.Boss
 
         public void Attack(SpellSettings spellSets)
         {
-            _currentSpellSettings = spellSets;
+            _spellSets = spellSets;
+            _spellSets.attackAccuracyRange = Vector2.one;
+            _spellSets.attackSpeedRange = new Vector2(spellSets.attackSpeedRange.x, spellSets.attackSpeedRange.x);
+
             _shotsFired = 0;
             _timer = 0f;
             _isActive = true;
-            
-            FireShot();
+
+            Vector3 slime1Pos = SlimeData.instance.SideATransform.position;
+            Vector3 slime2Pos = SlimeData.instance.SideBTransform.position;
+
+            for (int i = 0; i < TotalShots; i++)
+            {
+                _targets[i] = (i % 2 == 0) ? slime1Pos : slime2Pos;
+                _spellBefores[i] = _oneSpellShotLogic.BeforeAttackEffect(_targets[i]);
+            }
         }
 
         public void UpdateAttack()
         {
             if (!_isActive) return;
-            
-            float waitTime = _data.bossConfigurations.SpawnAttack.specialAttacksSettings.fourShotsWaitBetweenShots;
-            
-            _timer += Time.deltaTime;
-            
-            if (_timer >= waitTime)
+            if (_shotsFired >= TotalShots)
             {
-                _timer = 0f;
-                FireShot();
+                _isActive = false;
+                return;
             }
+
+            float waitTime = BossBrain.bossConfigurations.SpawnAttack.specialAttacksSettings.fourShotsWaitBetweenShots;
+            _timer += Time.deltaTime;
+            if (_timer < waitTime) return;
+
+            int idx = _shotsFired;
+            SpellBeforeSpawn before = _spellBefores[idx];
+            if (before == null) return;
+            if (!before.GetState()) return;
+
+            Vector3 spawn = before.GetSpawnPoint();
+            float z = before.transform.eulerAngles.z;
+            Object.Destroy(before.gameObject);
+            _spellBefores[idx] = null;
+
+            _oneSpellShotLogic.Attack(_spellSets, _targets[idx], spawn, z);
+            _shotsFired++;
+            _timer = 0f;
+
+            if (_shotsFired >= TotalShots)
+                _isActive = false;
         }
 
         public void Reset()
@@ -51,21 +83,13 @@ namespace _SLIME.Boss
             _isActive = false;
             _shotsFired = 0;
             _timer = 0f;
-        }
-
-        private void FireShot()
-        {
-            Vector3 slime1Pos = SlimeData.instance.SideATransform.position;
-            Vector3 slime2Pos = SlimeData.instance.SideBTransform.position;
-            
-            Vector3 targetPos = (_shotsFired % 2 == 0) ? slime1Pos : slime2Pos;
-            
-            _oneSpellShotLogic.Attack(_currentSpellSettings, targetPos);
-            _shotsFired++;
-            
-            if (_shotsFired >= 4)
+            for (int i = 0; i < TotalShots; i++)
             {
-                _isActive = false;
+                if (_spellBefores[i] != null)
+                {
+                    Object.Destroy(_spellBefores[i].gameObject);
+                    _spellBefores[i] = null;
+                }
             }
         }
     }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using _SLIME.Laser;
+using Unity.VisualScripting;
 
 namespace _SLIME.Boss
 {
@@ -20,9 +21,11 @@ namespace _SLIME.Boss
 
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (!laserAttackLogic.HasFinishedAction) return;
-            Data.laserAttackGameObject.SetActive(false);
-            animator.SetTrigger(AttackFinished);
+            if (Data.WaterStateActivated || laserAttackLogic.HasFinishedAction)
+            {
+                animator.SetTrigger(AttackFinished);
+                Data.laserAttackGameObject.SetActive(false);
+            }
         }
         
     }

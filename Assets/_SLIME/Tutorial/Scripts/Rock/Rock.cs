@@ -26,6 +26,7 @@ namespace _SLIME.Tutorial
         public static event Action JoystickMoved;
         [SerializeField] private TutorialScriptable tutorialScriptable;
         [SerializeField] private ControlledSfx rockShakeSFX;
+        
 
         private RockShakeSettings rockShakeSettings;
         private bool _isShaking;
@@ -33,7 +34,8 @@ namespace _SLIME.Tutorial
         private Tween _currentShakeTween;
         private bool _eventTriggered;
         private int _currentShakeIndex = 0;
-        
+        private bool _isActive = true;
+
         private void OnEnable()
         {
             _isShaking = false;
@@ -48,6 +50,17 @@ namespace _SLIME.Tutorial
             SetAudioIntensity(1f);
         }
 
+        public void OnRockTransform()
+        {
+            _isActive = false;
+            StopShake();
+        }
+        
+        
+        public void OnRockFinishTransform()
+        {
+            _isActive = true;
+        }
         private void Awake()
         {
             rockShakeSettings = tutorialScriptable.RockShakeSettings;
@@ -85,6 +98,8 @@ namespace _SLIME.Tutorial
         
         public void OnMove(InputAction.CallbackContext context)
         {
+            if (!_isActive) return;
+            
             if (context.performed)
             {
                 if (!_isShaking)
