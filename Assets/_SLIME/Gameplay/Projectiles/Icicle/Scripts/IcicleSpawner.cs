@@ -29,12 +29,16 @@ public class IcicleSpawner : MonoBehaviour
             child.gameObject.SetActive(false);
             _iciclePool.Add(child.gameObject);
         }
-        StartSpawning();
     }
 
     private void OnDisable()
     {
         TunnelPhaseState.TunnelPhaseStarted -= OnTunnelPhaseStarted;
+    }
+
+    private void Start()
+    {
+        StartSpawning();
     }
 
     private void OnTunnelPhaseStarted()
