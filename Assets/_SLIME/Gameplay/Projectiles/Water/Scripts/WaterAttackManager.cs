@@ -80,12 +80,13 @@ public class WaterAttackManager : MonoBehaviour
         TriggerBoth(AttackModeTrigger);
         CanAttack = true;
 
+        GameEvents.FmodPhaseFour?.Invoke();
+        
         yield return new WaitForSeconds(timeToMagicOut);
         TriggerBoth(MagicalWaterOutTrigger);
 
         _attackRoutine = null;
-        
-        GameEvents.FmodPhaseThree?.Invoke();
+        GameEvents.WaterAttackEnded?.Invoke();
     }
 
     private void TriggerBoth(int hashId)

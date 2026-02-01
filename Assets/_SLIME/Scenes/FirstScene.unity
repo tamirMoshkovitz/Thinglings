@@ -375,6 +375,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1304116464}
     - target: {fileID: 3355317023508843025, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
+      propertyPath: phaseFivePlaster
+      value: 
+      objectReference: {fileID: 1412860172}
+    - target: {fileID: 3355317023508843025, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
       propertyPath: phaseFourPlaster
       value: 
       objectReference: {fileID: 910703646}
@@ -397,6 +401,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1704300714028428863, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 910703648}
+    - targetCorrespondingSourceObject: {fileID: 1704300714028428863, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1412860173}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
 --- !u!95 &440780099 stripped
@@ -1897,6 +1904,54 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d015c3b456644bdcb44e25e27c8181f, type: 3}
+--- !u!1 &1412860172
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1412860173}
+  - component: {fileID: 1412860174}
+  m_Layer: 0
+  m_Name: phase 5 plaster
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1412860173
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412860172}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 970605339}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1412860174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412860172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
+  CollisionTag: 
+  Parameter: battle scenes
+  TriggerEvent: 11
+  Value: 4
 --- !u!4 &1523316465 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2713629532615523900, guid: 8a190944f649b4f5585831ecb259c671, type: 3}

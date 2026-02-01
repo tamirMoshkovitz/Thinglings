@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using _SLIME.GameLoop;
 using Random = UnityEngine.Random;
 
 public enum BossAttackType
@@ -92,6 +93,7 @@ namespace _SLIME.Boss
             {
                 animator.SetTrigger(DoWater);
                 Debug.Log("Water Attack Activated");
+                GameEvents.WaterAttackStarted?.Invoke();
                 return;
             }
             switch (selectedAttack)
