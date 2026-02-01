@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using _Slime.Audio;
 using _SLIME.BaseScripts;
 using _SLIME.GameLoop;
@@ -12,14 +13,18 @@ public class FmodManager : ProjectMonoBehavior
     [SerializeField] private GameObject phaseTwoPlaster;
     [SerializeField] private GameObject phaseThreePlaster;
     [SerializeField] private GameObject phaseFourPlaster;
+    [SerializeField] private GameObject phaseFivePlaster;
     
     public static FmodManager Instance { get; private set; }
+    
+    private StudioEventEmitter _musicEmitter;
     
     void Awake()
     {
         if (Instance) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        _musicEmitter = GetComponent<StudioEventEmitter>();
     }
 
     private void OnEnable()
@@ -28,6 +33,10 @@ public class FmodManager : ProjectMonoBehavior
         GameEvents.FmodPhaseTwo += SetBossPhaseTwo;
         GameEvents.FmodPhaseThree += SetBossPhaseThree;
         GameEvents.FmodPhaseFour += SetBossPhaseFour;
+        GameEvents.FmodPhaseFive += SetBossPhaseFive;
+        
+        GameEvents.WaterAttackStarted += OnWaterAttackStarted;
+        GameEvents.WaterAttackEnded += OnWaterAttackEnded;
     }
     
     private void OnDisable()
@@ -36,6 +45,10 @@ public class FmodManager : ProjectMonoBehavior
         GameEvents.FmodPhaseTwo -= SetBossPhaseTwo;
         GameEvents.FmodPhaseThree -= SetBossPhaseThree;
         GameEvents.FmodPhaseFour -= SetBossPhaseFour;
+        GameEvents.FmodPhaseFive -= SetBossPhaseFive;
+        
+        GameEvents.WaterAttackStarted -= OnWaterAttackStarted;
+        GameEvents.WaterAttackEnded -= OnWaterAttackEnded;
     }
 
     private void SetBossPhaseOne()
@@ -60,5 +73,39 @@ public class FmodManager : ProjectMonoBehavior
     {
         phaseFourPlaster.SetActive(true);
         phaseFourPlaster.SetActive(false);
+    }
+    
+    private void SetBossPhaseFive()
+    {
+        phaseFivePlaster.SetActive(true);
+        phaseFivePlaster.SetActive(false);
+    }
+    
+    private void OnWaterAttackStarted()
+    {
+        StartCoroutine(InterpolateParameter(_musicEmitter.EventInstance, "water checkpoint", 1f, 1f));
+    }
+    
+    private void OnWaterAttackEnded()
+    {
+        StopCoroutine(InterpolateParameter(_musicEmitter.EventInstance, "water checkpoint", 1f, 1f));
+        StartCoroutine(InterpolateParameter(_musicEmitter.EventInstance, "water checkpoint", 0f, 1f));
+    }
+    
+    private IEnumerator InterpolateParameter(EventInstance eventInstance, string parameterName, float targetValue, float duration)
+    {
+        float currentTime = 0f;
+        float initialValue;
+        eventInstance.getParameterByName(parameterName, out initialValue);
+        
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            float newValue = Mathf.Lerp(initialValue, targetValue, currentTime / duration);
+            eventInstance.setParameterByName(parameterName, newValue);
+            yield return null;
+        }
+        
+        eventInstance.setParameterByName(parameterName, targetValue);
     }
 }
