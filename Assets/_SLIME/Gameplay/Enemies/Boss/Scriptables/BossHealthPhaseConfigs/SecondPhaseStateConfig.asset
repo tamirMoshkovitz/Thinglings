@@ -22,7 +22,7 @@ MonoBehaviour:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
     projectileBeforeSpawnPrefab: {fileID: 4899053137042385202, guid: c35248b870a664833961bec195804c32, type: 3}
     attacksToCast: 6
-    hitThreshold: 2
+    hitThreshold: 1
     spawnSettings:
       delayBetweenAttacks: {x: 1, y: 2}
       bothSlimesAliveProbabilities:
@@ -97,6 +97,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     rotationDuration: 3
     totalLoops: 1
+    withSlimeDetection: 1
   icicleSpawnSettings:
     minWaitTime: 3
     maxWaitTime: 5
@@ -111,6 +112,8 @@ MonoBehaviour:
     mainBeamAngleFromSlimes: {x: 15, y: 20}
     minBeamAngleDistance: 45
     timeToCheckForMainBeanSwitch: 0.5
+    directionFlipTransitionDuration: 0
+    minSpeedDifference: 0
   bossCoreSettings:
     maxHealth: 250
   bossPhaseSettings:

@@ -97,6 +97,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     rotationDuration: 4
     totalLoops: 1
+    withSlimeDetection: 0
   icicleSpawnSettings:
     minWaitTime: 4
     maxWaitTime: 6
@@ -111,6 +112,8 @@ MonoBehaviour:
     mainBeamAngleFromSlimes: {x: 15, y: 20}
     minBeamAngleDistance: 45
     timeToCheckForMainBeanSwitch: 0.5
+    directionFlipTransitionDuration: 0
+    minSpeedDifference: 0
   bossCoreSettings:
     maxHealth: 400
   bossPhaseSettings:
