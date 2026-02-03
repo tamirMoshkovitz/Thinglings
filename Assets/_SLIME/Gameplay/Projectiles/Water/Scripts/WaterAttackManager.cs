@@ -65,6 +65,7 @@ public class WaterAttackManager : MonoBehaviour
             {
                 StopCoroutine(_attackRoutine);
                 _attackRoutine = null;
+                GameEvents.WaterAttackEnded?.Invoke();
             }
             
             CanAttack = false;
@@ -73,20 +74,23 @@ public class WaterAttackManager : MonoBehaviour
 
     private IEnumerator AttackSequence()
     {
+        Debug.Log("water attack started");
+        
         yield return new WaitForSeconds(initialDelay);
+        
+        GameEvents.FmodPhaseFour?.Invoke();
         TriggerBoth(CreaturesInsideTrigger);
 
         yield return new WaitForSeconds(timeToAttackMode);
         TriggerBoth(AttackModeTrigger);
         CanAttack = true;
-
-        GameEvents.FmodPhaseFour?.Invoke();
         
         yield return new WaitForSeconds(timeToMagicOut);
         TriggerBoth(MagicalWaterOutTrigger);
 
         _attackRoutine = null;
         GameEvents.WaterAttackEnded?.Invoke();
+        Debug.Log("Water Attack Ended");
     }
 
     private void TriggerBoth(int hashId)

@@ -97,7 +97,7 @@ public class FmodManager : ProjectMonoBehavior
     private void OnWaterAttackEnded()
     {
         StopCoroutine(InterpolateParameter(_musicEmitter.EventInstance, "water checkpoint", 1f, 1f));
-        StartCoroutine(InterpolateParameter(_musicEmitter.EventInstance, "water checkpoint", 0f, 5f));
+        StartCoroutine(InterpolateParameter(_musicEmitter.EventInstance, "water checkpoint", 0f, .25f));
     }
     
     private IEnumerator InterpolateParameter(EventInstance eventInstance, string parameterName, float targetValue, float duration)
