@@ -30,6 +30,9 @@ namespace _SLIME.Scenes.Ending.Scripts
         {
             _animator = GetComponent<Animator>();
             _collider = GetComponent<Collider2D>();
+            
+            if (_collider.enabled) // Debug scene
+                OnSlimeWon();
         }
 
         private void OnEnable()
