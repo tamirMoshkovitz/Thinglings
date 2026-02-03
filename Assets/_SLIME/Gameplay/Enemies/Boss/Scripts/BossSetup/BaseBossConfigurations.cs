@@ -73,6 +73,8 @@ public class BaseBossConfigurations : TabbedScriptableObject
         
         [Tooltip("Total laser rotations loops (full 360 degrees) during the attack")]
         public int totalLoops;
+
+        public bool withSlimeDetection;
     }
     
     [Serializable]
