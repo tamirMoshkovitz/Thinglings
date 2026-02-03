@@ -96,7 +96,7 @@ namespace _SLIME.Slime
             
             IsDead = true;
             _data.OneSlimeDead = true;
-            SlimeEvents.SlimeGetHit();
+            SlimeEvents.SlimeGetHit?.Invoke();
         }
 
         public void Resurrect()
