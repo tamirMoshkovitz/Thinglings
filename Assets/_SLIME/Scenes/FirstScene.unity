@@ -314,98 +314,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Tutorial.BackgroundTutorial
   background: {fileID: 119033387}
---- !u!1001 &419671931
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1704300714028428863, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704300714028428863, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704300714028428863, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704300714028428863, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704300714028428863, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704300714028428863, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704300714028428863, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704300714028428863, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704300714028428863, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704300714028428863, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3156295220704426607, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-      propertyPath: m_Name
-      value: FMOD Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 3355317023508843025, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-      propertyPath: phaseOnePlaster
-      value: 
-      objectReference: {fileID: 647506819}
-    - target: {fileID: 3355317023508843025, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-      propertyPath: phaseTwoPlaster
-      value: 
-      objectReference: {fileID: 1304116464}
-    - target: {fileID: 3355317023508843025, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-      propertyPath: phaseFivePlaster
-      value: 
-      objectReference: {fileID: 1412860172}
-    - target: {fileID: 3355317023508843025, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-      propertyPath: phaseFourPlaster
-      value: 
-      objectReference: {fileID: 910703646}
-    - target: {fileID: 3355317023508843025, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-      propertyPath: phaseThreePlaster
-      value: 
-      objectReference: {fileID: 1957751114}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 1704300714028428863, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 647506821}
-    - targetCorrespondingSourceObject: {fileID: 1704300714028428863, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1304116466}
-    - targetCorrespondingSourceObject: {fileID: 1704300714028428863, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1957751116}
-    - targetCorrespondingSourceObject: {fileID: 1704300714028428863, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 910703648}
-    - targetCorrespondingSourceObject: {fileID: 1704300714028428863, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1412860173}
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
 --- !u!95 &440780099 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 698770502195183284, guid: 828d0fa3a22fd49af9ac88f0fb4a17c9, type: 3}
@@ -492,54 +400,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5489906756674778591, guid: a53fe4b8eb4bf47f29fb8a91ad764a0d, type: 3}
   m_PrefabInstance: {fileID: 1648634095}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &647506819
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 647506821}
-  - component: {fileID: 647506822}
-  m_Layer: 0
-  m_Name: phase 1 plaster
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &647506821
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 647506819}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 970605339}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &647506822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 647506819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
-  CollisionTag: 
-  Parameter: battle scenes
-  TriggerEvent: 11
-  Value: 0
 --- !u!1001 &728586244
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1146,54 +1006,6 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
---- !u!1 &910703646
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 910703648}
-  - component: {fileID: 910703649}
-  m_Layer: 0
-  m_Name: phase 4 plaster
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &910703648
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 910703646}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 970605339}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &910703649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 910703646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
-  CollisionTag: 
-  Parameter: battle scenes
-  TriggerEvent: 11
-  Value: 3
 --- !u!95 &916827277 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5804604204090866695, guid: a53fe4b8eb4bf47f29fb8a91ad764a0d, type: 3}
@@ -1218,11 +1030,6 @@ Animator:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5298197006015784440, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
   m_PrefabInstance: {fileID: 1314635557}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &970605339 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1704300714028428863, guid: c0f677475d1984d2ba49a4bce0ae39d6, type: 3}
-  m_PrefabInstance: {fileID: 419671931}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1046256267 stripped
 GameObject:
@@ -1697,54 +1504,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
---- !u!1 &1304116464
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1304116466}
-  - component: {fileID: 1304116467}
-  m_Layer: 0
-  m_Name: phase 2 plaster
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1304116466
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1304116464}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 970605339}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1304116467
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1304116464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
-  CollisionTag: 
-  Parameter: battle scenes
-  TriggerEvent: 11
-  Value: 1
 --- !u!4 &1307573143 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5411358431574317746, guid: 47637439db76348ae94481f868aaf610, type: 3}
@@ -1904,54 +1663,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d015c3b456644bdcb44e25e27c8181f, type: 3}
---- !u!1 &1412860172
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1412860173}
-  - component: {fileID: 1412860174}
-  m_Layer: 0
-  m_Name: phase 5 plaster
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1412860173
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1412860172}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 970605339}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1412860174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1412860172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
-  CollisionTag: 
-  Parameter: battle scenes
-  TriggerEvent: 11
-  Value: 4
 --- !u!4 &1523316465 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2713629532615523900, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
@@ -2311,54 +2022,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d015c3b456644bdcb44e25e27c8181f, type: 3}
---- !u!1 &1957751114
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1957751116}
-  - component: {fileID: 1957751117}
-  m_Layer: 0
-  m_Name: phase 3 plaster
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1957751116
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1957751114}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 970605339}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1957751117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1957751114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
-  CollisionTag: 
-  Parameter: battle scenes
-  TriggerEvent: 11
-  Value: 2
 --- !u!1 &1988930930
 GameObject:
   m_ObjectHideFlags: 0
@@ -3079,5 +2742,4 @@ SceneRoots:
   - {fileID: 1314635557}
   - {fileID: 1091334697}
   - {fileID: 1988930931}
-  - {fileID: 419671931}
   - {fileID: 1720689336929784706}

@@ -101,5 +101,6 @@ public class WaterAttackManager : MonoBehaviour
     private void OnBossDead()
     {
         waterAttackResult = SlimeWon;
+        GameEvents.SlimeWon?.Invoke();
     }
 }
