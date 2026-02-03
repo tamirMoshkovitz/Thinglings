@@ -1,9 +1,8 @@
-using System;
 using System.Collections;
 using _SLIME.BaseScripts;
 using _SLIME.GameLoop;
 using UnityEngine;
-using UnityEngine.Serialization;
+using Debug = UnityEngine.Debug;
 
 namespace _SLIME.Scenes.Ending.Scripts
 {
@@ -85,9 +84,15 @@ namespace _SLIME.Scenes.Ending.Scripts
             float elapsedTime = 0f;
             while (elapsedTime < slimeRiseDuration)
             {
-                firstSlime.transform.position = Vector3.Lerp(firstSlimeStartPos, firstSlimeEndPos, (elapsedTime / slimeRiseDuration));
-                secondSlime.transform.position = Vector3.Lerp(secondSlimeStartPos, secondSlimeEndPos, (elapsedTime / slimeRiseDuration));
-                camera.transform.position = Vector3.Lerp(cameraStartPos, cameraEndPos, (elapsedTime / slimeRiseDuration));
+                float t = elapsedTime / slimeRiseDuration;
+                firstSlime.transform.position = Vector3.Lerp(firstSlimeStartPos, firstSlimeEndPos, t);
+                secondSlime.transform.position = Vector3.Lerp(secondSlimeStartPos, secondSlimeEndPos, t);
+                camera.transform.position = Vector3.Lerp(cameraStartPos, cameraEndPos, t);
+                FMOD.RESULT result = FMODUnity.RuntimeManager.StudioSystem.setParameterByName("light", t);
+                if (result != FMOD.RESULT.OK)
+                {
+                    Debug.LogError($"Failed to set FMOD parameter 'light': {result}");
+                }
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
@@ -102,6 +107,7 @@ namespace _SLIME.Scenes.Ending.Scripts
         private void OnSlimeWon()
         {
             StartCoroutine(EndingCoroutine());
+            GameEvents.FmodPhaseSix?.Invoke();
         }
     }
 }
