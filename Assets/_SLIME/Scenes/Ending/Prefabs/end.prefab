@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &610902902087804350
 Transform:
   m_ObjectHideFlags: 0
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 6336339636605810525}
   - component: {fileID: 9120260745302875194}
   - component: {fileID: 187140521975672602}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -380,7 +380,7 @@ MonoBehaviour:
   secondSlime: {fileID: 0}
   camera: {fileID: 0}
   phaseDelay: 1
-  slimeRiseDuration: 4
+  slimeRiseDuration: 10
   subtitlesDuration: 15
 --- !u!61 &187140521975672602
 BoxCollider2D:
@@ -389,7 +389,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9190106202075349401}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
