@@ -10,6 +10,16 @@ namespace _SLIME.Boss
         [Tooltip("1f for perfect accuracy, 0f for awful accuracy")]
         [MinMaxSlider(0F, 1F)] public Vector2 attackAccuracyRange;
         [MinMaxSlider(0F, 100F)] public Vector2 attackSpeedRange;
+        [Tooltip("Scale-up curve (0->0, 1->1). Duration = scaleUpDurationFactor / moveSpeed.")]
+        public AnimationCurve scaleUpCurve;
+        public float scaleUpDurationFactor;
+        [Tooltip("Starting scale for scale-up animation.")]
+        public Vector3 scaleStart;
+        [Tooltip("When distance to slime < this, scale up very fast (duration = scaleUpDurationWhenClose).")]
+        public float scaleUpCloseDistanceThreshold;
+        public float scaleUpDurationWhenClose;
+        [Tooltip("Lob arc: height above direct line (up then down to target). 0 = straight line.")]
+        public float lobArcHeight;
     }
     
     [Serializable]

@@ -43,7 +43,7 @@ namespace _SLIME.Boss
             for (int i = 0; i < TotalShots; i++)
             {
                 _targets[i] = (i % 2 == 0) ? slime1Pos : slime2Pos;
-                _spellBefores[i] = _oneSpellShotLogic.BeforeAttackEffect(_targets[i]);
+                _spellBefores[i] = _oneSpellShotLogic.BeforeAttackEffect(_spellSets, _targets[i]);
             }
         }
 

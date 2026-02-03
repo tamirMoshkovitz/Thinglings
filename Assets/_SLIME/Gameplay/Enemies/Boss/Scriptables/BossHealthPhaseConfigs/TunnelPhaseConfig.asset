@@ -22,7 +22,7 @@ MonoBehaviour:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
     projectileBeforeSpawnPrefab: {fileID: 4899053137042385202, guid: c35248b870a664833961bec195804c32, type: 3}
     attacksToCast: 6
-    hitThreshold: 1
+    hitThreshold: 6
     spawnSettings:
       delayBetweenAttacks: {x: 1, y: 1.5}
       bothSlimesAliveProbabilities:
@@ -45,7 +45,36 @@ MonoBehaviour:
         bulletHell: 0.25
     spellSettings:
       attackAccuracyRange: {x: 0.9, y: 1}
-      attackSpeedRange: {x: 20, y: 25}
+      attackSpeedRange: {x: 10, y: 15}
+      scaleUpCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 2
+          outSlope: 2
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      scaleUpDurationFactor: 20
+      scaleStart: {x: 0.3, y: 0.3, z: 0.3}
+      scaleUpCloseDistanceThreshold: 1
+      scaleUpDurationWhenClose: 0.05
+      lobArcHeight: 10
     specialAttacksSettings:
       threeShotsAngle: 22.5
       fourShotsWaitBetweenShots: 0.2

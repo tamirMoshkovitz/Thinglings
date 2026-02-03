@@ -10,6 +10,7 @@ namespace _SLIME.Boss
         private readonly BossBrain _data;
         private readonly GameObject _spellSpawnPrefab;
         private SpellBeforeSpawn _spellBeforeSpawn;
+        private Spell _spell;
         private Vector3 _targetPosition;
         private SpellSettings? _spellSets;
         private bool _isActive;
@@ -25,12 +26,9 @@ namespace _SLIME.Boss
 
         public void UpdateAttack()
         {
-            if (!_spellBeforeSpawn.GetState()) return;
-            Vector3 spawnPos = _spellBeforeSpawn.GetSpawnPoint();
-            var z = _spellBeforeSpawn.transform.eulerAngles.z;
-            Object.Destroy(_spellBeforeSpawn.gameObject);
+            if (_spell == null || !_spell.HasStartedFlying()) return;
+            _spell = null;
             _spellBeforeSpawn = null;
-            Attack(_spellSets.Value, _targetPosition,spawnPos, z);
             _isActive = false;
         }
 
@@ -38,8 +36,12 @@ namespace _SLIME.Boss
         {
             _isActive = false;
             _targetPosition = Vector3.zero;
-            if(_spellBeforeSpawn) Object.Destroy(_spellBeforeSpawn.gameObject);
-            _spellBeforeSpawn = null;
+            if (_spellBeforeSpawn != null)
+            {
+                Object.Destroy(_spellBeforeSpawn.gameObject);
+                _spellBeforeSpawn = null;
+            }
+            _spell = null;
             _spellSets = null;
         }
     
@@ -48,17 +50,58 @@ namespace _SLIME.Boss
             _isActive = true;
             _spellSets = spellSets;
             _targetPosition = GetTargetPosition();
-            _spellBeforeSpawn = BeforeAttackEffect(_targetPosition);
+            (_spellBeforeSpawn, _spell) = CreateSpellWithTelegraph(spellSets, _targetPosition);
         }
 
-        public SpellBeforeSpawn BeforeAttackEffect(Vector3 targetPosition)
+        public (SpellBeforeSpawn, Spell) CreateSpellWithTelegraph(SpellSettings spellSets, Vector3 targetPosition)
         {
             Vector3 spawnPos = _data.spawnDeps.spawnPoint.position;
-            GameObject item = Object.Instantiate(_spellSpawnPrefab, spawnPos, _spellSpawnPrefab.transform.rotation, _data.animator.transform);
-            var spellBeforeSpawn = item.GetComponent<SpellBeforeSpawn>();
-            
-            Vector2 dir = (targetPosition - spawnPos).normalized;
-            float angleToAdd = Mathf.Atan2(dir.x, -dir.y) * Mathf.Rad2Deg;
+            float accuracy = Random.Range(spellSets.attackAccuracyRange.x, spellSets.attackAccuracyRange.y);
+            Vector3 direction = CalculateDirectionWithAccuracy(spawnPos, targetPosition, accuracy);
+            Vector3 actualTarget = spawnPos + direction * Vector3.Distance(spawnPos, targetPosition);
+            float speed = Random.Range(spellSets.attackSpeedRange.x, spellSets.attackSpeedRange.y);
+
+            GameObject telegraphObj = Object.Instantiate(_spellSpawnPrefab, spawnPos, _spellSpawnPrefab.transform.rotation, _data.animator.transform);
+            var spellBeforeSpawn = telegraphObj.GetComponent<SpellBeforeSpawn>();
+            float angleToAdd = Mathf.Atan2(direction.x, -direction.y) * Mathf.Rad2Deg;
+            if (angleToAdd < 0f) angleToAdd += 360f;
+            float currentZ = spellBeforeSpawn.transform.eulerAngles.z;
+            float totalZ = currentZ + angleToAdd;
+            if (totalZ >= 360f) totalZ -= 360f;
+            if (totalZ < 0f) totalZ += 360f;
+            spellBeforeSpawn.transform.rotation = Quaternion.Euler(0f, 0f, totalZ);
+
+            Vector3 spellPos = spellBeforeSpawn.comp.spawnPoint.position;
+            float spellZ = Mathf.Atan2(direction.x, -direction.y) * Mathf.Rad2Deg;
+            if (spellZ < 0f) spellZ += 360f;
+            Quaternion spellRot = Quaternion.Euler(0f, 0f, spellZ);
+            GameObject spellObj = Object.Instantiate(_spellPrefab, spellPos, spellRot);
+            var spell = spellObj.GetComponentInChildren<Spell>();
+            spell.BossSetup(new SpellBossAttributes
+            {
+                spawnPosition = spellPos,
+                targetPosition = actualTarget,
+                moveSpeed = speed,
+                z = totalZ,
+                scaleUpCurve = spellSets.scaleUpCurve,
+                scaleUpDurationFactor = spellSets.scaleUpDurationFactor,
+                scaleStart = spellSets.scaleStart,
+                scaleUpCloseDistanceThreshold = spellSets.scaleUpCloseDistanceThreshold,
+                scaleUpDurationWhenClose = spellSets.scaleUpDurationWhenClose,
+                lobArcHeight = spellSets.lobArcHeight
+            });
+            spell.SetWaitingForSpawn(spellBeforeSpawn);
+            return (spellBeforeSpawn, spell);
+        }
+
+        public SpellBeforeSpawn BeforeAttackEffect(SpellSettings spellSets, Vector3 targetPosition)
+        {
+            Vector3 spawnPos = _data.spawnDeps.spawnPoint.position;
+            float accuracy = Random.Range(spellSets.attackAccuracyRange.x, spellSets.attackAccuracyRange.y);
+            Vector3 direction = CalculateDirectionWithAccuracy(spawnPos, targetPosition, accuracy);
+            GameObject telegraphObj = Object.Instantiate(_spellSpawnPrefab, spawnPos, _spellSpawnPrefab.transform.rotation, _data.animator.transform);
+            var spellBeforeSpawn = telegraphObj.GetComponent<SpellBeforeSpawn>();
+            float angleToAdd = Mathf.Atan2(direction.x, -direction.y) * Mathf.Rad2Deg;
             if (angleToAdd < 0f) angleToAdd += 360f;
             float currentZ = spellBeforeSpawn.transform.eulerAngles.z;
             float totalZ = currentZ + angleToAdd;
@@ -68,22 +111,26 @@ namespace _SLIME.Boss
             return spellBeforeSpawn;
         }
 
-
         public void Attack(SpellSettings spellSets, Vector3 targetPosition, Vector3 spawnPoint, float z)
         {
             float accuracy = Random.Range(spellSets.attackAccuracyRange.x, spellSets.attackAccuracyRange.y);
             Vector3 direction = CalculateDirectionWithAccuracy(spawnPoint, targetPosition, accuracy);
-            
             float speed = Random.Range(spellSets.attackSpeedRange.x, spellSets.attackSpeedRange.y);
-            
+
             GameObject item = Object.Instantiate(_spellPrefab, spawnPoint, Quaternion.identity);
             Spell spell = item.GetComponentInChildren<Spell>();
-            
             spell.BossSetup(new SpellBossAttributes
             {
-                direction = direction,
+                spawnPosition = spawnPoint,
+                targetPosition = spawnPoint + direction * Vector3.Distance(spawnPoint, targetPosition),
                 moveSpeed = speed,
-                z = z
+                z = z,
+                scaleUpCurve = spellSets.scaleUpCurve,
+                scaleUpDurationFactor = spellSets.scaleUpDurationFactor,
+                scaleStart = spellSets.scaleStart,
+                scaleUpCloseDistanceThreshold = spellSets.scaleUpCloseDistanceThreshold,
+                scaleUpDurationWhenClose = spellSets.scaleUpDurationWhenClose,
+                lobArcHeight = spellSets.lobArcHeight
             });
         }
         

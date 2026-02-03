@@ -34,7 +34,6 @@ namespace _SLIME.Tutorial
         private SpellHitStateSet _spellHitStateSet;
         private bool _slimeGetHit = false;
         private GameObject _currentSpell;
-        private Vector2 _currentDirection;
         private Vector3 _currentSpawnPosition;
         
         public SpellHitLogic(SpellHitStateDeps spellHitStateDeps,
@@ -94,12 +93,13 @@ namespace _SLIME.Tutorial
             Vector3 slime2Pos = _spellHitStateDeps.slime2.position;
             
             Vector3 spawnTarget = slime1Pos.x < slime2Pos.x ? slime1Pos : slime2Pos;
-            _currentDirection = (spawnTarget - _currentSpawnPosition).normalized;
+           
 
             Spell spell = _currentSpell.GetComponentInChildren<Spell>();
             spell.BossSetup(new SpellBossAttributes
             {
-                direction = _currentDirection,
+                spawnPosition = _currentSpawnPosition,
+                targetPosition = spawnTarget,
                 moveSpeed = _spellHitStateSet.spellSpeed,
             });
 

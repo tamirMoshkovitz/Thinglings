@@ -22,23 +22,17 @@ namespace _SLIME.Boss
             _oneSpellShotLogic = oneSpellShotLogic;
         }
 
+        private Spell _spell1;
+        private Spell _spell2;
+
         public void UpdateAttack()
         {
-            if (_spellBefore1 == null || _spellBefore2 == null) return;
-            if (!_spellBefore1.GetState() || !_spellBefore2.GetState()) return;
-
-            Vector3 spawn1 = _spellBefore1.GetSpawnPoint();
-            Vector3 spawn2 = _spellBefore2.GetSpawnPoint();
-            float z1 = _spellBefore1.transform.eulerAngles.z;
-            float z2 = _spellBefore2.transform.eulerAngles.z;
-
-            Object.Destroy(_spellBefore1.gameObject);
-            Object.Destroy(_spellBefore2.gameObject);
+            if (_spell1 == null || _spell2 == null) return;
+            if (!_spell1.HasStartedFlying() || !_spell2.HasStartedFlying()) return;
+            _spell1 = null;
+            _spell2 = null;
             _spellBefore1 = null;
             _spellBefore2 = null;
-
-            _oneSpellShotLogic.Attack(_spellSets, _slime1Pos, spawn1, z1);
-            _oneSpellShotLogic.Attack(_spellSets, _slime2Pos, spawn2, z2);
             _isActive = false;
         }
 
@@ -47,6 +41,8 @@ namespace _SLIME.Boss
             _isActive = false;
             if (_spellBefore1 != null) { Object.Destroy(_spellBefore1.gameObject); _spellBefore1 = null; }
             if (_spellBefore2 != null) { Object.Destroy(_spellBefore2.gameObject); _spellBefore2 = null; }
+            _spell1 = null;
+            _spell2 = null;
         }
 
         public void Attack(SpellSettings spellSets)
@@ -58,8 +54,8 @@ namespace _SLIME.Boss
             _spellSets.attackAccuracyRange = Vector2.one;
             _spellSets.attackSpeedRange = new Vector2(spellSets.attackSpeedRange.x, spellSets.attackSpeedRange.x);
 
-            _spellBefore1 = _oneSpellShotLogic.BeforeAttackEffect(_slime1Pos);
-            _spellBefore2 = _oneSpellShotLogic.BeforeAttackEffect(_slime2Pos);
+            (_spellBefore1, _spell1) = _oneSpellShotLogic.CreateSpellWithTelegraph(_spellSets, _slime1Pos);
+            (_spellBefore2, _spell2) = _oneSpellShotLogic.CreateSpellWithTelegraph(_spellSets, _slime2Pos);
             _isActive = true;
         }
     }

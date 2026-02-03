@@ -138,6 +138,43 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+    spellScaleDownCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.40455973
+        value: 0.4876798
+        inSlope: 0.58411944
+        outSlope: 0.58411944
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    scaleDownDurationFactor: 40
+    spellScaleDownTarget: {x: 0.3, y: 0.3, z: 0.3}
+    deflectLobArcHeight: 10
+    deflectLobUpDuration: 5
   SparkPowerSettings:
     slimeProjectileLayer:
       serializedVersion: 2

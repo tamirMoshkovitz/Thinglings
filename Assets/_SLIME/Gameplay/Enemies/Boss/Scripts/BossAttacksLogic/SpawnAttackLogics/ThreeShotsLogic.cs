@@ -12,6 +12,9 @@ namespace _SLIME.Boss
         private SpellBeforeSpawn _spellBefore1;
         private SpellBeforeSpawn _spellBefore2;
         private SpellBeforeSpawn _spellBefore3;
+        private Spell _spell1;
+        private Spell _spell2;
+        private Spell _spell3;
         private SpellSettings _spellSets;
         private Vector3 _target1;
         private Vector3 _target2;
@@ -28,26 +31,14 @@ namespace _SLIME.Boss
 
         public void UpdateAttack()
         {
-            if (_spellBefore1 == null || _spellBefore2 == null || _spellBefore3 == null) return;
-            if (!_spellBefore1.GetState() || !_spellBefore2.GetState() || !_spellBefore3.GetState()) return;
-
-            Vector3 spawn1 = _spellBefore1.GetSpawnPoint();
-            Vector3 spawn2 = _spellBefore2.GetSpawnPoint();
-            Vector3 spawn3 = _spellBefore3.GetSpawnPoint();
-            float z1 = _spellBefore1.transform.eulerAngles.z;
-            float z2 = _spellBefore2.transform.eulerAngles.z;
-            float z3 = _spellBefore3.transform.eulerAngles.z;
-
-            Object.Destroy(_spellBefore1.gameObject);
-            Object.Destroy(_spellBefore2.gameObject);
-            Object.Destroy(_spellBefore3.gameObject);
+            if (_spell1 == null || _spell2 == null || _spell3 == null) return;
+            if (!_spell1.HasStartedFlying() || !_spell2.HasStartedFlying() || !_spell3.HasStartedFlying()) return;
+            _spell1 = null;
+            _spell2 = null;
+            _spell3 = null;
             _spellBefore1 = null;
             _spellBefore2 = null;
             _spellBefore3 = null;
-
-            _oneSpellShotLogic.Attack(_spellSets, _target1, spawn1, z1);
-            _oneSpellShotLogic.Attack(_spellSets, _target2, spawn2, z2);
-            _oneSpellShotLogic.Attack(_spellSets, _target3, spawn3, z3);
             _isActive = false;
         }
 
@@ -57,6 +48,9 @@ namespace _SLIME.Boss
             if (_spellBefore1 != null) { Object.Destroy(_spellBefore1.gameObject); _spellBefore1 = null; }
             if (_spellBefore2 != null) { Object.Destroy(_spellBefore2.gameObject); _spellBefore2 = null; }
             if (_spellBefore3 != null) { Object.Destroy(_spellBefore3.gameObject); _spellBefore3 = null; }
+            _spell1 = null;
+            _spell2 = null;
+            _spell3 = null;
         }
 
         public void Attack(SpellSettings spellSets)
@@ -78,9 +72,9 @@ namespace _SLIME.Boss
             _spellSets.attackAccuracyRange = Vector2.one;
             _spellSets.attackSpeedRange = new Vector2(spellSets.attackSpeedRange.x, spellSets.attackSpeedRange.x);
 
-            _spellBefore1 = _oneSpellShotLogic.BeforeAttackEffect(_target1);
-            _spellBefore2 = _oneSpellShotLogic.BeforeAttackEffect(_target2);
-            _spellBefore3 = _oneSpellShotLogic.BeforeAttackEffect(_target3);
+            (_spellBefore1, _spell1) = _oneSpellShotLogic.CreateSpellWithTelegraph(_spellSets, _target1);
+            (_spellBefore2, _spell2) = _oneSpellShotLogic.CreateSpellWithTelegraph(_spellSets, _target2);
+            (_spellBefore3, _spell3) = _oneSpellShotLogic.CreateSpellWithTelegraph(_spellSets, _target3);
             _isActive = true;
         }
 

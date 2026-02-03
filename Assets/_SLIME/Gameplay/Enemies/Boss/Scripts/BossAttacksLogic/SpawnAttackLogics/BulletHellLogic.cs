@@ -69,7 +69,7 @@ namespace _SLIME.Boss
                     ? Vector3.Lerp(_leftExtremeTarget, _rightExtremeTarget, easedT)
                     : Vector3.Lerp(_rightExtremeTarget, _leftExtremeTarget, easedT);
                 _targets[i] = targetPos;
-                _spellBefores[i] = _oneSpellShotLogic.BeforeAttackEffect(targetPos);
+                _spellBefores[i] = _oneSpellShotLogic.BeforeAttackEffect(_spellSets, targetPos);
             }
         }
 

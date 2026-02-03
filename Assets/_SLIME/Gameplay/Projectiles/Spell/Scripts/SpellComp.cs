@@ -12,6 +12,7 @@ namespace _SLIME.Projectiles
         public Collider2D collider;
         public Transform[] spellHit;
         public Transform spellHead;
+        public Transform spellBody;
     }
 
 

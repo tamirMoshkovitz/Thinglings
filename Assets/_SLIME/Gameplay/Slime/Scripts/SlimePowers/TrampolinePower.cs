@@ -15,7 +15,15 @@ namespace _SLIME.Slime
         [MinMaxSlider(0f,70f)]
         public Vector2 deflectionPower;
         public AnimationCurve trampolinePowerCurve;
-        
+        [Tooltip("Scale-down curve when deflected. Duration = scaleDownDurationFactor / finalPower.")]
+        public AnimationCurve spellScaleDownCurve;
+        public float scaleDownDurationFactor;
+        [Tooltip("Target scale when deflected (e.g. Vector3.zero).")]
+        public Vector3 spellScaleDownTarget;
+        [Tooltip("Deflect lob: arc height. 0 = no lob.")]
+        public float deflectLobArcHeight;
+        [Tooltip("Deflect lob: upward phase duration (collider off).")]
+        public float deflectLobUpDuration;
     }
     
     public class TrampolinePower: ISlimePower
@@ -55,7 +63,12 @@ namespace _SLIME.Slime
                 {
                     deflectionPower = power,
                     direction = direction,
-                    layerMask = _trampolinePowerSettings.slimeProjectileLayer
+                    layerMask = _trampolinePowerSettings.slimeProjectileLayer,
+                    scaleDownCurve = _trampolinePowerSettings.spellScaleDownCurve,
+                    scaleDownDurationFactor = _trampolinePowerSettings.scaleDownDurationFactor,
+                    scaleDownTarget = _trampolinePowerSettings.spellScaleDownTarget,
+                    deflectLobArcHeight = _trampolinePowerSettings.deflectLobArcHeight,
+                    deflectLobUpDuration = _trampolinePowerSettings.deflectLobUpDuration
                 });
             }
             SlimeEvents.TrampolineActivated();

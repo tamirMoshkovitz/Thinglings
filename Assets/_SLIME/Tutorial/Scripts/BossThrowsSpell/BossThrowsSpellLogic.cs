@@ -79,13 +79,11 @@ namespace _SLIME.Tutorial
             // Spawn spell
             GameObject spellGO = GameObject.Instantiate(_deps.spellPrefab, spawnPoint.position, Quaternion.identity);
             
-            // Calculate direction to target
-            Vector3 direction = (targetPosition - spawnPoint.position).normalized;
-            
             Spell spell = spellGO.GetComponentInChildren<Spell>(); 
             spell.BossSetup(new SpellBossAttributes
             {
-                direction = direction,
+                spawnPosition = spawnPoint.position,
+                targetPosition = targetPosition,
                 moveSpeed = _set.spellSpeed,
             });
         }
