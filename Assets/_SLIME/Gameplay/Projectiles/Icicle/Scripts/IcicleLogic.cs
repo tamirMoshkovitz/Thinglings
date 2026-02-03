@@ -1,20 +1,21 @@
-using System;
 using System.Collections;
 using _SLIME.BaseScripts;
 using _SLIME.Core.Audio.FMOD.Scripts;
 using FMODUnity;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class IcicleLogic : MonoBehaviour
 {
+    [Header("Visuals")]
     [SerializeField] private Animator icicleAnimator;
-    [SerializeField] private Transform spawnPoint;
-    [SerializeField] private TurnOffGameobjectAfterTime turnOffGameobjectAfterTime;
+    [SerializeField] private RuntimeAnimatorController[] animatorVariants; 
+
+    [Header("Audio")]
     [SerializeField] private EventReference IcicleBreakSFX;
-    private new Rigidbody2D _rigidbody2D;
+
+    private Rigidbody2D _rigidbody2D;
     private Collider2D _col;
-    private Coroutine _courtine;
+    private Coroutine _activeCoroutine;
     private bool _hit;
 
     private void Awake()
@@ -30,13 +31,26 @@ public class IcicleLogic : MonoBehaviour
 
     private void ResetToHanging()
     {
+        if (_activeCoroutine != null)
+        {
+            StopCoroutine(_activeCoroutine);
+            _activeCoroutine = null;
+        }
+
+        // Pick one of the 3 Animators randomly
+        if (animatorVariants != null && animatorVariants.Length > 0)
+        {
+            icicleAnimator.runtimeAnimatorController = animatorVariants[Random.Range(0, animatorVariants.Length)];
+        }
+
         _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
         _rigidbody2D.linearVelocity = Vector2.zero;
         _rigidbody2D.angularVelocity = 0f;
         _col.enabled = false;
-        gameObject.transform.position = spawnPoint.position;
         _hit = false;
-        _courtine = null;
+
+        icicleAnimator.Rebind();
+        icicleAnimator.Update(0f);
     }
 
     public void ActivateFall()
@@ -46,44 +60,36 @@ public class IcicleLogic : MonoBehaviour
         _rigidbody2D.gravityScale = 1f;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision) => HandleImpact(collision.attachedRigidbody);
+    private void OnCollisionEnter2D(Collision2D collision) => HandleImpact(collision.rigidbody);
+
+    private void HandleImpact(Rigidbody2D otherBody)
     {
-        if(_hit) return;
+        if (_hit) return;
         _hit = true;
-        var rig = collision.attachedRigidbody;
-        if (rig && rig.TryGetComponent<IHealth>(out IHealth h))
+
+        if (otherBody && otherBody.TryGetComponent<IHealth>(out IHealth h))
         {
             h.TakeDamage();
         }
-        icicleAnimator.SetTrigger("IcycleHit");
-        SFXPlayer.Play(IcicleBreakSFX);
-        if(_courtine != null) return;
-        _courtine = StartCoroutine(WaitForDissolveState());
-    }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(_hit) return;
-        _hit = true;
         icicleAnimator.SetTrigger("IcycleHit");
         SFXPlayer.Play(IcicleBreakSFX);
-        if(_courtine != null) return;
-        _courtine = StartCoroutine(WaitForDissolveState());
+
+        if (_activeCoroutine == null)
+        {
+            _activeCoroutine = StartCoroutine(WaitForDissolveAndDisable());
+        }
     }
     
-    private IEnumerator WaitForDissolveState()
+    private IEnumerator WaitForDissolveAndDisable()
     {
-        // Wait until we enter the IcicleDissolve state
         while (!icicleAnimator.GetCurrentAnimatorStateInfo(0).IsName("IcicleDissolve"))
-        {
             yield return null;
-        }
         
-        // Wait until the animation finishes
         while (icicleAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
-        {
             yield return null;
-        }
-        turnOffGameobjectAfterTime.TurnOff();
+
+        gameObject.SetActive(false); 
     }
 }
