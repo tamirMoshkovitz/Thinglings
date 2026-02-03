@@ -1,4 +1,3 @@
-
 using System.Collections;
 using _SLIME.BaseScripts;
 using _SLIME.GameLoop;
@@ -8,7 +7,6 @@ using FMODUnity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
-
 
 namespace _SLIME.Slime
 {
@@ -84,6 +82,7 @@ namespace _SLIME.Slime
             _slimeConnections.OnEnable();
             
             SlimeEvents.SlimeTears += OnSlimeTears;
+            SlimeEvents.SlimeGetHit += OnSlimeGetHit;
         }
         
         private void OnDisable()
@@ -95,6 +94,7 @@ namespace _SLIME.Slime
             _slimePowers.OnDisable();
             
             SlimeEvents.SlimeTears -= OnSlimeTears;
+            SlimeEvents.SlimeGetHit -= OnSlimeGetHit;
         }
 
         private void Update()
@@ -210,7 +210,7 @@ namespace _SLIME.Slime
             {
                 if (_controlSwitchCoroutine == null)
                 {
-                    _controlSwitchCoroutine = StartCoroutine(ControlSwitchCoroutine());
+                    _controlSwitchCoroutine = StartCoroutine(ControlSwitchCoroutine(controlSwitchDelay));
                 }
             }
             else
@@ -224,9 +224,9 @@ namespace _SLIME.Slime
             }
         }
 
-        private void SwitchSlimeSides()
+        private void SwitchSlimeSides(bool overrideChecks)
         {
-            if (_rightSide.IsDead || _leftSide.IsDead) return;
+            if (!_rightSide.IsDead && !_leftSide.IsDead || overrideChecks);
             
             (_leftSide, _rightSide) = (_rightSide, _leftSide);
         }
@@ -245,13 +245,13 @@ namespace _SLIME.Slime
 
         #endregion
 
-        private IEnumerator ControlSwitchCoroutine()
+        private IEnumerator ControlSwitchCoroutine(float delay, bool overrideLifeChecks = false)
         {
-            yield return new WaitForSeconds(controlSwitchDelay);
+            yield return new WaitForSeconds(delay);
             
-            if (ShouldSwitchControls())
+            if (ShouldSwitchControls(overrideLifeChecks))
             {
-                SwitchSlimeSides();
+                SwitchSlimeSides(overrideLifeChecks);
                 yield return AnimateControlSwitch(controlSwitchDuration);
             }
         
@@ -299,13 +299,25 @@ namespace _SLIME.Slime
             rightSlimeSoulSprite.gameObject.SetActive(false);
         }
         
-        private bool ShouldSwitchControls()
+        private bool ShouldSwitchControls(bool overrideLifeChecks)
         {
-            return (_isMoveRightCancelled && 
-                    _isMoveLeftCancelled &&
-                    _leftSide.Position.x > _rightSide.Position.x + controlSwitchThreshold && 
-                    !_rightSide.IsDead &&
-                    !_leftSide.IsDead);
+            return IsSlimeSidesSwitched() && ShouldTrySwitchControls(overrideLifeChecks);
+        }
+
+        private bool IsSlimeSidesSwitched()
+        {
+            return _leftSide.Position.x > _rightSide.Position.x + controlSwitchThreshold;
+        }
+
+        private bool ShouldTrySwitchControls(bool overrideLifeChecks)
+        {
+            return overrideLifeChecks ||
+                (_isMoveRightCancelled && _isMoveLeftCancelled && !_rightSide.IsDead && !_leftSide.IsDead);
+        }
+
+        private void OnSlimeGetHit()
+        {
+            StartCoroutine(ControlSwitchCoroutine(0.1f, true));
         }
     }
 }
