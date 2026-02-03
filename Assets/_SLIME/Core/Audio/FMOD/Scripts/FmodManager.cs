@@ -23,7 +23,6 @@ public class FmodManager : ProjectMonoBehavior
     {
         if (Instance) { Destroy(gameObject); return; }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
         _musicEmitter = GetComponent<StudioEventEmitter>();
     }
 
