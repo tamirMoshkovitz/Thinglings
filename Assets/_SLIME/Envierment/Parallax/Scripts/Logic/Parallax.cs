@@ -72,34 +72,53 @@ public class Parallax : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
+private void LateUpdate()
+{
+    Vector2 currentPlayersPos = GetPlayersCenter();
+    Vector2 playerDistMoved = currentPlayersPos - _startPlayersPos;
+
+    // 1. Dynamic Range Check
+    // We recalculate the min/max Z every frame because TunnelMovement is 
+    // constantly shifting these layers.
+    float minZ = float.MaxValue;
+    float maxZ = float.MinValue;
+    foreach (var l in _layers)
     {
-        Vector2 currentPlayersPos = GetPlayersCenter();
-        Vector2 playerDistMoved = currentPlayersPos - _startPlayersPos;
-
-        foreach (var layer in _layers)
-        {
-            float dynamicSensitivityX = layer.baseDepthSensitivity * _currentSettings.sensitivityMultiplierX;
-            float dynamicSensitivityY = layer.baseDepthSensitivity * _currentSettings.sensitivityMultiplierY;
-            
-            float rawOffsetX = playerDistMoved.x * dynamicSensitivityX;
-            float clampedOffsetX = Mathf.Clamp(rawOffsetX, -_currentSettings.maxShiftX, _currentSettings.maxShiftX);
-            float targetX = layer.startPos.x + clampedOffsetX;
-            
-            float rawOffsetY = playerDistMoved.y * dynamicSensitivityY;
-            float clampedOffsetY = Mathf.Clamp(rawOffsetY, -_currentSettings.maxShiftY, _currentSettings.maxShiftY);
-            float targetY = layer.startPos.y + clampedOffsetY;
-
-            float newX = Mathf.SmoothDamp(layer.transform.position.x, targetX, ref layer.velocityX, _currentSettings.smoothing);
-            float newY = Mathf.SmoothDamp(layer.transform.position.y, targetY, ref layer.velocityY, _currentSettings.smoothing);
-
-            // FIX: Use current Z (transform.position.z) instead of start Z
-            // This allows other scripts (like TunnelMovement) to change Z without this script fighting back.
-            if (float.IsNaN(newX) || float.IsNaN(newY)) continue;
-            layer.transform.position = new Vector3(newX, newY, layer.transform.position.z);
-        }
+        float z = l.transform.position.z;
+        if (z < minZ) minZ = z;
+        if (z > maxZ) maxZ = z;
     }
+    float depthRange = Mathf.Max(maxZ - minZ, 0.001f);
 
+    foreach (var layer in _layers)
+    {
+        // 2. Map current Z to the 0-1 range for the curve
+        float normalizedDepth = (layer.transform.position.z - minZ) / depthRange;
+        
+        // 3. Sample the curve (Make sure the curve never hits 0 in the Inspector!)
+        float currentFactor = _currentSettings.depthSensitivityCurve.Evaluate(normalizedDepth);
+
+        // 4. Apply multipliers
+        float dynamicSensitivityX = currentFactor * _currentSettings.sensitivityMultiplierX;
+        float dynamicSensitivityY = currentFactor * _currentSettings.sensitivityMultiplierY;
+        
+        // 5. Calculate Target with clamping
+        float rawOffsetX = playerDistMoved.x * dynamicSensitivityX;
+        float targetX = layer.startPos.x + Mathf.Clamp(rawOffsetX, -_currentSettings.maxShiftX, _currentSettings.maxShiftX);
+        
+        float rawOffsetY = playerDistMoved.y * dynamicSensitivityY;
+        float targetY = layer.startPos.y + Mathf.Clamp(rawOffsetY, -_currentSettings.maxShiftY, _currentSettings.maxShiftY);
+
+        // 6. SmoothDamp for fluid movement
+        float newX = Mathf.SmoothDamp(layer.transform.position.x, targetX, ref layer.velocityX, _currentSettings.smoothing);
+        float newY = Mathf.SmoothDamp(layer.transform.position.y, targetY, ref layer.velocityY, _currentSettings.smoothing);
+
+        if (float.IsNaN(newX) || float.IsNaN(newY)) continue;
+
+        // Apply position while preserving the Z position from TunnelMovement
+        layer.transform.position = new Vector3(newX, newY, layer.transform.position.z);
+    }
+}
     private Vector2 GetPlayersCenter()
     {
         Vector2 totalPos = Vector2.zero;
