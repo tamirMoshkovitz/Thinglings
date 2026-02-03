@@ -35,7 +35,6 @@ namespace _SLIME.Boss
     public struct SpawnDeps
     {
         public Transform spawnPoint;
-        public float spawnRadius;
     }
     
     public class BossSpawnAttackBehaviour : BossBaseBehaviour

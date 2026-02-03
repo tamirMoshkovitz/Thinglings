@@ -27,21 +27,21 @@ MonoBehaviour:
       delayBetweenAttacks: {x: 1, y: 1.5}
       bothSlimesAliveProbabilities:
         oneShot: 0
-        twoShots: 0
+        twoShots: 0.1
         threeShot: 0.4
-        fourShots: 0.1
+        fourShots: 0
         bulletHell: 0.5
       notConnectedProbabilities:
         oneShot: 0
-        twoShots: 0
-        threeShot: 0
-        fourShots: 0.5
-        bulletHell: 0.5
-      oneSlimeAliveProbabilities:
-        oneShot: 0.25
         twoShots: 0.5
         threeShot: 0
         fourShots: 0
+        bulletHell: 0.5
+      oneSlimeAliveProbabilities:
+        oneShot: 0.25
+        twoShots: 0
+        threeShot: 0
+        fourShots: 0.5
         bulletHell: 0.25
     spellSettings:
       attackAccuracyRange: {x: 0.9, y: 1}
@@ -97,12 +97,24 @@ MonoBehaviour:
       m_RotationOrder: 4
     rotationDuration: 3
     totalLoops: 1
+    withSlimeDetection: 1
   icicleSpawnSettings:
     minWaitTime: 2
     maxWaitTime: 4
     loopSpawning: 1
   waterAttackSettings:
     waterDamage: 50
+  lightHouseSettings:
+    attackDuration: {x: 10, y: 10}
+    mainBeamSpeedPerSecond: {x: 70, y: 80}
+    otherBeamsSpeedPerSecond: {x: 70, y: 80}
+    angleFromMainBeam: {x: 45, y: 200.21394}
+    mainBeamAngleFromSlimes: {x: 15, y: 20}
+    minBeamAngleDistance: 45
+    timeToCheckForMainBeanSwitch: 1
+    directionFlipTransitionDuration: 1
+    minSpeedDifference: 50
+    directionFlipDeadZone: 8
   bossCoreSettings:
     maxHealth: 150
   bossPhaseSettings:

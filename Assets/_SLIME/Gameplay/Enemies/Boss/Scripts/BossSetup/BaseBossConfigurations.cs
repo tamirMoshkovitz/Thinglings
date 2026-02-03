@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
 using _SLIME.Boss;
+using _SLIME.LightHouse;
 using _SLIME.LittleBoss;
 using UnityEngine;
 [CreateAssetMenu(fileName = "BaseBossConfig", menuName = "BossConfig")]
@@ -72,6 +73,8 @@ public class BaseBossConfigurations : TabbedScriptableObject
         
         [Tooltip("Total laser rotations loops (full 360 degrees) during the attack")]
         public int totalLoops;
+
+        public bool withSlimeDetection;
     }
     
     [Serializable]
@@ -120,9 +123,10 @@ public class BaseBossConfigurations : TabbedScriptableObject
     [SerializeField] private LaserAttackSettings laserAttackSettings;
     [Tab("Attacks Settings")]
     [SerializeField] private IcicleSpawnSettings icicleSpawnSettings;
-
     [Tab("Attacks Settings")] [SerializeField]
     private WaterAttackSettings waterAttackSettings;
+    [Tab("Attacks Settings")]
+    [SerializeField] private LightHouseSets lightHouseSettings;
     
     [Tab("Boss Core Settings")]
     [SerializeField] private BossCoreSettings bossCoreSettings;
@@ -139,8 +143,8 @@ public class BaseBossConfigurations : TabbedScriptableObject
     [Tab("Little Boss Settings")]
     [SerializeField] private LittleBossHealthSet littleBossHealthSettings;
 
-    
-    
+
+
     public HandsAttackSettings HandsAttack => handsAttackSettings;
     public SpawnAttackSettings SpawnAttack => spawnAttackSettings;
     public LaserAttackSettings LaserAttack => laserAttackSettings;
@@ -151,4 +155,5 @@ public class BaseBossConfigurations : TabbedScriptableObject
     public LittleBossMovementSettings LittleBossMovement => littleBossMovementSettings;
     public LittleBossSpellAttackSettings LittleBossSpellAttack => littleBossSpellAttackSettings;
     public WaterAttackSettings WaterAttack => waterAttackSettings;
+    public LightHouseSets LightHouse => lightHouseSettings;
 }

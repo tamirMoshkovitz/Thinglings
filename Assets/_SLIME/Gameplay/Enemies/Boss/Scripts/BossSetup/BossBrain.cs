@@ -27,8 +27,9 @@ namespace _SLIME.Boss
         
         [Header("Boss Data Setup")]
         // this is static to make life easier 
-        public static BaseBossConfigurations bossConfigurations; 
-        
+        public static BaseBossConfigurations bossConfigurations;
+
+        public FloatingMagic floatingAttributes;
         
         [SerializeField] BaseBossConfigurations firstPhaseConfigurations;
         [SerializeField] BaseBossConfigurations secondPhaseConfigurations;
@@ -61,6 +62,10 @@ namespace _SLIME.Boss
         [Header("Laser Attack Setup")] 
         public GameObject laserAttackGameObject;
         
+        
+        [Header("Light House Attack Setup")] 
+        public GameObject lightHouseAttackGameObject;
+        
         public static BossStates BossState = BossStates.FarState;
         private static readonly int CloseHit = Animator.StringToHash("CloseHit");
         private static readonly int FarHit = Animator.StringToHash("FarHit");
@@ -68,7 +73,18 @@ namespace _SLIME.Boss
         public static event Action CloseState;
         public static event Action FarState;
 
-        private StateMachine StateMachine { get; set; }
+        public StateMachine StateMachine { get; private set; }
+        public BossPhaseType CurrentPhase
+        {
+            get
+            {
+                var current = StateMachine?.CurrentState;
+                if (current == FirstPhaseState) return BossPhaseType.FirstPhase;
+                if (current == SecondPhaseState) return BossPhaseType.SecondPhase;
+                if (current == TunnelPhaseState) return BossPhaseType.TunnelPhase;
+                return BossPhaseType.FirstPhase;
+            }
+        }
         public State FirstPhaseState { get; private set; }
         public State SecondPhaseState { get; private set; }
         
@@ -131,6 +147,7 @@ namespace _SLIME.Boss
         private void OnEnable(){
             SlimeEvents.SlimeConnected += OnSlimeConnected;
             SlimeEvents.SlimeTears += OnSlimeTears;
+            GameEvents.FmodPhaseThree?.Invoke();
         }
         
         private void Update()
@@ -174,17 +191,19 @@ namespace _SLIME.Boss
                 OnFinish = null
             });
             GameEvents.EnemyGotBricked?.Invoke();
-            switch (BossState)
-            {
-                case BossStates.FarState:
-                    animator.SetTrigger(FarHit);
-                    break;
-                case BossStates.CloseState:
-                    animator.SetTrigger(CloseHit);
-                    break;
-                case BossStates.LaserState:
-                    animator.SetTrigger(LaserHit);
-                    break;
+            if(!IsTakingDamage){ // we dont want twice trigger
+                switch (BossState)
+                {
+                    case BossStates.FarState:
+                        animator.SetTrigger(FarHit);
+                        break;
+                    case BossStates.CloseState:
+                        animator.SetTrigger(CloseHit);
+                        break;
+                    case BossStates.LaserState:
+                        animator.SetTrigger(LaserHit);
+                        break;
+                }
             }
             HitCounter++;
             if (BossState != BossStates.WaterState) IsTakingDamage = true;
