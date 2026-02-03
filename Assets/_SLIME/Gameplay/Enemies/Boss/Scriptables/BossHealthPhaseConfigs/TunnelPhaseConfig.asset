@@ -106,14 +106,15 @@ MonoBehaviour:
     waterDamage: 50
   lightHouseSettings:
     attackDuration: {x: 10, y: 10}
-    mainBeamSpeedPerSecond: {x: 108, y: 180}
-    otherBeamsSpeedPerSecond: {x: 108, y: 168}
+    mainBeamSpeedPerSecond: {x: 70, y: 80}
+    otherBeamsSpeedPerSecond: {x: 70, y: 80}
     angleFromMainBeam: {x: 45, y: 200.21394}
     mainBeamAngleFromSlimes: {x: 15, y: 20}
     minBeamAngleDistance: 45
     timeToCheckForMainBeanSwitch: 1
-    directionFlipTransitionDuration: 0.5
+    directionFlipTransitionDuration: 1
     minSpeedDifference: 50
+    directionFlipDeadZone: 8
   bossCoreSettings:
     maxHealth: 150
   bossPhaseSettings:
