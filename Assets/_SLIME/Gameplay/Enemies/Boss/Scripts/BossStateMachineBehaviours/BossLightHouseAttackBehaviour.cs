@@ -7,13 +7,16 @@ namespace _SLIME.Boss
     {
         private static readonly int AttackFinished = Animator.StringToHash("AttackFinished");
         private LightHouseAttackLogic lightHouseAttackLogic;
-        
+        private float _firstFloatDistance;
+
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
             Data.BossLaserState();
             TotalAttacksPreformed++;
             Data.lightHouseAttackGameObject.SetActive(true);
+            _firstFloatDistance = Data.floatingAttributes.floatDistance;
+            Data.floatingAttributes.floatDistance = 3f;
             lightHouseAttackLogic = Data.lightHouseAttackGameObject.GetComponent<LightHouseAttackLogic>();
         }
 
@@ -21,6 +24,7 @@ namespace _SLIME.Boss
         {
             if (Data.WaterStateActivated || lightHouseAttackLogic.HasFinishedAction)
             {
+                Data.floatingAttributes.floatDistance = _firstFloatDistance;
                 animator.SetTrigger(AttackFinished);
                 Data.lightHouseAttackGameObject.SetActive(false);
             }
