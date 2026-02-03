@@ -11396,7 +11396,7 @@ Transform:
   m_GameObject: {fileID: 4546310774737036753}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -1, w: 0}
-  m_LocalPosition: {x: 13.306293, y: -8.37, z: 0}
+  m_LocalPosition: {x: 13.306293, y: -8.83, z: 0}
   m_LocalScale: {x: 1.0638298, y: 1.0638298, z: 1.0638298}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23464,6 +23464,10 @@ PrefabInstance:
       value: Icicle
       objectReference: {fileID: 0}
     - target: {fileID: 7462563140545560929, guid: bc497215333fe9446973767d49cc0f8b, type: 3}
+      propertyPath: poolSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462563140545560929, guid: bc497215333fe9446973767d49cc0f8b, type: 3}
       propertyPath: iciclePrefab
       value: 
       objectReference: {fileID: 8243723797189722045, guid: 454c52a02e3399e4aa1bd7fbdbe4a0da, type: 3}
@@ -23475,6 +23479,10 @@ PrefabInstance:
       propertyPath: bossConfigurations
       value: 
       objectReference: {fileID: 11400000, guid: debaec0eb2ac1664b8e380373e0a5233, type: 2}
+    - target: {fileID: 7462563140545560929, guid: bc497215333fe9446973767d49cc0f8b, type: 3}
+      propertyPath: spawnRateMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7922234904477456936, guid: bc497215333fe9446973767d49cc0f8b, type: 3}
       propertyPath: m_SortingLayer
       value: 7

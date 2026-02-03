@@ -853,10 +853,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Envirement
       objectReference: {fileID: 0}
-    - target: {fileID: 5289275567814197376, guid: a8094107fca994ed1b9210749aca813b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -8.83
-      objectReference: {fileID: 0}
     - target: {fileID: 5611528314932405206, guid: a8094107fca994ed1b9210749aca813b, type: 3}
       propertyPath: player1
       value: 
@@ -866,17 +862,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 189207795}
     - target: {fileID: 5611528314932405206, guid: a8094107fca994ed1b9210749aca813b, type: 3}
-      propertyPath: poolSize
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5611528314932405206, guid: a8094107fca994ed1b9210749aca813b, type: 3}
       propertyPath: bossBrain
       value: 
       objectReference: {fileID: 1368805121}
-    - target: {fileID: 5611528314932405206, guid: a8094107fca994ed1b9210749aca813b, type: 3}
-      propertyPath: spawnRateMultiplier
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 7825581525818069483, guid: a8094107fca994ed1b9210749aca813b, type: 3}
       propertyPath: 'players.Array.data[0]'
       value: 
