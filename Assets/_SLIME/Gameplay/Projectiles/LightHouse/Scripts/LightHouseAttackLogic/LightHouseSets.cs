@@ -21,6 +21,8 @@ namespace _SLIME.LightHouse
 
         [Tooltip("Minimum absolute speed difference (deg/s) between main beam and other beams.")]
         public float minSpeedDifference;
-        
+
+        [Tooltip("Angle dead zone (deg) - don't flip direction when |beam - slime| is below this. Prevents oscillation.")]
+        public float directionFlipDeadZone;
     }
 }
