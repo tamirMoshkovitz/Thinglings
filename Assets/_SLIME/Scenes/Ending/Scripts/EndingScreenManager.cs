@@ -24,6 +24,7 @@ namespace _SLIME.Scenes.Ending.Scripts
         private static readonly int EndComplete = Animator.StringToHash("end complete");
         private Animator _animator;
         private Collider2D _collider;
+        private bool _enteredGradientTrigger;
 
         private void Awake()
         {
@@ -43,17 +44,29 @@ namespace _SLIME.Scenes.Ending.Scripts
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log("Ending Trigger entered by " + other.name);
             if (other.CompareTag("Player"))
-                StartCoroutine(EndindCoroutine());
+                _enteredGradientTrigger = true;
         }
         
-        private IEnumerator EndindCoroutine()
+        private IEnumerator EndingCoroutine()
         {
+            yield return WaitForSlimesToRise();
             yield return RiseSlimes();
             yield return new WaitForSeconds(phaseDelay);
             yield return ShowText();
             //TODO: load starting scene
+        }
+        
+        private IEnumerator WaitForSlimesToRise()
+        {
+            gradientBackground.SetActive(true);
+            _collider.enabled = true;
+            _animator.SetTrigger(StartEnding);
+
+            while (!_enteredGradientTrigger)
+            {
+                yield return null;
+            }
         }
 
         private IEnumerator RiseSlimes()
@@ -85,9 +98,7 @@ namespace _SLIME.Scenes.Ending.Scripts
 
         private void OnSlimeWon()
         {
-            gradientBackground.SetActive(true);
-            _collider.enabled = true;
-            _animator.SetTrigger(StartEnding);
+            StartCoroutine(EndingCoroutine());
         }
     }
 }
