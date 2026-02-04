@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using _SLIME.Boss;
+using _SLIME.Envierment.Earthquake.Scriptables;
 using _SLIME.GameLoop;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class WaterAttackManager : MonoBehaviour
 {
@@ -18,10 +20,16 @@ public class WaterAttackManager : MonoBehaviour
     [SerializeField] private float timeToMagicOut = 1f;
     private float waterAttackDamage => BossBrain.bossConfigurations.WaterAttack.waterDamage;
 
-    [Header("References")]
-    [SerializeField] private Animator animatorLeft;
-    [SerializeField] private Animator animatorRight;
+    [Header("References")] [SerializeField]
+    private Animator animator;
     [SerializeField] private BossBrain bossBrain;
+    
+    [Header("Earthquake Effect")]
+    [SerializeField] private EarthquakeUtil earthquakeUtil;
+    [SerializeField] private Camera camera;
+    [SerializeField] private Animator iciclesAnimator;
+    
+    private readonly int _stalactites = Animator.StringToHash("Broken Stalactites");
 
     private bool _isLeftZoneActive;
     private bool _isRightZoneActive;
@@ -80,6 +88,7 @@ public class WaterAttackManager : MonoBehaviour
         
         GameEvents.FmodPhaseFour?.Invoke();
         TriggerBoth(CreaturesInsideTrigger);
+        StartCoroutine(TriggerEarthquake());
 
         yield return new WaitForSeconds(timeToAttackMode);
         TriggerBoth(AttackModeTrigger);
@@ -95,11 +104,15 @@ public class WaterAttackManager : MonoBehaviour
 
     private void TriggerBoth(int hashId)
     {
-        if(animatorLeft) animatorLeft.SetTrigger(hashId);
-        if(animatorRight) animatorRight.SetTrigger(hashId);
+        if(animator) animator.SetTrigger(hashId);
         if (hashId != AttackModeTrigger) return;
         bossBrain.ApplyDamage(waterAttackDamage);
         bossBrain.animator.SetTrigger(waterAttackResult);
+    }
+
+    private IEnumerator TriggerEarthquake()
+    {
+        yield return earthquakeUtil.EarthquakeCoroutine(camera, iciclesAnimator, _stalactites);
     }
 
     private void OnBossDead()

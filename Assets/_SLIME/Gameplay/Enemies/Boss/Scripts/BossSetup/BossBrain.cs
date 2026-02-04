@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
 using _SLIME.GameLoop;
@@ -43,6 +44,12 @@ namespace _SLIME.Boss
         [Header("Hands Attack Setup")] 
         public List<GameObject> leftHandSplines;
         public List<GameObject> rightHandSplines;
+        
+        [SerializeField] public List<GameObject> topLeftHands;
+        [SerializeField] public List<GameObject> topRightHands;
+        [SerializeField] public List<GameObject> bottomLeftHands;
+        [SerializeField] public List<GameObject> bottomRightHands;
+
         [SerializeField] public List<GameObject> specialLeftHandSplines;
         [SerializeField] public List<GameObject> specialRightHandSplines;
         [SerializeField] public PlayerInCenterDetector centerDetector;
@@ -53,6 +60,7 @@ namespace _SLIME.Boss
         
         [Header("Health Setup")] 
         public Image bossHealthBar;
+        public GameObject bossHealthBarCanvas;
         [HideInInspector] 
         public float currentHealth;
 
@@ -95,6 +103,8 @@ namespace _SLIME.Boss
         public bool IsTakingDamage { get;  set; }
 
         public int HitCounter { get; set; }
+        public float firstFloatDistance { get; set; }
+
         private void Start()
         {
             
@@ -138,12 +148,12 @@ namespace _SLIME.Boss
             {
                 behaviour.Initialize(this);
             }
+
             
             if (bossHealthBar) bossHealthBar.fillAmount = currentHealth / firstPhaseConfigurations.CoreSettings.maxHealth;
         }
 
        
-
         private void OnEnable(){
             SlimeEvents.SlimeConnected += OnSlimeConnected;
             SlimeEvents.SlimeTears += OnSlimeTears;
@@ -181,15 +191,19 @@ namespace _SLIME.Boss
             finalDamage = Mathf.RoundToInt(finalDamage);
             currentHealth -= finalDamage;
             if (bossHealthBar) bossHealthBar.fillAmount = currentHealth / firstPhaseConfigurations.CoreSettings.maxHealth;
-            
-            PopupEventsRenderer.OnRenderPointsAbove(new RenderEvent
+
+            if (BossState != BossStates.WaterState && bossHealthBar.gameObject.activeInHierarchy)
             {
-                eventType = EventType.BossHealth,
-                value = -finalDamage,
-                fatherTransform = null,
-                position = transform.position,
-                OnFinish = null
-            });
+                PopupEventsRenderer.OnRenderPointsAbove(new RenderEvent
+                {
+                    eventType = EventType.BossHealth,
+                    value = -finalDamage,
+                    fatherTransform = null,
+                    position = bossHealthBar.GetComponent<HealthBarTipFollower>().GetTipPosition(),
+                    OnFinish = null
+                });
+            }
+
             GameEvents.EnemyGotBricked?.Invoke();
             if(!IsTakingDamage){ // we dont want twice trigger
                 switch (BossState)
@@ -216,6 +230,7 @@ namespace _SLIME.Boss
             BossState = BossStates.CloseState;
             bossCloseColliders.SetActive(true);
             bossFarColliders.SetActive(false);
+            bossHealthBarCanvas.SetActive(false);
             CloseState?.Invoke();
         }
         
@@ -225,6 +240,7 @@ namespace _SLIME.Boss
             BossState = BossStates.FarState;
             bossCloseColliders.SetActive(false);
             bossFarColliders.SetActive(true);
+            bossHealthBarCanvas.SetActive(true);
             FarState?.Invoke();
         }
 
@@ -235,6 +251,7 @@ namespace _SLIME.Boss
             bossLaserColliders.SetActive(true);
             bossCloseColliders.SetActive(false);
             bossFarColliders.SetActive(false);
+            bossHealthBarCanvas.SetActive(false);
             FarState?.Invoke();
         }
         
@@ -245,6 +262,7 @@ namespace _SLIME.Boss
             bossCloseColliders.SetActive(false);
             bossFarColliders.SetActive(false);
             bossLaserColliders.SetActive(false);
+            bossHealthBarCanvas.SetActive(false);
         }
 
         public void SavePhaseCheckpoint(BossPhaseType phaseToSave)

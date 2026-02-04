@@ -27,6 +27,7 @@ public class TunnelPhaseState : State
         TunnelPhaseStarted?.Invoke();
         
         GameEvents.FmodPhaseFive?.Invoke();
+        GameEvents.TunnelPhaseStarted?.Invoke();
         Debug.Log("Entered Tunnel Phase State");
     }
     

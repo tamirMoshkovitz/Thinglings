@@ -16,8 +16,9 @@ MonoBehaviour:
     handWarningDuration: 1
     handAttackDuration: 1.5
     handCooldown: 1
-    totalHandsToUse: 4
+    totalHandsToUse: 5
     useBothHands: 0
+    phaseSpeedMultiplier: 1.5
   spawnAttackSettings:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
     projectileBeforeSpawnPrefab: {fileID: 4899053137042385202, guid: c35248b870a664833961bec195804c32, type: 3}
@@ -99,26 +100,28 @@ MonoBehaviour:
     totalLoops: 1
     withSlimeDetection: 1
   icicleSpawnSettings:
-    minWaitTime: 3
-    maxWaitTime: 5
+    minWaitTime: 5
+    maxWaitTime: 7
     loopSpawning: 1
   waterAttackSettings:
-    waterDamage: 50
+    waterDamage: 0
   lightHouseSettings:
     attackDuration: {x: 4, y: 4}
-    mainBeamSpeedPerSecond: {x: 120, y: 160}
-    otherBeamsSpeedPerSecond: {x: 80, y: 120}
+    farBeamSpeed: 0
+    midBeamSpeed: 0
+    closeBeamSpeed: 0
     angleFromMainBeam: {x: 45, y: 200.21394}
     mainBeamAngleFromSlimes: {x: 15, y: 20}
     minBeamAngleDistance: 45
     timeToCheckForMainBeanSwitch: 0.5
     directionFlipTransitionDuration: 0
-    minSpeedDifference: 0
     directionFlipDeadZone: 0
+    floatBossDistance: 0
+    floatBossDuration: 0
   bossCoreSettings:
-    maxHealth: 250
+    maxHealth: 700
   bossPhaseSettings:
-    lowerHealthThreshold: 150
+    lowerHealthThreshold: 300
     targetHitsToKill: 5
     expectedAvgSpeedOfSpells: 35
   littleBossMovementSettings:

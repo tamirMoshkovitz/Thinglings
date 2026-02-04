@@ -18,6 +18,7 @@ MonoBehaviour:
     handCooldown: 1
     totalHandsToUse: 4
     useBothHands: 0
+    phaseSpeedMultiplier: 1
   spawnAttackSettings:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
     projectileBeforeSpawnPrefab: {fileID: 4899053137042385202, guid: c35248b870a664833961bec195804c32, type: 3}
@@ -103,20 +104,22 @@ MonoBehaviour:
     maxWaitTime: 4
     loopSpawning: 1
   waterAttackSettings:
-    waterDamage: 50
+    waterDamage: 0
   lightHouseSettings:
     attackDuration: {x: 10, y: 10}
-    mainBeamSpeedPerSecond: {x: 70, y: 80}
-    otherBeamsSpeedPerSecond: {x: 70, y: 80}
+    farBeamSpeed: 100
+    midBeamSpeed: 130
+    closeBeamSpeed: 170
     angleFromMainBeam: {x: 45, y: 200.21394}
     mainBeamAngleFromSlimes: {x: 15, y: 20}
     minBeamAngleDistance: 45
-    timeToCheckForMainBeanSwitch: 1
+    timeToCheckForMainBeanSwitch: 20
     directionFlipTransitionDuration: 1
-    minSpeedDifference: 50
     directionFlipDeadZone: 8
+    floatBossDistance: 6
+    floatBossDuration: 3
   bossCoreSettings:
-    maxHealth: 150
+    maxHealth: 300
   bossPhaseSettings:
     lowerHealthThreshold: 0
     targetHitsToKill: 6

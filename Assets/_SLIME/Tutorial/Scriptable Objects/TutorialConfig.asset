@@ -76,8 +76,6 @@ MonoBehaviour:
   slimeTearsStateSet:
     sorcererTriggerName: to angry
     sorcererWaitForStateName: Transition to tutorial
-    transitionTriggerName: to spell boss
-    transitionWaitForStateName: in spell boss
   spellHitStateSet:
     waitTimeBeforeSpawn: 0.1
     spellSpeed: 50
@@ -116,6 +114,8 @@ MonoBehaviour:
   bossThrowsSpellStateSet:
     timeBetweenSpells: 4
     spellSpeed: 20
+  caveShakeStateSet:
+    earthquakeUtil: {fileID: 11400000, guid: 215382b9c9aa1450380e08f096af46aa, type: 2}
   sceneMoveToFinalBattleStateSet:
     transitionTriggerName: to game
     transitionAnimationStateName: Boss spells to game

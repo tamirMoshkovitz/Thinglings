@@ -60,14 +60,41 @@ public class IcicleLogic : MonoBehaviour
         _rigidbody2D.gravityScale = 1f;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) => HandleImpact(collision.attachedRigidbody);
-    private void OnCollisionEnter2D(Collision2D collision) => HandleImpact(collision.rigidbody);
-
-    private void HandleImpact(Rigidbody2D otherBody)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (_hit) return;
         _hit = true;
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            StartCoroutine(WaitAndSetFalse());
+            return;
+        };
+        HandleImpact(collision.attachedRigidbody);
+        
+    }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (_hit) return;
+        _hit = true;
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            StartCoroutine(WaitAndSetFalse());
+            return;
+        };
+        HandleImpact(collision.rigidbody);
+    }
+
+    private IEnumerator WaitAndSetFalse()
+    {
+        yield return new WaitForSeconds(3f);
+        gameObject.SetActive(false); 
+    }
+
+
+    private void HandleImpact(Rigidbody2D otherBody)
+    {
+        
         if (otherBody && otherBody.TryGetComponent<IHealth>(out IHealth h))
         {
             h.TakeDamage();

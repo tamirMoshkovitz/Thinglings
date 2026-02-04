@@ -26,6 +26,9 @@ public class BaseBossConfigurations : TabbedScriptableObject
         
         [Tooltip("If true, both hands will attack simultaneously")]
         public bool useBothHands;
+        
+        [Tooltip("The Speed multiplier applied to the hand attack based on the boss phase")]
+        public float phaseSpeedMultiplier;
     }
     
     [Serializable]

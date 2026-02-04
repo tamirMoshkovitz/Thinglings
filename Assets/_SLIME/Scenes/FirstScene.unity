@@ -314,6 +314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Tutorial.BackgroundTutorial
   background: {fileID: 119033387}
+  boss: {fileID: 1046256267}
 --- !u!95 &440780099 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 698770502195183284, guid: 828d0fa3a22fd49af9ac88f0fb4a17c9, type: 3}
@@ -1300,6 +1301,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 194749317}
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: caveShakeStateDeps.camera
+      value: 
+      objectReference: {fileID: 230139385}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: riseToBossStateDeps.Arrow1
       value: 
       objectReference: {fileID: 937089656}
@@ -1383,6 +1388,10 @@ PrefabInstance:
       propertyPath: slimeConnectsStateDeps.slimeInput
       value: 
       objectReference: {fileID: 819180596}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: caveShakeStateDeps.iciclesAnimator
+      value: 
+      objectReference: {fileID: 2104584808}
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: spellHitStateDeps.pointToSpawnSpell
       value: 
@@ -2319,6 +2328,11 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!95 &2104584808 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7390776306335170651, guid: 360b175a27bd442d69d4f7cc2c2b7616, type: 3}
+  m_PrefabInstance: {fileID: 1091334697}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1037466191389059598
 PrefabInstance:
   m_ObjectHideFlags: 0

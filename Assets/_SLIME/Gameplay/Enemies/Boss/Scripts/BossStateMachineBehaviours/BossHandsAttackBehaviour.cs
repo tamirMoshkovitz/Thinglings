@@ -9,163 +9,105 @@ namespace _SLIME.Boss
     {
         private static readonly int AttackFinished = Animator.StringToHash("AttackFinished");
         private Coroutine _smashRoutine;
-        
-        private List<HandWrapper> _leftHands;
-        private List<HandWrapper> _rightHands;
-
-        private List<HandWrapper> _specialLeftHands;
-        private List<HandWrapper> _specialRightHands;
+        private List<HandWrapper> _allHands = new List<HandWrapper>();
 
         private class HandWrapper
         {
             public GameObject Root { get; private set; }
-            
-            public HandWrapper(GameObject obj)
-            {
-                Root = obj;
-            }
+            public BossHandAttackLogic Logic { get; private set; }
+            public bool InCurrentSequence { get; set; }
 
-            public void Activate()
-            {
-                Root.SetActive(true);
+            public HandWrapper(GameObject obj) { 
+                Root = obj; 
+                Logic = obj.GetComponentInChildren<BossHandAttackLogic>();
             }
-
-            public void Deactivate()
-            {
-                if (Root.activeSelf) Root.SetActive(false);
-            }
-
-            public bool IsBusy => Root.activeSelf; 
         }
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
             Data.BossCloseState();
-            TotalAttacksPreformed++;
-
-            _leftHands = Data.leftHandSplines.Select(h => new HandWrapper(h)).ToList();
-            _rightHands = Data.rightHandSplines.Select(h => new HandWrapper(h)).ToList();
-            _specialLeftHands = Data.specialLeftHandSplines.Select(h => new HandWrapper(h)).ToList();
-            _specialRightHands = Data.specialRightHandSplines.Select(h => new HandWrapper(h)).ToList();
+            
+            _allHands.Clear();
+            _allHands.AddRange(Data.topLeftHands.Select(h => new HandWrapper(h)));
+            _allHands.AddRange(Data.topRightHands.Select(h => new HandWrapper(h)));
+            _allHands.AddRange(Data.bottomLeftHands.Select(h => new HandWrapper(h)));
+            _allHands.AddRange(Data.bottomRightHands.Select(h => new HandWrapper(h)));
+            // Add specials for the random pool
+            _allHands.AddRange(Data.specialLeftHandSplines.Select(h => new HandWrapper(h)));
+            _allHands.AddRange(Data.specialRightHandSplines.Select(h => new HandWrapper(h)));
 
             ForceStopAllHands();
-            _smashRoutine = Data.StartCoroutine(SmashRoutine(animator));
+            _smashRoutine = Data.StartCoroutine(MemorySmashRoutine(animator));
         }
 
-        private IEnumerator SmashRoutine(Animator animator)
+        private IEnumerator MemorySmashRoutine(Animator animator)
         {
-            int totalAttacksToPerform = BossBrain.bossConfigurations.HandsAttack.totalHandsToUse;
-            float cooldown = BossBrain.bossConfigurations.HandsAttack.handCooldown;
+            var config = BossBrain.bossConfigurations.HandsAttack;
+            float warningSpeed = config.phaseSpeedMultiplier;
+            List<HandWrapper> sequence = new List<HandWrapper>();
 
-            int attacksLaunched = 0;
-            bool isNextLeft = Random.value > 0.5f; 
-            
-            bool hasPerformedSpecial = false;
+            // --- 1. GUARANTEE ONE FROM EACH CORNER ---
+            AddGuaranteedHand(sequence, Data.topLeftHands);
+            AddGuaranteedHand(sequence, Data.topRightHands);
+            AddGuaranteedHand(sequence, Data.bottomLeftHands);
+            AddGuaranteedHand(sequence, Data.bottomRightHands);
 
-            while (attacksLaunched < totalAttacksToPerform)
+            sequence = sequence.OrderBy(x => Random.value).ToList();
+
+            // --- 2. FILL REMAINING SLOTS ---
+            while (sequence.Count < config.totalHandsToUse)
             {
-                // Check if water state is activated - exit early if true
-                if (Data.WaterStateActivated)
-                {
-                    ForceStopAllHands();
-                    if (Data.centerDetector != null) Data.centerDetector.ResetTrigger();
-                    animator.SetTrigger(AttackFinished);
-                    yield break;
-                }
-
-                bool isSpecialTurn = Data.centerDetector 
-                                     && Data.centerDetector.IsReadyToFire 
-                                     && !hasPerformedSpecial;
-                
-                HandWrapper handToFire = null;
-
-                if (isSpecialTurn)
-                {
-                    List<HandWrapper> specialList = isNextLeft ? _specialLeftHands : _specialRightHands;
-                    handToFire = GetRandomAvailableHand(specialList);
-                }
-
-                if (handToFire == null)
-                {
-                    List<HandWrapper> normalList = isNextLeft ? _leftHands : _rightHands;
-                    handToFire = GetRandomAvailableHand(normalList);
-                }
-
-                if (handToFire != null)
-                {
-                    handToFire.Activate();
-
-                    if (IsSpecialHand(handToFire))
-                    {
-                        hasPerformedSpecial = true;
-                        Data.centerDetector.ResetTrigger();
-                    }
-                    else
-                    {
-                        attacksLaunched++;
-                    }
-
-                    isNextLeft = !isNextLeft;
-
-                    yield return new WaitForSeconds(Mathf.Max(cooldown, 0.1f));
-                }
-                else
-                {
-                    yield return null;
-                }
+                var extra = _allHands.FirstOrDefault(h => !h.InCurrentSequence && !h.Root.activeSelf);
+                if (extra != null) {
+                    extra.InCurrentSequence = true;
+                    sequence.Add(extra);
+                } else break;
             }
 
-            // Wait until all hands finish OR water state is activated
-            yield return new WaitUntil(() => AllHandsFinished() || Data.WaterStateActivated);
-
-            // If water state activated, reset everything before exiting
-            if (Data.WaterStateActivated)
+            // --- 3. REVEAL PHASE ---
+            foreach (var hand in sequence)
             {
-                ForceStopAllHands();
-                if (Data.centerDetector != null) Data.centerDetector.ResetTrigger();
+                if (Data.WaterStateActivated) yield break;
+                hand.Root.SetActive(true);
+                hand.Logic.ResetHand(); // Snap to 0 while invisible
+                yield return Data.StartCoroutine(hand.Logic.PlayWarningSequence(warningSpeed));
+                yield return new WaitForSeconds(0.15f / warningSpeed);
             }
 
+            yield return new WaitForSeconds(0.5f / warningSpeed);
+
+            // --- 4. STRIKE PHASE ---
+            foreach (var hand in sequence)
+            {
+                if (Data.WaterStateActivated) break;
+                Data.StartCoroutine(ExecuteAndCleanup(hand)); 
+                yield return new WaitForSeconds(config.handCooldown / warningSpeed);
+            }
+
+            yield return new WaitUntil(() => AllFinished() || Data.WaterStateActivated);
             animator.SetTrigger(AttackFinished);
         }
 
-        private bool IsSpecialHand(HandWrapper hand)
+        private void AddGuaranteedHand(List<HandWrapper> sequence, List<GameObject> pool)
         {
-            return _specialLeftHands.Contains(hand) || _specialRightHands.Contains(hand);
-        }
-
-        private bool AllHandsFinished()
-        {
-            bool standardBusy = _leftHands.Any(h => h.IsBusy) || _rightHands.Any(h => h.IsBusy);
-            bool specialBusy = _specialLeftHands.Any(h => h.IsBusy) || _specialRightHands.Any(h => h.IsBusy);
-            return !standardBusy && !specialBusy;
-        }
-
-        private HandWrapper GetRandomAvailableHand(List<HandWrapper> sourceList)
-        {
-            if (sourceList == null || sourceList.Count == 0) return null;
-            
-            var available = sourceList.Where(h => !h.IsBusy).ToList();
+            var available = _allHands.Where(h => pool.Contains(h.Root) && !h.InCurrentSequence).ToList();
             if (available.Count > 0)
             {
-                return available[Random.Range(0, available.Count)];
+                var chosen = available[Random.Range(0, available.Count)];
+                chosen.InCurrentSequence = true;
+                sequence.Add(chosen);
             }
-            return null;
         }
 
-        private void ForceStopAllHands()
+        private IEnumerator ExecuteAndCleanup(HandWrapper hand)
         {
-            _leftHands?.ForEach(h => h.Deactivate());
-            _rightHands?.ForEach(h => h.Deactivate());
-            _specialLeftHands?.ForEach(h => h.Deactivate());
-            _specialRightHands?.ForEach(h => h.Deactivate());
+            yield return hand.Logic.PlayAttack();
+            hand.Root.SetActive(false); // Disappear immediately at the end
+            hand.InCurrentSequence = false;
         }
 
-        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        {
-            if (_smashRoutine != null) Data.StopCoroutine(_smashRoutine);
-            ForceStopAllHands();
-            if (Data.centerDetector != null) Data.centerDetector.ResetTrigger();
-        }
+        private bool AllFinished() => _allHands.All(h => !h.Root.activeSelf);
+        private void ForceStopAllHands() => _allHands.ForEach(h => { h.Root.SetActive(false); h.InCurrentSequence = false; });
     }
 }
