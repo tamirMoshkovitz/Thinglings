@@ -23,7 +23,7 @@ public class TunnelMovement : ProjectMonoBehavior
         public float BaseOffset;
     }
 
-    private void OnEnable()
+    private void OnEnable() 
     {
         _settings = artConfigurations.tunnelMovementSettings;
         _globalScrollPosition = 0f;

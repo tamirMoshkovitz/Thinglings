@@ -13,6 +13,8 @@ namespace _SLIME.GameLoop
         public static Action EnemyGotBricked; // TODO: is this only for spell encounter ot also for bullet? 
         public static Action IcicleGotHit;
         public static Action IcicleCrumbled;
+
+        public static Action TunnelPhaseStarted;
         
         public static Action WaterAttackStarted;
         public static Action WaterAttackEnded;

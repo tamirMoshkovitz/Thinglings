@@ -30,7 +30,7 @@ public class WaterAttackManager : MonoBehaviour
     [SerializeField] private Camera camera;
     [SerializeField] private Animator iciclesAnimator;
     
-    private readonly int _stalactites;
+    private readonly int _stalactites = Animator.StringToHash("Broken Stalactites");
 
     private bool _isLeftZoneActive;
     private bool _isRightZoneActive;

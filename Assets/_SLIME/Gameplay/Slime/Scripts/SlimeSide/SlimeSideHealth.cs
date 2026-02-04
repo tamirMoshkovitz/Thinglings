@@ -94,9 +94,9 @@ namespace _SLIME.Slime
 
         public void TakeDamage(float damage)
         {
-            if (!IsDead)
-                SFXPlayer.Play(_deadSlimeSFX);
+            if (IsDead) return;
             
+            SFXPlayer.Play(_deadSlimeSFX);
             IsDead = true;
             _data.OneSlimeDead = true;
             SlimeEvents.SlimeGetHit?.Invoke();
