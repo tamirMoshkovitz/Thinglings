@@ -9,163 +9,118 @@ namespace _SLIME.Boss
     {
         private static readonly int AttackFinished = Animator.StringToHash("AttackFinished");
         private Coroutine _smashRoutine;
-        
-        private List<HandWrapper> _leftHands;
-        private List<HandWrapper> _rightHands;
-
-        private List<HandWrapper> _specialLeftHands;
-        private List<HandWrapper> _specialRightHands;
+        private List<HandWrapper> _allHands = new List<HandWrapper>();
 
         private class HandWrapper
         {
             public GameObject Root { get; private set; }
-            
-            public HandWrapper(GameObject obj)
-            {
-                Root = obj;
-            }
+            public BossHandAttackLogic Logic { get; private set; }
+            public bool InCurrentSequence { get; set; }
 
-            public void Activate()
-            {
-                Root.SetActive(true);
+            public HandWrapper(GameObject obj) { 
+                Root = obj; 
+                Logic = obj.GetComponentInChildren<BossHandAttackLogic>();
             }
-
-            public void Deactivate()
-            {
-                if (Root.activeSelf) Root.SetActive(false);
-            }
-
-            public bool IsBusy => Root.activeSelf; 
         }
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
             Data.BossCloseState();
-            TotalAttacksPreformed++;
-
-            _leftHands = Data.leftHandSplines.Select(h => new HandWrapper(h)).ToList();
-            _rightHands = Data.rightHandSplines.Select(h => new HandWrapper(h)).ToList();
-            _specialLeftHands = Data.specialLeftHandSplines.Select(h => new HandWrapper(h)).ToList();
-            _specialRightHands = Data.specialRightHandSplines.Select(h => new HandWrapper(h)).ToList();
+            
+            _allHands.Clear();
+            _allHands.AddRange(Data.leftHandSplines.Select(h => new HandWrapper(h)));
+            _allHands.AddRange(Data.rightHandSplines.Select(h => new HandWrapper(h)));
+            _allHands.AddRange(Data.specialLeftHandSplines.Select(h => new HandWrapper(h)));
+            _allHands.AddRange(Data.specialRightHandSplines.Select(h => new HandWrapper(h)));
 
             ForceStopAllHands();
-            _smashRoutine = Data.StartCoroutine(SmashRoutine(animator));
+            _smashRoutine = Data.StartCoroutine(MemorySmashRoutine(animator));
         }
 
-        private IEnumerator SmashRoutine(Animator animator)
+        private IEnumerator MemorySmashRoutine(Animator animator)
         {
-            int totalAttacksToPerform = BossBrain.bossConfigurations.HandsAttack.totalHandsToUse;
-            float cooldown = BossBrain.bossConfigurations.HandsAttack.handCooldown;
-
-            int attacksLaunched = 0;
-            bool isNextLeft = Random.value > 0.5f; 
+            var config = BossBrain.bossConfigurations.HandsAttack;
+            float warningSpeed = config.phaseSpeedMultiplier;
             
-            bool hasPerformedSpecial = false;
+            List<HandWrapper> sequence = new List<HandWrapper>();
+            bool isLeft = Random.value > 0.5f;
 
-            while (attacksLaunched < totalAttacksToPerform)
+            bool hasUsedSpecial = false;
+
+            for (int i = 0; i < config.totalHandsToUse; i++)
             {
-                // Check if water state is activated - exit early if true
-                if (Data.WaterStateActivated)
-                {
-                    ForceStopAllHands();
-                    if (Data.centerDetector != null) Data.centerDetector.ResetTrigger();
-                    animator.SetTrigger(AttackFinished);
-                    yield break;
-                }
+                bool trySpecial = !hasUsedSpecial && Random.value < 0.2f;
 
-                bool isSpecialTurn = Data.centerDetector 
-                                     && Data.centerDetector.IsReadyToFire 
-                                     && !hasPerformedSpecial;
+                HandWrapper hand = PickHand(isLeft, trySpecial);
+                if (hand != null) {
+                    hand.InCurrentSequence = true;
+                    sequence.Add(hand);
+                    
+                    if (IsSpecialHand(hand)) hasUsedSpecial = true;
+                    
+                    isLeft = !isLeft;
+                }
+            }
+
+            foreach (var hand in sequence)
+            {
+                if (Data.WaterStateActivated) yield break;
                 
-                HandWrapper handToFire = null;
-
-                if (isSpecialTurn)
-                {
-                    List<HandWrapper> specialList = isNextLeft ? _specialLeftHands : _specialRightHands;
-                    handToFire = GetRandomAvailableHand(specialList);
-                }
-
-                if (handToFire == null)
-                {
-                    List<HandWrapper> normalList = isNextLeft ? _leftHands : _rightHands;
-                    handToFire = GetRandomAvailableHand(normalList);
-                }
-
-                if (handToFire != null)
-                {
-                    handToFire.Activate();
-
-                    if (IsSpecialHand(handToFire))
-                    {
-                        hasPerformedSpecial = true;
-                        Data.centerDetector.ResetTrigger();
-                    }
-                    else
-                    {
-                        attacksLaunched++;
-                    }
-
-                    isNextLeft = !isNextLeft;
-
-                    yield return new WaitForSeconds(Mathf.Max(cooldown, 0.1f));
-                }
-                else
-                {
-                    yield return null;
-                }
+                hand.Root.SetActive(true); 
+                hand.Logic.ResetHand();
+                
+                yield return Data.StartCoroutine(hand.Logic.PlayWarningSequence(warningSpeed));
+                yield return new WaitForSeconds(0.15f / warningSpeed);
             }
 
-            // Wait until all hands finish OR water state is activated
-            yield return new WaitUntil(() => AllHandsFinished() || Data.WaterStateActivated);
+            yield return new WaitForSeconds(0.5f / warningSpeed);
 
-            // If water state activated, reset everything before exiting
-            if (Data.WaterStateActivated)
+            foreach (var hand in sequence)
             {
-                ForceStopAllHands();
-                if (Data.centerDetector != null) Data.centerDetector.ResetTrigger();
+                if (Data.WaterStateActivated) break;
+                Data.StartCoroutine(ExecuteAndCleanup(hand)); 
+                yield return new WaitForSeconds(config.handCooldown / warningSpeed);
             }
 
+            yield return new WaitUntil(() => AllFinished() || Data.WaterStateActivated);
             animator.SetTrigger(AttackFinished);
+        }
+
+        private IEnumerator ExecuteAndCleanup(HandWrapper hand)
+        {
+            yield return hand.Logic.PlayAttack();
+            hand.Root.SetActive(false);
+            hand.InCurrentSequence = false;
+        }
+
+        private HandWrapper PickHand(bool wantLeft, bool wantSpecial) {
+            var available = _allHands.Where(h => !h.InCurrentSequence && !h.Root.activeSelf).ToList();
+            
+            var match = available.FirstOrDefault(h => {
+                bool isSideMatch = wantLeft 
+                    ? (Data.leftHandSplines.Contains(h.Root) || Data.specialLeftHandSplines.Contains(h.Root)) 
+                    : (Data.rightHandSplines.Contains(h.Root) || Data.specialRightHandSplines.Contains(h.Root));
+                
+                bool isTypeMatch = wantSpecial 
+                    ? (Data.specialLeftHandSplines.Contains(h.Root) || Data.specialRightHandSplines.Contains(h.Root))
+                    : (!Data.specialLeftHandSplines.Contains(h.Root) && !Data.specialRightHandSplines.Contains(h.Root));
+                
+                return isSideMatch && isTypeMatch;
+            });
+
+            if (match == null && wantSpecial) return PickHand(wantLeft, false);
+
+            return match ?? available.FirstOrDefault();
         }
 
         private bool IsSpecialHand(HandWrapper hand)
         {
-            return _specialLeftHands.Contains(hand) || _specialRightHands.Contains(hand);
+            return Data.specialLeftHandSplines.Contains(hand.Root) || Data.specialRightHandSplines.Contains(hand.Root);
         }
 
-        private bool AllHandsFinished()
-        {
-            bool standardBusy = _leftHands.Any(h => h.IsBusy) || _rightHands.Any(h => h.IsBusy);
-            bool specialBusy = _specialLeftHands.Any(h => h.IsBusy) || _specialRightHands.Any(h => h.IsBusy);
-            return !standardBusy && !specialBusy;
-        }
+        private bool AllFinished() => _allHands.All(h => !h.Root.activeSelf);
 
-        private HandWrapper GetRandomAvailableHand(List<HandWrapper> sourceList)
-        {
-            if (sourceList == null || sourceList.Count == 0) return null;
-            
-            var available = sourceList.Where(h => !h.IsBusy).ToList();
-            if (available.Count > 0)
-            {
-                return available[Random.Range(0, available.Count)];
-            }
-            return null;
-        }
-
-        private void ForceStopAllHands()
-        {
-            _leftHands?.ForEach(h => h.Deactivate());
-            _rightHands?.ForEach(h => h.Deactivate());
-            _specialLeftHands?.ForEach(h => h.Deactivate());
-            _specialRightHands?.ForEach(h => h.Deactivate());
-        }
-
-        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        {
-            if (_smashRoutine != null) Data.StopCoroutine(_smashRoutine);
-            ForceStopAllHands();
-            if (Data.centerDetector != null) Data.centerDetector.ResetTrigger();
-        }
+        private void ForceStopAllHands() => _allHands.ForEach(h => { h.Root.SetActive(false); h.InCurrentSequence = false; });
     }
 }

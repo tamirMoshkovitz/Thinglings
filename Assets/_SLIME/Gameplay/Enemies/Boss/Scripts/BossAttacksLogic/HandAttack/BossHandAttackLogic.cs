@@ -10,14 +10,10 @@ namespace _SLIME.Boss
 {
     public class BossHandAttackLogic : ProjectMonoBehavior
     {
-        [Header("System Settings")]
-        [Tooltip("The Parent object here (the one the Boss Manager turns On/Off).")]
-        [SerializeField] private GameObject rootObject; 
-
         [Header("References")] 
         [SerializeField] private SplineAnimate splineAnimate;
-        [SerializeField] private GameObject warningVisual; 
-        [SerializeField] private BossBrain bossBrain;
+        [SerializeField] private GameObject warningVisual;
+        [SerializeField] private AttackVisualWarning warningScript;
 
         [Header("Animation Settings")] 
         [SerializeField] private AnimationCurve easeCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
@@ -35,71 +31,64 @@ namespace _SLIME.Boss
         private void Awake()
         {
             splineAnimate.PlayOnAwake = false;
-            splineAnimate.Loop = SplineAnimate.LoopMode.Once;
+            splineAnimate.Pause(); 
         }
 
-        private void OnEnable()
+        public void ResetHand()
         {
             splineAnimate.NormalizedTime = 0f;
             if (useRefinedRotation) transform.rotation = Quaternion.Euler(startRotation);
-            
-            StartCoroutine(AttackSequence());
+            warningVisual.SetActive(false);
+            IsAttacking = false;
         }
 
-        private IEnumerator AttackSequence()
+        public IEnumerator PlayWarningSequence(float warningSpeed)
+        {
+            warningVisual.SetActive(true);
+            warningScript.SetSpeed(warningSpeed);
+            warningScript.Play();
+
+            yield return new WaitUntil(() => !warningScript.IsAnimationPlaying);
+            warningVisual.SetActive(false);
+        }
+
+        public IEnumerator PlayAttack()
         {
             IsAttacking = true;
-
-            warningVisual.SetActive(true);
-            yield return new WaitForSeconds(BossBrain.bossConfigurations.HandsAttack.handWarningDuration);
             SFXPlayer.Play(handAttackSFX);
-            warningVisual.SetActive(false);
 
             float timer = 0f;
-            splineAnimate.Pause(); 
+            float duration = BossBrain.bossConfigurations.HandsAttack.handAttackDuration;
 
             Quaternion rotationFrom = Quaternion.Euler(startRotation);
             Quaternion rotationTo = Quaternion.Euler(endRotation);
-            
-            float duration = BossBrain.bossConfigurations.HandsAttack.handAttackDuration;
 
             while (timer < duration)
             {
                 timer += Time.deltaTime;
-                float rawProgress = Mathf.Clamp01(timer / duration);
-                float easedProgress = easeCurve.Evaluate(rawProgress);
+                float progress = easeCurve.Evaluate(Mathf.Clamp01(timer / duration));
 
-                splineAnimate.NormalizedTime = easedProgress;
+                splineAnimate.NormalizedTime = progress;
 
                 if (useRefinedRotation)
-                {
-                    transform.rotation = Quaternion.Slerp(rotationFrom, rotationTo, easedProgress);
-                }
+                    transform.rotation = Quaternion.Slerp(rotationFrom, rotationTo, progress);
 
                 yield return null;
             }
 
             splineAnimate.NormalizedTime = 1f;
-            if (useRefinedRotation) transform.rotation = rotationTo;
-
             IsAttacking = false;
-            rootObject.SetActive(false);
         }
-
+        
         private void OnTriggerEnter2D(Collider2D collision)
         {
             var rig = collision.attachedRigidbody;
             if (rig && rig.TryGetComponent<IHealth>(out IHealth h))
             {
-                h.TakeDamage(); 
+                h.TakeDamage();
             }
         }
         
-        private void OnDisable()
-        {
-            StopAllCoroutines();
-            IsAttacking = false;
-            if (warningVisual != null) warningVisual.SetActive(false);
-        }
+        
     }
 }
