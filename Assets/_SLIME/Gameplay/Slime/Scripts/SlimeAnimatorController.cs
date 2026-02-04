@@ -30,6 +30,7 @@ namespace _SLIME.Slime
 
         public void SetHeal()
         {
+            _animator.ResetTrigger(Hit);
             _animator.SetTrigger(Heal);
         }
 

@@ -87,7 +87,10 @@ namespace _SLIME.Slime
             SlimeEvents.SlimeTears -= OnSlimeTear;
         }
 
-        public void Update() { }
+        public void Update()
+        {
+            if (IsDead) _animatorController?.SetHit();
+        }
 
         public void TakeDamage(float damage)
         {
