@@ -44,6 +44,12 @@ namespace _SLIME.Boss
         [Header("Hands Attack Setup")] 
         public List<GameObject> leftHandSplines;
         public List<GameObject> rightHandSplines;
+        
+        [SerializeField] public List<GameObject> topLeftHands;
+        [SerializeField] public List<GameObject> topRightHands;
+        [SerializeField] public List<GameObject> bottomLeftHands;
+        [SerializeField] public List<GameObject> bottomRightHands;
+
         [SerializeField] public List<GameObject> specialLeftHandSplines;
         [SerializeField] public List<GameObject> specialRightHandSplines;
         [SerializeField] public PlayerInCenterDetector centerDetector;
