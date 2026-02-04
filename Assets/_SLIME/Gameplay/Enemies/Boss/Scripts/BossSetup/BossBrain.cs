@@ -184,7 +184,7 @@ namespace _SLIME.Boss
             currentHealth -= finalDamage;
             if (bossHealthBar) bossHealthBar.fillAmount = currentHealth / firstPhaseConfigurations.CoreSettings.maxHealth;
 
-            if (BossState != BossStates.WaterState)
+            if (BossState != BossStates.WaterState && bossHealthBar.gameObject.activeInHierarchy)
             {
                 PopupEventsRenderer.OnRenderPointsAbove(new RenderEvent
                 {
