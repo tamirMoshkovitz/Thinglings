@@ -84,14 +84,17 @@ namespace _SLIME.Scenes.Ending.Scripts
             while (elapsedTime < slimeRiseDuration)
             {
                 float t = elapsedTime / slimeRiseDuration;
+                
                 firstSlime.transform.position = Vector3.Lerp(firstSlimeStartPos, firstSlimeEndPos, t);
                 secondSlime.transform.position = Vector3.Lerp(secondSlimeStartPos, secondSlimeEndPos, t);
                 camera.transform.position = Vector3.Lerp(cameraStartPos, cameraEndPos, t);
+                
                 FMOD.RESULT result = FMODUnity.RuntimeManager.StudioSystem.setParameterByName("light", t);
                 if (result != FMOD.RESULT.OK)
                 {
                     Debug.LogError($"Failed to set FMOD parameter 'light': {result}");
                 }
+                
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }

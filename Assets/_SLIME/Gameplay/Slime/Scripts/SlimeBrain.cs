@@ -311,6 +311,7 @@ namespace _SLIME.Slime
 
         private void OnSlimeGetHit()
         {
+            if (_rightSide.IsDead && _leftSide.IsDead) return;
             StartCoroutine(ControlSwitchCoroutine(0.1f, true));
         }
     }
