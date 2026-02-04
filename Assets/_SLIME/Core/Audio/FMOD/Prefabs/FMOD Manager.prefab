@@ -174,13 +174,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8569155733776178720}
-  - {fileID: 6184581236469074784}
-  - {fileID: 1499352807361772986}
-  - {fileID: 5130398786319912566}
-  - {fileID: 4187594837299475062}
-  - {fileID: 1019386905163604073}
+  m_Children: [{fileID: 8569155733776178720}, {fileID: 6184581236469074784}, {fileID: 1499352807361772986},
+    {fileID: 5130398786319912566}, {fileID: 4187594837299475062}, {fileID: 1019386905163604073}]
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8851890945874164764
