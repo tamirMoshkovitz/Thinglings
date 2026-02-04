@@ -20,9 +20,8 @@ public class WaterAttackManager : MonoBehaviour
     [SerializeField] private float timeToMagicOut = 1f;
     private float waterAttackDamage => BossBrain.bossConfigurations.WaterAttack.waterDamage;
 
-    [Header("References")]
-    [SerializeField] private Animator animatorLeft;
-    [SerializeField] private Animator animatorRight;
+    [Header("References")] [SerializeField]
+    private Animator animator;
     [SerializeField] private BossBrain bossBrain;
     
     [Header("Earthquake Effect")]
@@ -105,8 +104,7 @@ public class WaterAttackManager : MonoBehaviour
 
     private void TriggerBoth(int hashId)
     {
-        if(animatorLeft) animatorLeft.SetTrigger(hashId);
-        if(animatorRight) animatorRight.SetTrigger(hashId);
+        if(animator) animator.SetTrigger(hashId);
         if (hashId != AttackModeTrigger) return;
         bossBrain.ApplyDamage(waterAttackDamage);
         bossBrain.animator.SetTrigger(waterAttackResult);

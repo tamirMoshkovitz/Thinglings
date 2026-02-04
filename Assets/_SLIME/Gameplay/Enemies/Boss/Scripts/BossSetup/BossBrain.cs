@@ -97,6 +97,8 @@ namespace _SLIME.Boss
         public bool IsTakingDamage { get;  set; }
 
         public int HitCounter { get; set; }
+        public float firstFloatDistance { get; set; }
+
         private void Start()
         {
             
