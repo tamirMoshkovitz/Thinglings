@@ -1,25 +1,29 @@
-using System;
 using System.Collections;
+using _SLIME.Envierment.Earthquake.Scriptables;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _SLIME.Tutorial
 {
     [System.Serializable]
     public struct CaveShakeStateDeps
     {
-        // Add dependencies here
+        public Animator iciclesAnimator;
+        public Camera camera;
     }
     
     [System.Serializable]
     public struct CaveShakeStateSet
     {
-        // Add configuration here
+         public EarthquakeUtil earthquakeUtil;
     }
     
     public class CaveShakeLogic : ITutorialStateLogic
     {
-        private CaveShakeStateDeps _caveShakeStateDeps;
-        private CaveShakeStateSet _caveShakeStateSet;
+        private static readonly int Stalactites = Animator.StringToHash("Broken Stalactites");
+        private readonly CaveShakeStateDeps _caveShakeStateDeps;
+        private readonly CaveShakeStateSet _caveShakeStateSet;
         
         public CaveShakeLogic(CaveShakeStateDeps caveShakeStateDeps,
             CaveShakeStateSet caveShakeStateSet)
@@ -35,8 +39,7 @@ namespace _SLIME.Tutorial
         
         public IEnumerator Start()
         {
-            // Implement logic here
-            yield return null;
+            yield return _caveShakeStateSet.earthquakeUtil.EarthquakeCoroutine(_caveShakeStateDeps.camera, _caveShakeStateDeps.iciclesAnimator, Stalactites);
         }
     }
 }

@@ -205,7 +205,8 @@ namespace _SLIME.Tutorial
             CurrentState = TutorialState.CaveShake;
             var logic = new CaveShakeLogic(caveShakeStateDeps, tutorialScriptable.CaveShakeStateSet);
             _allLogics.Add(logic);
-            yield return logic.Start();
+            StartCoroutine(logic.Start());
+            yield return new WaitForSeconds(tutorialScriptable.CaveShakeStateSet.earthquakeUtil.Duration / 3f);
             StartCoroutine(SceneMoveToFinalBattleCoroutine());
         }
         #endregion

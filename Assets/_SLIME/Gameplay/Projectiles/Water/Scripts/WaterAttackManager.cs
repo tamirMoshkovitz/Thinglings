@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using _SLIME.Boss;
+using _SLIME.Envierment.Earthquake.Scriptables;
 using _SLIME.GameLoop;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class WaterAttackManager : MonoBehaviour
 {
@@ -22,6 +24,13 @@ public class WaterAttackManager : MonoBehaviour
     [SerializeField] private Animator animatorLeft;
     [SerializeField] private Animator animatorRight;
     [SerializeField] private BossBrain bossBrain;
+    
+    [Header("Earthquake Effect")]
+    [SerializeField] private EarthquakeUtil earthquakeUtil;
+    [SerializeField] private Camera camera;
+    [SerializeField] private Animator iciclesAnimator;
+    
+    private readonly int _stalactites;
 
     private bool _isLeftZoneActive;
     private bool _isRightZoneActive;
@@ -80,6 +89,7 @@ public class WaterAttackManager : MonoBehaviour
         
         GameEvents.FmodPhaseFour?.Invoke();
         TriggerBoth(CreaturesInsideTrigger);
+        StartCoroutine(TriggerEarthquake());
 
         yield return new WaitForSeconds(timeToAttackMode);
         TriggerBoth(AttackModeTrigger);
@@ -100,6 +110,11 @@ public class WaterAttackManager : MonoBehaviour
         if (hashId != AttackModeTrigger) return;
         bossBrain.ApplyDamage(waterAttackDamage);
         bossBrain.animator.SetTrigger(waterAttackResult);
+    }
+
+    private IEnumerator TriggerEarthquake()
+    {
+        yield return earthquakeUtil.EarthquakeCoroutine(camera, iciclesAnimator, _stalactites);
     }
 
     private void OnBossDead()
