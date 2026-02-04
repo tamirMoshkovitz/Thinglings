@@ -100,22 +100,24 @@ MonoBehaviour:
     totalLoops: 1
     withSlimeDetection: 0
   icicleSpawnSettings:
-    minWaitTime: 4
-    maxWaitTime: 6
+    minWaitTime: 6
+    maxWaitTime: 10
     loopSpawning: 1
   waterAttackSettings:
     waterDamage: 0
   lightHouseSettings:
     attackDuration: {x: 4, y: 4}
-    mainBeamSpeedPerSecond: {x: 120, y: 160}
-    otherBeamsSpeedPerSecond: {x: 80, y: 120}
+    farBeamSpeed: 0
+    midBeamSpeed: 0
+    closeBeamSpeed: 0
     angleFromMainBeam: {x: 45, y: 200.21394}
     mainBeamAngleFromSlimes: {x: 15, y: 20}
     minBeamAngleDistance: 45
     timeToCheckForMainBeanSwitch: 0.5
     directionFlipTransitionDuration: 0
-    minSpeedDifference: 0
     directionFlipDeadZone: 0
+    floatBossDistance: 0
+    floatBossDuration: 0
   bossCoreSettings:
     maxHealth: 1000
   bossPhaseSettings:

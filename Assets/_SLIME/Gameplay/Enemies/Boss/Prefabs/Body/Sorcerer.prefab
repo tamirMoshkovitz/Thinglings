@@ -224,8 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa10a36989527fb4ca18a5b355017e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackVisualWarning
-  pulseSpeed: 4
-  maxAlpha: 0.7
+  animator: {fileID: 0}
 --- !u!1 &1641745033439449469
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,8 +986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa10a36989527fb4ca18a5b355017e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackVisualWarning
-  pulseSpeed: 4
-  maxAlpha: 0.7
+  animator: {fileID: 0}
 --- !u!1 &2420574173131811130
 GameObject:
   m_ObjectHideFlags: 0
@@ -1092,8 +1090,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa10a36989527fb4ca18a5b355017e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackVisualWarning
-  pulseSpeed: 4
-  maxAlpha: 0.7
+  animator: {fileID: 0}
 --- !u!1 &2428871918716192886
 GameObject:
   m_ObjectHideFlags: 0
@@ -1728,8 +1725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa10a36989527fb4ca18a5b355017e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackVisualWarning
-  pulseSpeed: 4
-  maxAlpha: 0.7
+  animator: {fileID: 0}
 --- !u!1 &3699198049871394263
 GameObject:
   m_ObjectHideFlags: 0
@@ -1921,6 +1917,10 @@ MonoBehaviour:
   - {fileID: 3506938469841010841}
   - {fileID: 1161641955503817474}
   - {fileID: 7319645881235953889}
+  topLeftHands: []
+  topRightHands: []
+  bottomLeftHands: []
+  bottomRightHands: []
   specialLeftHandSplines:
   - {fileID: 3050694470385878625}
   - {fileID: 472676653904389898}
@@ -2137,8 +2137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa10a36989527fb4ca18a5b355017e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackVisualWarning
-  pulseSpeed: 4
-  maxAlpha: 0.7
+  animator: {fileID: 0}
 --- !u!1 &4374389400247717769
 GameObject:
   m_ObjectHideFlags: 0
@@ -2242,8 +2241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa10a36989527fb4ca18a5b355017e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackVisualWarning
-  pulseSpeed: 4
-  maxAlpha: 0.7
+  animator: {fileID: 0}
 --- !u!1 &4661568311126601736
 GameObject:
   m_ObjectHideFlags: 0
@@ -2449,8 +2447,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.8691158, y: -0.5031724}
-  m_Radius: 2.825944
+  m_Offset: {x: 1.3094233, y: 2.5789843}
+  m_Radius: 1.9453286
 --- !u!1 &5858810073929988078
 GameObject:
   m_ObjectHideFlags: 0
@@ -2746,8 +2744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa10a36989527fb4ca18a5b355017e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackVisualWarning
-  pulseSpeed: 4
-  maxAlpha: 0.7
+  animator: {fileID: 0}
 --- !u!1 &6586713634028309321
 GameObject:
   m_ObjectHideFlags: 0
@@ -2851,8 +2848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa10a36989527fb4ca18a5b355017e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackVisualWarning
-  pulseSpeed: 4
-  maxAlpha: 0.7
+  animator: {fileID: 0}
 --- !u!1 &6897336276857008537
 GameObject:
   m_ObjectHideFlags: 0
@@ -3295,8 +3291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa10a36989527fb4ca18a5b355017e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackVisualWarning
-  pulseSpeed: 4
-  maxAlpha: 0.7
+  animator: {fileID: 0}
 --- !u!1 &8324810793790689747
 GameObject:
   m_ObjectHideFlags: 0
@@ -3436,8 +3431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa10a36989527fb4ca18a5b355017e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackVisualWarning
-  pulseSpeed: 4
-  maxAlpha: 0.7
+  animator: {fileID: 0}
 --- !u!1 &8493720691629181109
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,8 +29,11 @@ namespace _SLIME.Boss
             Data.BossCloseState();
             
             _allHands.Clear();
-            _allHands.AddRange(Data.leftHandSplines.Select(h => new HandWrapper(h)));
-            _allHands.AddRange(Data.rightHandSplines.Select(h => new HandWrapper(h)));
+            _allHands.AddRange(Data.topLeftHands.Select(h => new HandWrapper(h)));
+            _allHands.AddRange(Data.topRightHands.Select(h => new HandWrapper(h)));
+            _allHands.AddRange(Data.bottomLeftHands.Select(h => new HandWrapper(h)));
+            _allHands.AddRange(Data.bottomRightHands.Select(h => new HandWrapper(h)));
+            // Add specials for the random pool
             _allHands.AddRange(Data.specialLeftHandSplines.Select(h => new HandWrapper(h)));
             _allHands.AddRange(Data.specialRightHandSplines.Select(h => new HandWrapper(h)));
 
@@ -42,40 +45,39 @@ namespace _SLIME.Boss
         {
             var config = BossBrain.bossConfigurations.HandsAttack;
             float warningSpeed = config.phaseSpeedMultiplier;
-            
             List<HandWrapper> sequence = new List<HandWrapper>();
-            bool isLeft = Random.value > 0.5f;
 
-            bool hasUsedSpecial = false;
+            // --- 1. GUARANTEE ONE FROM EACH CORNER ---
+            AddGuaranteedHand(sequence, Data.topLeftHands);
+            AddGuaranteedHand(sequence, Data.topRightHands);
+            AddGuaranteedHand(sequence, Data.bottomLeftHands);
+            AddGuaranteedHand(sequence, Data.bottomRightHands);
 
-            for (int i = 0; i < config.totalHandsToUse; i++)
+            sequence = sequence.OrderBy(x => Random.value).ToList();
+
+            // --- 2. FILL REMAINING SLOTS ---
+            while (sequence.Count < config.totalHandsToUse)
             {
-                bool trySpecial = !hasUsedSpecial && Random.value < 0.2f;
-
-                HandWrapper hand = PickHand(isLeft, trySpecial);
-                if (hand != null) {
-                    hand.InCurrentSequence = true;
-                    sequence.Add(hand);
-                    
-                    if (IsSpecialHand(hand)) hasUsedSpecial = true;
-                    
-                    isLeft = !isLeft;
-                }
+                var extra = _allHands.FirstOrDefault(h => !h.InCurrentSequence && !h.Root.activeSelf);
+                if (extra != null) {
+                    extra.InCurrentSequence = true;
+                    sequence.Add(extra);
+                } else break;
             }
 
+            // --- 3. REVEAL PHASE ---
             foreach (var hand in sequence)
             {
                 if (Data.WaterStateActivated) yield break;
-                
-                hand.Root.SetActive(true); 
-                hand.Logic.ResetHand();
-                
+                hand.Root.SetActive(true);
+                hand.Logic.ResetHand(); // Snap to 0 while invisible
                 yield return Data.StartCoroutine(hand.Logic.PlayWarningSequence(warningSpeed));
                 yield return new WaitForSeconds(0.15f / warningSpeed);
             }
 
             yield return new WaitForSeconds(0.5f / warningSpeed);
 
+            // --- 4. STRIKE PHASE ---
             foreach (var hand in sequence)
             {
                 if (Data.WaterStateActivated) break;
@@ -87,40 +89,25 @@ namespace _SLIME.Boss
             animator.SetTrigger(AttackFinished);
         }
 
+        private void AddGuaranteedHand(List<HandWrapper> sequence, List<GameObject> pool)
+        {
+            var available = _allHands.Where(h => pool.Contains(h.Root) && !h.InCurrentSequence).ToList();
+            if (available.Count > 0)
+            {
+                var chosen = available[Random.Range(0, available.Count)];
+                chosen.InCurrentSequence = true;
+                sequence.Add(chosen);
+            }
+        }
+
         private IEnumerator ExecuteAndCleanup(HandWrapper hand)
         {
             yield return hand.Logic.PlayAttack();
-            hand.Root.SetActive(false);
+            hand.Root.SetActive(false); // Disappear immediately at the end
             hand.InCurrentSequence = false;
         }
 
-        private HandWrapper PickHand(bool wantLeft, bool wantSpecial) {
-            var available = _allHands.Where(h => !h.InCurrentSequence && !h.Root.activeSelf).ToList();
-            
-            var match = available.FirstOrDefault(h => {
-                bool isSideMatch = wantLeft 
-                    ? (Data.leftHandSplines.Contains(h.Root) || Data.specialLeftHandSplines.Contains(h.Root)) 
-                    : (Data.rightHandSplines.Contains(h.Root) || Data.specialRightHandSplines.Contains(h.Root));
-                
-                bool isTypeMatch = wantSpecial 
-                    ? (Data.specialLeftHandSplines.Contains(h.Root) || Data.specialRightHandSplines.Contains(h.Root))
-                    : (!Data.specialLeftHandSplines.Contains(h.Root) && !Data.specialRightHandSplines.Contains(h.Root));
-                
-                return isSideMatch && isTypeMatch;
-            });
-
-            if (match == null && wantSpecial) return PickHand(wantLeft, false);
-
-            return match ?? available.FirstOrDefault();
-        }
-
-        private bool IsSpecialHand(HandWrapper hand)
-        {
-            return Data.specialLeftHandSplines.Contains(hand.Root) || Data.specialRightHandSplines.Contains(hand.Root);
-        }
-
         private bool AllFinished() => _allHands.All(h => !h.Root.activeSelf);
-
         private void ForceStopAllHands() => _allHands.ForEach(h => { h.Root.SetActive(false); h.InCurrentSequence = false; });
     }
 }
