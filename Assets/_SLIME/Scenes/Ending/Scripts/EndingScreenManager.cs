@@ -17,6 +17,7 @@ namespace _SLIME.Scenes.Ending.Scripts
         [SerializeField] private float phaseDelay = 1f;
         [SerializeField] private float slimeRiseDuration = 4f;
         [SerializeField] private float subtitlesDuration = 15f;
+        [SerializeField] private float subtitlesDelay = 0f;
         
         private static readonly int StartEnding = Animator.StringToHash("start end");
         private static readonly int EndComplete = Animator.StringToHash("end complete");
@@ -102,6 +103,7 @@ namespace _SLIME.Scenes.Ending.Scripts
         
         private IEnumerator ShowText()
         {
+            yield return new WaitForSeconds(subtitlesDelay);
             _animator.SetTrigger(EndComplete);
             yield return new WaitForSeconds(subtitlesDuration);
         }
