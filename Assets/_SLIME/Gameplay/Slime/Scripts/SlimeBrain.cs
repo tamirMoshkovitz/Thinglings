@@ -218,7 +218,6 @@ namespace _SLIME.Slime
                 if (_controlSwitchCoroutine != null)
                 {
                     StopCoroutine(_controlSwitchCoroutine);
-                    StopControlSwitchAnimation();
                     _controlSwitchCoroutine = null;
                 }
             }
@@ -252,7 +251,7 @@ namespace _SLIME.Slime
             if (ShouldSwitchControls(overrideLifeChecks))
             {
                 SwitchSlimeSides(overrideLifeChecks);
-                yield return AnimateControlSwitch(controlSwitchDuration);
+                StartCoroutine(AnimateControlSwitch(controlSwitchDuration));
             }
         
             _controlSwitchCoroutine = null;
@@ -290,11 +289,6 @@ namespace _SLIME.Slime
             (_leftSide.Animator.runtimeAnimatorController, _rightSide.Animator.runtimeAnimatorController) =
                 (_rightSide.Animator.runtimeAnimatorController, _leftSide.Animator.runtimeAnimatorController);
             
-            StopControlSwitchAnimation();
-        }
-        
-        private void StopControlSwitchAnimation()
-        {
             leftSlimeSoulSprite.gameObject.SetActive(false);
             rightSlimeSoulSprite.gameObject.SetActive(false);
         }

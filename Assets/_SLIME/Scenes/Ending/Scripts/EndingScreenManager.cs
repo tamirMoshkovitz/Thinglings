@@ -2,7 +2,6 @@ using System.Collections;
 using _SLIME.BaseScripts;
 using _SLIME.GameLoop;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 namespace _SLIME.Scenes.Ending.Scripts
 {
