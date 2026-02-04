@@ -56,7 +56,7 @@ namespace _SLIME.Scenes.Ending.Scripts
             yield return RiseSlimes();
             yield return new WaitForSeconds(phaseDelay);
             yield return ShowText();
-            SceneLoader.LoadScene(SceneType.StartScene);
+            // SceneLoader.LoadScene(SceneType.StartScene); TODO
         }
         
         private IEnumerator WaitForSlimesToRise()
