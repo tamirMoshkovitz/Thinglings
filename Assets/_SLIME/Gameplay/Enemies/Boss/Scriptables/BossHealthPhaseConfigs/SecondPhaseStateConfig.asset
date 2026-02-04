@@ -103,7 +103,7 @@ MonoBehaviour:
     maxWaitTime: 5
     loopSpawning: 1
   waterAttackSettings:
-    waterDamage: 50
+    waterDamage: 0
   lightHouseSettings:
     attackDuration: {x: 4, y: 4}
     mainBeamSpeedPerSecond: {x: 120, y: 160}
@@ -116,9 +116,9 @@ MonoBehaviour:
     minSpeedDifference: 0
     directionFlipDeadZone: 0
   bossCoreSettings:
-    maxHealth: 250
+    maxHealth: 700
   bossPhaseSettings:
-    lowerHealthThreshold: 150
+    lowerHealthThreshold: 300
     targetHitsToKill: 5
     expectedAvgSpeedOfSpells: 35
   littleBossMovementSettings:
