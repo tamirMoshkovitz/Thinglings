@@ -131,16 +131,7 @@ namespace _SLIME.LightHouse
         private IEnumerator ActivateAttack()
         {
             float duration = Random.Range(_lightHouseSets.attackDuration.x, _lightHouseSets.attackDuration.y);
-            float mainSpeed = Random.Range(_lightHouseSets.mainBeamSpeedPerSecond.x, _lightHouseSets.mainBeamSpeedPerSecond.y);
-            float otherSpeed = Random.Range(_lightHouseSets.otherBeamsSpeedPerSecond.x, _lightHouseSets.otherBeamsSpeedPerSecond.y);
-            float minDiff = _lightHouseSets.minSpeedDifference;
-            if (Mathf.Abs(mainSpeed - otherSpeed) < minDiff)
-            {
-                float mid = (mainSpeed + otherSpeed) * 0.5f;
-                mainSpeed = mid + minDiff * 0.5f;
-                otherSpeed = mid - minDiff * 0.5f;
-                if (otherSpeed < 1f) { otherSpeed = 1f; mainSpeed = otherSpeed + minDiff; }
-            }
+            float[] beamSpeeds = { _lightHouseSets.closeBeamSpeed, _lightHouseSets.midBeamSpeed, _lightHouseSets.farBeamSpeed };
             float transitionDuration = Mathf.Max(0.01f, _lightHouseSets.directionFlipTransitionDuration);
             float checkInterval = Mathf.Max(0.1f, _lightHouseSets.timeToCheckForMainBeanSwitch);
 
@@ -171,10 +162,12 @@ namespace _SLIME.LightHouse
                     }
                 }
                 
+                // Main beam dictates direction. Middle (index 1) always opposite to close (0) and far (2).
                 for (int i = 0; i < 3; i++)
                 {
-                    float beamSpeed = i == _mainBeamIndex ? mainSpeed : otherSpeed;
-                    float effective = i == _mainBeamIndex ? _mainDirectionEffective : -_mainDirectionEffective;
+                    float beamSpeed = beamSpeeds[i];
+                    bool isMiddle = (i == 1);
+                    float effective = isMiddle ? -_mainDirectionEffective : _mainDirectionEffective;
                     float currentZ = rotPoints[i].eulerAngles.z;
                     rotPoints[i].rotation = Quaternion.Euler(0f, 0f, NormalizeAngle(currentZ + beamSpeed * effective * dt));
                 }
