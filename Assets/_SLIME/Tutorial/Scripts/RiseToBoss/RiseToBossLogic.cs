@@ -103,13 +103,45 @@ namespace _SLIME.Tutorial
         private IEnumerator MoveBackgroundDown()
         {
             Transform bg = _riseToBossStateDeps.Backgorund;
-            float targetY = bg.position.y - _riseToBossStateDeps.maxCameraPosition.position.y;
+            float lastBgY = bg.position.y;
+            float targetY = lastBgY - _riseToBossStateDeps.maxCameraPosition.position.y;
+            
+            var rb1 = _riseToBossStateDeps.Slime1 != null ? _riseToBossStateDeps.Slime1.GetComponent<Rigidbody2D>() : null;
+            var rb2 = _riseToBossStateDeps.Slime2 != null ? _riseToBossStateDeps.Slime2.GetComponent<Rigidbody2D>() : null;
             
             _backgroundMoveTween = bg
                 .DOMoveY(targetY, _riseToBossStateSet.moveSpeed)
                 .SetEase(_riseToBossStateSet.moveEase);
             
-            yield return _backgroundMoveTween.WaitForCompletion();
+            while (_backgroundMoveTween != null && _backgroundMoveTween.IsActive() && _backgroundMoveTween.IsPlaying())
+            {
+                yield return new WaitForEndOfFrame();
+                
+                float currentBgY = bg.position.y;
+                float deltaThisFrame = lastBgY - currentBgY;
+                lastBgY = currentBgY;
+                
+                if (rb1 != null)
+                {
+                    var pos = rb1.position;
+                    rb1.position = new Vector2(pos.x, pos.y - deltaThisFrame);
+                }
+                else if (_riseToBossStateDeps.Slime1 != null)
+                {
+                    var p = _riseToBossStateDeps.Slime1.transform.position;
+                    _riseToBossStateDeps.Slime1.transform.position = new Vector3(p.x, p.y - deltaThisFrame, p.z);
+                }
+                if (rb2 != null)
+                {
+                    var pos = rb2.position;
+                    rb2.position = new Vector2(pos.x, pos.y - deltaThisFrame);
+                }
+                else if (_riseToBossStateDeps.Slime2 != null)
+                {
+                    var p = _riseToBossStateDeps.Slime2.transform.position;
+                    _riseToBossStateDeps.Slime2.transform.position = new Vector3(p.x, p.y - deltaThisFrame, p.z);
+                }
+            }
         }
     }
 }

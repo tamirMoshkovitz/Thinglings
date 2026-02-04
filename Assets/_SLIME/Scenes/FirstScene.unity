@@ -314,6 +314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Tutorial.BackgroundTutorial
   background: {fileID: 119033387}
+  boss: {fileID: 1046256267}
 --- !u!95 &440780099 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 698770502195183284, guid: 828d0fa3a22fd49af9ac88f0fb4a17c9, type: 3}
