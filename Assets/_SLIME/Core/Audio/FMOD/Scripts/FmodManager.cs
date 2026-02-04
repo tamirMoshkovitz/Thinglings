@@ -14,6 +14,7 @@ public class FmodManager : ProjectMonoBehavior
     [SerializeField] private GameObject phaseThreePlaster;
     [SerializeField] private GameObject phaseFourPlaster;
     [SerializeField] private GameObject phaseFivePlaster;
+    [SerializeField] private GameObject phaseSixPlaster;
     
     public static FmodManager Instance { get; private set; }
     
@@ -23,7 +24,6 @@ public class FmodManager : ProjectMonoBehavior
     {
         if (Instance) { Destroy(gameObject); return; }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
         _musicEmitter = GetComponent<StudioEventEmitter>();
     }
 
@@ -34,6 +34,7 @@ public class FmodManager : ProjectMonoBehavior
         GameEvents.FmodPhaseThree += SetBossPhaseThree;
         GameEvents.FmodPhaseFour += SetBossPhaseFour;
         GameEvents.FmodPhaseFive += SetBossPhaseFive;
+        GameEvents.FmodPhaseSix += SetBossPhaseSix;
         
         GameEvents.WaterAttackStarted += OnWaterAttackStarted;
         GameEvents.WaterAttackEnded += OnWaterAttackEnded;
@@ -46,6 +47,7 @@ public class FmodManager : ProjectMonoBehavior
         GameEvents.FmodPhaseThree -= SetBossPhaseThree;
         GameEvents.FmodPhaseFour -= SetBossPhaseFour;
         GameEvents.FmodPhaseFive -= SetBossPhaseFive;
+        GameEvents.FmodPhaseSix -= SetBossPhaseSix;
         
         GameEvents.WaterAttackStarted -= OnWaterAttackStarted;
         GameEvents.WaterAttackEnded -= OnWaterAttackEnded;
@@ -81,6 +83,12 @@ public class FmodManager : ProjectMonoBehavior
         phaseFivePlaster.SetActive(false);
     }
     
+    private void SetBossPhaseSix()
+    {
+        phaseSixPlaster.SetActive(true);
+        phaseSixPlaster.SetActive(false);
+    }
+    
     private void OnWaterAttackStarted()
     {
         StartCoroutine(InterpolateParameter(_musicEmitter.EventInstance, "water checkpoint", 1f, 1f));
@@ -89,7 +97,7 @@ public class FmodManager : ProjectMonoBehavior
     private void OnWaterAttackEnded()
     {
         StopCoroutine(InterpolateParameter(_musicEmitter.EventInstance, "water checkpoint", 1f, 1f));
-        StartCoroutine(InterpolateParameter(_musicEmitter.EventInstance, "water checkpoint", 0f, 1f));
+        StartCoroutine(InterpolateParameter(_musicEmitter.EventInstance, "water checkpoint", 0f, .25f));
     }
     
     private IEnumerator InterpolateParameter(EventInstance eventInstance, string parameterName, float targetValue, float duration)

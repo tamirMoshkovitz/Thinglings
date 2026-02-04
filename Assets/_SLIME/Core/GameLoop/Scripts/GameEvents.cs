@@ -16,6 +16,7 @@ namespace _SLIME.GameLoop
         
         public static Action WaterAttackStarted;
         public static Action WaterAttackEnded;
+        public static Action SlimeWon;
         
         // FMOD Events
         public static Action FmodPhaseOne;
@@ -23,6 +24,7 @@ namespace _SLIME.GameLoop
         public static Action FmodPhaseThree;
         public static Action FmodPhaseFour;
         public static Action FmodPhaseFive;
+        public static Action FmodPhaseSix;
         
         // TODO: IN FUTURE, RESET SHOULD BE ACTIVATED ON ProjectMonoBehaviour to be applied by inheritance to all objects
         public static void RaiseResetGame()
