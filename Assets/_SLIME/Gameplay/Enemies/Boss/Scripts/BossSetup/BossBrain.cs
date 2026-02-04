@@ -194,14 +194,14 @@ namespace _SLIME.Boss
 
             if (BossState != BossStates.WaterState && bossHealthBar.gameObject.activeInHierarchy)
             {
-                PopupEventsRenderer.OnRenderPointsAbove(new RenderEvent
-                {
-                    eventType = EventType.BossHealth,
-                    value = -finalDamage,
-                    fatherTransform = null,
-                    position = bossHealthBar.GetComponent<HealthBarTipFollower>().GetTipPosition(),
-                    OnFinish = null
-                });
+                // PopupEventsRenderer.OnRenderPointsAbove(new RenderEvent
+                // {
+                //     eventType = EventType.BossHealth,
+                //     value = -finalDamage,
+                //     fatherTransform = null,
+                //     position = bossHealthBar.GetComponent<HealthBarTipFollower>().GetTipPosition(),
+                //     OnFinish = null
+                // });
             }
 
             GameEvents.EnemyGotBricked?.Invoke();
