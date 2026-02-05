@@ -29,19 +29,12 @@ namespace _SLIME.Scenes.Ending.Scripts
         {
             _animator = GetComponent<Animator>();
             _collider = GetComponent<Collider2D>();
-            
-            if (_collider.enabled) // Debug scene
-                OnSlimeWon();
         }
 
         private void OnEnable()
         {
-            GameEvents.SlimeWon += OnSlimeWon;
-        }
-
-        private void OnDisable()
-        {
-            GameEvents.SlimeWon -= OnSlimeWon;
+            StartCoroutine(EndingCoroutine());
+            GameEvents.FmodPhaseSix?.Invoke();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -107,11 +100,6 @@ namespace _SLIME.Scenes.Ending.Scripts
             _animator.SetTrigger(EndComplete);
             yield return new WaitForSeconds(subtitlesDuration);
         }
-
-        private void OnSlimeWon()
-        {
-            StartCoroutine(EndingCoroutine());
-            GameEvents.FmodPhaseSix?.Invoke();
-        }
+        
     }
 }
