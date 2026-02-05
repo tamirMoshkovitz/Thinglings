@@ -9,15 +9,18 @@ namespace _SLIME.Scenes.Ending.Scripts
         [SerializeField] private GameObject end;
         
         private bool _isSlimeWon;
+        private bool _isTunnel;
         
         private void OnEnable()
         {
+            GameEvents.TunnelPhaseStarted += MarkTunnel;
             GameEvents.SlimeWon += MarkSlimeWon;
             GameEvents.WaterAttackEnded += ActivateEnd;
         }
         
         private void OnDisable()
         {
+            GameEvents.TunnelPhaseStarted -= MarkTunnel;
             GameEvents.SlimeWon -= MarkSlimeWon;
             GameEvents.WaterAttackEnded -= ActivateEnd;
         }
@@ -26,10 +29,15 @@ namespace _SLIME.Scenes.Ending.Scripts
         {
             _isSlimeWon = true;
         }
+        private void MarkTunnel()
+        {
+            _isTunnel = true;
+        }
 
         private void ActivateEnd()
         {
-            end.SetActive(true);
+            if (_isTunnel && _isSlimeWon)
+                end.SetActive(true);
         }
     }
 }
