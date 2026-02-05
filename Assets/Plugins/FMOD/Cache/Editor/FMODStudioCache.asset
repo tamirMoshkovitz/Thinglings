@@ -1,5 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9129564406833725387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Water Attack
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Water Attack
+  Guid:
+    Data1: -557510135
+    Data2: 1286959871
+    Data3: 455723695
+    Data4: 1728858159
+  Banks:
+  - {fileID: -470217281803586995}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4000
 --- !u!114 &-8889037867704037143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27,6 +54,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 574
+--- !u!114 &-8697295679843809039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Boss Hit
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Boss Hit
+  Guid:
+    Data1: -839277203
+    Data2: 1144975663
+    Data3: -2037420620
+    Data4: 1826308944
+  Banks:
+  - {fileID: -470217281803586995}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 320
 --- !u!114 &-7728083700653235914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,6 +162,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1650
+--- !u!114 &-6575686436052318503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Boss Eye Sparkle
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Boss Eye Sparkle
+  Guid:
+    Data1: 1231209364
+    Data2: 1143655233
+    Data3: -547093836
+    Data4: 16628264
+  Banks:
+  - {fileID: -470217281803586995}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2100
 --- !u!114 &-6342316690607164867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,7 +302,34 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 1650
+  Length: 6600
+--- !u!114 &-5263881818033427592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Spell Spawn
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Spell Spawn
+  Guid:
+    Data1: -618710691
+    Data2: 1308312239
+    Data3: -1696727921
+    Data4: -971661901
+  Banks:
+  - {fileID: -470217281803586995}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 500
 --- !u!114 &-5000869514876377611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,10 +345,10 @@ MonoBehaviour:
   Path: Assets/_SLIME/FMOD Assets/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639058496388000877
+  lastModified: 639058581173140271
   FileSizes:
   - Name: Desktop
-    Value: 1466
+    Value: 1774
   Exists: 1
 --- !u!114 &-4823524259861096094
 MonoBehaviour:
@@ -526,10 +634,10 @@ MonoBehaviour:
   Path: Assets/_SLIME/FMOD Assets/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639058560766741489
+  lastModified: 639058581173073458
   FileSizes:
   - Name: Desktop
-    Value: 7399584
+    Value: 7704576
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -558,6 +666,13 @@ MonoBehaviour:
   - {fileID: -583960717663487818}
   - {fileID: -5579166253781203000}
   - {fileID: 4384175580900852738}
+  - {fileID: -9129564406833725387}
+  - {fileID: 4438018835348809865}
+  - {fileID: -5263881818033427592}
+  - {fileID: -8697295679843809039}
+  - {fileID: 3049700714035066581}
+  - {fileID: 7855805538911579402}
+  - {fileID: -6575686436052318503}
   EditorParameters:
   - {fileID: -6245422734093149467}
   - {fileID: 626998745102291085}
@@ -567,7 +682,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: -5000869514876377611}
   cacheVersion: 131857
-  cacheTime: 639058560766741489
+  cacheTime: 639058581173140271
   SerializableEventsDict:
   - key: event:/Music
     index: 0
@@ -591,6 +706,20 @@ MonoBehaviour:
     index: 9
   - key: event:/icicle Break
     index: 10
+  - key: event:/Water Attack
+    index: 11
+  - key: event:/Boss Gets Close
+    index: 12
+  - key: event:/Spell Spawn
+    index: 13
+  - key: event:/Boss Hit
+    index: 14
+  - key: event:/Boss Gets Far
+    index: 15
+  - key: event:/Earthquake
+    index: 16
+  - key: event:/Boss Eye Sparkle
+    index: 17
 --- !u!114 &235148864005050700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -720,6 +849,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 6000
+--- !u!114 &3049700714035066581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Boss Gets Far
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Boss Gets Far
+  Guid:
+    Data1: 1065777273
+    Data2: 1279634395
+    Data3: -1147465855
+    Data4: 454008818
+  Banks:
+  - {fileID: -470217281803586995}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 3300
 --- !u!114 &3405137078269964252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -801,7 +957,34 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 1250
+  Length: 620
+--- !u!114 &4438018835348809865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Boss Gets Close
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Boss Gets Close
+  Guid:
+    Data1: -506930613
+    Data2: 1292582905
+    Data3: -427912006
+    Data4: 970570593
+  Banks:
+  - {fileID: -470217281803586995}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2200
 --- !u!114 &5158195322925443930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -950,6 +1133,33 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
+--- !u!114 &7855805538911579402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Earthquake
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Earthquake
+  Guid:
+    Data1: 662995597
+    Data2: 1313524005
+    Data3: 582425753
+    Data4: 48088605
+  Banks:
+  - {fileID: -470217281803586995}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 6000
 --- !u!114 &8906221955926720050
 MonoBehaviour:
   m_ObjectHideFlags: 0
