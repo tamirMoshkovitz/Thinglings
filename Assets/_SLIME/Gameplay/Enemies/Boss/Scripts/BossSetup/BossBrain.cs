@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
+using _SLIME.Core.Audio.FMOD.Scripts;
 using _SLIME.GameLoop;
 using _SLIME.Slime;
 using _SLIME.UI;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.UI;
 using EventType = _SLIME.UI.EventType;
@@ -73,6 +75,9 @@ namespace _SLIME.Boss
         
         [Header("Light House Attack Setup")] 
         public GameObject lightHouseAttackGameObject;
+        
+        [Header("SFX")]
+        [SerializeField] private EventReference hitSFX;
         
         public static BossStates BossState = BossStates.FarState;
         private static readonly int CloseHit = Animator.StringToHash("CloseHit");
@@ -176,6 +181,7 @@ namespace _SLIME.Boss
 
         public void TakeDamage(float damage) 
         {
+            SFXPlayer.Play(hitSFX);
             float denominator = bossConfigurations.PhaseSettings.targetHitsToKill * bossConfigurations.PhaseSettings.expectedAvgSpeedOfSpells;
             if (denominator == 0) denominator = 1;
 

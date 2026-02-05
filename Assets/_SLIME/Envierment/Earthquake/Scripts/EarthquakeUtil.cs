@@ -1,6 +1,8 @@
 using System.Collections;
 using _SLIME.BaseScripts;
+using _SLIME.Core.Audio.FMOD.Scripts;
 using DG.Tweening;
+using FMODUnity;
 using UnityEngine;
 
 namespace _SLIME.Envierment.Earthquake.Scriptables
@@ -16,11 +18,13 @@ namespace _SLIME.Envierment.Earthquake.Scriptables
         [SerializeField] private bool fadeOut;
         [SerializeField] private Ease ease;
         [SerializeField] private float animationDelay;
+        [SerializeField] private EventReference earthquakeSFX;
         
         public float Duration { get => duration; }
 
         public IEnumerator EarthquakeCoroutine(Camera camera, Animator iciclesAnimator, int triggerHash)
         {
+            SFXPlayer.Play(earthquakeSFX);
             float timer = 0f;
             
             DOShakeWithScriptableConfig(camera.transform);

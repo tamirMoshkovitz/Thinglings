@@ -1285,9 +1285,29 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: sparkleSFX.Path
+      value: event:/Boss Eye Sparkle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: logoStateDeps.logo
       value: 
       objectReference: {fileID: 1720689336929784707}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: sparkleSFX.Guid.Data1
+      value: 1231209364
+      objectReference: {fileID: 0}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: sparkleSFX.Guid.Data2
+      value: 1143655233
+      objectReference: {fileID: 0}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: sparkleSFX.Guid.Data3
+      value: -547093836
+      objectReference: {fileID: 0}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: sparkleSFX.Guid.Data4
+      value: 16628264
+      objectReference: {fileID: 0}
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: rockStateDeps.mainCamera
       value: 
@@ -1591,6 +1611,30 @@ PrefabInstance:
     - target: {fileID: 5858295663231454056, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5858295663231454056, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
+      propertyPath: m_TagString
+      value: Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204412528599819272, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
+      propertyPath: hitSFX.Path
+      value: event:/Boss Hit
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204412528599819272, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
+      propertyPath: hitSFX.Guid.Data1
+      value: -839277203
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204412528599819272, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
+      propertyPath: hitSFX.Guid.Data2
+      value: 1144975663
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204412528599819272, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
+      propertyPath: hitSFX.Guid.Data3
+      value: -2037420620
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204412528599819272, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
+      propertyPath: hitSFX.Guid.Data4
+      value: 1826308944
       objectReference: {fileID: 0}
     - target: {fileID: 8652294172338131306, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2602,6 +2646,10 @@ PrefabInstance:
     - target: {fileID: 4622440772077818780, guid: 9282f6fc0abe4479b9c557861dd0467c, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622440772077818780, guid: 9282f6fc0abe4479b9c557861dd0467c, type: 3}
+      propertyPath: m_TagString
+      value: Boss
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
