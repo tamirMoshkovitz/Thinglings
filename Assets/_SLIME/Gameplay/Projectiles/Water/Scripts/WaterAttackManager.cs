@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using _SLIME.Boss;
+using _SLIME.Core.Audio.FMOD.Scripts;
 using _SLIME.Envierment.Earthquake.Scriptables;
 using _SLIME.GameLoop;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -28,6 +30,9 @@ public class WaterAttackManager : MonoBehaviour
     [SerializeField] private EarthquakeUtil earthquakeUtil;
     [SerializeField] private Camera camera;
     [SerializeField] private Animator iciclesAnimator;
+
+    [Header("SFX")]
+    [SerializeField] private EventReference watterAttackSFX;
     
     private readonly int _stalactites = Animator.StringToHash("Broken Stalactites");
 
@@ -89,6 +94,7 @@ public class WaterAttackManager : MonoBehaviour
         GameEvents.FmodPhaseFour?.Invoke();
         TriggerBoth(CreaturesInsideTrigger);
         StartCoroutine(TriggerEarthquake());
+        SFXPlayer.Play(watterAttackSFX);
 
         yield return new WaitForSeconds(timeToAttackMode);
         TriggerBoth(AttackModeTrigger);

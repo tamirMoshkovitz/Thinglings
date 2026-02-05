@@ -26,7 +26,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 4000
+  Length: 3600
 --- !u!114 &-8889037867704037143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,7 +80,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 320
+  Length: 235
 --- !u!114 &-7728083700653235914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,7 +329,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 500
+  Length: 1124
 --- !u!114 &-5000869514876377611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,7 +345,7 @@ MonoBehaviour:
   Path: Assets/_SLIME/FMOD Assets/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639058581173140271
+  lastModified: 639058631375942001
   FileSizes:
   - Name: Desktop
     Value: 1774
@@ -634,10 +634,10 @@ MonoBehaviour:
   Path: Assets/_SLIME/FMOD Assets/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639058581173073458
+  lastModified: 639058631375884595
   FileSizes:
   - Name: Desktop
-    Value: 7704576
+    Value: 7705504
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -682,7 +682,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: -5000869514876377611}
   cacheVersion: 131857
-  cacheTime: 639058581173140271
+  cacheTime: 639058631375942001
   SerializableEventsDict:
   - key: event:/Music
     index: 0
@@ -1159,7 +1159,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 6000
+  Length: 8000
 --- !u!114 &8906221955926720050
 MonoBehaviour:
   m_ObjectHideFlags: 0

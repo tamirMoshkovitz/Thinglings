@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
+using _SLIME.Core.Audio.FMOD.Scripts;
 using _SLIME.GameLoop;
+using FMODUnity;
 using UnityEngine;
 
 namespace _SLIME.Tutorial
@@ -21,6 +23,7 @@ namespace _SLIME.Tutorial
         public static event Action BossHit;
         [SerializeField] private TutorialScriptable tutorialScriptable;
         [SerializeField] private List<GameObject> bossRenderersToFlash = new List<GameObject>();
+        [SerializeField] private EventReference hitSFX;
 
         private TutorialBossFlashSettings _flashSettings;
         private List<Renderer> _renderers = new List<Renderer>();
@@ -50,6 +53,7 @@ namespace _SLIME.Tutorial
 
         public void TakeDamage(float damage = 0F)
         {
+            SFXPlayer.Play(hitSFX);
             TriggerFlash();
             BossHit?.Invoke();
         }

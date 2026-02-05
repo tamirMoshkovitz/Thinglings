@@ -11,5 +11,6 @@ public class FarToCloseTransition : BossBaseBehaviour
         base.OnStateEnter(animator, stateInfo, layerIndex);
         Data.BossCloseState();
         SFXPlayer.Play(transitionSFX);
+        Debug.Log("frfrfrfekhbafserbkfrbhjkferbjkaefrsbkj");
     }
 }
