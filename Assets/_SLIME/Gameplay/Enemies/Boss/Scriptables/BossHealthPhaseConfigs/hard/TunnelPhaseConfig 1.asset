@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0d89350894c6ed44a9dc92bb198fbcf, type: 3}
-  m_Name: TunnelPhaseConfig
+  m_Name: TunnelPhaseConfig 1
   m_EditorClassIdentifier: Assembly-CSharp::BaseBossSettings
   handsAttackSettings:
     handWarningDuration: 1
@@ -22,7 +22,7 @@ MonoBehaviour:
   spawnAttackSettings:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
     projectileBeforeSpawnPrefab: {fileID: 4899053137042385202, guid: c35248b870a664833961bec195804c32, type: 3}
-    attacksToCast: 1000
+    attacksToCast: 6
     hitThreshold: 100
     spawnSettings:
       delayBetweenAttacks: {x: 1, y: 1.5}
@@ -47,12 +47,11 @@ MonoBehaviour:
     spellSettings:
       attackAccuracyRange: {x: 0.9, y: 1}
       attackSpeedRange: {x: 20, y: 25}
-      targetMiddleProbability: 0
     specialAttacksSettings:
       threeShotsAngle: 22.5
-      fourShotsWaitBetweenShots: 0.7
+      fourShotsWaitBetweenShots: 0.2
       bulletHellTotalAngle: 45
-      bulletHellWaitBetweenShots: 0.5
+      bulletHellWaitBetweenShots: 0.2
       bulletHellMiddleDensityPower: 1.7
   laserAttackSettings:
     rotationCurve:
@@ -108,9 +107,9 @@ MonoBehaviour:
     waterDamage: 0
   lightHouseSettings:
     attackDuration: {x: 10, y: 10}
-    farBeamSpeed: 70
-    midBeamSpeed: 90
-    closeBeamSpeed: 120
+    farBeamSpeed: 100
+    midBeamSpeed: 130
+    closeBeamSpeed: 170
     angleFromMainBeam: {x: 45, y: 200.21394}
     mainBeamAngleFromSlimes: {x: 15, y: 20}
     minBeamAngleDistance: 45
@@ -120,11 +119,11 @@ MonoBehaviour:
     floatBossDistance: 6
     floatBossDuration: 3
   bossCoreSettings:
-    maxHealth: 400
+    maxHealth: 300
   bossPhaseSettings:
     lowerHealthThreshold: 0
     targetHitsToKill: 6
-    expectedAvgSpeedOfSpells: 30
+    expectedAvgSpeedOfSpells: 40
   littleBossMovementSettings:
     duration: 1
     easeCurve:
@@ -155,9 +154,8 @@ MonoBehaviour:
     timeUntilAttack: 0.5
   littleBossSpellAttackSettings:
     spellSettings:
-      attackAccuracyRange: {x: 0.7, y: 0.9}
+      attackAccuracyRange: {x: 0.9, y: 1}
       attackSpeedRange: {x: 20, y: 25}
-      targetMiddleProbability: 0
     spawnSettings:
       bothSlimesAliveProbabilities:
         oneShot: 1

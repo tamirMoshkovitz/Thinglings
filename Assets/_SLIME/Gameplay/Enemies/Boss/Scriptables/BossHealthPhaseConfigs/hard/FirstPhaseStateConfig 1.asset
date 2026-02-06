@@ -10,49 +10,48 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0d89350894c6ed44a9dc92bb198fbcf, type: 3}
-  m_Name: TunnelPhaseConfig
+  m_Name: FirstPhaseStateConfig 1
   m_EditorClassIdentifier: Assembly-CSharp::BaseBossSettings
   handsAttackSettings:
     handWarningDuration: 1
     handAttackDuration: 1.5
     handCooldown: 1
-    totalHandsToUse: 4
+    totalHandsToUse: 2
     useBothHands: 0
     phaseSpeedMultiplier: 1
   spawnAttackSettings:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
     projectileBeforeSpawnPrefab: {fileID: 4899053137042385202, guid: c35248b870a664833961bec195804c32, type: 3}
-    attacksToCast: 1000
+    attacksToCast: 6
     hitThreshold: 100
     spawnSettings:
-      delayBetweenAttacks: {x: 1, y: 1.5}
+      delayBetweenAttacks: {x: 1, y: 2}
       bothSlimesAliveProbabilities:
-        oneShot: 0
-        twoShots: 0.1
-        threeShot: 0.4
-        fourShots: 0
-        bulletHell: 0.5
-      notConnectedProbabilities:
-        oneShot: 0
-        twoShots: 0.5
-        threeShot: 0
-        fourShots: 0
-        bulletHell: 0.5
-      oneSlimeAliveProbabilities:
-        oneShot: 0.25
+        oneShot: 1
         twoShots: 0
         threeShot: 0
-        fourShots: 0.5
-        bulletHell: 0.25
+        fourShots: 0
+        bulletHell: 0
+      notConnectedProbabilities:
+        oneShot: 1
+        twoShots: 0
+        threeShot: 0
+        fourShots: 0
+        bulletHell: 0
+      oneSlimeAliveProbabilities:
+        oneShot: 1
+        twoShots: 0
+        threeShot: 0
+        fourShots: 0
+        bulletHell: 0
     spellSettings:
-      attackAccuracyRange: {x: 0.9, y: 1}
-      attackSpeedRange: {x: 20, y: 25}
-      targetMiddleProbability: 0
+      attackAccuracyRange: {x: 0.90000004, y: 1}
+      attackSpeedRange: {x: 14, y: 18}
     specialAttacksSettings:
       threeShotsAngle: 22.5
-      fourShotsWaitBetweenShots: 0.7
+      fourShotsWaitBetweenShots: 0.5
       bulletHellTotalAngle: 45
-      bulletHellWaitBetweenShots: 0.5
+      bulletHellWaitBetweenShots: 0.2
       bulletHellMiddleDensityPower: 1.7
   laserAttackSettings:
     rotationCurve:
@@ -97,33 +96,33 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    rotationDuration: 3
+    rotationDuration: 4
     totalLoops: 1
-    withSlimeDetection: 1
+    withSlimeDetection: 0
   icicleSpawnSettings:
-    minWaitTime: 2
-    maxWaitTime: 4
+    minWaitTime: 6
+    maxWaitTime: 10
     loopSpawning: 1
   waterAttackSettings:
     waterDamage: 0
   lightHouseSettings:
-    attackDuration: {x: 10, y: 10}
-    farBeamSpeed: 70
-    midBeamSpeed: 90
-    closeBeamSpeed: 120
+    attackDuration: {x: 4, y: 4}
+    farBeamSpeed: 0
+    midBeamSpeed: 0
+    closeBeamSpeed: 0
     angleFromMainBeam: {x: 45, y: 200.21394}
     mainBeamAngleFromSlimes: {x: 15, y: 20}
     minBeamAngleDistance: 45
-    timeToCheckForMainBeanSwitch: 20
-    directionFlipTransitionDuration: 1
-    directionFlipDeadZone: 8
-    floatBossDistance: 6
-    floatBossDuration: 3
+    timeToCheckForMainBeanSwitch: 0.5
+    directionFlipTransitionDuration: 0
+    directionFlipDeadZone: 0
+    floatBossDistance: 0
+    floatBossDuration: 0
   bossCoreSettings:
-    maxHealth: 400
+    maxHealth: 1000
   bossPhaseSettings:
-    lowerHealthThreshold: 0
-    targetHitsToKill: 6
+    lowerHealthThreshold: 700
+    targetHitsToKill: 5
     expectedAvgSpeedOfSpells: 30
   littleBossMovementSettings:
     duration: 1
@@ -152,28 +151,27 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   littleBossIdleSettings:
-    timeUntilAttack: 0.5
+    timeUntilAttack: 0.1
   littleBossSpellAttackSettings:
     spellSettings:
-      attackAccuracyRange: {x: 0.7, y: 0.9}
-      attackSpeedRange: {x: 20, y: 25}
-      targetMiddleProbability: 0
+      attackAccuracyRange: {x: 0.9, y: 1}
+      attackSpeedRange: {x: 30, y: 40}
     spawnSettings:
       bothSlimesAliveProbabilities:
-        oneShot: 1
+        oneShot: 0.5
         twoShots: 0
-        threeShot: 0
+        threeShot: 0.5
         fourShots: 0
         bulletHell: 0
       notConnectedProbabilities:
-        oneShot: 1
-        twoShots: 0
+        oneShot: 0.5
+        twoShots: 0.5
         threeShot: 0
         fourShots: 0
         bulletHell: 0
       oneSlimeAliveProbabilities:
-        oneShot: 1
-        twoShots: 0
+        oneShot: 0.5
+        twoShots: 0.5
         threeShot: 0
         fourShots: 0
         bulletHell: 0

@@ -65,7 +65,7 @@ public class IcicleLogic : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (_hit || _activateFallTime < 0f || Time.time - _activateFallTime < 0.5f) return;
+        if (_hit || _activateFallTime < 0f || Time.time - _activateFallTime < 1f) return;
         _hit = true;
         if (collision.gameObject.CompareTag("Wall"))
         {
@@ -78,7 +78,7 @@ public class IcicleLogic : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (_hit || _activateFallTime < 0f || Time.time - _activateFallTime < 0.5f) return;
+        if (_hit || _activateFallTime < 0f || Time.time - _activateFallTime < 1f) return;
         _hit = true;
         if (collision.gameObject.CompareTag("Wall"))
         {

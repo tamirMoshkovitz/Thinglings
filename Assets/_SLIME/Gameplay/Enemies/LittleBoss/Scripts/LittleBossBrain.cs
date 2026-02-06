@@ -49,11 +49,11 @@ namespace _SLIME.LittleBoss
         private void OnDisable()
         {
             transform.position = _initialPosition;
-            transform.localScale = Vector3.zero;
             EnableCollider(false);
         }
 
         public void EnableCollider(bool enable) => collider.enabled = enable;
+        public void EnableCollider() => collider.enabled = true;
         
         public void DisableLittleBoss() => Root.SetActive(false);
         

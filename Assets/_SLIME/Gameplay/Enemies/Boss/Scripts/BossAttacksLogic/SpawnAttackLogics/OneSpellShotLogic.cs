@@ -61,8 +61,28 @@ namespace _SLIME.Boss
         {
             _isActive = true;
             _spellSets = spellSets;
-            _targetPosition = GetTargetPosition();
+            Vector3 spawnPos = _data != null ? _data.spawnDeps.spawnPoint.position : _spawnPoint.position;
+            bool isMiddle;
+            Vector3 perfectTarget = GetPerfectTarget(spellSets.targetMiddleProbability, out isMiddle);
+            _targetPosition = isMiddle
+                ? perfectTarget
+                : GetTargetWithAccuracy(spawnPos, perfectTarget, Random.Range(spellSets.attackAccuracyRange.x, spellSets.attackAccuracyRange.y));
             _spellBeforeSpawn = BeforeAttackEffect(_targetPosition);
+        }
+
+        private Vector3 GetPerfectTarget(float targetMiddleProbability, out bool targetedMiddle)
+        {
+            targetedMiddle = false;
+            if (SlimeData.instance.SideADead || SlimeData.instance.SideBDead)
+                return GetTargetPosition();
+            if (targetMiddleProbability > 0f && Random.value < targetMiddleProbability)
+            {
+                targetedMiddle = true;
+                Vector3 s1 = SlimeData.instance.SideATransform.position;
+                Vector3 s2 = SlimeData.instance.SideBTransform.position;
+                return (s1 + s2) * 0.5f;
+            }
+            return GetTargetPosition();
         }
 
         public SpellBeforeSpawn BeforeAttackEffect(Vector3 targetPosition)
@@ -86,8 +106,7 @@ namespace _SLIME.Boss
 
         public void Attack(SpellSettings spellSets, Vector3 targetPosition, Vector3 spawnPoint, float z)
         {
-            float accuracy = Random.Range(spellSets.attackAccuracyRange.x, spellSets.attackAccuracyRange.y);
-            Vector3 direction = CalculateDirectionWithAccuracy(spawnPoint, targetPosition, accuracy);
+            Vector3 direction = (targetPosition - spawnPoint).normalized;
             
             float speed = Random.Range(spellSets.attackSpeedRange.x, spellSets.attackSpeedRange.y);
             
@@ -118,6 +137,13 @@ namespace _SLIME.Boss
             return dist1 < dist2 ? slime1Pos : slime2Pos;
         }
         
+        private Vector3 GetTargetWithAccuracy(Vector3 from, Vector3 perfectTarget, float accuracy)
+        {
+            Vector3 direction = CalculateDirectionWithAccuracy(from, perfectTarget, accuracy);
+            float distance = Vector3.Distance(from, perfectTarget);
+            return from + direction * distance;
+        }
+
         private Vector3 CalculateDirectionWithAccuracy(Vector3 from, Vector3 to, float accuracy)
         {
             Vector3 perfectDirection = (to - from).normalized;
