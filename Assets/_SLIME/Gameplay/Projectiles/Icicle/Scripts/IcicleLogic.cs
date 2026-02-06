@@ -17,6 +17,7 @@ public class IcicleLogic : MonoBehaviour
     private Collider2D _col;
     private Coroutine _activeCoroutine;
     private bool _hit;
+    private float _activateFallTime = -1f;
 
     private void Awake()
     {
@@ -48,6 +49,7 @@ public class IcicleLogic : MonoBehaviour
         _rigidbody2D.angularVelocity = 0f;
         _col.enabled = false;
         _hit = false;
+        _activateFallTime = -1f;
 
         icicleAnimator.Rebind();
         icicleAnimator.Update(0f);
@@ -55,6 +57,7 @@ public class IcicleLogic : MonoBehaviour
 
     public void ActivateFall()
     {
+        _activateFallTime = Time.time;
         _col.enabled = true;
         _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
         _rigidbody2D.gravityScale = 1f;
@@ -62,7 +65,7 @@ public class IcicleLogic : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (_hit) return;
+        if (_hit || _activateFallTime < 0f || Time.time - _activateFallTime < 0.5f) return;
         _hit = true;
         if (collision.gameObject.CompareTag("Wall"))
         {
@@ -75,7 +78,7 @@ public class IcicleLogic : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (_hit) return;
+        if (_hit || _activateFallTime < 0f || Time.time - _activateFallTime < 0.5f) return;
         _hit = true;
         if (collision.gameObject.CompareTag("Wall"))
         {
