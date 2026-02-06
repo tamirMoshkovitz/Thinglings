@@ -8,6 +8,8 @@ namespace _SLIME.Boss
     {
         private readonly OneSpellShotLogic _oneSpellShotLogic;
         private readonly BossBrain _data;
+        private readonly Transform _spawnPoint;
+        private readonly SpellSpecialAttacksSettings _specialSettings;
 
         private SpellBeforeSpawn _spellBefore1;
         private SpellBeforeSpawn _spellBefore2;
@@ -24,6 +26,16 @@ namespace _SLIME.Boss
         {
             _oneSpellShotLogic = oneSpellShotLogic;
             _data = data;
+            _spawnPoint = null;
+            _specialSettings = default;
+        }
+
+        public ThreeShotsLogic(OneSpellShotLogic oneSpellShotLogic, Transform spawnPoint, SpellSpecialAttacksSettings specialSettings)
+        {
+            _oneSpellShotLogic = oneSpellShotLogic;
+            _data = null;
+            _spawnPoint = spawnPoint;
+            _specialSettings = specialSettings;
         }
 
         public void UpdateAttack()
@@ -68,8 +80,8 @@ namespace _SLIME.Boss
             Vector3 leftSlimePos = slime1Pos.x < slime2Pos.x ? slime1Pos : slime2Pos;
             Vector3 rightSlimePos = slime1Pos.x < slime2Pos.x ? slime2Pos : slime1Pos;
 
-            Vector3 spawnPos = _data.spawnDeps.spawnPoint.position;
-            float angleOffset = BossBrain.bossConfigurations.SpawnAttack.specialAttacksSettings.threeShotsAngle;
+            Vector3 spawnPos = _data != null ? _data.spawnDeps.spawnPoint.position : _spawnPoint.position;
+            float angleOffset = _data != null ? BossBrain.bossConfigurations.SpawnAttack.specialAttacksSettings.threeShotsAngle : _specialSettings.threeShotsAngle;
             _target1 = CalculateOffsetTarget(spawnPos, leftSlimePos, -angleOffset);
             _target2 = CalculateOffsetTarget(spawnPos, rightSlimePos, angleOffset);
             _target3 = middlePos;

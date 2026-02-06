@@ -4,11 +4,13 @@ using UnityEngine;
 
 namespace _SLIME.Boss
 {
-    public class OneSpellShotLogic: ISpellAttackLogic
+    public class OneSpellShotLogic : ISpellAttackLogic
     {
         private readonly GameObject _spellPrefab;
         private readonly BossBrain _data;
         private readonly GameObject _spellSpawnPrefab;
+        private readonly Transform _spawnPoint;
+        private readonly Transform _parent;
         private SpellBeforeSpawn _spellBeforeSpawn;
         private Vector3 _targetPosition;
         private SpellSettings? _spellSets;
@@ -21,6 +23,18 @@ namespace _SLIME.Boss
             _spellPrefab = spellPrefab;
             _spellSpawnPrefab = spellSpawnPrefab;
             _data = data;
+            _spawnPoint = null;
+            _parent = null;
+        }
+
+        public OneSpellShotLogic(GameObject spellPrefab, GameObject spellSpawnPrefab,
+            Transform spawnPoint, Transform parent)
+        {
+            _spellPrefab = spellPrefab;
+            _spellSpawnPrefab = spellSpawnPrefab;
+            _data = null;
+            _spawnPoint = spawnPoint;
+            _parent = parent;
         }
 
         public void UpdateAttack()
@@ -53,8 +67,9 @@ namespace _SLIME.Boss
 
         public SpellBeforeSpawn BeforeAttackEffect(Vector3 targetPosition)
         {
-            Vector3 spawnPos = _data.spawnDeps.spawnPoint.position;
-            GameObject item = Object.Instantiate(_spellSpawnPrefab, spawnPos, _spellSpawnPrefab.transform.rotation, _data.animator.transform);
+            Vector3 spawnPos = _data != null ? _data.spawnDeps.spawnPoint.position : _spawnPoint.position;
+            Transform parent = _data != null ? _data.animator.transform : _parent;
+            GameObject item = Object.Instantiate(_spellSpawnPrefab, spawnPos, _spellSpawnPrefab.transform.rotation, parent);
             var spellBeforeSpawn = item.GetComponent<SpellBeforeSpawn>();
             
             Vector2 dir = (targetPosition - spawnPos).normalized;
@@ -95,8 +110,8 @@ namespace _SLIME.Boss
 
             if (SlimeData.instance.SideBDead) return slime1Pos;
             if (SlimeData.instance.SideADead) return slime2Pos;
-            
-            Vector3 spawnPos = _data.spawnDeps.spawnPoint.position;
+
+            Vector3 spawnPos = _data != null ? _data.spawnDeps.spawnPoint.position : _spawnPoint.position;
             float dist1 = Vector3.Distance(spawnPos, slime1Pos);
             float dist2 = Vector3.Distance(spawnPos, slime2Pos);
             

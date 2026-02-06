@@ -44,6 +44,7 @@ namespace _SLIME.Boss
         private int _attackCounter;
         private float _timer;
         private float _currentDelay;
+        private float _healthAtStateStart;
         
         private Dictionary<PossibleAttacks, ISpellAttackLogic> _attackLogics;
         private ISpellAttackLogic _currentActiveLogic;
@@ -77,7 +78,7 @@ namespace _SLIME.Boss
             _attackCounter = 0;
             _timer = 0f;
             _currentDelay = 0f;
-            Data.HitCounter = 0;
+            _healthAtStateStart = Data.currentHealth;
         }
         
 
@@ -91,8 +92,9 @@ namespace _SLIME.Boss
                 return;
             }
             if(Data.IsTakingDamage) return;
+            float healthLost = _healthAtStateStart - Data.currentHealth;
             if (_attackCounter >= BossBrain.bossConfigurations.SpawnAttack.attacksToCast
-            || Data.WaterStateActivated || Data.HitCounter >= BossBrain.bossConfigurations.SpawnAttack.hitThreshold)
+                || Data.WaterStateActivated || healthLost >= BossBrain.bossConfigurations.SpawnAttack.hitThreshold)
             {
                 animator.SetTrigger(AttackFinished);
                 return;
@@ -156,7 +158,6 @@ namespace _SLIME.Boss
             }
             
             _currentActiveLogic = null;
-            Data.HitCounter = 0;
         }
     }
 }

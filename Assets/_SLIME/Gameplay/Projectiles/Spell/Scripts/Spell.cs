@@ -49,7 +49,6 @@ namespace _SLIME.Projectiles
         
         public void Deflect(SpellSlimeAttributes attributes)
         {
-            if (_currentState != SpellState.Flying) return;
             comp.collider.gameObject.layer = GetLayerFromMask(attributes.layerMask);
             comp.rb.bodyType = RigidbodyType2D.Dynamic; 
             float incomingSpeed = comp.rb.linearVelocity.magnitude;

@@ -116,6 +116,11 @@ namespace _SLIME.LightHouse
         {
             foreach (var c in lightHouseDeps.colliders) c.enabled = true;
         }
+        
+        public void DisableColliders() // called by animation event
+        {
+            foreach (var c in lightHouseDeps.colliders) c.enabled = false;
+        }
 
         public void PlaySound() // called by animation event
         {

@@ -10,7 +10,8 @@ public enum BossAttackType
     Spawn,
     Laser,
     Idle,
-    LightHouse
+    LightHouse,
+    LittleBosses
 }
 
 namespace _SLIME.Boss
@@ -31,6 +32,7 @@ namespace _SLIME.Boss
         private static readonly int DoIdle = Animator.StringToHash("DoIdle");
         private static readonly int DoWater = Animator.StringToHash("DoWater");
         private static readonly int DoLightHouse = Animator.StringToHash("DoLightHouse");
+        private static readonly int DoLittleBosses = Animator.StringToHash("DoLittleBosses");
 
         private float _timer;
         private Dictionary<BossAttackType, float> _lastUsedTime = new();
@@ -109,6 +111,9 @@ namespace _SLIME.Boss
                     break;
                 case BossAttackType.LightHouse:
                     animator.SetTrigger(DoLightHouse);
+                    break;
+                case BossAttackType.LittleBosses:
+                    animator.SetTrigger(DoLittleBosses);
                     break;
                 case BossAttackType.Idle:
                     break;

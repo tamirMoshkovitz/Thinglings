@@ -10,6 +10,7 @@ namespace _SLIME.Boss
 
         private readonly OneSpellShotLogic _oneSpellShotLogic;
         private readonly BossBrain _data;
+        private readonly SpellSpecialAttacksSettings _specialSettings;
 
         private bool _isActive;
         private int _shotsFired;
@@ -25,6 +26,14 @@ namespace _SLIME.Boss
         {
             _oneSpellShotLogic = oneSpellShotLogic;
             _data = data;
+            _specialSettings = default;
+        }
+
+        public FourShotsLogic(OneSpellShotLogic oneSpellShotLogic, SpellSpecialAttacksSettings specialSettings)
+        {
+            _oneSpellShotLogic = oneSpellShotLogic;
+            _data = null;
+            _specialSettings = specialSettings;
         }
 
         public void Attack(SpellSettings spellSets)
@@ -56,7 +65,7 @@ namespace _SLIME.Boss
                 return;
             }
 
-            float waitTime = BossBrain.bossConfigurations.SpawnAttack.specialAttacksSettings.fourShotsWaitBetweenShots;
+            float waitTime = _data != null ? BossBrain.bossConfigurations.SpawnAttack.specialAttacksSettings.fourShotsWaitBetweenShots : _specialSettings.fourShotsWaitBetweenShots;
             _timer += Time.deltaTime;
             if (_timer < waitTime) return;
 
