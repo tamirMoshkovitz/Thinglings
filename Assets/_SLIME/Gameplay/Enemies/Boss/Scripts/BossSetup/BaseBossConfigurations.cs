@@ -142,6 +142,8 @@ public class BaseBossConfigurations : TabbedScriptableObject
     [Tab("Little Boss Settings")]
     [SerializeField] private LittleBossMovementSettings littleBossMovementSettings;
     [Tab("Little Boss Settings")]
+    [SerializeField] private LittleBossIdleSettings littleBossIdleSettings;
+    [Tab("Little Boss Settings")]
     [SerializeField] private LittleBossSpellAttackSettings littleBossSpellAttackSettings;
     [Tab("Little Boss Settings")]
     [SerializeField] private LittleBossHealthSet littleBossHealthSettings;
@@ -156,6 +158,7 @@ public class BaseBossConfigurations : TabbedScriptableObject
     public IcicleSpawnSettings IcicleSpawn => icicleSpawnSettings;
     public LittleBossHealthSet LittleBossHealth => littleBossHealthSettings;
     public LittleBossMovementSettings LittleBossMovement => littleBossMovementSettings;
+    public LittleBossIdleSettings LittleBossIdle => littleBossIdleSettings;
     public LittleBossSpellAttackSettings LittleBossSpellAttack => littleBossSpellAttackSettings;
     public WaterAttackSettings WaterAttack => waterAttackSettings;
     public LightHouseSets LightHouse => lightHouseSettings;

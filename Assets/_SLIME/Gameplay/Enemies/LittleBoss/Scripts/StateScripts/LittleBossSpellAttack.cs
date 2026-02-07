@@ -1,22 +1,18 @@
 using _SLIME.Boss;
+using UnityEngine;
 
 namespace _SLIME.LittleBoss
 {
     public class LittleBossSpellAttack: LittleBossBaseState
     {
         private LittleBossSpellAttackLogic _logic;
-        public override void Init(LittleBossBrain brain)
-        {
-            base.Init(brain);
-            _logic = new LittleBossSpellAttackLogic(
-                curSet.LittleBossSpellAttack, brain.SpellRef, brain);
-            Logic = _logic;
-        }
 
-        public override void UpdateSet(BaseBossConfigurations newSet)
+
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            base.UpdateSet(newSet);
-            _logic.Set = curSet.LittleBossSpellAttack;
+            _logic = new LittleBossSpellAttackLogic(curSet.LittleBossSpellAttack, Data.SpellRef);
+            Logic = _logic;
+            base.OnStateEnter(animator, stateInfo, layerIndex);
         }
     }
 }

@@ -1,26 +1,28 @@
 using _SLIME.Boss;
 using _SLIME.LittleBoss;
 using UnityEngine;
+using UnityEngine.Animations;
 
 namespace _SLIME.LittleBoss
 {
     public class LittleBossMovement : LittleBossBaseState
     {
         private LittleBossMovementLogic _logic;
-        public override void Init(LittleBossBrain brain)
+
+
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            base.Init(brain);
             _logic = new LittleBossMovementLogic(
                 curSet.LittleBossMovement,
-                brain.MovRef,
-                brain);
+                Data.MovRef);
             Logic = _logic;
+            base.OnStateEnter(animator, stateInfo, layerIndex);
         }
 
-        public override void UpdateSet(BaseBossConfigurations newSet)
+        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex, AnimatorControllerPlayable controller)
         {
-            base.UpdateSet(newSet);
-            _logic.Set = curSet.LittleBossMovement;
+            base.OnStateExit(animator, stateInfo, layerIndex, controller);
+            Data.EnableCollider(true);
         }
     }
 }

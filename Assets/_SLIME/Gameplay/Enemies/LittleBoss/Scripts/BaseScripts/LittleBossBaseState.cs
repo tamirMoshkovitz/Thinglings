@@ -9,37 +9,30 @@ namespace _SLIME.LittleBoss
         private static readonly List<LittleBossBaseState> states = new List<LittleBossBaseState>();
         protected LittleBossBrain Data;
         protected LittleBossBaseLogic Logic;
-        [SerializeField] protected BaseBossConfigurations curSet;
+        protected BaseBossConfigurations curSet => BossBrain.bossConfigurations;
 
         public virtual void Init(LittleBossBrain brain)
         {
             Data = brain;
-            states.Add(this);
         }
-
-        public static void UpdateSettings(BaseBossConfigurations newSet)
-        {
-            foreach (var s in states)
-            {
-                s.UpdateSet(newSet);
-            }
-        }
-
-        public virtual void UpdateSet(BaseBossConfigurations newSet) { curSet = newSet; }
-        public static void ClearStates() { states.Clear(); }
-
+        
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
-            Logic.StartLogic();
+            Logic?.StartLogic();
+        }
+
+        public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            base.OnStateUpdate(animator, stateInfo, layerIndex);
+            Logic?.UpdateLogic();
         }
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateExit(animator, stateInfo, layerIndex);
-            Logic.EndLogic();
+            Logic?.EndLogic();
         }
-
-        public void OnDestroy() { Logic.EndLogic(); }
+        
     }
 }

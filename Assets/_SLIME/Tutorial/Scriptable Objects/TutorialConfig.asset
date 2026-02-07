@@ -113,7 +113,7 @@ MonoBehaviour:
     spellSpeed: 20
   bossThrowsSpellStateSet:
     timeBetweenSpells: 4
-    spellSpeed: 20
+    spellSpeed: 12
   caveShakeStateSet:
     earthquakeUtil: {fileID: 11400000, guid: 215382b9c9aa1450380e08f096af46aa, type: 2}
   sceneMoveToFinalBattleStateSet:
