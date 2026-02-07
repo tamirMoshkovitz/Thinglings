@@ -47,6 +47,7 @@ MonoBehaviour:
     spellSettings:
       attackAccuracyRange: {x: 0.90000004, y: 1}
       attackSpeedRange: {x: 15, y: 19}
+      targetMiddleProbability: 0
     specialAttacksSettings:
       threeShotsAngle: 22.5
       fourShotsWaitBetweenShots: 0.4
@@ -101,8 +102,9 @@ MonoBehaviour:
     withSlimeDetection: 1
   icicleSpawnSettings:
     minWaitTime: 5
-    maxWaitTime: 7
+    maxWaitTime: 10
     loopSpawning: 1
+    accuracyOffset: 5
   waterAttackSettings:
     waterDamage: 0
   lightHouseSettings:
@@ -156,6 +158,7 @@ MonoBehaviour:
     spellSettings:
       attackAccuracyRange: {x: 0.9, y: 1}
       attackSpeedRange: {x: 30, y: 40}
+      targetMiddleProbability: 0
     spawnSettings:
       bothSlimesAliveProbabilities:
         oneShot: 0.5

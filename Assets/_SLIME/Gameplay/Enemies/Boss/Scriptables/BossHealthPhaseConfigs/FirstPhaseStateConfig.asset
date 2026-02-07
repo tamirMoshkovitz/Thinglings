@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: FirstPhaseStateConfig
   m_EditorClassIdentifier: Assembly-CSharp::BaseBossSettings
   handsAttackSettings:
-    handWarningDuration: 2
-    handAttackDuration: 3
-    handCooldown: 3
-    totalHandsToUse: 1
+    handWarningDuration: 1
+    handAttackDuration: 1.5
+    handCooldown: 1.5
+    totalHandsToUse: 4
     useBothHands: 0
     phaseSpeedMultiplier: 1
   spawnAttackSettings:
@@ -83,9 +83,10 @@ MonoBehaviour:
     totalLoops: 1
     withSlimeDetection: 0
   icicleSpawnSettings:
-    minWaitTime: 15
-    maxWaitTime: 30
+    minWaitTime: 5
+    maxWaitTime: 10
     loopSpawning: 1
+    accuracyOffset: 5
   waterAttackSettings:
     waterDamage: 0
   lightHouseSettings:
