@@ -194,8 +194,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.5
-      minScalar: 0.3
+      scalar: 0.3
+      minScalar: 0.1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -247,8 +247,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 12
-      minScalar: 2
+      scalar: 24
+      minScalar: 4
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -365,8 +365,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 2.2
-      minScalar: 1.2
+      scalar: 2
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -743,7 +743,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 8
-    angle: 83.01848
+    angle: 90
     length: 0.40661305
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 0.36
@@ -6401,7 +6401,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: -1777150818500619772, guid: f7e30c4b951114048891b3bedcf5dd14, type: 3}
+    - sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -11516,7 +11516,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: -1777150818500619772, guid: f7e30c4b951114048891b3bedcf5dd14, type: 3}
+    - sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -19818,8 +19818,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.5
-      minScalar: 0.3
+      scalar: 0.3
+      minScalar: 0.1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -19871,8 +19871,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 12
-      minScalar: 2
+      scalar: 24
+      minScalar: 4
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -19989,8 +19989,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 2
-      minScalar: 1
+      scalar: 1.8
+      minScalar: 0.8
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -20367,7 +20367,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 8
-    angle: 83.01848
+    angle: 90
     length: 0.40661305
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 0.36
