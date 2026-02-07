@@ -4,11 +4,13 @@ using UnityEngine;
 
 namespace _SLIME.Boss
 {
-    public class OneSpellShotLogic: ISpellAttackLogic
+    public class OneSpellShotLogic : ISpellAttackLogic
     {
         private readonly GameObject _spellPrefab;
         private readonly BossBrain _data;
         private readonly GameObject _spellSpawnPrefab;
+        private readonly Transform _spawnPoint;
+        private readonly Transform _parent;
         private SpellBeforeSpawn _spellBeforeSpawn;
         private Vector3 _targetPosition;
         private SpellSettings? _spellSets;
@@ -21,6 +23,18 @@ namespace _SLIME.Boss
             _spellPrefab = spellPrefab;
             _spellSpawnPrefab = spellSpawnPrefab;
             _data = data;
+            _spawnPoint = null;
+            _parent = null;
+        }
+
+        public OneSpellShotLogic(GameObject spellPrefab, GameObject spellSpawnPrefab,
+            Transform spawnPoint, Transform parent)
+        {
+            _spellPrefab = spellPrefab;
+            _spellSpawnPrefab = spellSpawnPrefab;
+            _data = null;
+            _spawnPoint = spawnPoint;
+            _parent = parent;
         }
 
         public void UpdateAttack()
@@ -47,14 +61,35 @@ namespace _SLIME.Boss
         {
             _isActive = true;
             _spellSets = spellSets;
-            _targetPosition = GetTargetPosition();
+            Vector3 spawnPos = _data != null ? _data.spawnDeps.spawnPoint.position : _spawnPoint.position;
+            bool isMiddle;
+            Vector3 perfectTarget = GetPerfectTarget(spellSets.targetMiddleProbability, out isMiddle);
+            _targetPosition = isMiddle
+                ? perfectTarget
+                : GetTargetWithAccuracy(spawnPos, perfectTarget, Random.Range(spellSets.attackAccuracyRange.x, spellSets.attackAccuracyRange.y));
             _spellBeforeSpawn = BeforeAttackEffect(_targetPosition);
+        }
+
+        private Vector3 GetPerfectTarget(float targetMiddleProbability, out bool targetedMiddle)
+        {
+            targetedMiddle = false;
+            if (SlimeData.instance.SideADead || SlimeData.instance.SideBDead)
+                return GetTargetPosition();
+            if (targetMiddleProbability > 0f && Random.value < targetMiddleProbability)
+            {
+                targetedMiddle = true;
+                Vector3 s1 = SlimeData.instance.SideATransform.position;
+                Vector3 s2 = SlimeData.instance.SideBTransform.position;
+                return (s1 + s2) * 0.5f;
+            }
+            return GetTargetPosition();
         }
 
         public SpellBeforeSpawn BeforeAttackEffect(Vector3 targetPosition)
         {
-            Vector3 spawnPos = _data.spawnDeps.spawnPoint.position;
-            GameObject item = Object.Instantiate(_spellSpawnPrefab, spawnPos, _spellSpawnPrefab.transform.rotation, _data.animator.transform);
+            Vector3 spawnPos = _data != null ? _data.spawnDeps.spawnPoint.position : _spawnPoint.position;
+            Transform parent = _data != null ? _data.animator.transform : _parent;
+            GameObject item = Object.Instantiate(_spellSpawnPrefab, spawnPos, _spellSpawnPrefab.transform.rotation, parent);
             var spellBeforeSpawn = item.GetComponent<SpellBeforeSpawn>();
             
             Vector2 dir = (targetPosition - spawnPos).normalized;
@@ -71,8 +106,7 @@ namespace _SLIME.Boss
 
         public void Attack(SpellSettings spellSets, Vector3 targetPosition, Vector3 spawnPoint, float z)
         {
-            float accuracy = Random.Range(spellSets.attackAccuracyRange.x, spellSets.attackAccuracyRange.y);
-            Vector3 direction = CalculateDirectionWithAccuracy(spawnPoint, targetPosition, accuracy);
+            Vector3 direction = (targetPosition - spawnPoint).normalized;
             
             float speed = Random.Range(spellSets.attackSpeedRange.x, spellSets.attackSpeedRange.y);
             
@@ -95,14 +129,21 @@ namespace _SLIME.Boss
 
             if (SlimeData.instance.SideBDead) return slime1Pos;
             if (SlimeData.instance.SideADead) return slime2Pos;
-            
-            Vector3 spawnPos = _data.spawnDeps.spawnPoint.position;
+
+            Vector3 spawnPos = _data != null ? _data.spawnDeps.spawnPoint.position : _spawnPoint.position;
             float dist1 = Vector3.Distance(spawnPos, slime1Pos);
             float dist2 = Vector3.Distance(spawnPos, slime2Pos);
             
             return dist1 < dist2 ? slime1Pos : slime2Pos;
         }
         
+        private Vector3 GetTargetWithAccuracy(Vector3 from, Vector3 perfectTarget, float accuracy)
+        {
+            Vector3 direction = CalculateDirectionWithAccuracy(from, perfectTarget, accuracy);
+            float distance = Vector3.Distance(from, perfectTarget);
+            return from + direction * distance;
+        }
+
         private Vector3 CalculateDirectionWithAccuracy(Vector3 from, Vector3 to, float accuracy)
         {
             Vector3 perfectDirection = (to - from).normalized;

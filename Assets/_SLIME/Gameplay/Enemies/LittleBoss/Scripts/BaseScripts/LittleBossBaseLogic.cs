@@ -4,5 +4,6 @@ namespace _SLIME.LittleBoss
     {
         void StartLogic();
         void EndLogic();
+        void UpdateLogic();
     }
 }

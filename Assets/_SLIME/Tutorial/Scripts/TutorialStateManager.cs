@@ -34,6 +34,7 @@ namespace _SLIME.Tutorial
         
         [Header("End Animation SFX")]
         [SerializeField] private EventReference bossFlySFX;
+        [SerializeField] private EventReference sparkleSFX;
         [SerializeField] private float endAnimationSFXDelay = 3f;
         
         public TutorialState CurrentState { get; private set; }
@@ -122,6 +123,7 @@ namespace _SLIME.Tutorial
         
         private IEnumerator BossExcitedCoroutine()
         {
+            SFXPlayer.Play(sparkleSFX);
             CurrentState = TutorialState.BossExcited;
             var logic = new BossExcitedLogic(slimeConnectsStateDeps, tutorialScriptable.SlimeConnectsStateSet);
             _allLogics.Add(logic);

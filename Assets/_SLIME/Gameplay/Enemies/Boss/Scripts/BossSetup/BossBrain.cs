@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
+using _SLIME.Core.Audio.FMOD.Scripts;
 using _SLIME.GameLoop;
 using _SLIME.Slime;
 using _SLIME.UI;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.UI;
 using EventType = _SLIME.UI.EventType;
@@ -14,7 +16,8 @@ public enum BossStates
     FarState,
     CloseState,
     LaserState,
-    WaterState
+    WaterState,
+    OutsideState,
 }
 
 namespace _SLIME.Boss
@@ -73,6 +76,14 @@ namespace _SLIME.Boss
         
         [Header("Light House Attack Setup")] 
         public GameObject lightHouseAttackGameObject;
+
+
+        [Header("Little Bosses Attack Setup")] 
+        public GameObject littleBossLeft;
+        public GameObject littleBossRight;
+        
+        [Header("SFX")]
+        [SerializeField] private EventReference hitSFX;
         
         public static BossStates BossState = BossStates.FarState;
         private static readonly int CloseHit = Animator.StringToHash("CloseHit");
@@ -176,6 +187,7 @@ namespace _SLIME.Boss
 
         public void TakeDamage(float damage) 
         {
+            SFXPlayer.Play(hitSFX);
             float denominator = bossConfigurations.PhaseSettings.targetHitsToKill * bossConfigurations.PhaseSettings.expectedAvgSpeedOfSpells;
             if (denominator == 0) denominator = 1;
 
@@ -231,6 +243,7 @@ namespace _SLIME.Boss
             bossCloseColliders.SetActive(true);
             bossFarColliders.SetActive(false);
             bossHealthBarCanvas.SetActive(false);
+            bossLaserColliders.SetActive(false);
             CloseState?.Invoke();
         }
         
@@ -241,7 +254,17 @@ namespace _SLIME.Boss
             bossCloseColliders.SetActive(false);
             bossFarColliders.SetActive(true);
             bossHealthBarCanvas.SetActive(true);
+            bossLaserColliders.SetActive(false);
             FarState?.Invoke();
+        }
+        
+        public void BossOutsideState()
+        {
+            if (BossState == BossStates.OutsideState) return;
+            BossState = BossStates.OutsideState;
+            bossCloseColliders.SetActive(false);
+            bossFarColliders.SetActive(false);
+            bossLaserColliders.SetActive(false);
         }
 
         public void BossLaserState()

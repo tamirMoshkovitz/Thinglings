@@ -10,6 +10,8 @@ namespace _SLIME.Boss
         [Tooltip("1f for perfect accuracy, 0f for awful accuracy")]
         [MinMaxSlider(0F, 1F)] public Vector2 attackAccuracyRange;
         [MinMaxSlider(0F, 100F)] public Vector2 attackSpeedRange;
+        [Tooltip("Probability (0-1) that OneSpellShotLogic targets the middle between slimes. Valid only when both slimes are alive.")]
+        [Range(0f, 1f)] public float targetMiddleProbability;
     }
     
     [Serializable]

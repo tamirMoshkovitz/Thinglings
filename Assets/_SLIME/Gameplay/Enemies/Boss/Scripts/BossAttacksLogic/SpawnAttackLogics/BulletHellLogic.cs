@@ -10,12 +10,13 @@ namespace _SLIME.Boss
 
         private readonly OneSpellShotLogic _oneSpellShotLogic;
         private readonly BossBrain _data;
+        private readonly Transform _spawnPoint;
+        private readonly SpellSpecialAttacksSettings _specials;
 
         private bool _isActive;
         private int _shotsFired;
         private float _timer;
         private SpellSettings _spellSets;
-        private SpellSpecialAttacksSettings _specials;
         private float _densityPower;
         private Vector3 _leftExtremeTarget;
         private Vector3 _rightExtremeTarget;
@@ -30,7 +31,16 @@ namespace _SLIME.Boss
         {
             _oneSpellShotLogic = oneSpellShotLogic;
             _data = data;
+            _spawnPoint = null;
             _specials = BossBrain.bossConfigurations.SpawnAttack.specialAttacksSettings;
+        }
+
+        public BulletHellLogic(OneSpellShotLogic oneSpellShotLogic, Transform spawnPoint, SpellSpecialAttacksSettings specialSettings)
+        {
+            _oneSpellShotLogic = oneSpellShotLogic;
+            _data = null;
+            _spawnPoint = spawnPoint;
+            _specials = specialSettings;
         }
 
         public void Attack(SpellSettings spellSets)
@@ -43,7 +53,7 @@ namespace _SLIME.Boss
             _timer = 0f;
             _isActive = true;
 
-            Vector3 spawnPos = _data.spawnDeps.spawnPoint.position;
+            Vector3 spawnPos = _data != null ? _data.spawnDeps.spawnPoint.position : _spawnPoint.position;
             float configuredAngle = _specials.bulletHellTotalAngle;
             float extraAngle = Mathf.Abs(configuredAngle);
             _densityPower = _specials.bulletHellMiddleDensityPower;

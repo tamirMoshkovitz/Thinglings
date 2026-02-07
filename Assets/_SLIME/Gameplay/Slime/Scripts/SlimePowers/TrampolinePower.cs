@@ -33,17 +33,32 @@ namespace _SLIME.Slime
         // ReSharper disable Unity.PerformanceAnalysis
         public void Activate(Vector2 hitpoint,Collider2D objectToJump)
         {
-            isActive = true;
+            if (objectToJump.gameObject.layer == LayerMask.NameToLayer("Obstacles"))
+            {
+                return;
+            }
             if (objectToJump.gameObject.CompareTag("Icicle"))
             {
                 SlimeEvents.SlimeConnectionGotHitByIcicle?.Invoke();
                 return;
             }
+            isActive = true;
 
             Rigidbody2D projectileRb = objectToJump.attachedRigidbody;
             GameObject projectileGo = projectileRb.gameObject;
-            
-            Vector2 direction = (objectToJump.transform.position - (Vector3)hitpoint).normalized;
+
+            Vector2 dirFromHit = ((Vector2)objectToJump.transform.position - hitpoint).normalized;
+            Vector2 vel = projectileRb.linearVelocity;
+            Vector2 direction;
+            if (vel.sqrMagnitude > 0.01f)
+            {
+                Vector2 dirFromVel = -vel.normalized;
+                direction = Vector2.Dot(dirFromHit, dirFromVel) < 0f ? dirFromVel : dirFromHit;
+            }
+            else
+            {
+                direction = dirFromHit;
+            }
             
             float stretchForce = _trampolinePowerSettings.trampolinePowerCurve.Evaluate(_slimeData.StretchRatio);
             float power = Mathf.Lerp(_trampolinePowerSettings.deflectionPower.x,

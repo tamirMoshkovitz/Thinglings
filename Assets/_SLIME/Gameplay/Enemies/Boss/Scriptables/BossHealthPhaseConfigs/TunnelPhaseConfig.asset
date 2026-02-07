@@ -22,8 +22,8 @@ MonoBehaviour:
   spawnAttackSettings:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
     projectileBeforeSpawnPrefab: {fileID: 4899053137042385202, guid: c35248b870a664833961bec195804c32, type: 3}
-    attacksToCast: 6
-    hitThreshold: 2
+    attacksToCast: 1000
+    hitThreshold: 100
     spawnSettings:
       delayBetweenAttacks: {x: 1, y: 1.5}
       bothSlimesAliveProbabilities:
@@ -47,11 +47,12 @@ MonoBehaviour:
     spellSettings:
       attackAccuracyRange: {x: 0.9, y: 1}
       attackSpeedRange: {x: 20, y: 25}
+      targetMiddleProbability: 0
     specialAttacksSettings:
       threeShotsAngle: 22.5
-      fourShotsWaitBetweenShots: 0.2
+      fourShotsWaitBetweenShots: 0.7
       bulletHellTotalAngle: 45
-      bulletHellWaitBetweenShots: 0.2
+      bulletHellWaitBetweenShots: 0.5
       bulletHellMiddleDensityPower: 1.7
   laserAttackSettings:
     rotationCurve:
@@ -107,9 +108,9 @@ MonoBehaviour:
     waterDamage: 0
   lightHouseSettings:
     attackDuration: {x: 10, y: 10}
-    farBeamSpeed: 100
-    midBeamSpeed: 130
-    closeBeamSpeed: 170
+    farBeamSpeed: 70
+    midBeamSpeed: 90
+    closeBeamSpeed: 120
     angleFromMainBeam: {x: 45, y: 200.21394}
     mainBeamAngleFromSlimes: {x: 15, y: 20}
     minBeamAngleDistance: 45
@@ -119,30 +120,68 @@ MonoBehaviour:
     floatBossDistance: 6
     floatBossDuration: 3
   bossCoreSettings:
-    maxHealth: 300
+    maxHealth: 400
   bossPhaseSettings:
     lowerHealthThreshold: 0
     targetHitsToKill: 6
-    expectedAvgSpeedOfSpells: 40
+    expectedAvgSpeedOfSpells: 30
   littleBossMovementSettings:
-    duration: 0
-    waitUntilNextLoop: 0
+    duration: 1
     easeCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    useRefinedRotation: 0
-    startRotation: {x: 0, y: 0, z: 0}
-    endRotation: {x: 0, y: 0, z: 0}
-    chanceToAttack: {x: 0, y: 0}
-    chanceToAttackCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    timeToMaxChance: 0
+  littleBossIdleSettings:
+    timeUntilAttack: 0.5
+  littleBossSpellAttackSettings:
+    spellSettings:
+      attackAccuracyRange: {x: 0.7, y: 0.9}
+      attackSpeedRange: {x: 20, y: 25}
+      targetMiddleProbability: 0
+    spawnSettings:
+      bothSlimesAliveProbabilities:
+        oneShot: 1
+        twoShots: 0
+        threeShot: 0
+        fourShots: 0
+        bulletHell: 0
+      notConnectedProbabilities:
+        oneShot: 1
+        twoShots: 0
+        threeShot: 0
+        fourShots: 0
+        bulletHell: 0
+      oneSlimeAliveProbabilities:
+        oneShot: 1
+        twoShots: 0
+        threeShot: 0
+        fourShots: 0
+        bulletHell: 0
+    specialAttacksSettings:
+      threeShotsAngle: 22.5
+      fourShotsWaitBetweenShots: 0.4
+      bulletHellTotalAngle: 45
+      bulletHellWaitBetweenShots: 0.2
+      bulletHellMiddleDensityPower: 1.7
   littleBossHealthSettings:
-    health: 0
+    health: 1

@@ -7,49 +7,56 @@ using UnityEngine.Serialization;
 
 namespace _SLIME.LittleBoss
 {
-    
-    
     [Serializable]
     public struct LittleBossStatesRef
     {
         public LittleBossMovementRef movRef;
+        public LittleBossIdleRef idleRef;
         public LittleBossSpellAttackRef spellRef;
-        // public LittleBossHealthRef healthRef;
     }
-    public class LittleBossBrain: ProjectMonoBehavior
+
+    public class LittleBossBrain : ProjectMonoBehavior
     {
         [Tooltip("If We want to examine a set without it to change through phase")]
         [SerializeField] private bool enableSetChange;
-        
-        
+
         [Header("General References")]
         [SerializeField] private Animator animator;
         [SerializeField] private Transform hitPoint;
+        [SerializeField] private Collider2D collider;
+        [SerializeField] public GameObject Root;
         [Header("State References")]
         [SerializeField] private LittleBossStatesRef reference;
-        
+
         public LittleBossMovementRef MovRef => reference.movRef;
+        public LittleBossIdleRef IdleRef => reference.idleRef;
         public LittleBossSpellAttackRef SpellRef => reference.spellRef;
-        
-        // public LittleBossHealthRef HealthRef => reference.healthRef;
-        void Start()
+
+        private Vector3 _initialPosition;
+
+        void Awake()
+        {
+            _initialPosition = transform.position;
+            
+        }
+
+        void OnEnable()
         {
             foreach (var state in animator.GetBehaviours<LittleBossBaseState>())
                 state.Init(this);
         }
-
-        private void UpdateSettings(BaseBossConfigurations newSettings)
+        
+        private void OnDisable()
         {
-            if(!enableSetChange) return;
-            foreach (var state in animator.GetBehaviours<LittleBossBaseState>())
-                state.UpdateSet(newSettings);
+            transform.position = _initialPosition;
+            EnableCollider(false);
         }
 
-        private void OnDestroy()
-        {
-            LittleBossBaseState.ClearStates();
-            foreach (var state in animator.GetBehaviours<LittleBossBaseState>())
-                state.OnDestroy();
-        }
+        public void EnableCollider(bool enable) => collider.enabled = enable;
+        public void EnableCollider() => collider.enabled = true;
+        
+        public void DisableLittleBoss() => Root.SetActive(false);
+        
+        
     }
 }

@@ -6,6 +6,7 @@ using _SLIME.GameLoop;
 using FMODUnity;
 using UnityEngine;
 using NaughtyAttributes;
+using UnityEngine.Serialization;
 
 namespace _SLIME.Projectiles
 {
@@ -26,9 +27,16 @@ namespace _SLIME.Projectiles
         
         [MinMaxSlider(0.1f, 10f)]
         [SerializeField] private Vector2 spellScaleFactor;
-        
-        [SerializeField] private EventReference spellShootSFX;
-        
+
+        [Header("SFX")] 
+        [SerializeField] private EventReference spawnSfX;
+        [SerializeField] private EventReference shootSFX;
+
+        private void OnEnable()
+        {
+            SFXPlayer.Play(spawnSfX);
+        }
+
         public void BossSetup(SpellBossAttributes attributes)
         {
             
@@ -41,7 +49,6 @@ namespace _SLIME.Projectiles
         
         public void Deflect(SpellSlimeAttributes attributes)
         {
-            if (_currentState != SpellState.Flying) return;
             comp.collider.gameObject.layer = GetLayerFromMask(attributes.layerMask);
             comp.rb.bodyType = RigidbodyType2D.Dynamic; 
             float incomingSpeed = comp.rb.linearVelocity.magnitude;
@@ -50,7 +57,7 @@ namespace _SLIME.Projectiles
             comp.rb.AddForce(attributes.direction *  finalPower, ForceMode2D.Impulse);
             comp.animator.SetTrigger(PlayerMove);
             
-            SFXPlayer.Play(spellShootSFX);
+            SFXPlayer.Play(shootSFX);
         }
         
         private void Shoot()

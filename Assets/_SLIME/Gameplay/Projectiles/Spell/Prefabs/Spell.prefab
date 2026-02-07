@@ -10014,13 +10014,27 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2712f436d9dc8de4faf15e38dd31a061, type: 2}
   - {fileID: 11400000, guid: d9463016bfec97445b1961299cab3382, type: 2}
   spellScaleFactor: {x: 0.2, y: 1.1}
-  spellShootSFX:
+  spawnSfX:
+    Guid:
+      Data1: -618710691
+      Data2: 1308312239
+      Data3: -1696727921
+      Data4: -971661901
+    Path: event:/Spell Spawn
+  shootSFX:
     Guid:
       Data1: -916256540
       Data2: 1260889789
       Data3: -1242466378
       Data4: 1229598122
     Path: event:/Spell bounce
+  bossHitSFX:
+    Guid:
+      Data1: -839277203
+      Data2: 1144975663
+      Data3: -2037420620
+      Data4: 1826308944
+    Path: event:/Boss Hit
 --- !u!212 &2692822774988583523
 SpriteRenderer:
   m_ObjectHideFlags: 0
