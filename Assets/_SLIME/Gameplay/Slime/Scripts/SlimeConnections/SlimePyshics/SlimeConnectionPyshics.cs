@@ -68,11 +68,28 @@ namespace _SLIME.Slime
             UpdateConectionsCollider();
         }
 
+        private const float ConnectionColliderEdgeOffset = 0.5f;
+
         private void UpdateConectionsCollider()
         {
             _connectionsComponents.EdgeColliderConnections.enabled = _slimeData.Connected;
             Vector2 worldPosLeft = _slimeData.TopLineConnectionPositionLeft;
             Vector2 worldPosRight = _slimeData.TopLineConnectionPositionRight;
+
+            Vector2 delta = worldPosRight - worldPosLeft;
+            float length = delta.magnitude;
+
+            if (length <= 0.001f || worldPosLeft.x >= worldPosRight.x)
+            {
+                worldPosLeft = worldPosRight;
+            }
+            else
+            {
+                Vector2 direction = delta / length;
+                worldPosLeft += direction * ConnectionColliderEdgeOffset;
+                worldPosRight -= direction * ConnectionColliderEdgeOffset;
+            }
+
             Transform colliderTransform = _connectionsComponents.EdgeColliderConnections.transform;
 
             Vector2 localPosLeft = colliderTransform.InverseTransformPoint(worldPosLeft);
