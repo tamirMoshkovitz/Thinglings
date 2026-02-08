@@ -14,6 +14,8 @@ namespace _SLIME.Laser
         [SerializeField] List<GameObject> laserCollidersGameObjects;
         [SerializeField] Collider2D rightLaserCollider;
         [SerializeField] Collider2D leftLaserCollider;
+        [SerializeField] private Collider2D upLaserCollider;
+        [SerializeField] private Collider2D downLaserCollider;
         [SerializeField] private ControlledSfx laserSfx;
         public bool IsRotating { get; private set; }
         
@@ -40,6 +42,16 @@ namespace _SLIME.Laser
         public void EnableLeftLaserColliders() // called by animation event
         {
             leftLaserCollider.enabled = true;
+        }
+        
+        public void EnableDownLaserColliders() // called by animation event
+        {
+            if(downLaserCollider!=  null) downLaserCollider.enabled = true;
+        }
+            
+        public void EnableUpLaserColliders() // called by animation event
+        {
+            if(upLaserCollider!=  null) upLaserCollider.enabled = true;
         }
 
         /// <summary>Aligns laser Z rotation toward the midpoint between the two slimes. Call during LaserEnter when withSlimeDetection is true.</summary>
