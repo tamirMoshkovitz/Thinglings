@@ -4219,12 +4219,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1239700957124376955, guid: 9439f243265384495ab653ceebf60769, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4210135986571120668, guid: 9439f243265384495ab653ceebf60769, type: 3}
       propertyPath: reference.spellRef.parent
       value: 
       objectReference: {fileID: 162818513}
+    - target: {fileID: 7859344167889174190, guid: 9439f243265384495ab653ceebf60769, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7859344167889174190, guid: 9439f243265384495ab653ceebf60769, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7859344167889174190, guid: 9439f243265384495ab653ceebf60769, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7859344167889174190, guid: 9439f243265384495ab653ceebf60769, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8116216961035543745, guid: 9439f243265384495ab653ceebf60769, type: 3}
       propertyPath: m_LocalPosition.x
       value: -13.66
@@ -4265,6 +4281,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8206076561336500471, guid: 9439f243265384495ab653ceebf60769, type: 3}
+      propertyPath: m_Size.x
+      value: 4.611111
+      objectReference: {fileID: 0}
+    - target: {fileID: 8206076561336500471, guid: 9439f243265384495ab653ceebf60769, type: 3}
+      propertyPath: m_Size.y
+      value: 2.4074075
+      objectReference: {fileID: 0}
+    - target: {fileID: 8206076561336500471, guid: 9439f243265384495ab653ceebf60769, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: aab34f4761c0d438e8c96986b52d7628, type: 3}
+    - target: {fileID: 8206076561336500471, guid: 9439f243265384495ab653ceebf60769, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4288,9 +4320,45 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3314790858460335507, guid: 468abeec8cdac4df4bf81adb5bb1c693, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314790858460335507, guid: 468abeec8cdac4df4bf81adb5bb1c693, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314790858460335507, guid: 468abeec8cdac4df4bf81adb5bb1c693, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314790858460335507, guid: 468abeec8cdac4df4bf81adb5bb1c693, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3624630769157128446, guid: 468abeec8cdac4df4bf81adb5bb1c693, type: 3}
       propertyPath: m_Name
       value: LittleBossRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 3624630769157128446, guid: 468abeec8cdac4df4bf81adb5bb1c693, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658318036898847129, guid: 468abeec8cdac4df4bf81adb5bb1c693, type: 3}
+      propertyPath: m_Size.x
+      value: 1.7785715
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658318036898847129, guid: 468abeec8cdac4df4bf81adb5bb1c693, type: 3}
+      propertyPath: m_Size.y
+      value: 0.9285714
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658318036898847129, guid: 468abeec8cdac4df4bf81adb5bb1c693, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: aab34f4761c0d438e8c96986b52d7628, type: 3}
+    - target: {fileID: 4658318036898847129, guid: 468abeec8cdac4df4bf81adb5bb1c693, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4725179893458610438, guid: 468abeec8cdac4df4bf81adb5bb1c693, type: 3}
       propertyPath: reference.spellRef.parent
