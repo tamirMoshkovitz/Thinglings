@@ -46,6 +46,7 @@ namespace _SLIME.GameLoop
         public static SceneType CurrentSceneType => indexToSceneType[SceneManager.GetActiveScene().name];
         
         private static Dictionary<SceneType, AsyncOperation> _preloadedScenes = new Dictionary<SceneType, AsyncOperation>();
+        private Coroutine _currentLoadCoroutine;
 
         public static void StartBackgroundLoading(SceneType sceneType)
         {
@@ -96,6 +97,40 @@ namespace _SLIME.GameLoop
                 _preloadedScenes.Remove(sceneType);
             }
         }
+
+        /// <summary>
+        /// Activates and unloads any preloaded scene that is not the one we're about to load,
+        /// so it doesn't block the new load (preloads use allowSceneActivation = false).
+        /// Fills clearedScenes with the scene types that were cleared, so they can be preloaded again after the new scene loads.
+        /// </summary>
+        private IEnumerator ClearOtherPreloads(SceneType keepSceneType, List<SceneType> clearedScenes)
+        {
+            clearedScenes.Clear();
+            List<SceneType> toClear = new List<SceneType>();
+            foreach (var kvp in _preloadedScenes)
+            {
+                if (kvp.Key != keepSceneType)
+                    toClear.Add(kvp.Key);
+            }
+
+            foreach (SceneType sceneType in toClear)
+            {
+                if (!_preloadedScenes.TryGetValue(sceneType, out AsyncOperation op)) continue;
+
+                string sceneName = sceneTypeToIndex[sceneType];
+                op.allowSceneActivation = true;
+                while (!op.isDone)
+                    yield return null;
+
+                Scene scene = SceneManager.GetSceneByName(sceneName);
+                if (scene.isLoaded)
+                    yield return SceneManager.UnloadSceneAsync(scene);
+
+                _preloadedScenes.Remove(sceneType);
+                clearedScenes.Add(sceneType);
+            }
+        }
+
         static SceneLoader()
         {
             sceneTypeToIndex.Add(SceneType.StartScene, "FirstScene");
@@ -146,12 +181,21 @@ namespace _SLIME.GameLoop
         public static void LoadScene(SceneType sceneType, Action callback = null, AnimationTransitionOptions? transitionOptions = null)
         {
             if (callback != null) AddOneTimeAction(callback);
-            
-            Instance.StartCoroutine(Instance.ProcessSceneLoading(sceneType, transitionOptions));
+
+            if (Instance._currentLoadCoroutine != null)
+            {
+                Instance.StopCoroutine(Instance._currentLoadCoroutine);
+                Instance._currentLoadCoroutine = null;
+            }
+
+            Instance._currentLoadCoroutine = Instance.StartCoroutine(Instance.ProcessSceneLoading(sceneType, transitionOptions));
         }
 
         private IEnumerator ProcessSceneLoading(SceneType newSceneType, AnimationTransitionOptions? transitionOptions = null)
         {
+            List<SceneType> clearedPreloads = new List<SceneType>();
+            yield return ClearOtherPreloads(newSceneType, clearedPreloads);
+
             string newSceneName = sceneTypeToIndex[newSceneType];
             bool useAnimationTransition = transitionOptions.HasValue &&
                 transitionOptions.Value.animator != null &&
@@ -160,6 +204,9 @@ namespace _SLIME.GameLoop
             if (!useAnimationTransition)
             {
                 yield return StartCoroutine(ProcessSceneLoadingWithFade(newSceneName));
+                foreach (SceneType sceneType in clearedPreloads)
+                    StartBackgroundLoading(sceneType);
+                _currentLoadCoroutine = null;
                 yield break;
             }
             
@@ -199,6 +246,9 @@ namespace _SLIME.GameLoop
             SceneManager.SetActiveScene(newScene);
             Time.timeScale = 1f;
             Destroy(opts.animator.gameObject);
+            foreach (SceneType sceneType in clearedPreloads)
+                StartBackgroundLoading(sceneType);
+            _currentLoadCoroutine = null;
         }
 
         private IEnumerator ProcessSceneLoadingWithFade(string newSceneName)
@@ -222,6 +272,7 @@ namespace _SLIME.GameLoop
             Time.timeScale = 1f;
 
             Destroy(loadingScreenInstance);
+            _currentLoadCoroutine = null;
         }
 
         private static IEnumerator WaitForAnimationEnd(Animator animator, string stateName)
