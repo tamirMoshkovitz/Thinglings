@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5974702177039656799}
+  - component: {fileID: 3149815015673915082}
+  - component: {fileID: -8357259056076286754}
   m_Layer: 0
   m_Name: FallingStalactites
   m_TagString: Untagged
@@ -32,6 +34,31 @@ Transform:
   - {fileID: 715624786134249422}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &3149815015673915082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3915881960062850930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dacf7e0ea58463d972ca93b2585d620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyOffGameobjectAfterTime
+  totalTime: 3
+--- !u!210 &-8357259056076286754
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3915881960062850930}
+  m_Enabled: 1
+  m_SortingLayerID: -2036514287
+  m_SortingLayer: 1
+  m_SortingOrder: 6
+  m_SortAtRoot: 0
 --- !u!1 &5044279033354515087
 GameObject:
   m_ObjectHideFlags: 0

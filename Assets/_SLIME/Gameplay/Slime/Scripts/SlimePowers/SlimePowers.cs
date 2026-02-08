@@ -31,7 +31,7 @@ namespace _SLIME.Slime
             _powerComponents = powerComponents;
             _powerComponents.connectionsTriggerSensor.OnTriggerEntered += 
                 _trampolinePower.Activate;
-            SlimeEvents.SlimeTears += CheckSpark;
+            // SlimeEvents.SlimeTears += CheckSpark;
         }
 
         private void CheckSpark()

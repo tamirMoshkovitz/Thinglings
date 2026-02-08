@@ -73,7 +73,7 @@ public class IcicleSpawner : MonoBehaviour
         {
             if (spawnableStates.Contains(BossBrain.BossState))
             {
-                SpawnTargetedIcicle();
+                yield return StartCoroutine(SpawnIcicleWave());
             }
 
             float waitTime = Random.Range(MinWaitTime, MaxWaitTime) / Mathf.Max(0.1f, spawnRateMultiplier);
@@ -81,24 +81,72 @@ public class IcicleSpawner : MonoBehaviour
         }
     }
 
-    private void SpawnTargetedIcicle()
+    private IEnumerator SpawnIcicleWave()
     {
-        IcicleLogic selectedIcicle = _iciclePool.Find(i => !i.gameObject.activeSelf);
-        if (selectedIcicle == null) return;
+        var settings = BossBrain.bossConfigurations.IcicleSpawn;
+        int count = Mathf.Clamp(Random.Range(settings.minIcicleCount, settings.maxIcicleCount + 1), 1, _iciclePool.Count);
+        if (count <= 0) yield break;
 
-        Transform target = GetClosestPlayer();
-        float randomXDeviation = Random.Range(-BossBrain.bossConfigurations.IcicleSpawn.accuracyOffset, 
-                                                BossBrain.bossConfigurations.IcicleSpawn.accuracyOffset);
-        float targetedX = target.position.x + randomXDeviation;
+        List<IcicleLogic> available = new List<IcicleLogic>();
+        foreach (var i in _iciclePool)
+        {
+            if (!i.gameObject.activeSelf) available.Add(i);
+            if (available.Count >= count) break;
+        }
+        if (available.Count == 0) yield break;
+        count = Mathf.Min(count, available.Count);
 
-        Vector3 spawnPos = GetSplinePointAtX(targetedX);
+        float playerTargetX = GetClosestPlayer().position.x;
+        (float minX, float maxX) = GetSplineWorldXRange();
+        float minSpacing = Mathf.Max(0f, settings.minSpacingBetweenIcicles);
+        float minDelay = Mathf.Max(0f, settings.minDelayBetweenIcicles);
+        float maxDelay = Mathf.Max(minDelay, settings.maxDelayBetweenIcicles);
 
-        selectedIcicle.transform.position = spawnPos;
-        selectedIcicle.transform.rotation = Quaternion.identity;
+        List<float> xPositions = new List<float>(count);
+        const int maxAttemptsPerIcicle = 50;
+        for (int i = 0; i < count; i++)
+        {
+            float x = 0f;
+            bool valid = false;
+            for (int attempt = 0; attempt < maxAttemptsPerIcicle; attempt++)
+            {
+                if (Random.value < settings.playerTargetChance)
+                {
+                    float deviation = Random.Range(-settings.accuracyOffset, settings.accuracyOffset);
+                    x = Mathf.Clamp(playerTargetX + deviation, minX, maxX);
+                }
+                else
+                {
+                    x = Random.Range(minX, maxX);
+                }
+                valid = true;
+                foreach (float existing in xPositions)
+                {
+                    if (Mathf.Abs(x - existing) < minSpacing)
+                    {
+                        valid = false;
+                        break;
+                    }
+                }
+                if (valid) break;
+            }
+            if (!valid) continue;
+            xPositions.Add(x);
+        }
 
-        selectedIcicle.gameObject.SetActive(true);
-        selectedIcicle.ActivateFall();
-        
+        for (int i = 0; i < xPositions.Count; i++)
+        {
+            if (i > 0)
+                yield return new WaitForSeconds(Random.Range(minDelay, maxDelay));
+
+            Vector3 spawnPos = GetSplinePointAtX(xPositions[i]);
+            IcicleLogic icicle = available[i];
+            icicle.transform.position = spawnPos;
+            icicle.transform.rotation = Quaternion.identity;
+            icicle.gameObject.SetActive(true);
+            icicle.ActivateFall();
+            
+        }
         SFXPlayer.Play(icicleSpawnSfx);
     }
 
@@ -128,6 +176,23 @@ public class IcicleSpawner : MonoBehaviour
         
         finalPos.z = 0;
         return finalPos;
+    }
+
+    private (float minX, float maxX) GetSplineWorldXRange()
+    {
+        var spline = splineContainer.Spline;
+        float length = spline.GetLength();
+        int samples = Mathf.Max(20, (int)(length * searchResolution));
+        float minX = float.MaxValue;
+        float maxX = float.MinValue;
+        for (int i = 0; i <= samples; i++)
+        {
+            float t = i / (float)samples;
+            Vector3 worldPos = splineContainer.transform.TransformPoint(spline.EvaluatePosition(t));
+            if (worldPos.x < minX) minX = worldPos.x;
+            if (worldPos.x > maxX) maxX = worldPos.x;
+        }
+        return (minX, maxX);
     }
 
     private Transform GetClosestPlayer()

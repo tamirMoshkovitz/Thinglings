@@ -756,11 +756,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5489906756674778591, guid: a53fe4b8eb4bf47f29fb8a91ad764a0d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.63
+      value: -8.29
       objectReference: {fileID: 0}
     - target: {fileID: 5489906756674778591, guid: a53fe4b8eb4bf47f29fb8a91ad764a0d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.78
+      value: -13.6
       objectReference: {fileID: 0}
     - target: {fileID: 5489906756674778591, guid: a53fe4b8eb4bf47f29fb8a91ad764a0d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1433,6 +1433,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 819180594}
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: bossThrowsSpellStateDeps.bossHealthBar
+      value: 
+      objectReference: {fileID: 1314635558}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: slimeTearsStateDeps.transitionAnimator
       value: 
       objectReference: {fileID: 1307573145}
@@ -1460,6 +1464,10 @@ PrefabInstance:
       propertyPath: learnSlimeAboutSpellsStateDeps.bossHitPoint
       value: 
       objectReference: {fileID: 1523316465}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: bossThrowsSpellStateDeps.bossHealthBarCanvas
+      value: 
+      objectReference: {fileID: 1314635559}
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: bossThrowsSpellStateDeps.leftSpellSpawnPoint
       value: 
@@ -1649,6 +1657,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
+--- !u!114 &1314635558 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8676304883870289588, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
+  m_PrefabInstance: {fileID: 1314635557}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!1 &1314635559 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6611787403505574154, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
+  m_PrefabInstance: {fileID: 1314635557}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &1373747583 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5066894736448987562, guid: 4d015c3b456644bdcb44e25e27c8181f, type: 3}
@@ -1909,11 +1933,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5489906756674778591, guid: a53fe4b8eb4bf47f29fb8a91ad764a0d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.63
+      value: -8.29
       objectReference: {fileID: 0}
     - target: {fileID: 5489906756674778591, guid: a53fe4b8eb4bf47f29fb8a91ad764a0d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.78
+      value: -13.6
       objectReference: {fileID: 0}
     - target: {fileID: 5489906756674778591, guid: a53fe4b8eb4bf47f29fb8a91ad764a0d, type: 3}
       propertyPath: m_LocalPosition.z

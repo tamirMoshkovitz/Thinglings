@@ -32,6 +32,10 @@ namespace _SLIME.Projectiles
         [SerializeField] private EventReference spawnSfX;
         [SerializeField] private EventReference shootSFX;
 
+        [Header("Deflect Cooldown")]
+        [SerializeField] private float deflectCooldownDuration = 0.5f;
+        private float _lastDeflectTime = float.MinValue;
+
         private void OnEnable()
         {
             SFXPlayer.Play(spawnSfX);
@@ -49,6 +53,12 @@ namespace _SLIME.Projectiles
         
         public void Deflect(SpellSlimeAttributes attributes)
         {
+            float currentTime = Time.time;
+            if (currentTime - _lastDeflectTime < deflectCooldownDuration)
+                return;
+
+            _lastDeflectTime = currentTime;
+            
             comp.collider.gameObject.layer = GetLayerFromMask(attributes.layerMask);
             comp.rb.bodyType = RigidbodyType2D.Dynamic; 
             float incomingSpeed = comp.rb.linearVelocity.magnitude;

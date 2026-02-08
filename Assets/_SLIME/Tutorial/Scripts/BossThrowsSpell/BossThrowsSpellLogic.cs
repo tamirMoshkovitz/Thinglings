@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using _SLIME.Projectiles;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _SLIME.Tutorial
 {
@@ -14,6 +15,8 @@ namespace _SLIME.Tutorial
         public Transform rightSpellSpawnPoint;
         public GameObject spellPrefab;
         public Animator animatorForSketch;
+        public Image bossHealthBar;
+        public GameObject bossHealthBarCanvas;
     }
     
     [System.Serializable]
@@ -21,21 +24,24 @@ namespace _SLIME.Tutorial
     {
         public float timeBetweenSpells;
         public float spellSpeed;
+        
+        public float[] bossHealthBarThresholds;
     }
     
     public class BossThrowsSpellLogic : ITutorialStateLogic
     {
+        private const int HitsToComplete = 3;
         private static readonly int SpellReturn = Animator.StringToHash("spell return");
         private BossThrowsSpellStateDeps _deps;
         private BossThrowsSpellStateSet _set;
-        private bool _bossHit;
+        private int _hitCount;
         
         public BossThrowsSpellLogic(BossThrowsSpellStateDeps bossThrowsSpellStateDeps,
             BossThrowsSpellStateSet bossThrowsSpellStateSet)
         {
             _deps = bossThrowsSpellStateDeps;
             _set = bossThrowsSpellStateSet;
-            _bossHit = false;
+            _hitCount = 0;
             TutorialBoss.BossHit += OnBossHit;
         }
         
@@ -46,6 +52,10 @@ namespace _SLIME.Tutorial
         
         public IEnumerator Start()
         {
+            if (_deps.bossHealthBarCanvas != null)
+                _deps.bossHealthBarCanvas.SetActive(true);
+            UpdateBossHealthBar(0);
+            
             _deps.animatorForSketch.SetTrigger(SpellReturn);
             yield return ThrowSpellsUntilBossHit();
         }
@@ -55,7 +65,7 @@ namespace _SLIME.Tutorial
             bool useLeftSpawn = true;
             float timeSinceLastSpell = 0f;
             
-            while (!_bossHit)
+            while (_hitCount < HitsToComplete)
             {
                 timeSinceLastSpell += Time.deltaTime;
                 
@@ -71,7 +81,17 @@ namespace _SLIME.Tutorial
                 
                 yield return null;
             }
+            
             _deps.animatorForSketch.gameObject.SetActive(false);
+            if (_deps.bossHealthBarCanvas != null)
+                _deps.bossHealthBarCanvas.SetActive(false);
+        }
+        
+        private void UpdateBossHealthBar(int hitIndex)
+        {
+            if (_deps.bossHealthBar == null || _set.bossHealthBarThresholds == null) return;
+            if (hitIndex < 0 || hitIndex >= _set.bossHealthBarThresholds.Length) return;
+            _deps.bossHealthBar.fillAmount = _set.bossHealthBarThresholds[hitIndex];
         }
         
         private void SpawnSpell(Transform spawnPoint, Vector3 targetPosition)
@@ -92,7 +112,9 @@ namespace _SLIME.Tutorial
         
         private void OnBossHit()
         {
-            _bossHit = true;
+            if (_hitCount >= HitsToComplete) return;
+            _hitCount++;
+            UpdateBossHealthBar(_hitCount);
         }
     }
 }

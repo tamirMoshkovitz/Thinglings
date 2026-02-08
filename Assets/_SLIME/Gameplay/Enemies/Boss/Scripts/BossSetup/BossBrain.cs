@@ -8,6 +8,7 @@ using _SLIME.Slime;
 using _SLIME.UI;
 using FMODUnity;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using EventType = _SLIME.UI.EventType;
 
@@ -30,7 +31,6 @@ namespace _SLIME.Boss
         public Camera mainCamera;
         
         [Header("Boss Data Setup")]
-        // this is static to make life easier 
         public static BaseBossConfigurations bossConfigurations;
 
         public FloatingMagic floatingAttributes;
@@ -48,8 +48,8 @@ namespace _SLIME.Boss
         public List<GameObject> leftHandSplines;
         public List<GameObject> rightHandSplines;
 
-        [SerializeField] public List<GameObject> specialLeftHandSplines;
-        [SerializeField] public List<GameObject> specialRightHandSplines;
+        [SerializeField] public List<GameObject> specialBottomHands;
+        [SerializeField] public List<GameObject> specialTopHands;
         [SerializeField] public PlayerInCenterDetector centerDetector;
         
         [Header("Spawn Setup")]
@@ -65,8 +65,9 @@ namespace _SLIME.Boss
         [Header("Animation Setup")]
         public Animator animator;
 
-        [Header("Laser Attack Setup")] 
-        public GameObject laserAttackGameObject;
+        [FormerlySerializedAs("laserAttackGameObject")] [Header("Laser Attack Setup")] 
+        public GameObject laserAttackGameObjectPhase1;
+        public GameObject laserAttackGameObjectPhase2;
         
         
         [Header("Light House Attack Setup")] 
@@ -260,6 +261,7 @@ namespace _SLIME.Boss
             bossCloseColliders.SetActive(false);
             bossFarColliders.SetActive(false);
             bossLaserColliders.SetActive(false);
+            bossHealthBarCanvas.SetActive(false);
         }
 
         public void BossLaserState()

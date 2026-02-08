@@ -11,7 +11,13 @@ public class IcicleLogic : MonoBehaviour
 
     [Header("Visuals")]
     [SerializeField] private Animator icicleAnimator;
-    [SerializeField] private RuntimeAnimatorController[] animatorVariants; 
+    [SerializeField] private RuntimeAnimatorController[] animatorVariants;
+    [Tooltip("Particle GameObject (prefab) to spawn when the icicle is activated.")]
+    [SerializeField] private GameObject particlePrefab;
+
+    [Header("Fall")]
+    [Tooltip("Delay (seconds) before the icicle starts falling after ActivateFall is called.")]
+    [SerializeField] private float fallDelay = 0.5f;
 
     [Header("Audio")]
     [SerializeField] private EventReference icicleBreakSfx;
@@ -21,6 +27,7 @@ public class IcicleLogic : MonoBehaviour
     private Coroutine _activeCoroutine;
     private bool _hit;
     private bool _isFalling;
+    private GameObject _spawnedParticle;
 
     private void Awake()
     {
@@ -33,6 +40,7 @@ public class IcicleLogic : MonoBehaviour
         ResetToHanging();
     }
 
+   
     private void ResetToHanging()
     {
         if (_activeCoroutine != null)
@@ -60,10 +68,19 @@ public class IcicleLogic : MonoBehaviour
 
     public void ActivateFall()
     {
+        if (_activeCoroutine != null) StopCoroutine(_activeCoroutine);
+        _spawnedParticle = Instantiate(particlePrefab, transform.position, Quaternion.identity, transform);
+        _activeCoroutine = StartCoroutine(ActivateFallAfterDelay());
+    }
+
+    private IEnumerator ActivateFallAfterDelay()
+    {
+        yield return new WaitForSeconds(fallDelay);
+        _activeCoroutine = null;
         _isFalling = true;
         _col.enabled = true;
         _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
-        _rigidbody2D.gravityScale = 1.5f; 
+        _rigidbody2D.gravityScale = 1.5f;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

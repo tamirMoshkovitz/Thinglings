@@ -1,64 +1,40 @@
 fileFormatVersion: 2
-guid: f7e30c4b951114048891b3bedcf5dd14
+guid: ce761a1b5c55148ba93cfd2b8633046c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1777150818500619772
-    second: SpellTrailParticles_0
+      213: -1151159761635199077
+    second: SpellSlimeTrailParticles_0
   - first:
-      213: 1131482702648188951
-    second: SpellTrailParticles_1
+      213: -8600827663948657401
+    second: SpellSlimeTrailParticles_1
   - first:
-      213: -1281878408801173178
-    second: SpellTrailParticles_2
+      213: -2673502740751456932
+    second: SpellSlimeTrailParticles_2
   - first:
-      213: 6227048432415414461
-    second: SpellTrailParticles_3
+      213: 8946660032046903269
+    second: SpellSlimeTrailParticles_3
   - first:
-      213: 1429010803510979953
-    second: SpellTrailParticles_4
+      213: -225043070958565416
+    second: SpellSlimeTrailParticles_4
   - first:
-      213: -4426963077236497087
-    second: SpellTrailParticles_5
+      213: 7537394613995083315
+    second: SpellSlimeTrailParticles_5
   - first:
-      213: 3987171804739724549
-    second: SpellTrailParticles_6
+      213: 1629012691336449838
+    second: SpellSlimeTrailParticles_6
   - first:
-      213: -4959894100268626310
-    second: SpellTrailParticles_7
+      213: -1591116609821481046
+    second: SpellSlimeTrailParticles_7
   - first:
-      213: -2893470091686262182
-    second: SpellTrailParticles_8
+      213: 6909904574913089670
+    second: SpellSlimeTrailParticles_8
   - first:
-      213: 8892791336611915306
-    second: SpellTrailParticles_9
+      213: 6800197717888498626
+    second: SpellSlimeTrailParticles_9
   - first:
-      213: 8125660789310317900
-    second: SpellTrailParticles_10
-  - first:
-      213: 2399528951313344507
-    second: SpellTrailParticles_11
-  - first:
-      213: 664109765129519911
-    second: SpellTrailParticles_12
-  - first:
-      213: -4367022023504480791
-    second: SpellTrailParticles_13
-  - first:
-      213: 8797788344329598459
-    second: SpellTrailParticles_14
-  - first:
-      213: 2497215618260904219
-    second: SpellTrailParticles_15
-  - first:
-      213: -3028117810301845661
-    second: SpellTrailParticles_16
-  - first:
-      213: 7042008866910946245
-    second: SpellTrailParticles_17
-  - first:
-      213: 7505232658383097339
-    second: SpellTrailParticles_18
+      213: -2696770853614962427
+    second: SpellSlimeTrailParticles_10
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -154,13 +130,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SpellTrailParticles_0
+      name: SpellSlimeTrailParticles_0
       rect:
         serializedVersion: 2
         x: 17
-        y: 117
-        width: 68
-        height: 60
+        y: 132
+        width: 64
+        height: 58
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -169,108 +145,130 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 402d9fe0fba4657e0800000000000000
-      internalID: -1777150818500619772
+      spriteID: b97b200cb424600f0800000000000000
+      internalID: -1151159761635199077
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpellTrailParticles_5
+      name: SpellSlimeTrailParticles_3
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 123
+        width: 83
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70dccfb0fc8b3a880800000000000000
+      internalID: -8600827663948657401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpellSlimeTrailParticles_1
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 64
+        width: 82
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ef2750d5ebe82c70800000000000000
+      internalID: 8946660032046903269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpellSlimeTrailParticles_4
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 56
+        width: 75
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d70a50f48c70ecf0800000000000000
+      internalID: -225043070958565416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpellSlimeTrailParticles_2
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 2
+        width: 86
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa7ed5b9fd73be9e0800000000000000
+      internalID: -1591116609821481046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpellSlimeTrailParticles_5
       rect:
         serializedVersion: 2
         x: 126
-        y: 11
-        width: 56
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 71028d0f585d3bf00800000000000000
-      internalID: 1131482702648188951
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SpellTrailParticles_2
-      rect:
-        serializedVersion: 2
-        x: 4
-        y: 6
-        width: 87
+        y: 2
+        width: 69
         height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 641c92ef06ad53ee0800000000000000
-      internalID: -1281878408801173178
+      spriteID: 6809a83c999e4ef50800000000000000
+      internalID: 6909904574913089670
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpellTrailParticles_1
+      name: SpellSlimeTrailParticles_6
       rect:
         serializedVersion: 2
-        x: 8
-        y: 56
-        width: 87
-        height: 54
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: db816459e8bea6650800000000000000
-      internalID: 6227048432415414461
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SpellTrailParticles_4
-      rect:
-        serializedVersion: 2
-        x: 117
-        y: 56
-        width: 76
-        height: 57
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bf72c433ed6dc4120800000000000000
-      internalID: 2399528951313344507
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SpellTrailParticles_3
-      rect:
-        serializedVersion: 2
-        x: 107
-        y: 123
-        width: 82
-        height: 62
+        x: 93
+        y: 133
+        width: 12
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,8 +277,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3f634ffb8b592466aa30c4e3effb9991
-      internalID: -2067317877
+      spriteID: 3204ab71161604c4d937a835d9bd980e
+      internalID: 1629012691336449838
       vertices: []
       indices: 
       edges: []
@@ -289,7 +287,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 656aa670b36cf4de29b4339b6c8c6d73
+    spriteID: 14b984b9a0de94b6092e07c925a8fce1
     internalID: 0
     vertices: []
     indices: 
@@ -299,24 +297,15 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      SpellTrailParticles_0: -1777150818500619772
-      SpellTrailParticles_1: 6227048432415414461
-      SpellTrailParticles_10: 8125660789310317900
-      SpellTrailParticles_12: 664109765129519911
-      SpellTrailParticles_13: -4367022023504480791
-      SpellTrailParticles_14: 8797788344329598459
-      SpellTrailParticles_15: 2497215618260904219
-      SpellTrailParticles_16: -3028117810301845661
-      SpellTrailParticles_17: 7042008866910946245
-      SpellTrailParticles_18: 7505232658383097339
-      SpellTrailParticles_2: -1281878408801173178
-      SpellTrailParticles_3: -2067317877
-      SpellTrailParticles_4: 2399528951313344507
-      SpellTrailParticles_5: 1131482702648188951
-      SpellTrailParticles_6: 3987171804739724549
-      SpellTrailParticles_7: -4959894100268626310
-      SpellTrailParticles_8: -2893470091686262182
-      SpellTrailParticles_9: 8892791336611915306
+      SpellSlimeTrailParticles_0: -1151159761635199077
+      SpellSlimeTrailParticles_1: 8946660032046903269
+      SpellSlimeTrailParticles_10: -2696770853614962427
+      SpellSlimeTrailParticles_2: -1591116609821481046
+      SpellSlimeTrailParticles_3: -8600827663948657401
+      SpellSlimeTrailParticles_4: -225043070958565416
+      SpellSlimeTrailParticles_5: 6909904574913089670
+      SpellSlimeTrailParticles_6: 1629012691336449838
+      SpellSlimeTrailParticles_9: 6800197717888498626
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

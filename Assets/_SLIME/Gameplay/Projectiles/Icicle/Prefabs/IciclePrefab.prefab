@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9210919553940248749}
   - component: {fileID: 1850946007628037848}
   - component: {fileID: 3620596895776300267}
+  - component: {fileID: -8325692133312907634}
   m_Layer: 16
   m_Name: IciclePrefab
   m_TagString: Icicle
@@ -133,7 +134,9 @@ MonoBehaviour:
   - {fileID: 9100000, guid: b78a58fedb831b44f985ddc5d9dab26a, type: 2}
   - {fileID: 22100000, guid: cf14ef762c6ee441b8cde0a96c2154b1, type: 2}
   - {fileID: 22100000, guid: 41e0f280f80654543b4a5182875ff865, type: 2}
-  IcicleBreakSFX:
+  particlePrefab: {fileID: 3915881960062850930, guid: 308d0a929f7c64a7a9aa60c5bebe00d8, type: 3}
+  fallDelay: 2
+  icicleBreakSfx:
     Guid:
       Data1: 753019380
       Data2: 1146157109
@@ -213,3 +216,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.1481482, y: 3.864548}
   m_EdgeRadius: 0
+--- !u!114 &-8325692133312907634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8243723797189722045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dacf7e0ea58463d972ca93b2585d620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyOffGameobjectAfterTime
+  totalTime: 4
