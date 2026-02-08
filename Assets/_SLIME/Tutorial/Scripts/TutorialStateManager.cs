@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
 using _SLIME.Core.Audio.FMOD.Scripts;
+using _SLIME.GameLoop;
 using _SLIME.Slime;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using EventReference = FMODUnity.EventReference;
 
@@ -43,6 +45,7 @@ namespace _SLIME.Tutorial
         
         private void Start()
         {
+            SceneLoader.StartBackgroundLoading(SceneType.BossFinalBattleScene);
             CurrentState = currentState;
             StartCoroutine(GetCoroutineForState(currentState));
         }

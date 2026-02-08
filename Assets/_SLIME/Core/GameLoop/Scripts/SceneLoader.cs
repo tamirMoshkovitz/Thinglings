@@ -53,7 +53,7 @@ namespace _SLIME.GameLoop
             
             if (_preloadedScenes.ContainsKey(sceneType))
             {
-                Debug.LogWarning($"Scene '{sceneType}' is already pre-loading.");
+                Debug.Log($"Scene '{sceneType}' is already pre-loading.");
                 return;
             }
 
@@ -152,12 +152,7 @@ namespace _SLIME.GameLoop
         }
 
 
-        private void Start()
-        {
-            if(SceneManager.GetActiveScene().name != sceneTypeToIndex[SceneType.BossFinalBattleScene]) 
-                StartBackgroundLoading(SceneType.BossFinalBattleScene);
-        }
-
+        
 
         protected override void Awake()
         {
