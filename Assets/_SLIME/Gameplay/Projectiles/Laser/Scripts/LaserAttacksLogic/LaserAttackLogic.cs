@@ -65,7 +65,9 @@ namespace _SLIME.Laser
         {
             StopRotation();
             float initialZ = transform.eulerAngles.z;
-            _rotationCoroutine = StartCoroutine(RotateRoutine(rotationCurve, rotationDuration, totalLoops, initialZ));
+            // 50% chance: sweep left (counter-clockwise) instead of right (clockwise)
+            int rotationDirection = UnityEngine.Random.value < 0.5f ? -1 : 1;
+            _rotationCoroutine = StartCoroutine(RotateRoutine(rotationCurve, rotationDuration, totalLoops, initialZ, rotationDirection));
             SwitchLaserColliders(true);
         }
 
@@ -94,12 +96,12 @@ namespace _SLIME.Laser
             }
         }
 
-        private IEnumerator RotateRoutine(AnimationCurve rotationCurve, float rotationDuration, int totalLoops, float initialZ)
+        private IEnumerator RotateRoutine(AnimationCurve rotationCurve, float rotationDuration, int totalLoops, float initialZ, int rotationDirection)
         {
             if (rotationDuration <= 0f) yield break;
             IsRotating = true;
             float elapsed = 0f;
-            float targetTotalDegrees = 360f * totalLoops;
+            float targetTotalDegrees = 360f * totalLoops * rotationDirection;
 
             while (elapsed < rotationDuration)
             {
