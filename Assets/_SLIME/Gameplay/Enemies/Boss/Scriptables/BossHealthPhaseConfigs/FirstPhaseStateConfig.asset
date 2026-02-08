@@ -87,6 +87,12 @@ MonoBehaviour:
     maxWaitTime: 10
     loopSpawning: 1
     accuracyOffset: 5
+    minIcicleCount: 2
+    maxIcicleCount: 4
+    playerTargetChance: 0.5
+    minSpacingBetweenIcicles: 4
+    minDelayBetweenIcicles: 1
+    maxDelayBetweenIcicles: 2
   waterAttackSettings:
     waterDamage: 0
   lightHouseSettings:

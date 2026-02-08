@@ -15,6 +15,8 @@ namespace _SLIME.Boss
 
         private List<HandWrapper> _specialLeftHands;
         private List<HandWrapper> _specialRightHands;
+        private float _firstFloatDistance;
+        private float _firstFloatDistanceDuration;
 
         private class HandWrapper
         {
@@ -48,7 +50,11 @@ namespace _SLIME.Boss
             _rightHands = Data.rightHandSplines.Select(h => new HandWrapper(h)).ToList();
             _specialLeftHands = Data.specialBottomHands.Select(h => new HandWrapper(h)).ToList();
             _specialRightHands = Data.specialTopHands.Select(h => new HandWrapper(h)).ToList();
-
+            
+            _firstFloatDistance = Data.floatingAttributes.floatDistance;
+            _firstFloatDistanceDuration = Data.floatingAttributes.duration;
+            Data.floatingAttributes.floatDistance = 0f;
+            Data.floatingAttributes.duration = 0f;
             ForceStopAllHands();
             _smashRoutine = Data.StartCoroutine(SmashRoutine(animator));
         }
@@ -162,6 +168,8 @@ namespace _SLIME.Boss
         {
             if (_smashRoutine != null) Data.StopCoroutine(_smashRoutine);
             ForceStopAllHands();
+            Data.floatingAttributes.floatDistance = _firstFloatDistance;
+            Data.floatingAttributes.duration = _firstFloatDistanceDuration;
             if (Data.centerDetector != null) Data.centerDetector.ResetTrigger();
         }
     }

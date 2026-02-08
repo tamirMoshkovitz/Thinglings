@@ -119,6 +119,20 @@ public class BaseBossConfigurations : TabbedScriptableObject
         
         [Tooltip("The offset of the icicle spawn from the player's position.")]
         public float accuracyOffset;
+
+        [Header("Wave Settings")]
+        [Tooltip("Minimum number of icicles per spawn wave.")]
+        [Min(1)] public int minIcicleCount;
+        [Tooltip("Maximum number of icicles per spawn wave.")]
+        [Min(1)] public int maxIcicleCount;
+        [Tooltip("Chance (0-1) that each icicle in the wave targets the player. Otherwise random X on spline.")]
+        [Range(0f, 1f)] public float playerTargetChance;
+        [Tooltip("Minimum world-space distance (X) between icicle spawn positions.")]
+        [Min(0f)] public float minSpacingBetweenIcicles;
+        [Tooltip("Minimum delay (seconds) between each icicle appearance in a wave.")]
+        [Min(0f)] public float minDelayBetweenIcicles;
+        [Tooltip("Maximum delay (seconds) between each icicle appearance in a wave.")]
+        [Min(0f)] public float maxDelayBetweenIcicles;
     }
     
     [Tab("Attacks Settings")]
