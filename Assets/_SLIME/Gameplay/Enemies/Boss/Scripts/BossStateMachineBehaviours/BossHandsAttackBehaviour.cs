@@ -46,8 +46,8 @@ namespace _SLIME.Boss
 
             _leftHands = Data.leftHandSplines.Select(h => new HandWrapper(h)).ToList();
             _rightHands = Data.rightHandSplines.Select(h => new HandWrapper(h)).ToList();
-            _specialLeftHands = Data.specialLeftHandSplines.Select(h => new HandWrapper(h)).ToList();
-            _specialRightHands = Data.specialRightHandSplines.Select(h => new HandWrapper(h)).ToList();
+            _specialLeftHands = Data.specialBottomHands.Select(h => new HandWrapper(h)).ToList();
+            _specialRightHands = Data.specialTopHands.Select(h => new HandWrapper(h)).ToList();
 
             ForceStopAllHands();
             _smashRoutine = Data.StartCoroutine(SmashRoutine(animator));
@@ -61,7 +61,7 @@ namespace _SLIME.Boss
             int attacksLaunched = 0;
             bool isNextLeft = Random.value > 0.5f; 
             
-            bool hasPerformedSpecial = false;
+            int totalSpecialHandsPreformed = 0;
 
             while (attacksLaunched < totalAttacksToPerform)
             {
@@ -75,7 +75,7 @@ namespace _SLIME.Boss
 
                 bool isSpecialTurn = Data.centerDetector 
                                      && Data.centerDetector.IsReadyToFire 
-                                     && !hasPerformedSpecial;
+                                     && totalSpecialHandsPreformed < BossBrain.bossConfigurations.HandsAttack.maxSpecialHands;
                 
                 HandWrapper handToFire = null;
 
@@ -97,7 +97,7 @@ namespace _SLIME.Boss
 
                     if (IsSpecialHand(handToFire))
                     {
-                        hasPerformedSpecial = true;
+                        totalSpecialHandsPreformed += 1;
                         Data.centerDetector.ResetTrigger();
                     }
                     else

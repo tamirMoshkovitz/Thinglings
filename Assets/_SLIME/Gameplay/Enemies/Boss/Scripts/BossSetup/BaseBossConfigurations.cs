@@ -27,8 +27,8 @@ public class BaseBossConfigurations : TabbedScriptableObject
         [Tooltip("If true, both hands will attack simultaneously")]
         public bool useBothHands;
         
-        [Tooltip("The Speed multiplier applied to the hand attack based on the boss phase")]
-        public float phaseSpeedMultiplier;
+        [Tooltip("The max amount of special hands a player can summon during the attack")]
+        public int maxSpecialHands;
     }
     
     [Serializable]
