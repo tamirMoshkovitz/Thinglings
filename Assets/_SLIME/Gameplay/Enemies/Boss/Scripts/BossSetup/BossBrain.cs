@@ -65,8 +65,9 @@ namespace _SLIME.Boss
         [Header("Animation Setup")]
         public Animator animator;
 
-        [Header("Laser Attack Setup")] 
-        public GameObject laserAttackGameObject;
+        [FormerlySerializedAs("laserAttackGameObject")] [Header("Laser Attack Setup")] 
+        public GameObject laserAttackGameObjectPhase1;
+        public GameObject laserAttackGameObjectPhase2;
         
         
         [Header("Light House Attack Setup")] 
