@@ -24,8 +24,6 @@ namespace _SLIME.Boss
         [SerializeField] List<BossAttackType> tunnelPhaseAttacks;
         
         [Header("Hold Settings")] 
-        public float duration = 1f;
-        
         private static readonly int DoSmash = Animator.StringToHash("DoSmash");
         private static readonly int DoSpawn = Animator.StringToHash("DoSpawn");
         private static readonly int DoLaser = Animator.StringToHash("DoLaser");
@@ -33,27 +31,24 @@ namespace _SLIME.Boss
         private static readonly int DoWater = Animator.StringToHash("DoWater");
         private static readonly int DoLightHouse = Animator.StringToHash("DoLightHouse");
         private static readonly int DoLittleBosses = Animator.StringToHash("DoLittleBosses");
-
-        private float _timer;
+        
         private Dictionary<BossAttackType, float> _lastUsedTime = new();
         
         
-        override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            base.OnStateUpdate(animator, stateInfo, layerIndex);
-            _timer += Time.deltaTime;
-
-            if (!(_timer >= duration)) return;
+            base.OnStateEnter(animator, stateInfo, layerIndex);
+            
             
             List<BossAttackType> availableAttacks = GetAttacksForCurrentState();
             if (availableAttacks == null || availableAttacks.Count == 0) return;
             
             BossAttackType selectedAttack = SelectLeastRecentlyUsed(availableAttacks);
             _lastUsedTime[selectedAttack] = Time.time;
-            _timer = 0f;
             PreformSelectedAttack(animator, selectedAttack);
         }
-        
+
+      
         private BossAttackType SelectLeastRecentlyUsed(List<BossAttackType> attacks)
         {
             if (attacks.Count == 1) return attacks[0];

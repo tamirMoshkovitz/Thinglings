@@ -78,12 +78,7 @@ namespace _SLIME.Slime
 
             Vector2 delta = worldPosRight - worldPosLeft;
             float length = delta.magnitude;
-
-            if (length <= 0.001f || worldPosLeft.x >= worldPosRight.x)
-            {
-                worldPosLeft = worldPosRight;
-            }
-            else
+            if (length > 0.001f)
             {
                 Vector2 direction = delta / length;
                 worldPosLeft += direction * ConnectionColliderEdgeOffset;
