@@ -260,6 +260,7 @@ namespace _SLIME.Boss
             bossCloseColliders.SetActive(false);
             bossFarColliders.SetActive(false);
             bossLaserColliders.SetActive(false);
+            bossHealthBarCanvas.SetActive(false);
         }
 
         public void BossLaserState()

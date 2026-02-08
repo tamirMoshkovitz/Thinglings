@@ -51,8 +51,8 @@ MonoBehaviour:
     specialAttacksSettings:
       threeShotsAngle: 22.5
       fourShotsWaitBetweenShots: 0.7
-      bulletHellTotalAngle: 45
-      bulletHellWaitBetweenShots: 0.5
+      bulletHellTotalAngle: 60
+      bulletHellWaitBetweenShots: 0.1
       bulletHellMiddleDensityPower: 1.7
   laserAttackSettings:
     rotationCurve:
@@ -104,6 +104,7 @@ MonoBehaviour:
     minWaitTime: 2
     maxWaitTime: 4
     loopSpawning: 1
+    accuracyOffset: 0
   waterAttackSettings:
     waterDamage: 0
   lightHouseSettings:
@@ -123,7 +124,7 @@ MonoBehaviour:
     maxHealth: 400
   bossPhaseSettings:
     lowerHealthThreshold: 0
-    targetHitsToKill: 6
+    targetHitsToKill: 4
     expectedAvgSpeedOfSpells: 30
   littleBossMovementSettings:
     duration: 1
@@ -160,28 +161,28 @@ MonoBehaviour:
       targetMiddleProbability: 0
     spawnSettings:
       bothSlimesAliveProbabilities:
-        oneShot: 1
+        oneShot: 0
         twoShots: 0
         threeShot: 0
         fourShots: 0
-        bulletHell: 0
+        bulletHell: 1
       notConnectedProbabilities:
         oneShot: 1
         twoShots: 0
         threeShot: 0
         fourShots: 0
-        bulletHell: 0
+        bulletHell: 1
       oneSlimeAliveProbabilities:
         oneShot: 1
         twoShots: 0
         threeShot: 0
         fourShots: 0
-        bulletHell: 0
+        bulletHell: 1
     specialAttacksSettings:
       threeShotsAngle: 22.5
       fourShotsWaitBetweenShots: 0.4
       bulletHellTotalAngle: 45
-      bulletHellWaitBetweenShots: 0.2
+      bulletHellWaitBetweenShots: 0.1
       bulletHellMiddleDensityPower: 1.7
   littleBossHealthSettings:
     health: 1

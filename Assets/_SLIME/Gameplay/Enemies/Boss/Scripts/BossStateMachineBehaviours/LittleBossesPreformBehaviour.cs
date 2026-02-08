@@ -24,7 +24,6 @@ namespace _SLIME.Boss
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
-            Data.BossFarState();
             Data.littleBossLeft.SetActive(true);
             Data.littleBossRight.SetActive(true);
             _timer = 0f;
@@ -39,33 +38,33 @@ namespace _SLIME.Boss
                 return;
             }
 
-            if (_oneSpellShotLogic.IsActive)
-            {
-                _oneSpellShotLogic.UpdateAttack();
-                return;
-            }
+            // if (_oneSpellShotLogic.IsActive)
+            // {
+            //     _oneSpellShotLogic.UpdateAttack();
+            //     return;
+            // }
 
-            if (Data.IsTakingDamage) return;
+            // if (Data.IsTakingDamage) return;
             if (Data.WaterStateActivated )
             {
 
                 return;
             }
 
-            _timer += Time.deltaTime;
-            if (_timer >= _currentDelay)
-            {
-                _oneSpellShotLogic.Attack(BossBrain.bossConfigurations.SpawnAttack.spellSettings);
-                _timer = 0f;
-                var delayRange = BossBrain.bossConfigurations.SpawnAttack.spawnSettings.delayBetweenAttacks;
-                _currentDelay = Random.Range(delayRange.x, delayRange.y);
-            }
+            // _timer += Time.deltaTime;
+            // if (_timer >= _currentDelay)
+            // {
+            //     _oneSpellShotLogic.Attack(BossBrain.bossConfigurations.SpawnAttack.spellSettings);
+            //     _timer = 0f;
+            //     var delayRange = BossBrain.bossConfigurations.SpawnAttack.spawnSettings.delayBetweenAttacks;
+            //     _currentDelay = Random.Range(delayRange.x, delayRange.y);
+            // }
         }
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateExit(animator, stateInfo, layerIndex);
-            _oneSpellShotLogic.Reset();
+            // _oneSpellShotLogic.Reset();
         }
     }
 }
