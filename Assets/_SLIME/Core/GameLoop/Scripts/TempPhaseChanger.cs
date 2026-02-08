@@ -177,11 +177,12 @@ public class TempPhaseChanger : MonoBehaviour
                 sr.color = c;
             }
         }
-
+        
         // When fade is done, trigger the next step
         if (progress >= 1f)
         {
             _isFading = false;
+            layerToFade.SetActive(false);
             StartMovementSequence();
         }
     }
