@@ -7,5 +7,11 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: LaserPhase2AC
-  m_Controller: {fileID: 0}
-  m_Clips: []
+  m_Controller: {fileID: 9100000, guid: 1e6d24a6b5830e446ac773b43dbe3e42, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 9b122e8057349bb41abd7672d901732f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 39604524f48664e52a2085c070dcf83e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b6f10a109b14896429c94687617ef6d1, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 9fee53a1883c7425cb113bcd411f6b1b, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 004c4a2d07a1379408b1e76e4af3efdd, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 23c779606576b45fcb9a3024030cf2e3, type: 2}
