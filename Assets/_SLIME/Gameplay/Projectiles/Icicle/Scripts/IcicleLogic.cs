@@ -3,21 +3,24 @@ using _SLIME.BaseScripts;
 using _SLIME.Core.Audio.FMOD.Scripts;
 using FMODUnity;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class IcicleLogic : MonoBehaviour
 {
+    private static readonly int IcycleHit = Animator.StringToHash("IcycleHit");
+
     [Header("Visuals")]
     [SerializeField] private Animator icicleAnimator;
     [SerializeField] private RuntimeAnimatorController[] animatorVariants; 
 
     [Header("Audio")]
-    [SerializeField] private EventReference IcicleBreakSFX;
+    [SerializeField] private EventReference icicleBreakSfx;
 
     private Rigidbody2D _rigidbody2D;
     private Collider2D _col;
     private Coroutine _activeCoroutine;
     private bool _hit;
-    private float _activateFallTime = -1f;
+    private bool _isFalling;
 
     private void Awake()
     {
@@ -38,8 +41,7 @@ public class IcicleLogic : MonoBehaviour
             _activeCoroutine = null;
         }
 
-        // Pick one of the 3 Animators randomly
-        if (animatorVariants != null && animatorVariants.Length > 0)
+        if (animatorVariants is { Length: > 0 })
         {
             icicleAnimator.runtimeAnimatorController = animatorVariants[Random.Range(0, animatorVariants.Length)];
         }
@@ -47,9 +49,10 @@ public class IcicleLogic : MonoBehaviour
         _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
         _rigidbody2D.linearVelocity = Vector2.zero;
         _rigidbody2D.angularVelocity = 0f;
+        
         _col.enabled = false;
         _hit = false;
-        _activateFallTime = -1f;
+        _isFalling = false;
 
         icicleAnimator.Rebind();
         icicleAnimator.Update(0f);
@@ -57,69 +60,70 @@ public class IcicleLogic : MonoBehaviour
 
     public void ActivateFall()
     {
-        _activateFallTime = Time.time;
+        _isFalling = true;
         _col.enabled = true;
         _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
-        _rigidbody2D.gravityScale = 1f;
+        _rigidbody2D.gravityScale = 1.5f; 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (_hit || _activateFallTime < 0f || Time.time - _activateFallTime < 1f) return;
-        _hit = true;
-        if (collision.gameObject.CompareTag("Wall"))
-        {
-            StartCoroutine(WaitAndSetFalse());
-            return;
-        };
-        HandleImpact(collision.attachedRigidbody);
-        
+        ProcessHit(collision.gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (_hit || _activateFallTime < 0f || Time.time - _activateFallTime < 1f) return;
-        _hit = true;
-        if (collision.gameObject.CompareTag("Wall"))
-        {
-            StartCoroutine(WaitAndSetFalse());
-            return;
-        };
-        HandleImpact(collision.rigidbody);
+        ProcessHit(collision.gameObject);
     }
 
-    private IEnumerator WaitAndSetFalse()
+    private void ProcessHit(GameObject otherGo)
     {
-        yield return new WaitForSeconds(3f);
-        gameObject.SetActive(false); 
-    }
+        if (_hit || !_isFalling) return;
 
-
-    private void HandleImpact(Rigidbody2D otherBody)
-    {
-        
-        if (otherBody && otherBody.TryGetComponent<IHealth>(out IHealth h))
+        if (otherGo.TryGetComponent<IHealth>(out IHealth h))
         {
+            _hit = true;
             h.TakeDamage();
+            TriggerImpactVisuals();
+            return;
         }
 
-        icicleAnimator.SetTrigger("IcycleHit");
-        SFXPlayer.Play(IcicleBreakSFX);
-
-        if (_activeCoroutine == null)
-        {
-            _activeCoroutine = StartCoroutine(WaitForDissolveAndDisable());
-        }
+        if (!otherGo.CompareTag("Wall") && otherGo.layer != LayerMask.NameToLayer("Walls")) return;
+        _hit = true;
+        TriggerImpactVisuals();
     }
-    
+
+    private void TriggerImpactVisuals()
+    {
+        _rigidbody2D.linearVelocity = Vector2.zero;
+        _rigidbody2D.bodyType = RigidbodyType2D.Static;
+        
+        icicleAnimator.SetTrigger(IcycleHit);
+        SFXPlayer.Play(icicleBreakSfx);
+
+        _activeCoroutine ??= StartCoroutine(WaitForDissolveAndDisable());
+    }
+
     private IEnumerator WaitForDissolveAndDisable()
     {
-        while (!icicleAnimator.GetCurrentAnimatorStateInfo(0).IsName("IcicleDissolve"))
-            yield return null;
+        yield return new WaitForSeconds(0.05f); 
         
-        while (icicleAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        float failSafeTimer = 2f;
+        float elapsed = 0f;
+
+        while (elapsed < failSafeTimer)
+        {
+            var state = icicleAnimator.GetCurrentAnimatorStateInfo(0);
+            if (state.IsName("IcicleDissolve") && state.normalizedTime >= 1.0f)
+            {
+                break;
+            }
+
+            elapsed += Time.deltaTime;
             yield return null;
+        }
 
         gameObject.SetActive(false); 
+        _activeCoroutine = null;
     }
 }

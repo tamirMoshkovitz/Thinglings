@@ -83,10 +83,15 @@ public class IcicleSpawner : MonoBehaviour
 
     private void SpawnTargetedIcicle()
     {
-        Transform target = GetClosestPlayer();
         IcicleLogic selectedIcicle = _iciclePool.Find(i => !i.gameObject.activeSelf);
+        if (selectedIcicle == null) return;
 
-        Vector3 spawnPos = GetSplinePointAtX(target.position.x);
+        Transform target = GetClosestPlayer();
+        float randomXDeviation = Random.Range(-BossBrain.bossConfigurations.IcicleSpawn.accuracyOffset, 
+                                                BossBrain.bossConfigurations.IcicleSpawn.accuracyOffset);
+        float targetedX = target.position.x + randomXDeviation;
+
+        Vector3 spawnPos = GetSplinePointAtX(targetedX);
 
         selectedIcicle.transform.position = spawnPos;
         selectedIcicle.transform.rotation = Quaternion.identity;
@@ -120,15 +125,13 @@ public class IcicleSpawner : MonoBehaviour
         }
 
         Vector3 finalPos = splineContainer.transform.TransformPoint(spline.EvaluatePosition(bestT));
+        
         finalPos.z = 0;
         return finalPos;
     }
 
     private Transform GetClosestPlayer()
     {
-        if (!player1) return player2;
-        if (!player2) return player1;
-
         float p1Dist = Mathf.Abs(player1.position.x - transform.position.x);
         float p2Dist = Mathf.Abs(player2.position.x - transform.position.x);
 

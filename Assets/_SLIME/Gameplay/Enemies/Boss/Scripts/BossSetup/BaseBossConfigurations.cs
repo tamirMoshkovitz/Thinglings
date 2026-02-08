@@ -116,6 +116,9 @@ public class BaseBossConfigurations : TabbedScriptableObject
         
         [Tooltip("If true, it will keep spawning indefinitely.")]
         public bool loopSpawning;
+        
+        [Tooltip("The offset of the icicle spawn from the player's position.")]
+        public float accuracyOffset;
     }
     
     [Tab("Attacks Settings")]
