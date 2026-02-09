@@ -160,7 +160,17 @@ namespace _SLIME.GameLoop
             base.Awake(); 
             if (Instance != this) return;
         }
-        
+
+        private void OnEnable()
+        {
+            GameEvents.ResetGame += OnResetGame;
+        }
+
+        private void OnDisable()
+        {
+            GameEvents.ResetGame -= OnResetGame;
+        }
+
         public static void AddEveryTimeAction(Action action) => _everyTimeActions.Add(action);
         public static void AddOneTimeAction(Action action) => _oneTimeActions.Add(action);
 
@@ -295,6 +305,11 @@ namespace _SLIME.GameLoop
             }
             color.a = endAlpha;
             targetImage.color = color;
+        }
+
+        private void OnResetGame()
+        {
+            LoadScene(SceneType.StartScene);
         }
     }
 }
