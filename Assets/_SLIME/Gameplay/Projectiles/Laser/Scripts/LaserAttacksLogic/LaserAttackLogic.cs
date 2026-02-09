@@ -34,7 +34,15 @@ namespace _SLIME.Laser
             HasFinishedAction = false;
             laserSfx.Stop();
         }
-        
+
+        private void ResetColliders()
+        {
+            rightLaserCollider.enabled = false;
+            leftLaserCollider.enabled = false;
+            if(upLaserCollider!= null) upLaserCollider.enabled = false;
+            if(downLaserCollider!= null) downLaserCollider.enabled = false;
+        }
+
         public void EnableRightLaserColliders() // called by animation event
         {
             rightLaserCollider.enabled = true;
@@ -82,7 +90,7 @@ namespace _SLIME.Laser
             // 50% chance: sweep left (counter-clockwise) instead of right (clockwise)
             int rotationDirection = UnityEngine.Random.value < 0.5f ? -1 : 1;
             _rotationCoroutine = StartCoroutine(RotateRoutine(rotationCurve, rotationDuration, totalLoops, initialZ, rotationDirection));
-            SwitchLaserColliders(true);
+            //SwitchLaserColliders(true);
         }
 
         private static float NormalizeAngle(float a)
@@ -93,7 +101,8 @@ namespace _SLIME.Laser
         }
         public void StopRotation()
         {
-            SwitchLaserColliders(false);
+            //SwitchLaserColliders(false);
+            
             IsRotating = false;
             if (_rotationCoroutine == null) return;
             StopCoroutine(_rotationCoroutine);
@@ -129,11 +138,13 @@ namespace _SLIME.Laser
 
                 yield return null;
             }
-
+            ResetColliders();
             transform.rotation = Quaternion.Euler(0f, 0f, NormalizeAngle(initialZ + targetTotalDegrees));
             IsRotating = false;
             _rotationCoroutine = null;
         }
+        
+        
         
         private void OnTriggerEnter2D(Collider2D collision)
         {

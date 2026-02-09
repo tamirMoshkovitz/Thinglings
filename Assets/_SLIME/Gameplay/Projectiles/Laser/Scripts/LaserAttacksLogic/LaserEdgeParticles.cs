@@ -1,168 +1,208 @@
+using System.Collections;
 using System.Collections.Generic;
-using _SLIME.Laser;
 using UnityEngine;
 
-public class LaserEdgeParticles : MonoBehaviour
+public class LaserEdgeManager : MonoBehaviour
 {
     [Header("Assets")]
     public GameObject particlePrefab;
 
-    [Header("Settings")]
-    public float edgeBuffer = 0.5f;
-    public bool showDualSparks = true;
+    [Header("Laser Setup")]
+    [Tooltip("Manually drag the GameObjects that have the PolygonColliders here.")]
+    public List<GameObject> laserObjects = new List<GameObject>();
 
-    private class LaserTracker
+    [Header("Settings")]
+    public float edgeBuffer = 0.01f;
+    public float intersectionEpsilon = 0.001f;
+
+    private class LaserTrack
     {
-        public Collider2D Collider;
-        public Transform Transform;
-        public ParticleSystem SparksForward;
-        public ParticleSystem SparksBackward; 
-        public bool IsVerticalArt;
+        public PolygonCollider2D poly;
+        public ParticleSystem sparks;
+        public Transform sparksTransform;
+        public GameObject particleObject;
     }
 
-    private List<LaserTracker> _lasers = new List<LaserTracker>();
-    private Camera _mainCam;
-    private LaserAttackLogic _logicScript;
-    private float _minX, _maxX, _minY, _maxY;
+    private List<LaserTrack> lasers = new List<LaserTrack>();
+    private Camera mainCam;
 
-    private void Start()
+    private void Awake()
     {
-        _mainCam = Camera.main;
-        _logicScript = GetComponent<LaserAttackLogic>();
+        mainCam = Camera.main;
+    }
 
-        Collider2D[] allColliders = GetComponentsInChildren<Collider2D>(true);
-        GameObject container = new GameObject("LaserSparks_Container");
+    private void OnEnable()
+    {
+        // Re-initialize every time the manager is turned on
+        SetupLasers();
+    }
 
-        foreach (var col in allColliders)
+    private void OnDisable()
+    {
+        // Destroy everything to ensure a clean reset
+        CleanupParticles();
+    }
+
+    private void SetupLasers()
+    {
+        CleanupParticles(); // Safety clear
+
+        foreach (GameObject obj in laserObjects)
         {
-            if (col.gameObject == gameObject || !col.isTrigger) continue;
+            if (obj == null) continue;
 
-            LaserTracker tracker = new LaserTracker();
-            tracker.Collider = col;
-            tracker.Transform = col.transform;
+            PolygonCollider2D col = obj.GetComponent<PolygonCollider2D>();
+            if (col == null)
+            {
+                Debug.LogWarning($"Object {obj.name} assigned to LaserEdgeManager has no PolygonCollider2D!");
+                continue;
+            }
 
-            if (col is BoxCollider2D box)
-                tracker.IsVerticalArt = box.size.y > box.size.x;
-            else if (col is CapsuleCollider2D cap)
-                tracker.IsVerticalArt = cap.direction == CapsuleDirection2D.Vertical;
+            LaserTrack track = new LaserTrack();
+            track.poly = col;
 
-            tracker.SparksForward = CreateSpark(container, col.name + "_Sparks_F", col.transform.position.z);
-            tracker.SparksBackward = CreateSpark(container, col.name + "_Sparks_B", col.transform.position.z);
+            if (particlePrefab != null)
+            {
+                // FIX: Instantiate as child of THIS Manager (transform), not the laser collider (col.transform)
+                // This prevents the particles from inheriting the Laser's Scale or Active state.
+                GameObject p = Instantiate(particlePrefab, transform); 
+                
+                track.particleObject = p;
+                track.sparks = p.GetComponent<ParticleSystem>();
+                track.sparksTransform = p.transform;
 
-            _lasers.Add(tracker);
+                var main = track.sparks.main;
+                main.simulationSpace = ParticleSystemSimulationSpace.World;
+                
+                // Ensure the particle object is active so we can control the system manually
+                p.SetActive(true); 
+                
+                track.sparks.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            }
+            lasers.Add(track);
         }
     }
 
-    private ParticleSystem CreateSpark(GameObject container, string name, float z)
+    private void CleanupParticles()
     {
-        if (!particlePrefab) return null;
-        var obj = Instantiate(particlePrefab, container.transform);
-        obj.name = name;
-        obj.transform.position = new Vector3(0, 0, z);
-        var ps = obj.GetComponent<ParticleSystem>();
-        ps.Stop();
-        return ps;
+        foreach (var laser in lasers)
+        {
+            if (laser != null && laser.particleObject != null)
+            {
+                Destroy(laser.particleObject);
+            }
+        }
+        lasers.Clear();
     }
 
     private void LateUpdate()
     {
-        if (!_mainCam) return;
-        if (_logicScript && !_logicScript.enabled) { StopAll(); return; }
+        if (mainCam == null) mainCam = Camera.main;
+        if (mainCam == null || lasers.Count == 0) return;
 
-        UpdateBounds();
+        // Screen bounds logic...
+        Vector3 bottomLeft = mainCam.ViewportToWorldPoint(new Vector3(0, 0, mainCam.nearClipPlane));
+        Vector3 topRight = mainCam.ViewportToWorldPoint(new Vector3(1, 1, mainCam.nearClipPlane));
 
-        foreach (var laser in _lasers)
+        float minX = bottomLeft.x;
+        float maxX = topRight.x;
+        float minY = bottomLeft.y;
+        float maxY = topRight.y;
+
+        foreach (var laser in lasers)
         {
-            // Individual Toggle Check: If collider is off, sparks are off
-            if (!laser.Collider || !laser.Collider.enabled || !laser.Collider.gameObject.activeInHierarchy)
+            // --- UPDATED CHECK ---
+            // If the collider is null, the game object is disabled, OR the collider component is unchecked:
+            if (laser.poly == null || !laser.poly.gameObject.activeInHierarchy || !laser.poly.enabled)
             {
-                if (laser.SparksForward.isPlaying) laser.SparksForward.Stop();
-                if (laser.SparksBackward.isPlaying) laser.SparksBackward.Stop();
+                // Remove '&& laser.sparks.isPlaying' here. 
+                // We want to force a "Clear" even if the system thinks it's already stopped (e.g. fading out).
+                if (laser.sparks != null) 
+                {
+                    laser.sparks.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                }
                 continue;
             }
 
-            Vector2 forwardDir = laser.IsVerticalArt ? laser.Transform.up : laser.Transform.right;
+            // ... Intersection Logic ... 
+            Vector2 hitPoint;
+            Vector2 wallNormal;
 
-            UpdateSystem(laser.SparksForward, laser.Transform.position, forwardDir);
-
-            if (showDualSparks)
+            if (FindExactIntersection(laser.poly, minX, maxX, minY, maxY, out hitPoint, out wallNormal))
             {
-                UpdateSystem(laser.SparksBackward, laser.Transform.position, -forwardDir);
+                Vector2 finalPos = hitPoint + (wallNormal * edgeBuffer);
+                laser.sparksTransform.position = new Vector3(finalPos.x, finalPos.y, laser.poly.transform.position.z);
+                laser.sparksTransform.up = wallNormal;
+
+                if (!laser.sparks.isPlaying) 
+                    laser.sparks.Play();
             }
-            else if (laser.SparksBackward.isPlaying)
+            else
             {
-                laser.SparksBackward.Stop();
+                // If aiming at nothing, we just Stop (allow fade out), we don't force Clear.
+                if (laser.sparks.isPlaying) 
+                    laser.sparks.Stop();
             }
         }
     }
 
-    void UpdateSystem(ParticleSystem ps, Vector3 origin, Vector2 dir)
-    {
-        if (!ps) return;
+    // --- MATH LOGIC ---
 
-        Vector2 hit, normal;
-        if (CalculateIntersection(origin, dir, out hit, out normal))
+    private bool FindExactIntersection(PolygonCollider2D poly, float minX, float maxX, float minY, float maxY, out Vector2 hit, out Vector2 normal)
+    {
+        hit = Vector2.zero;
+        normal = Vector2.up;
+        bool found = false;
+        float bestDist = float.MaxValue;
+
+        Vector2 origin = poly.transform.position;
+        Vector2[] points = poly.points;
+        Transform t = poly.transform;
+
+        for (int i = 0; i < points.Length; i++)
         {
-            ps.transform.position = new Vector3(hit.x, hit.y, ps.transform.position.z);
-            if (normal != Vector2.zero) {
-                ps.transform.rotation = Quaternion.identity;
-                ps.transform.up = normal;
-            }
+            Vector2 p1 = t.TransformPoint(points[i]);
+            Vector2 p2 = t.TransformPoint(points[(i + 1) % points.Length]);
 
-            if (!ps.isPlaying) ps.Play();
+            UpdateHit(p1, p2, new Vector2(minX, minY), new Vector2(minX, maxY), Vector2.right, origin, ref bestDist, ref hit, ref normal, ref found);
+            UpdateHit(p1, p2, new Vector2(maxX, minY), new Vector2(maxX, maxY), Vector2.left, origin, ref bestDist, ref hit, ref normal, ref found);
+            UpdateHit(p1, p2, new Vector2(minX, minY), new Vector2(maxX, minY), Vector2.up, origin, ref bestDist, ref hit, ref normal, ref found);
+            UpdateHit(p1, p2, new Vector2(minX, maxY), new Vector2(maxX, maxY), Vector2.down, origin, ref bestDist, ref hit, ref normal, ref found);
         }
-        else
-        {
-            if (ps.isPlaying) ps.Stop();
-        }
-    }
-
-    void StopAll()
-    {
-        foreach (var l in _lasers)
-        {
-            if (l.SparksForward.isPlaying) l.SparksForward.Stop();
-            if (l.SparksBackward.isPlaying) l.SparksBackward.Stop();
-        }
-    }
-
-    void UpdateBounds()
-    {
-        float v = _mainCam.orthographicSize;
-        float h = v * _mainCam.aspect;
-        Vector2 c = _mainCam.transform.position;
-        _minX = c.x - h; _maxX = c.x + h; _minY = c.y - v; _maxY = c.y + v;
-    }
-
-    bool CalculateIntersection(Vector2 origin, Vector2 dir, out Vector2 hit, out Vector2 norm)
-    {
-        float dist = float.MaxValue;
-        hit = origin;
-        norm = Vector2.zero;
-        bool found = CheckWall(_minX, true, Vector2.right, origin, dir, ref dist, ref hit, ref norm);
-        if (CheckWall(_maxX, true, Vector2.left, origin, dir, ref dist, ref hit, ref norm)) found = true;
-        if (CheckWall(_minY, false, Vector2.up, origin, dir, ref dist, ref hit, ref norm)) found = true;
-        if (CheckWall(_maxY, false, Vector2.down, origin, dir, ref dist, ref hit, ref norm)) found = true;
 
         return found;
     }
 
-    bool CheckWall(float wall, bool isVert, Vector2 wallNorm, Vector2 origin, Vector2 dir, ref float bestDist, ref Vector2 bestHit, ref Vector2 bestNorm)
+    private void UpdateHit(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2, Vector2 wallNormal, Vector2 origin,
+                                ref float bestDist, ref Vector2 bestHit, ref Vector2 bestNormal, ref bool found)
     {
-        float t = -1f;
-        if (isVert && Mathf.Abs(dir.x) > 0.001f) t = (wall - origin.x) / dir.x;
-        else if (!isVert && Mathf.Abs(dir.y) > 0.001f) t = (wall - origin.y) / dir.y;
-
-        if (t > 0 && t < bestDist)
+        if (LineIntersection(a1, a2, b1, b2, out Vector2 p))
         {
-            Vector2 p = origin + (dir * t);
-            if (p.x >= _minX - 0.1f && p.x <= _maxX + 0.1f && p.y >= _minY - 0.1f && p.y <= _maxY + 0.1f)
+            float d = Vector2.Distance(origin, p);
+            if (d < bestDist)
             {
-                bestDist = t;
-                bestHit = p - (dir * edgeBuffer);
-                bestNorm = wallNorm;
-                return true;
+                bestDist = d;
+                bestHit = p;
+                bestNormal = wallNormal;
+                found = true;
             }
+        }
+    }
+
+    private bool LineIntersection(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2, out Vector2 intersection)
+    {
+        intersection = Vector2.zero;
+        float d = (a2.x - a1.x) * (b2.y - b1.y) - (a2.y - a1.y) * (b2.x - b1.x);
+        if (Mathf.Abs(d) < 0.00001f) return false;
+
+        float t = ((b1.x - a1.x) * (b2.y - b1.y) - (b1.y - a1.y) * (b2.x - b1.x)) / d;
+        float u = ((b1.x - a1.x) * (a2.y - a1.y) - (b1.y - a1.y) * (a2.x - a1.x)) / d;
+
+        if (t >= -intersectionEpsilon && t <= 1f + intersectionEpsilon && 
+            u >= -intersectionEpsilon && u <= 1f + intersectionEpsilon)
+        {
+            intersection = a1 + Mathf.Clamp01(t) * (a2 - a1);
+            return true;
         }
         return false;
     }

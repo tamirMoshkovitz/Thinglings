@@ -397,6 +397,7 @@ GameObject:
   - component: {fileID: 5895499831207879091}
   - component: {fileID: 3085588465388589891}
   - component: {fileID: 3107913833878844164}
+  - component: {fileID: 25802869443304017}
   m_Layer: 14
   m_Name: Laser Attack Phase 2
   m_TagString: Untagged
@@ -557,6 +558,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &25802869443304017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4058794118731347485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0085c10cf0ac6249a39c99f131bb513, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LaserEdgeParticles
+  particlePrefab: {fileID: 4992838890569864994, guid: 21caefd5cfac4474cbb58d837c8ce0c3, type: 3}
+  laserObjects:
+  - {fileID: 7459454210612319277}
+  - {fileID: 122765167328313363}
+  - {fileID: 881268533623363113}
+  - {fileID: 4324309470656815563}
+  edgeBuffer: 0.25
+  intersectionEpsilon: 0.001
 --- !u!1 &4324309470656815563
 GameObject:
   m_ObjectHideFlags: 0
