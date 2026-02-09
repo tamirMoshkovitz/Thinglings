@@ -47,17 +47,28 @@ namespace _SLIME.Slime
             Rigidbody2D projectileRb = objectToJump.attachedRigidbody;
             GameObject projectileGo = projectileRb.gameObject;
 
-            Vector2 dirFromHit = ((Vector2)objectToJump.transform.position - hitpoint).normalized;
+            Vector2 dirFromHit = ((Vector2)objectToJump.transform.position - hitpoint);
             Vector2 vel = projectileRb.linearVelocity;
             Vector2 direction;
-            if (vel.sqrMagnitude > 0.01f)
+            bool hasDirFromHit = dirFromHit.sqrMagnitude > 0.0001f;
+            if (vel.sqrMagnitude > 0.001f)
             {
                 Vector2 dirFromVel = -vel.normalized;
-                direction = Vector2.Dot(dirFromHit, dirFromVel) < 0f ? dirFromVel : dirFromHit;
+                if (!hasDirFromHit)
+                {
+                    // No meaningful hit direction, fall back to velocity-based direction.
+                    direction = dirFromVel;
+                }
+                else
+                {
+                    Vector2 dirFromHitNorm = dirFromHit.normalized;
+                    direction = Vector2.Dot(dirFromHitNorm, dirFromVel) < 0f ? dirFromVel : dirFromHitNorm;
+                }
             }
             else
             {
-                direction = dirFromHit;
+                
+                direction = hasDirFromHit ? dirFromHit.normalized : Vector2.up;
             }
             
             float stretchForce = _trampolinePowerSettings.trampolinePowerCurve.Evaluate(_slimeData.StretchRatio);
