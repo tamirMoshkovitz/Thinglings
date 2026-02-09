@@ -33,10 +33,13 @@ public class IcicleSpawner : MonoBehaviour
 
     private readonly List<IcicleLogic> _iciclePool = new List<IcicleLogic>();
     private Coroutine _spawnCoroutine;
+    private Coroutine _currentWaveCoroutine;
 
     private float MinWaitTime => BossBrain.bossConfigurations.IcicleSpawn.minWaitTime;
     private float MaxWaitTime => BossBrain.bossConfigurations.IcicleSpawn.maxWaitTime;
     private bool LoopSpawning => BossBrain.bossConfigurations.IcicleSpawn.loopSpawning;
+    
+    public bool IsSpawning { get; private set; }
 
     private void Awake()
     {
@@ -63,6 +66,30 @@ public class IcicleSpawner : MonoBehaviour
         _spawnCoroutine = StartCoroutine(SpawnRoutine());
     }
 
+    /// <summary>
+    /// Stops any ongoing spawn routine and active icicle wave.
+    /// Also cancels icicles that were activated but haven't started falling yet.
+    /// </summary>
+    public void CancelSpawning()
+    {
+        if (_currentWaveCoroutine != null)
+        {
+            StopCoroutine(_currentWaveCoroutine);
+            _currentWaveCoroutine = null;
+        }
+
+        // Cancel any icicles that were spawned in this wave but haven't started falling yet.
+        foreach (var icicle in _iciclePool)
+        {
+            if (icicle != null && icicle.gameObject.activeSelf)
+            {
+                icicle.CancelPendingFall();
+            }
+        }
+
+        IsSpawning = false;
+    }
+
     // ReSharper disable Unity.PerformanceAnalysis
     private IEnumerator SpawnRoutine()
     {
@@ -73,7 +100,9 @@ public class IcicleSpawner : MonoBehaviour
         {
             if (spawnableStates.Contains(BossBrain.BossState))
             {
-                yield return StartCoroutine(SpawnIcicleWave());
+                _currentWaveCoroutine = StartCoroutine(SpawnIcicleWave());
+                yield return _currentWaveCoroutine;
+                _currentWaveCoroutine = null;
             }
 
             float waitTime = Random.Range(MinWaitTime, MaxWaitTime) / Mathf.Max(0.1f, spawnRateMultiplier);
@@ -83,6 +112,7 @@ public class IcicleSpawner : MonoBehaviour
 
     private IEnumerator SpawnIcicleWave()
     {
+        IsSpawning = true;
         var settings = BossBrain.bossConfigurations.IcicleSpawn;
         int count = Mathf.Clamp(Random.Range(settings.minIcicleCount, settings.maxIcicleCount + 1), 1, _iciclePool.Count);
         if (count <= 0) yield break;
@@ -134,6 +164,7 @@ public class IcicleSpawner : MonoBehaviour
             xPositions.Add(x);
         }
 
+        SFXPlayer.Play(icicleSpawnSfx);
         for (int i = 0; i < xPositions.Count; i++)
         {
             if (i > 0)
@@ -147,7 +178,7 @@ public class IcicleSpawner : MonoBehaviour
             icicle.ActivateFall();
             
         }
-        SFXPlayer.Play(icicleSpawnSfx);
+        IsSpawning = false;
     }
 
     private Vector3 GetSplinePointAtX(float targetWorldX)

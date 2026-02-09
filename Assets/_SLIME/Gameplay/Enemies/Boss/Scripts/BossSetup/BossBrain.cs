@@ -85,8 +85,13 @@ namespace _SLIME.Boss
         private static readonly int CloseHit = Animator.StringToHash("CloseHit");
         private static readonly int FarHit = Animator.StringToHash("FarHit");
         private static readonly int LaserHit = Animator.StringToHash("LaserHit");
+        
+        public IcicleSpawner spawner;
+        
         public static event Action CloseState;
         public static event Action FarState;
+        
+        
 
         public StateMachine StateMachine { get; private set; }
         public BossPhaseType CurrentPhase

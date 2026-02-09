@@ -69,8 +69,24 @@ public class IcicleLogic : MonoBehaviour
     public void ActivateFall()
     {
         if (_activeCoroutine != null) StopCoroutine(_activeCoroutine);
-        _spawnedParticle = Instantiate(particlePrefab, transform.position, Quaternion.identity, transform);
         _activeCoroutine = StartCoroutine(ActivateFallAfterDelay());
+        _spawnedParticle = Instantiate(particlePrefab, transform.position, Quaternion.identity, transform);
+    }
+
+    /// <summary>
+    /// Cancels a pending fall (before it started). Used by spawner when cancelling waves.
+    /// </summary>
+    public void CancelPendingFall()
+    {
+        if (_isFalling) return; // already falling or finished
+
+        if (_activeCoroutine != null)
+        {
+            StopCoroutine(_activeCoroutine);
+            _activeCoroutine = null;
+        }
+
+        gameObject.SetActive(false);
     }
 
     private IEnumerator ActivateFallAfterDelay()
