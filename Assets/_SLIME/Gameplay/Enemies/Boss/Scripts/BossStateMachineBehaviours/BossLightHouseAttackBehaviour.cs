@@ -20,6 +20,7 @@ namespace _SLIME.Boss
             _firstFloatDistanceDuration = Data.floatingAttributes.duration;
             Data.floatingAttributes.floatDistance = BossBrain.bossConfigurations.LightHouse.floatBossDistance;
             Data.floatingAttributes.duration = BossBrain.bossConfigurations.LightHouse.floatBossDuration;
+            Data.floatingAttributes.useFigureEight = true;
             lightHouseAttackLogic = Data.lightHouseAttackGameObject.GetComponent<LightHouseAttackLogic>();
         }
 
@@ -29,6 +30,7 @@ namespace _SLIME.Boss
             {
                 Data.floatingAttributes.floatDistance = _firstFloatDistance;
                 Data.floatingAttributes.duration = _firstFloatDistanceDuration;
+                Data.floatingAttributes.useFigureEight = false;
                 animator.SetTrigger(AttackFinished);
                 Data.lightHouseAttackGameObject.SetActive(false);
             }

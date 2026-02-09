@@ -11,6 +11,10 @@ namespace _SLIME.LightHouse
         public float farBeamSpeed;
         public float midBeamSpeed;
         public float closeBeamSpeed;
+        [Tooltip("Multiplier (>1) applied to beam speeds by the end of the attack.")]
+        [Min(1f)] public float beamSpeedMultiplier;
+        [Tooltip("Acceleration curve over normalized attack time (0=start, 1=end). 0 -> base speed, 1 -> base*multiplier.")]
+        public AnimationCurve beamSpeedCurve;
         [MinMaxSlider(0f, 360f)] public Vector2 angleFromMainBeam;
         [MinMaxSlider(0f, 360f)] public Vector2 mainBeamAngleFromSlimes;
         public float minBeamAngleDistance;
