@@ -20,6 +20,8 @@ namespace _SLIME.GameLoop
         public static Action WaterAttackEnded;
         public static Action SlimeWon;
         
+        public static Action ResetGame;
+        
         // FMOD Events
         public static Action FmodPhaseOne;
         public static Action FmodPhaseTwo;

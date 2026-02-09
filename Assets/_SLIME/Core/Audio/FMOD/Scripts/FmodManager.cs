@@ -6,6 +6,7 @@ using _SLIME.GameLoop;
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public class FmodManager : ProjectMonoBehavior
 {
@@ -38,6 +39,8 @@ public class FmodManager : ProjectMonoBehavior
         
         GameEvents.WaterAttackStarted += OnWaterAttackStarted;
         GameEvents.WaterAttackEnded += OnWaterAttackEnded;
+
+        GameEvents.ResetGame += OnResetGame;
     }
     
     private void OnDisable()
@@ -51,6 +54,8 @@ public class FmodManager : ProjectMonoBehavior
         
         GameEvents.WaterAttackStarted -= OnWaterAttackStarted;
         GameEvents.WaterAttackEnded -= OnWaterAttackEnded;
+
+        GameEvents.ResetGame -= OnResetGame;
     }
 
     private void SetBossPhaseOne()
@@ -115,5 +120,19 @@ public class FmodManager : ProjectMonoBehavior
         }
         
         eventInstance.setParameterByName(parameterName, targetValue);
+    }
+
+    private void OnResetGame()
+    {
+        ResetAllParameters();
+        _musicEmitter.EventInstance.stop(STOP_MODE.IMMEDIATE);
+        _musicEmitter.EventInstance.start();
+    }
+
+    private void ResetAllParameters()
+    {
+        RuntimeManager.StudioSystem.setParameterByNameWithLabel("battle scenes", "pinball");
+        RuntimeManager.StudioSystem.setParameterByName("first scene tension", 0f);
+        RuntimeManager.StudioSystem.setParameterByName("light", 0f);
     }
 }
