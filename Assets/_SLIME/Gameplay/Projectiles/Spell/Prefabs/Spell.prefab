@@ -14811,6 +14811,10 @@ MonoBehaviour:
       Data3: -1242466378
       Data4: 1229598122
     Path: event:/Spell bounce
+  deflectCooldownDuration: 0.5
+  drawDeflectGizmos: 1
+  deflectGizmoColor: {r: 0, g: 1, b: 1, a: 1}
+  deflectGizmoLength: 5
 --- !u!212 &2692822774988583523
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -35,6 +35,9 @@ namespace _SLIME.Projectiles
         [Header("Deflect Cooldown")]
         [SerializeField] private float deflectCooldownDuration = 0.5f;
         private float _lastDeflectTime = float.MinValue;
+        
+    
+        private float _lastHitTime = float.MinValue;
 
         private void OnEnable()
         {
@@ -53,10 +56,12 @@ namespace _SLIME.Projectiles
         
         public void Deflect(SpellSlimeAttributes attributes)
         {
+            if(_currentState != SpellState.Flying) return;
             float currentTime = Time.time;
             if (currentTime - _lastDeflectTime < deflectCooldownDuration)
                 return;
-
+            // If a hit was just handled in the last 0.05s, don't allow a deflect
+            if (currentTime - _lastHitTime <= 0.001f) return;
             _lastDeflectTime = currentTime;
             
             comp.collider.gameObject.layer = GetLayerFromMask(attributes.layerMask);
@@ -66,8 +71,13 @@ namespace _SLIME.Projectiles
             float finalPower = incomingSpeed * attributes.deflectionPower;
             comp.rb.AddForce(attributes.direction *  finalPower, ForceMode2D.Impulse);
             comp.animator.SetTrigger(PlayerMove);
+
+            // Mark this frame so we can ignore collision hits in the same frame.
+           
             
             SFXPlayer.Play(shootSFX);
+
+         
         }
         
         private void Shoot()
@@ -78,7 +88,8 @@ namespace _SLIME.Projectiles
             comp.animator.SetTrigger(BossMove);
             // SFXPlayer.Play(spellShootSFX); boss Shooting
         }
-        
+
+       
         public void OnSpawnFinished()
         {
             if (_currentState != SpellState.Spawning) return;
@@ -107,6 +118,9 @@ namespace _SLIME.Projectiles
 
         private void HandleImpact(IHealth target)
         {
+            // If a deflect was just done in the last 0.05s, ignore this hit
+            if (Time.time - _lastDeflectTime <= 0.001f) return;
+            _lastHitTime = Time.time;
             _currentState = SpellState.Hit;
             var currentSpeed = comp.rb.linearVelocity.magnitude;
             comp.rb.linearVelocity = Vector2.zero;
