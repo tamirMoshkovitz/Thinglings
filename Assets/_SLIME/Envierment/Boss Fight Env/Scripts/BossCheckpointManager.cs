@@ -1,3 +1,5 @@
+using System;
+using _SLIME.GameLoop;
 using UnityEngine;
 
 namespace _SLIME.Boss
@@ -26,6 +28,16 @@ namespace _SLIME.Boss
             {
                 Destroy(gameObject);
             }
+        }
+
+        private void OnEnable()
+        {
+            GameEvents.ResetGame += ResetCheckpoint;
+        }
+
+        private void OnDisable()
+        {
+            GameEvents.ResetGame -= ResetCheckpoint;
         }
 
         public void SaveCheckpoint(BossPhaseType phase)
