@@ -19,6 +19,8 @@ namespace _SLIME.Boss
         // Tracking toggles for alternation
         private bool _nextSpecialIsTop;
         private bool _isNextLeft;
+        private float _firstFloatDistanceDuration;
+        private float _firstFloatDistance;
 
         private class HandWrapper
         {
@@ -47,6 +49,8 @@ namespace _SLIME.Boss
             base.OnStateEnter(animator, stateInfo, layerIndex);
             Data.BossCloseState();
             TotalAttacksPreformed++;
+            
+            MakeBossNotFloating();
 
             // Initialize Wrappers
             _leftHands = Data.leftHandSplines.Select(h => new HandWrapper(h)).ToList();
@@ -60,6 +64,14 @@ namespace _SLIME.Boss
 
             ForceStopAllHands();
             _smashRoutine = Data.StartCoroutine(SmashRoutine(animator));
+        }
+
+        private void MakeBossNotFloating()
+        {
+            _firstFloatDistance = Data.floatingAttributes.floatDistance;
+            _firstFloatDistanceDuration = Data.floatingAttributes.duration;
+            Data.floatingAttributes.floatDistance = 0f;
+            Data.floatingAttributes.duration = 0f;
         }
 
         private IEnumerator SmashRoutine(Animator animator)
@@ -171,7 +183,14 @@ namespace _SLIME.Boss
         {
             if (_smashRoutine != null) Data.StopCoroutine(_smashRoutine);
             ForceStopAllHands();
+            MakeBossFloatingAgain();
             if (Data.centerDetector != null) Data.centerDetector.ResetTrigger();
+        }
+
+        private void MakeBossFloatingAgain()
+        {
+            Data.floatingAttributes.floatDistance = _firstFloatDistance;
+            Data.floatingAttributes.duration = _firstFloatDistanceDuration;
         }
     }
 }
