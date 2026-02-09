@@ -1,12 +1,13 @@
 using _SLIME.BaseScripts;
 using _SLIME.GameLoop;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _SLIME.Scenes.Ending.Scripts
 {
     public class EndingActivator: ProjectMonoBehavior
     {
-        [SerializeField] private GameObject end;
+        [SerializeField] private GameObject transitionToEnd;
         
         private bool _isSlimeWon;
         private bool _isTunnel;
@@ -37,7 +38,7 @@ namespace _SLIME.Scenes.Ending.Scripts
         private void ActivateEnd()
         {
             if (_isTunnel && _isSlimeWon)
-                end.SetActive(true);
+                transitionToEnd.SetActive(true);
         }
     }
 }
