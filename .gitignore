@@ -110,6 +110,7 @@ Assets/FMOD Assets/**/*.bak
 *.autosave
 *.bak
 
-# FMOD Unity integration cache/logs (should never be committed)
+# FMOD Unity integration cache/logs (NEVER commit)
 Assets/Plugins/FMOD/Cache/
+Assets/**/FMODStudioCache.asset
 fmod_editor.log
