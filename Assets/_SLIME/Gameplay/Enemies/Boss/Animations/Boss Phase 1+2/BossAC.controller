@@ -932,7 +932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d31fb1fcfaa97034485a13bf118e0dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Boss.BossAttackRandomizer
-  firstPhaseAttacks: 0000000000000000000000000000000002000000
+  firstPhaseAttacks: 02000000
   secondPhaseAttacks: 0200000002000000020000000200000000000000
   tunnelPhaseAttacks: 0400000004000000040000000400000001000000
 --- !u!1102 &-3932589265828635652
@@ -2806,7 +2806,7 @@ AnimatorStateMachine:
     m_Position: {x: 950, y: 430, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6864317244304007505}
-    m_Position: {x: -60, y: 750, z: 0}
+    m_Position: {x: -50, y: 720, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
