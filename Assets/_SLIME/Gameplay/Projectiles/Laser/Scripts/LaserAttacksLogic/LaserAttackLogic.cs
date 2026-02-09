@@ -25,6 +25,8 @@ namespace _SLIME.Laser
         {
             rightLaserCollider.enabled = false;
             leftLaserCollider.enabled = false;
+            if(upLaserCollider!= null)upLaserCollider.enabled = false;
+            if(downLaserCollider!= null) downLaserCollider.enabled = false;
         }
 
         private void OnDisable()
