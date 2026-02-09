@@ -50,15 +50,15 @@ namespace _SLIME.Slime
             Vector3 slime2Position = _sparkPowerDeps.slime2.transform.position;
             Vector3 middlePosition = (slime1Position + slime2Position) / 2f;
             
-            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(middlePosition, _sparkPowerSettings.sparkRadius, _sparkPowerSettings.enemyHitLayer);
-            foreach (var hitCollider in hitColliders)
-            {
-                var rig = hitCollider.attachedRigidbody;
-                if (rig && rig.TryGetComponent<IHealth>(out IHealth health))
-                {
-                    health.TakeDamage(_sparkPowerSettings.sparkDamage);
-                }
-            }
+            // Collider2D[] hitColliders = Physics2D.OverlapCircleAll(middlePosition, _sparkPowerSettings.sparkRadius, _sparkPowerSettings.enemyHitLayer);
+            // foreach (var hitCollider in hitColliders)
+            // {
+            //     var rig = hitCollider.attachedRigidbody;
+            //     if (rig && rig.TryGetComponent<IHealth>(out IHealth health))
+            //     {
+            //         health.TakeDamage(_sparkPowerSettings.sparkDamage);
+            //     }
+            // }
             
             Object.Instantiate(_sparkPowerDeps.sparkShader, middlePosition, Quaternion.identity);
             isActive = true;
