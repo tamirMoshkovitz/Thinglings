@@ -18,7 +18,7 @@ MonoBehaviour:
     handCooldown: 1
     totalHandsToUse: 4
     useBothHands: 0
-    phaseSpeedMultiplier: 1
+    maxSpecialHands: 0
   spawnAttackSettings:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
     projectileBeforeSpawnPrefab: {fileID: 4899053137042385202, guid: c35248b870a664833961bec195804c32, type: 3}
@@ -105,6 +105,12 @@ MonoBehaviour:
     maxWaitTime: 4
     loopSpawning: 1
     accuracyOffset: 0
+    minIcicleCount: 0
+    maxIcicleCount: 0
+    playerTargetChance: 0
+    minSpacingBetweenIcicles: 0
+    minDelayBetweenIcicles: 0
+    maxDelayBetweenIcicles: 0
   waterAttackSettings:
     waterDamage: 0
   lightHouseSettings:
@@ -112,13 +118,38 @@ MonoBehaviour:
     farBeamSpeed: 70
     midBeamSpeed: 90
     closeBeamSpeed: 120
+    beamSpeedMultiplier: 1.5
+    beamSpeedCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
     angleFromMainBeam: {x: 45, y: 200.21394}
     mainBeamAngleFromSlimes: {x: 15, y: 20}
     minBeamAngleDistance: 45
     timeToCheckForMainBeanSwitch: 20
     directionFlipTransitionDuration: 1
     directionFlipDeadZone: 8
-    floatBossDistance: 6
+    floatBossDistance: 8
     floatBossDuration: 3
   bossCoreSettings:
     maxHealth: 400

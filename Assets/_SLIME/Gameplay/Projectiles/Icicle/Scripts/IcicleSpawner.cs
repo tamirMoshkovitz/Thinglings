@@ -20,7 +20,7 @@ public class IcicleSpawner : MonoBehaviour
 
     [Header("Phase Filtering")]
     [Tooltip("Add the states here where icicles ARE allowed to spawn.")]
-    [SerializeField] private List<BossStates> spawnableStates = new List<BossStates> { BossStates.FarState };
+    [SerializeField] private List<BossStates> spawnableStates = new List<BossStates> { BossStates.FarState, BossStates.WaterState };
 
     [Header("Path Settings")]
     [SerializeField] private SplineContainer splineContainer;

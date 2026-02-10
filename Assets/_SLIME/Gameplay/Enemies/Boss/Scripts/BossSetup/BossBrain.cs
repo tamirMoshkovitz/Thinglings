@@ -64,7 +64,11 @@ namespace _SLIME.Boss
 
         [Header("Animation Setup")]
         public Animator animator;
-
+        
+        [Header("Animator Tunnel Setup")]
+        public AnimatorOverrideController tunnelOverrideController;
+        
+        
         [FormerlySerializedAs("laserAttackGameObject")] [Header("Laser Attack Setup")] 
         public GameObject laserAttackGameObjectPhase1;
         public GameObject laserAttackGameObjectPhase2;
@@ -197,6 +201,7 @@ namespace _SLIME.Boss
             
             ApplyDamage(finalDamageF);
         }
+        
 
         // this stupid to separate them, but I did for damage from water is different from spell damage
         public void ApplyDamage(float finalDamage)
