@@ -53,7 +53,7 @@ namespace _SLIME.Boss
             _timer = 0f;
             _isActive = true;
 
-            Vector3 spawnPos = _data != null ? _data.spawnDeps.spawnPoint.position : _spawnPoint.position;
+            Vector3 spawnPos = _data != null ? _data.SpawnPoint.position : _spawnPoint.position;
             float configuredAngle = _specials.bulletHellTotalAngle;
             float extraAngle = Mathf.Abs(configuredAngle);
             _densityPower = _specials.bulletHellMiddleDensityPower;
