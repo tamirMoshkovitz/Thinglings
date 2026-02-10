@@ -61,7 +61,7 @@ namespace _SLIME.Boss
         {
             _isActive = true;
             _spellSets = spellSets;
-            Vector3 spawnPos = _data != null ? _data.spawnDeps.spawnPoint.position : _spawnPoint.position;
+            Vector3 spawnPos = _data != null ? _data.SpawnPoint.position : _spawnPoint.position;
             bool isMiddle;
             Vector3 perfectTarget = GetPerfectTarget(spellSets.targetMiddleProbability, out isMiddle);
             _targetPosition = isMiddle
@@ -87,7 +87,7 @@ namespace _SLIME.Boss
 
         public SpellBeforeSpawn BeforeAttackEffect(Vector3 targetPosition)
         {
-            Vector3 spawnPos = _data != null ? _data.spawnDeps.spawnPoint.position : _spawnPoint.position;
+            Vector3 spawnPos = _data != null ? _data.SpawnPoint.position : _spawnPoint.position;
             Transform parent = _data != null ? _data.animator.transform : _parent;
             GameObject item = Object.Instantiate(_spellSpawnPrefab, spawnPos, _spellSpawnPrefab.transform.rotation, parent);
             var spellBeforeSpawn = item.GetComponent<SpellBeforeSpawn>();
@@ -130,7 +130,7 @@ namespace _SLIME.Boss
             if (SlimeData.instance.SideBDead) return slime1Pos;
             if (SlimeData.instance.SideADead) return slime2Pos;
 
-            Vector3 spawnPos = _data != null ? _data.spawnDeps.spawnPoint.position : _spawnPoint.position;
+            Vector3 spawnPos = _data != null ? _data.SpawnPoint.position : _spawnPoint.position;
             float dist1 = Vector3.Distance(spawnPos, slime1Pos);
             float dist2 = Vector3.Distance(spawnPos, slime2Pos);
             

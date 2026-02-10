@@ -80,7 +80,7 @@ namespace _SLIME.Boss
             Vector3 leftSlimePos = slime1Pos.x < slime2Pos.x ? slime1Pos : slime2Pos;
             Vector3 rightSlimePos = slime1Pos.x < slime2Pos.x ? slime2Pos : slime1Pos;
 
-            Vector3 spawnPos = _data != null ? _data.spawnDeps.spawnPoint.position : _spawnPoint.position;
+            Vector3 spawnPos = _data != null ? _data.SpawnPoint.position : _spawnPoint.position;
             float angleOffset = _data != null ? BossBrain.bossConfigurations.SpawnAttack.specialAttacksSettings.threeShotsAngle : _specialSettings.threeShotsAngle;
             _target1 = CalculateOffsetTarget(spawnPos, leftSlimePos, -angleOffset);
             _target2 = CalculateOffsetTarget(spawnPos, rightSlimePos, angleOffset);

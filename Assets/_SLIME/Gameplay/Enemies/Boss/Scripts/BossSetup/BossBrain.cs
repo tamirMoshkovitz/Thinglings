@@ -53,7 +53,12 @@ namespace _SLIME.Boss
         [SerializeField] public PlayerInCenterDetector centerDetector;
         
         [Header("Spawn Setup")]
-        public SpawnDeps spawnDeps;
+        [SerializeField] private SpawnDeps spawnDeps;
+
+        public Transform SpawnPoint =>
+            CurrentPhase == BossPhaseType.TunnelPhase
+                ? spawnDeps.spawnPointTunnelPhase
+                : spawnDeps.spawnPointFirstPhases;
         [HideInInspector] public bool slimesConnected = false;
         
         [Header("Health Setup")] 
