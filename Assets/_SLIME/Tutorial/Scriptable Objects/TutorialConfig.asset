@@ -40,8 +40,8 @@ MonoBehaviour:
     zoomEase: 1
     zoomSpeed: 1.5
   riseToBossStateSet:
-    topThresholdPercent: 10
-    moveSpeed: 2
+    topThresholdPercent: 30
+    moveSpeed: 7
     moveEase: 1
     cameraNotMovingTimeout: 5
   slimeConnectsStateSet:

@@ -91,8 +91,16 @@ namespace _SLIME.Tutorial
             Camera cam = _riseToBossStateDeps.mainCamera;
             float cameraCenter = cam.transform.position.y;
             float orthographicSize = cam.orthographicSize;
-            float thresholdPercentage = _riseToBossStateSet.topThresholdPercent / 100f;
-            float threshold = cameraCenter + orthographicSize * (1f - thresholdPercentage);
+            float thresholdPercentage = _riseToBossStateSet.topThresholdPercent / 100f; // e.g. 30 -> 0.3
+
+            // World Y of top and bottom of the camera
+            float topY = cameraCenter + orthographicSize;
+            float bottomY = cameraCenter - orthographicSize;
+            float screenHeight = topY - bottomY; // = 2 * orthographicSize
+
+            // Threshold is X% down from the TOP of the screen.
+            // For example: 30% => line ~30% down from top.
+            float threshold = topY - thresholdPercentage * screenHeight;
             
             float slime1Y = _riseToBossStateDeps.Slime1.transform.position.y;
             float slime2Y = _riseToBossStateDeps.Slime2.transform.position.y;
