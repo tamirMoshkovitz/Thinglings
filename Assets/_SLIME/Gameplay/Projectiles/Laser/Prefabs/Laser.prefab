@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8430363101264757224
 Transform:
   m_ObjectHideFlags: 0
@@ -40,7 +40,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 66362367073293880}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -199,6 +199,7 @@ GameObject:
   - component: {fileID: 3779431244950218602}
   - component: {fileID: 7118083879694311900}
   - component: {fileID: 7432639823482523507}
+  - component: {fileID: 1443141744385729026}
   m_Layer: 14
   m_Name: Laser
   m_TagString: Untagged
@@ -323,6 +324,27 @@ MonoBehaviour:
   - {fileID: 4782704634228196445}
   rightLaserCollider: {fileID: 0}
   leftLaserCollider: {fileID: 0}
+  upLaserCollider: {fileID: 0}
+  downLaserCollider: {fileID: 0}
+  laserSfx: {fileID: 0}
+--- !u!114 &1443141744385729026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964416140530120626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0085c10cf0ac6249a39c99f131bb513, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LaserEdgeManager
+  particlePrefab: {fileID: 4992838890569864994, guid: 21caefd5cfac4474cbb58d837c8ce0c3, type: 3}
+  laserObjects:
+  - {fileID: 66362367073293880}
+  - {fileID: 4782704634228196445}
+  edgeBuffer: 0.25
+  intersectionEpsilon: 0.001
 --- !u!1 &2043507157512133916
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,7 +565,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4782704634228196445}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}

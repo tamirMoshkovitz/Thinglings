@@ -136,6 +136,7 @@ namespace _SLIME.LightHouse
         private IEnumerator ActivateAttack()
         {
             float duration = Random.Range(_lightHouseSets.attackDuration.x, _lightHouseSets.attackDuration.y);
+            float totalDuration = Mathf.Max(0.01f, duration);
             float[] beamSpeeds = { _lightHouseSets.closeBeamSpeed, _lightHouseSets.midBeamSpeed, _lightHouseSets.farBeamSpeed };
             float transitionDuration = Mathf.Max(0.01f, _lightHouseSets.directionFlipTransitionDuration);
             float checkInterval = Mathf.Max(0.1f, _lightHouseSets.timeToCheckForMainBeanSwitch);
@@ -152,6 +153,11 @@ namespace _SLIME.LightHouse
                 float dt = Time.deltaTime;
                 duration -= dt;
                 timeSinceLastCheck += dt;
+
+                // Compute normalized time (0 at start, 1 at end) and acceleration factor
+                float normalizedTime = Mathf.Clamp01(1f - (duration / totalDuration));
+                float curveValue = _lightHouseSets.beamSpeedCurve.Evaluate(normalizedTime);
+                float speedMultiplier = Mathf.Lerp(1f, _lightHouseSets.beamSpeedMultiplier, curveValue);
                 
                 if (!_transitionInProgress && timeSinceLastCheck >= checkInterval)
                 {
@@ -170,7 +176,7 @@ namespace _SLIME.LightHouse
                 // Main beam dictates direction. Middle (index 1) always opposite to close (0) and far (2).
                 for (int i = 0; i < 3; i++)
                 {
-                    float beamSpeed = beamSpeeds[i];
+                    float beamSpeed = beamSpeeds[i] * speedMultiplier;
                     bool isMiddle = (i == 1);
                     float effective = isMiddle ? -_mainDirectionEffective : _mainDirectionEffective;
                     float currentZ = rotPoints[i].eulerAngles.z;

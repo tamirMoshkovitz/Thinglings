@@ -13,8 +13,14 @@ namespace _SLIME.Boss
         private List<HandWrapper> _leftHands;
         private List<HandWrapper> _rightHands;
 
-        private List<HandWrapper> _specialLeftHands;
-        private List<HandWrapper> _specialRightHands;
+        private List<HandWrapper> _specialLeftHands;  // Bottom Hands
+        private List<HandWrapper> _specialRightHands; // Top Hands
+
+        // Tracking toggles for alternation
+        private bool _nextSpecialIsTop;
+        private bool _isNextLeft;
+        private float _firstFloatDistanceDuration;
+        private float _firstFloatDistance;
 
         private class HandWrapper
         {
@@ -27,15 +33,15 @@ namespace _SLIME.Boss
 
             public void Activate()
             {
-                Root.SetActive(true);
+                if (Root != null) Root.SetActive(true);
             }
 
             public void Deactivate()
             {
-                if (Root.activeSelf) Root.SetActive(false);
+                if (Root != null && Root.activeSelf) Root.SetActive(false);
             }
 
-            public bool IsBusy => Root.activeSelf; 
+            public bool IsBusy => Root != null && Root.activeSelf; 
         }
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -43,14 +49,29 @@ namespace _SLIME.Boss
             base.OnStateEnter(animator, stateInfo, layerIndex);
             Data.BossCloseState();
             TotalAttacksPreformed++;
+            
+            MakeBossNotFloating();
 
+            // Initialize Wrappers
             _leftHands = Data.leftHandSplines.Select(h => new HandWrapper(h)).ToList();
             _rightHands = Data.rightHandSplines.Select(h => new HandWrapper(h)).ToList();
-            _specialLeftHands = Data.specialLeftHandSplines.Select(h => new HandWrapper(h)).ToList();
-            _specialRightHands = Data.specialRightHandSplines.Select(h => new HandWrapper(h)).ToList();
+            _specialLeftHands = Data.specialBottomHands.Select(h => new HandWrapper(h)).ToList();
+            _specialRightHands = Data.specialTopHands.Select(h => new HandWrapper(h)).ToList();
+
+            // Determine starting sides randomly
+            _isNextLeft = Random.value > 0.5f;
+            _nextSpecialIsTop = Random.value > 0.5f;
 
             ForceStopAllHands();
             _smashRoutine = Data.StartCoroutine(SmashRoutine(animator));
+        }
+
+        private void MakeBossNotFloating()
+        {
+            _firstFloatDistance = Data.floatingAttributes.floatDistance;
+            _firstFloatDistanceDuration = Data.floatingAttributes.duration;
+            Data.floatingAttributes.floatDistance = 0f;
+            Data.floatingAttributes.duration = 0f;
         }
 
         private IEnumerator SmashRoutine(Animator animator)
@@ -59,70 +80,74 @@ namespace _SLIME.Boss
             float cooldown = BossBrain.bossConfigurations.HandsAttack.handCooldown;
 
             int attacksLaunched = 0;
-            bool isNextLeft = Random.value > 0.5f; 
-            
-            bool hasPerformedSpecial = false;
+            int totalSpecialHandsPreformed = 0;
 
             while (attacksLaunched < totalAttacksToPerform)
             {
+                // Global interrupt for phase transitions
                 if (Data.WaterStateActivated)
                 {
-                    ForceStopAllHands();
-                    if (Data.centerDetector) Data.centerDetector.ResetTrigger();
-                    animator.SetTrigger(AttackFinished);
+                    HandleExitCleanup(animator);
                     yield break;
                 }
 
                 bool isSpecialTurn = Data.centerDetector 
                                      && Data.centerDetector.IsReadyToFire 
-                                     && !hasPerformedSpecial;
+                                     && totalSpecialHandsPreformed < BossBrain.bossConfigurations.HandsAttack.maxSpecialHands;
                 
                 HandWrapper handToFire = null;
 
                 if (isSpecialTurn)
                 {
-                    List<HandWrapper> specialList = isNextLeft ? _specialLeftHands : _specialRightHands;
+                    // Logic: Alternates specifically between Top (Right List) and Bottom (Left List)
+                    List<HandWrapper> specialList = _nextSpecialIsTop ? _specialRightHands : _specialLeftHands;
                     handToFire = GetRandomAvailableHand(specialList);
-                }
 
-                if (handToFire == null)
-                {
-                    List<HandWrapper> normalList = isNextLeft ? _leftHands : _rightHands;
-                    handToFire = GetRandomAvailableHand(normalList);
-                }
-
-                if (handToFire != null)
-                {
-                    handToFire.Activate();
-
-                    if (IsSpecialHand(handToFire))
+                    if (handToFire != null)
                     {
-                        hasPerformedSpecial = true;
+                        handToFire.Activate();
+                        totalSpecialHandsPreformed++;
+                        _nextSpecialIsTop = !_nextSpecialIsTop; // Alternate the special toggle
                         Data.centerDetector.ResetTrigger();
                     }
-                    else
+                }
+
+                // If no special was fired this frame (or it wasn't a special turn), fire a normal hand
+                if (handToFire == null)
+                {
+                    List<HandWrapper> normalList = _isNextLeft ? _leftHands : _rightHands;
+                    handToFire = GetRandomAvailableHand(normalList);
+
+                    if (handToFire != null)
                     {
+                        handToFire.Activate();
                         attacksLaunched++;
+                        _isNextLeft = !_isNextLeft; // Alternate the normal toggle
                     }
+                }
 
-                    isNextLeft = !isNextLeft;
-
+                // Wait for the next attack interval
+                if (handToFire != null)
+                {
                     yield return new WaitForSeconds(Mathf.Max(cooldown, 0.1f));
                 }
                 else
                 {
+                    // If no hands were available at all, wait a frame and retry
                     yield return null;
                 }
             }
 
+            // Wait for all active hand animations to finish
             yield return new WaitUntil(() => AllHandsFinished() || Data.WaterStateActivated);
 
-            if (Data.WaterStateActivated)
-            {
-                ForceStopAllHands();
-                if (Data.centerDetector) Data.centerDetector.ResetTrigger();
-            }
+            HandleExitCleanup(animator);
+        }
 
+        private void HandleExitCleanup(Animator animator)
+        {
+            ForceStopAllHands();
+            if (Data.centerDetector) Data.centerDetector.ResetTrigger();
             animator.SetTrigger(AttackFinished);
         }
 
@@ -143,11 +168,7 @@ namespace _SLIME.Boss
             if (sourceList == null || sourceList.Count == 0) return null;
             
             var available = sourceList.Where(h => !h.IsBusy).ToList();
-            if (available.Count > 0)
-            {
-                return available[Random.Range(0, available.Count)];
-            }
-            return null;
+            return available.Count > 0 ? available[Random.Range(0, available.Count)] : null;
         }
 
         private void ForceStopAllHands()
@@ -162,7 +183,14 @@ namespace _SLIME.Boss
         {
             if (_smashRoutine != null) Data.StopCoroutine(_smashRoutine);
             ForceStopAllHands();
+            MakeBossFloatingAgain();
             if (Data.centerDetector != null) Data.centerDetector.ResetTrigger();
+        }
+
+        private void MakeBossFloatingAgain()
+        {
+            Data.floatingAttributes.floatDistance = _firstFloatDistance;
+            Data.floatingAttributes.duration = _firstFloatDistanceDuration;
         }
     }
 }

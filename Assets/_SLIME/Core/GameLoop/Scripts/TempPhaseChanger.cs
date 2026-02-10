@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
 using _SLIME.Boss;
+using _SLIME.GameLoop;
 
 public class TempPhaseChanger : MonoBehaviour
 {
@@ -55,11 +57,13 @@ public class TempPhaseChanger : MonoBehaviour
     private void OnEnable()
     {
         TunnelPhaseState.TunnelPhaseStarted += OnPhaseChangeToTunnel;
+        GameEvents.SlimeWon += OnSlimeWon;
     }
     
     private void OnDisable()
     {
         TunnelPhaseState.TunnelPhaseStarted -= OnPhaseChangeToTunnel;
+        GameEvents.SlimeWon -= OnSlimeWon;
     }
 
     private void Start()
@@ -99,6 +103,27 @@ public class TempPhaseChanger : MonoBehaviour
     public void OnPhaseChangeToTunnel()
     {
         _conditionMet = true;
+    }
+
+    private void OnSlimeWon()
+    {
+        StartCoroutine(StopTunnelMovement());
+    }
+
+    private IEnumerator StopTunnelMovement()
+    {
+        float timer = 0f;
+        float initialSpeed = artConfigurations.tunnelMovementSettings.movementSpeed;
+
+        while (timer <= fadeDuration)
+        {
+            artConfigurations.tunnelMovementSettings.movementSpeed = Mathf.Lerp(initialSpeed, 0f, fadeCurve.Evaluate(timer));
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        artConfigurations.parallaxSettings.sensitivityMultiplierX = -0.1f;
+        artConfigurations.parallaxSettings.sensitivityMultiplierY = -0.1f;
+        _initialSpeed = 0f;
     }
     
 
@@ -152,11 +177,12 @@ public class TempPhaseChanger : MonoBehaviour
                 sr.color = c;
             }
         }
-
+        
         // When fade is done, trigger the next step
         if (progress >= 1f)
         {
             _isFading = false;
+            layerToFade.SetActive(false);
             StartMovementSequence();
         }
     }

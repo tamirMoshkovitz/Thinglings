@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BaseBossSettings
   handsAttackSettings:
     handWarningDuration: 1
-    handAttackDuration: 1.5
+    handAttackDuration: 1
     handCooldown: 1.5
-    totalHandsToUse: 4
+    totalHandsToUse: 5
     useBothHands: 0
-    phaseSpeedMultiplier: 1
+    maxSpecialHands: 2
   spawnAttackSettings:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
     projectileBeforeSpawnPrefab: {fileID: 4899053137042385202, guid: c35248b870a664833961bec195804c32, type: 3}
@@ -61,25 +61,25 @@ MonoBehaviour:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 1
-        outSlope: 1
-        tangentMode: 34
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
         time: 1
         value: 1
-        inSlope: 1
-        outSlope: 1
-        tangentMode: 34
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    rotationDuration: 6
+    rotationDuration: 4
     totalLoops: 1
     withSlimeDetection: 0
   icicleSpawnSettings:
@@ -87,6 +87,12 @@ MonoBehaviour:
     maxWaitTime: 10
     loopSpawning: 1
     accuracyOffset: 5
+    minIcicleCount: 2
+    maxIcicleCount: 4
+    playerTargetChance: 0.5
+    minSpacingBetweenIcicles: 4
+    minDelayBetweenIcicles: 1
+    maxDelayBetweenIcicles: 2
   waterAttackSettings:
     waterDamage: 0
   lightHouseSettings:

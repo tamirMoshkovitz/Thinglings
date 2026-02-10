@@ -14,6 +14,8 @@ namespace _SLIME.Laser
         [SerializeField] List<GameObject> laserCollidersGameObjects;
         [SerializeField] Collider2D rightLaserCollider;
         [SerializeField] Collider2D leftLaserCollider;
+        [SerializeField] private Collider2D upLaserCollider;
+        [SerializeField] private Collider2D downLaserCollider;
         [SerializeField] private ControlledSfx laserSfx;
         public bool IsRotating { get; private set; }
         
@@ -23,6 +25,8 @@ namespace _SLIME.Laser
         {
             rightLaserCollider.enabled = false;
             leftLaserCollider.enabled = false;
+            if(upLaserCollider!= null)upLaserCollider.enabled = false;
+            if(downLaserCollider!= null) downLaserCollider.enabled = false;
         }
 
         private void OnDisable()
@@ -30,7 +34,15 @@ namespace _SLIME.Laser
             HasFinishedAction = false;
             laserSfx.Stop();
         }
-        
+
+        private void ResetColliders()
+        {
+            rightLaserCollider.enabled = false;
+            leftLaserCollider.enabled = false;
+            if(upLaserCollider!= null) upLaserCollider.enabled = false;
+            if(downLaserCollider!= null) downLaserCollider.enabled = false;
+        }
+
         public void EnableRightLaserColliders() // called by animation event
         {
             rightLaserCollider.enabled = true;
@@ -40,6 +52,16 @@ namespace _SLIME.Laser
         public void EnableLeftLaserColliders() // called by animation event
         {
             leftLaserCollider.enabled = true;
+        }
+        
+        public void EnableDownLaserColliders() // called by animation event
+        {
+            if(downLaserCollider!=  null) downLaserCollider.enabled = true;
+        }
+            
+        public void EnableUpLaserColliders() // called by animation event
+        {
+            if(upLaserCollider!=  null) upLaserCollider.enabled = true;
         }
 
         /// <summary>Aligns laser Z rotation toward the midpoint between the two slimes. Call during LaserEnter when withSlimeDetection is true.</summary>
@@ -65,8 +87,10 @@ namespace _SLIME.Laser
         {
             StopRotation();
             float initialZ = transform.eulerAngles.z;
-            _rotationCoroutine = StartCoroutine(RotateRoutine(rotationCurve, rotationDuration, totalLoops, initialZ));
-            SwitchLaserColliders(true);
+            // 50% chance: sweep left (counter-clockwise) instead of right (clockwise)
+            int rotationDirection = UnityEngine.Random.value < 0.5f ? -1 : 1;
+            _rotationCoroutine = StartCoroutine(RotateRoutine(rotationCurve, rotationDuration, totalLoops, initialZ, rotationDirection));
+            //SwitchLaserColliders(true);
         }
 
         private static float NormalizeAngle(float a)
@@ -77,7 +101,8 @@ namespace _SLIME.Laser
         }
         public void StopRotation()
         {
-            SwitchLaserColliders(false);
+            //SwitchLaserColliders(false);
+            
             IsRotating = false;
             if (_rotationCoroutine == null) return;
             StopCoroutine(_rotationCoroutine);
@@ -94,12 +119,12 @@ namespace _SLIME.Laser
             }
         }
 
-        private IEnumerator RotateRoutine(AnimationCurve rotationCurve, float rotationDuration, int totalLoops, float initialZ)
+        private IEnumerator RotateRoutine(AnimationCurve rotationCurve, float rotationDuration, int totalLoops, float initialZ, int rotationDirection)
         {
             if (rotationDuration <= 0f) yield break;
             IsRotating = true;
             float elapsed = 0f;
-            float targetTotalDegrees = 360f * totalLoops;
+            float targetTotalDegrees = 360f * totalLoops * rotationDirection;
 
             while (elapsed < rotationDuration)
             {
@@ -113,11 +138,13 @@ namespace _SLIME.Laser
 
                 yield return null;
             }
-
+            ResetColliders();
             transform.rotation = Quaternion.Euler(0f, 0f, NormalizeAngle(initialZ + targetTotalDegrees));
             IsRotating = false;
             _rotationCoroutine = null;
         }
+        
+        
         
         private void OnTriggerEnter2D(Collider2D collision)
         {

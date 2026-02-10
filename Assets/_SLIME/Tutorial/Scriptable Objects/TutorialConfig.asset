@@ -40,8 +40,8 @@ MonoBehaviour:
     zoomEase: 1
     zoomSpeed: 1.5
   riseToBossStateSet:
-    topThresholdPercent: 10
-    moveSpeed: 2
+    topThresholdPercent: 30
+    moveSpeed: 7
     moveEase: 1
     cameraNotMovingTimeout: 5
   slimeConnectsStateSet:
@@ -114,6 +114,11 @@ MonoBehaviour:
   bossThrowsSpellStateSet:
     timeBetweenSpells: 4
     spellSpeed: 12
+    bossHealthBarThresholds:
+    - 1
+    - 0.7
+    - 0.3
+    - 0
   caveShakeStateSet:
     earthquakeUtil: {fileID: 11400000, guid: 215382b9c9aa1450380e08f096af46aa, type: 2}
   sceneMoveToFinalBattleStateSet:

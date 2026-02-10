@@ -9,14 +9,17 @@ namespace _SLIME.Boss
     {
         private static readonly int AttackFinished = Animator.StringToHash("AttackFinished");
         private LaserAttackLogic laserAttackLogic;
+        private GameObject _laser;
         
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
             Data.BossLaserState();
             TotalAttacksPreformed++;
-            Data.laserAttackGameObject.SetActive(true);
-            laserAttackLogic = Data.laserAttackGameObject.GetComponent<LaserAttackLogic>();
+            _laser = BossCheckpointManager.Instance.CurrentSavedPhase ==
+                    BossPhaseType.FirstPhase ? Data.laserAttackGameObjectPhase1 : Data.laserAttackGameObjectPhase2;
+            _laser.SetActive(true);
+            laserAttackLogic = _laser.GetComponent<LaserAttackLogic>();
         }
 
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -24,7 +27,7 @@ namespace _SLIME.Boss
             if (Data.WaterStateActivated || laserAttackLogic.HasFinishedAction)
             {
                 animator.SetTrigger(AttackFinished);
-                Data.laserAttackGameObject.SetActive(false);
+                _laser.SetActive(false);
             }
         }
         
