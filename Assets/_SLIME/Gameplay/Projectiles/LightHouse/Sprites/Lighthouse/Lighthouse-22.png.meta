@@ -1,0 +1,585 @@
+fileFormatVersion: 2
+guid: 43f48e97c12394d4e99337468d722392
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4979697608359258453
+    second: Lighthouse-22_0
+  - first:
+      213: 8419390380067822323
+    second: Lighthouse-22_1
+  - first:
+      213: 7868251018421086447
+    second: Lighthouse-22_2
+  - first:
+      213: 7518893116967098929
+    second: Lighthouse-22_3
+  - first:
+      213: -1951266651862042363
+    second: Lighthouse-22_4
+  - first:
+      213: 8063475873883000679
+    second: Lighthouse-22_5
+  - first:
+      213: -6206896000641789848
+    second: Lighthouse-22_6
+  - first:
+      213: 6948192780782602483
+    second: Lighthouse-22_7
+  - first:
+      213: 8423586147290422876
+    second: Lighthouse-22_8
+  - first:
+      213: 6714365254723029020
+    second: Lighthouse-22_9
+  - first:
+      213: -8750559012002389858
+    second: Lighthouse-22_10
+  - first:
+      213: 4285659112020745984
+    second: Lighthouse-22_11
+  - first:
+      213: -9087370760909207763
+    second: Lighthouse-22_12
+  - first:
+      213: -8138250115171944085
+    second: Lighthouse-22_13
+  - first:
+      213: -8201765488420473323
+    second: Lighthouse-22_14
+  - first:
+      213: 1741546658749800119
+    second: Lighthouse-22_15
+  - first:
+      213: -6291849968413650042
+    second: Lighthouse-22_16
+  - first:
+      213: -2114136493745503229
+    second: Lighthouse-22_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 54
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Lighthouse-22_0
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 362
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba652e4a86f84eab0800000000000000
+      internalID: -4979697608359258453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-22_1
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 300
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fa984d51fea7d470800000000000000
+      internalID: 8419390380067822323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-22_2
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 255
+        width: 60
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe8289c0d94a13d60800000000000000
+      internalID: 7868251018421086447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-22_3
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 287
+        width: 37
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13a14fcf379785860800000000000000
+      internalID: 7518893116967098929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-22_4
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 290
+        width: 41
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50972b18155bbe4e0800000000000000
+      internalID: -1951266651862042363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-22_5
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 255
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76f8abdc59837ef60800000000000000
+      internalID: 8063475873883000679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-22_6
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 211
+        width: 49
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86014f319fcacd9a0800000000000000
+      internalID: -6206896000641789848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-22_7
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 200
+        width: 56
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f80b716580fc6060800000000000000
+      internalID: 6948192780782602483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-22_8
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 211
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5e952c88f696e470800000000000000
+      internalID: 8423586147290422876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-22_9
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 174
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c18cdfbff973e2d50800000000000000
+      internalID: 6714365254723029020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-22_10
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 181
+        width: 24
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e902187e0f4cf8680800000000000000
+      internalID: -8750559012002389858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-22_11
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 113
+        width: 58
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00f99688148b97b30800000000000000
+      internalID: 4285659112020745984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-22_12
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 177
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d274cbd907c23e180800000000000000
+      internalID: -9087370760909207763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-22_13
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 124
+        width: 39
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b69f4e773a02f0f80800000000000000
+      internalID: -8138250115171944085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-22_14
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 75
+        width: 51
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 516b3ab3eb97d2e80800000000000000
+      internalID: -8201765488420473323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-22_15
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 134
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bedc8285773b2810800000000000000
+      internalID: 1741546658749800119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-22_16
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 89
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 683d6a41acbdea8a0800000000000000
+      internalID: -6291849968413650042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-22_17
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 36
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3040c936f0419a2e0800000000000000
+      internalID: -2114136493745503229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Lighthouse-22_0: -4979697608359258453
+      Lighthouse-22_1: 8419390380067822323
+      Lighthouse-22_10: -8750559012002389858
+      Lighthouse-22_11: 4285659112020745984
+      Lighthouse-22_12: -9087370760909207763
+      Lighthouse-22_13: -8138250115171944085
+      Lighthouse-22_14: -8201765488420473323
+      Lighthouse-22_15: 1741546658749800119
+      Lighthouse-22_16: -6291849968413650042
+      Lighthouse-22_17: -2114136493745503229
+      Lighthouse-22_2: 7868251018421086447
+      Lighthouse-22_3: 7518893116967098929
+      Lighthouse-22_4: -1951266651862042363
+      Lighthouse-22_5: 8063475873883000679
+      Lighthouse-22_6: -6206896000641789848
+      Lighthouse-22_7: 6948192780782602483
+      Lighthouse-22_8: 8423586147290422876
+      Lighthouse-22_9: 6714365254723029020
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

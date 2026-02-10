@@ -1,0 +1,429 @@
+fileFormatVersion: 2
+guid: 5bd264c1d864a489d8cd1f67b9e70144
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8188320269314352201
+    second: Lighthouse-13_0
+  - first:
+      213: 4802831898725741170
+    second: Lighthouse-13_1
+  - first:
+      213: 2564978736390108724
+    second: Lighthouse-13_2
+  - first:
+      213: -2851868978550106800
+    second: Lighthouse-13_3
+  - first:
+      213: 2141471119895189548
+    second: Lighthouse-13_4
+  - first:
+      213: 6267546322849650800
+    second: Lighthouse-13_5
+  - first:
+      213: 2516998508070320032
+    second: Lighthouse-13_6
+  - first:
+      213: -3938730400760949612
+    second: Lighthouse-13_7
+  - first:
+      213: 6820503261367727994
+    second: Lighthouse-13_8
+  - first:
+      213: 8320019747104330258
+    second: Lighthouse-13_9
+  - first:
+      213: 937922881392256617
+    second: Lighthouse-13_10
+  - first:
+      213: -2271738634806048994
+    second: Lighthouse-13_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 54
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Lighthouse-13_0
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 290
+        width: 48
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 944ec9fb6e1c2a170800000000000000
+      internalID: 8188320269314352201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-13_1
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 336
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27276775a2617a240800000000000000
+      internalID: 4802831898725741170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-13_2
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 243
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43676f62292a89320800000000000000
+      internalID: 2564978736390108724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-13_3
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 64
+        width: 214
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 055909b16402c68d0800000000000000
+      internalID: -2851868978550106800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-13_4
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 206
+        width: 24
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c285c1633a808bd10800000000000000
+      internalID: 2141471119895189548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-13_5
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 178
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07852ca7c2ccaf650800000000000000
+      internalID: 6267546322849650800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-13_6
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 178
+        width: 37
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a738b5becc2ee220800000000000000
+      internalID: 2516998508070320032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-13_7
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 121
+        width: 27
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4949c9c9191d659c0800000000000000
+      internalID: -3938730400760949612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-13_8
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 58
+        width: 45
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a777733649b47ae50800000000000000
+      internalID: 6820503261367727994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-13_9
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 47
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 212936ee0e5a67370800000000000000
+      internalID: 8320019747104330258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-13_10
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 32
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 966a81c24eb240d00800000000000000
+      internalID: 937922881392256617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-13_11
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 28
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e17cad17fb92970e0800000000000000
+      internalID: -2271738634806048994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Lighthouse-13_0: 8188320269314352201
+      Lighthouse-13_1: 4802831898725741170
+      Lighthouse-13_10: 937922881392256617
+      Lighthouse-13_11: -2271738634806048994
+      Lighthouse-13_2: 2564978736390108724
+      Lighthouse-13_3: -2851868978550106800
+      Lighthouse-13_4: 2141471119895189548
+      Lighthouse-13_5: 6267546322849650800
+      Lighthouse-13_6: 2516998508070320032
+      Lighthouse-13_7: -3938730400760949612
+      Lighthouse-13_8: 6820503261367727994
+      Lighthouse-13_9: 8320019747104330258
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
