@@ -1,0 +1,767 @@
+fileFormatVersion: 2
+guid: 8fa8c1e9fd47c4967bbd1d47698c605f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3235618003803681432
+    second: Press Options to exit this screen._0
+  - first:
+      213: -1516347929946003339
+    second: Press Options to exit this screen._1
+  - first:
+      213: -1480353550481900392
+    second: Press Options to exit this screen._2
+  - first:
+      213: 2011787336514291166
+    second: Press Options to exit this screen._3
+  - first:
+      213: 8712669297039486275
+    second: Press Options to exit this screen._4
+  - first:
+      213: 4270029230530199525
+    second: Press Options to exit this screen._5
+  - first:
+      213: 1686027876131914689
+    second: Press Options to exit this screen._6
+  - first:
+      213: 4653299135916561885
+    second: Press Options to exit this screen._7
+  - first:
+      213: -2088760992652796575
+    second: Press Options to exit this screen._8
+  - first:
+      213: 2705524928669892165
+    second: Press Options to exit this screen._9
+  - first:
+      213: 5241797024425829145
+    second: Press Options to exit this screen._10
+  - first:
+      213: -8699604937699323636
+    second: Press Options to exit this screen._11
+  - first:
+      213: -3198793306804782704
+    second: Press Options to exit this screen._12
+  - first:
+      213: 944772695692412081
+    second: Press Options to exit this screen._13
+  - first:
+      213: 4796386563860987628
+    second: Press Options to exit this screen._14
+  - first:
+      213: -3301764108908454063
+    second: Press Options to exit this screen._15
+  - first:
+      213: 619175822919875663
+    second: Press Options to exit this screen._16
+  - first:
+      213: -2873016305473663620
+    second: Press Options to exit this screen._17
+  - first:
+      213: 8337419379483018464
+    second: Press Options to exit this screen._18
+  - first:
+      213: -1123410758760823561
+    second: Press Options to exit this screen._19
+  - first:
+      213: 8564945951452639302
+    second: Press Options to exit this screen._20
+  - first:
+      213: 2251876649161600943
+    second: Press Options to exit this screen._21
+  - first:
+      213: 5583107778303985164
+    second: Press Options to exit this screen._22
+  - first:
+      213: 2405426724720633550
+    second: Press Options to exit this screen._23
+  - first:
+      213: -4211922296023984989
+    second: Press Options to exit this screen._24
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Press Options to exit this screen._0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 7
+        width: 16
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 892b3917e6937ec20800000000000000
+      internalID: 3235618003803681432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._1
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 7
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5786ba77799d4fae0800000000000000
+      internalID: -1516347929946003339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._2
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 7
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89cb9810a4ab47be0800000000000000
+      internalID: -1480353550481900392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._3
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 7
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed540947ced4beb10800000000000000
+      internalID: 2011787336514291166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._4
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 7
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34dad7f509e99e870800000000000000
+      internalID: 8712669297039486275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._5
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 7
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ef794a26f0324b30800000000000000
+      internalID: 4270029230530199525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._6
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 0
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c3cf3e9b69f56710800000000000000
+      internalID: 1686027876131914689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._7
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 7
+        width: 20
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd550fde8e6d39040800000000000000
+      internalID: 4653299135916561885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._8
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 7
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16ddc34a1fa3303e0800000000000000
+      internalID: -2088760992652796575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._9
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 7
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54e35509694fb8520800000000000000
+      internalID: 2705524928669892165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._10
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 7
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 913e9991f9a9eb840800000000000000
+      internalID: 5241797024425829145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._11
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 7
+        width: 12
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c019232d66bc44780800000000000000
+      internalID: -8699604937699323636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._12
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 7
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 099f0067f6a9b93d0800000000000000
+      internalID: -3198793306804782704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._13
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 7
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b40c38d2c18c1d00800000000000000
+      internalID: 944772695692412081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._14
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 7
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ceef360ea20309240800000000000000
+      internalID: 4796386563860987628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._15
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 7
+        width: 19
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15f90645907cd22d0800000000000000
+      internalID: -3301764108908454063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._16
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 7
+        width: 12
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4c36a26121c79800800000000000000
+      internalID: 619175822919875663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._17
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 7
+        width: 15
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7d465e54eef028d0800000000000000
+      internalID: -2873016305473663620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._18
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 7
+        width: 22
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e40b8980c674b370800000000000000
+      internalID: 8337419379483018464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._19
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 7
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f48533fdd7d860f0800000000000000
+      internalID: -1123410758760823561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._20
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 7
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64031ccb6fcccd670800000000000000
+      internalID: 8564945951452639302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._21
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 7
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: faf2647a1e5404f10800000000000000
+      internalID: 2251876649161600943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._22
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 7
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c06878c91fe2b7d40800000000000000
+      internalID: 5583107778303985164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._23
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 7
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec664349cdac16120800000000000000
+      internalID: 2405426724720633550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Press Options to exit this screen._24
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 7
+        width: 23
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a451fbccfe3c85c0800000000000000
+      internalID: -4211922296023984989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Press Options to exit this screen._0: 3235618003803681432
+      Press Options to exit this screen._1: -1516347929946003339
+      Press Options to exit this screen._10: 5241797024425829145
+      Press Options to exit this screen._11: -8699604937699323636
+      Press Options to exit this screen._12: -3198793306804782704
+      Press Options to exit this screen._13: 944772695692412081
+      Press Options to exit this screen._14: 4796386563860987628
+      Press Options to exit this screen._15: -3301764108908454063
+      Press Options to exit this screen._16: 619175822919875663
+      Press Options to exit this screen._17: -2873016305473663620
+      Press Options to exit this screen._18: 8337419379483018464
+      Press Options to exit this screen._19: -1123410758760823561
+      Press Options to exit this screen._2: -1480353550481900392
+      Press Options to exit this screen._20: 8564945951452639302
+      Press Options to exit this screen._21: 2251876649161600943
+      Press Options to exit this screen._22: 5583107778303985164
+      Press Options to exit this screen._23: 2405426724720633550
+      Press Options to exit this screen._24: -4211922296023984989
+      Press Options to exit this screen._3: 2011787336514291166
+      Press Options to exit this screen._4: 8712669297039486275
+      Press Options to exit this screen._5: 4270029230530199525
+      Press Options to exit this screen._6: 1686027876131914689
+      Press Options to exit this screen._7: 4653299135916561885
+      Press Options to exit this screen._8: -2088760992652796575
+      Press Options to exit this screen._9: 2705524928669892165
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
