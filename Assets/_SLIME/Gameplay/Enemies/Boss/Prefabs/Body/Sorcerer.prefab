@@ -665,6 +665,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FloatingMagic
   floatDistance: 0.5
   duration: 2
+  useFigureEight: 0
+  easeInDuration: 1.5
 --- !u!1 &1813331546449406860
 GameObject:
   m_ObjectHideFlags: 0
@@ -2484,6 +2486,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FloatingMagic
   floatDistance: 1.5
   duration: 5
+  useFigureEight: 0
+  easeInDuration: 1.5
 --- !u!50 &8472648192577018365
 Rigidbody2D:
   serializedVersion: 5
