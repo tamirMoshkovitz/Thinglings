@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{b56c4252-17e8-4c0a-b049-e6417ac0fd61}">
+		<property name="assetPath">
+			<value>New Folder/freesound_community-dad-potato-hello-28915.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>24</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>18.911999999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{51e98f54-bbac-4da6-a88a-a3691e25336c}</destination>
+		</relationship>
+	</object>
+</objects>
