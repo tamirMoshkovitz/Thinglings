@@ -48,12 +48,12 @@ public class PeekingCreature : MonoBehaviour
     {
         // This solves the dynamic sorting issue. 
         // It keeps the creature exactly 1 layer behind the parent at all times.
-        if (_parentGroup != null)
+        if (_parentGroup)
         {
             _myRenderer.sortingLayerID = _parentGroup.sortingLayerID;
             _myRenderer.sortingOrder = _parentGroup.sortingOrder - 1; 
         }
-        else if (_parentRenderer != null)
+        else if (_parentRenderer)
         {
             _myRenderer.sortingLayerID = _parentRenderer.sortingLayerID;
             _myRenderer.sortingOrder = _parentRenderer.sortingOrder - 1;
@@ -62,7 +62,6 @@ public class PeekingCreature : MonoBehaviour
 
     public void Peek()
     {
-        // If the object is physically disabled in the hierarchy, we can't start.
         if (_isBusy || !gameObject.activeInHierarchy) return;
         
         _myRenderer.enabled = true;

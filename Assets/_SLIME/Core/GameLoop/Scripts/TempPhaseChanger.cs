@@ -35,6 +35,13 @@ public class TempPhaseChanger : MonoBehaviour
     
     [Header("Icicle Spawner")]
     [SerializeField] IcicleSpawner spawner;
+    
+    [Header("Creatures Manager")]
+    [SerializeField] private GameObject creatureManager;
+    
+    [Header("Phase Specific GameObject Lists")]
+    [SerializeField] private List<GameObject> objectsToActivateInSecondPhase = new List<GameObject>();
+    [SerializeField] private List<GameObject> objectsToActivateInTunnelPhase = new List<GameObject>();
 
     // State Machine Flags
     private bool _conditionMet;
@@ -56,14 +63,35 @@ public class TempPhaseChanger : MonoBehaviour
 
     private void OnEnable()
     {
-        TunnelPhaseState.TunnelPhaseStarted += OnPhaseChangeToTunnel;
+        SecondPhaseState.SecondPhaseStarted += OnSecondPhaseStarted;
+        TunnelPhaseState.TunnelPhaseStarted += OnTunnelPhaseStarted;
         GameEvents.SlimeWon += OnSlimeWon;
     }
     
     private void OnDisable()
     {
-        TunnelPhaseState.TunnelPhaseStarted -= OnPhaseChangeToTunnel;
+        SecondPhaseState.SecondPhaseStarted -= OnSecondPhaseStarted;
+        TunnelPhaseState.TunnelPhaseStarted -= OnTunnelPhaseStarted;
+
         GameEvents.SlimeWon -= OnSlimeWon;
+    }
+
+    private void OnSecondPhaseStarted()
+    {
+        creatureManager.SetActive(true);
+        foreach (var obj in objectsToActivateInSecondPhase)
+        {
+            if (obj) obj.SetActive(true);
+        }
+    }
+
+    private void OnTunnelPhaseStarted()
+    {
+        _conditionMet = true;
+        foreach (var obj in objectsToActivateInTunnelPhase)
+        {
+            if (obj) obj.SetActive(true);
+        }
     }
 
     private void Start()
@@ -100,10 +128,7 @@ public class TempPhaseChanger : MonoBehaviour
         }
     }
     
-    public void OnPhaseChangeToTunnel()
-    {
-        _conditionMet = true;
-    }
+
 
     private void OnSlimeWon()
     {
@@ -124,6 +149,7 @@ public class TempPhaseChanger : MonoBehaviour
         artConfigurations.parallaxSettings.sensitivityMultiplierX = -0.1f;
         artConfigurations.parallaxSettings.sensitivityMultiplierY = -0.1f;
         _initialSpeed = 0f;
+        creatureManager.SetActive(false);
     }
     
 
