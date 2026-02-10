@@ -155,7 +155,6 @@ public class TempPhaseChanger : MonoBehaviour
 
     private void StartFadeSequence()
     {
-        // Step 1: Start Fade
         if (layerToFade && _fadeRenderers != null && _fadeRenderers.Length > 0)
         {
             _isFading = true;
@@ -163,18 +162,15 @@ public class TempPhaseChanger : MonoBehaviour
         }
         else
         {
-            // If there is nothing to fade, skip directly to movement
             StartMovementSequence();
         }
     }
 
     private void StartMovementSequence()
     {
-        // Step 2: Start Movement Ramp
         _isRampingMovement = true;
         _movementTimer = 0f;
-        // Capture start values at the moment the ramp begins
-        if (artConfigurations != null)
+        if (artConfigurations)
         {
             _initialSpeed = artConfigurations.tunnelMovementSettings.movementSpeed;
             _initialSensitivityX = artConfigurations.parallaxSettings.sensitivityMultiplierX;
@@ -204,7 +200,6 @@ public class TempPhaseChanger : MonoBehaviour
             }
         }
         
-        // When fade is done, trigger the next step
         if (progress >= 1f)
         {
             _isFading = false;
@@ -222,11 +217,10 @@ public class TempPhaseChanger : MonoBehaviour
 
         float newSpeed = Mathf.Lerp(_initialSpeed, targetSpeed, curveValue);
         
-        // Note: Preserving your negative logic from previous requests
         float newSensitivityX = Mathf.Lerp(-_initialSensitivityX, targetSensitivityX, curveValue);
         float newSensitivityY = Mathf.Lerp(-_initialSensitivityY, targetSensitivityY, curveValue);
         
-        if (artConfigurations != null)
+        if (artConfigurations)
         {
             artConfigurations.tunnelMovementSettings.movementSpeed = newSpeed;
             artConfigurations.parallaxSettings.sensitivityMultiplierX = -newSensitivityX;
@@ -262,7 +256,6 @@ public class TempPhaseChanger : MonoBehaviour
 
     private void ResetSpeed()
     {
-        // 1. Reset Configurations
         if (artConfigurations != null)
         {
             artConfigurations.tunnelMovementSettings.movementSpeed = 0f;
@@ -270,17 +263,14 @@ public class TempPhaseChanger : MonoBehaviour
             artConfigurations.parallaxSettings.sensitivityMultiplierY = -0.1f;
         }
 
-        // 2. Reset Faded Layer Opacity
-        if (_fadeRenderers != null)
+        if (_fadeRenderers == null) return;
+        foreach (var sr in _fadeRenderers)
         {
-            foreach (var sr in _fadeRenderers)
+            if (sr != null && _initialAlphas.ContainsKey(sr))
             {
-                if (sr != null && _initialAlphas.ContainsKey(sr))
-                {
-                    Color c = sr.color;
-                    c.a = _initialAlphas[sr];
-                    sr.color = c;
-                }
+                Color c = sr.color;
+                c.a = _initialAlphas[sr];
+                sr.color = c;
             }
         }
     }

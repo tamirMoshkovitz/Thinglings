@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering; // Required for SortingGroup
+using UnityEngine.Rendering;
 
 public class PeekingCreature : MonoBehaviour
 {
@@ -26,28 +26,20 @@ public class PeekingCreature : MonoBehaviour
     {
         _myRenderer = GetComponent<SpriteRenderer>();
         
-        // Find parent sorting context
         _parentGroup = GetComponentInParent<SortingGroup>();
         if (_parentGroup == null)
         {
             _parentRenderer = transform.parent?.GetComponent<SpriteRenderer>();
         }
-
-        // Bake the points relative to current placement and rotation
         _localStartPoint = transform.localPosition + (transform.localRotation * startOffset);
         _localEndPoint = transform.localPosition + (transform.localRotation * peekOffset);
 
         transform.localPosition = _localStartPoint;
-        
-        // CRITICAL: We keep the GameObject ACTIVE so the script runs, 
-        // but hide the visuals so it's not seen until Peek() is called.
         _myRenderer.enabled = false; 
     }
 
     void LateUpdate()
     {
-        // This solves the dynamic sorting issue. 
-        // It keeps the creature exactly 1 layer behind the parent at all times.
         if (_parentGroup)
         {
             _myRenderer.sortingLayerID = _parentGroup.sortingLayerID;
@@ -72,17 +64,14 @@ public class PeekingCreature : MonoBehaviour
     {
         _isBusy = true;
 
-        // Move Out
         yield return StartCoroutine(MoveSmooth(_localStartPoint, _localEndPoint, moveDuration));
         
-        // Hold
         yield return new WaitForSeconds(peekStayTime);
 
-        // Move Back
         yield return StartCoroutine(MoveSmooth(_localEndPoint, _localStartPoint, moveDuration));
 
         _isBusy = false;
-        _myRenderer.enabled = false; // Hide visuals again
+        _myRenderer.enabled = false;
     }
 
     private IEnumerator MoveSmooth(Vector3 from, Vector3 to, float duration)
@@ -93,7 +82,6 @@ public class PeekingCreature : MonoBehaviour
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / duration);
             
-            // Smootherstep interpolation: 3t^2 - 2t^3
             t = t * t * (3f - 2f * t); 
             
             transform.localPosition = Vector3.Lerp(from, to, t);
