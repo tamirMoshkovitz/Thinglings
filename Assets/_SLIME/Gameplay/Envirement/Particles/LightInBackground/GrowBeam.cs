@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class GrowBeam : MonoBehaviour
 {
-    [Header("מיקום ומעקב")]
-    [Tooltip("גרור לפה את האובייקט שאתה רוצה שהאור יעקוב אחריו (למשל הבוס)")]
+    [Header("Position & Follow")]
+    [Tooltip("Drag here the object you want the light beam to follow (e.g., the boss)")]
     public Transform targetToFollow;
-    [Tooltip("המרחק של האור מהאובייקט (בד״כ נרצה שה-Y יהיה גבוה יותר)")]
+    [Tooltip("Offset of the light from the target (usually Y is higher)")]
     public Vector3 offset = new Vector3(0, 5, 0);
 
-    [Header("אנימציית פתיחה")]
+    [Header("Opening Animation")]
     public float growTime = 1.5f;
 
-    [Header("אנימציית תזוזה (Sway)")]
+    [Header("Sway Animation")]
     public float swaySpeed = 1.0f;
     public float swayDistance = 0.5f;
     public float randomOffset = 0f;
