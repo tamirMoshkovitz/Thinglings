@@ -1,0 +1,481 @@
+fileFormatVersion: 2
+guid: bc12e0a25522a429f94fda54b35ac6c6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3987639628658275318
+    second: Lighthouse-19_0
+  - first:
+      213: 9033974525834711337
+    second: Lighthouse-19_1
+  - first:
+      213: 538860596961384523
+    second: Lighthouse-19_2
+  - first:
+      213: 2466415042964157865
+    second: Lighthouse-19_3
+  - first:
+      213: -5360036173611833257
+    second: Lighthouse-19_4
+  - first:
+      213: 5825523584106463179
+    second: Lighthouse-19_5
+  - first:
+      213: 3961003227515036172
+    second: Lighthouse-19_6
+  - first:
+      213: -5564178236938445037
+    second: Lighthouse-19_7
+  - first:
+      213: -5694336043198814011
+    second: Lighthouse-19_8
+  - first:
+      213: 8861187040806838070
+    second: Lighthouse-19_9
+  - first:
+      213: -4325183166857003300
+    second: Lighthouse-19_10
+  - first:
+      213: 2912297109681896180
+    second: Lighthouse-19_11
+  - first:
+      213: -987493514962432598
+    second: Lighthouse-19_12
+  - first:
+      213: 1380702901907101202
+    second: Lighthouse-19_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 54
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Lighthouse-19_0
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 332
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f372766d11f65730800000000000000
+      internalID: 3987639628658275318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-19_1
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 321
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9215e4a97ff1f5d70800000000000000
+      internalID: 9033974525834711337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-19_2
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 318
+        width: 29
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b489651abda6a7700800000000000000
+      internalID: 538860596961384523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-19_3
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 72
+        width: 210
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a5fe88f9677a3220800000000000000
+      internalID: 2466415042964157865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-19_4
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 288
+        width: 24
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7586f90bf735d95b0800000000000000
+      internalID: -5360036173611833257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-19_5
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 263
+        width: 25
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcf7355b5da68d050800000000000000
+      internalID: 5825523584106463179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-19_6
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 231
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c02a53af27f48f630800000000000000
+      internalID: 3961003227515036172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-19_7
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 177
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31f1350bf5118c2b0800000000000000
+      internalID: -5564178236938445037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-19_8
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 153
+        width: 32
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c86e61e987a9f0b0800000000000000
+      internalID: -5694336043198814011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-19_9
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 145
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63f169f3aa249fa70800000000000000
+      internalID: 8861187040806838070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-19_10
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 134
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cde3df653dcd9f3c0800000000000000
+      internalID: -4325183166857003300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-19_11
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 57
+        width: 20
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fa7cfe8ace8a6820800000000000000
+      internalID: 2912297109681896180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-19_12
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 43
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aad89ae41e7bb42f0800000000000000
+      internalID: -987493514962432598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lighthouse-19_13
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 69
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 216168859fd392310800000000000000
+      internalID: 1380702901907101202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Lighthouse-19_0: 3987639628658275318
+      Lighthouse-19_1: 9033974525834711337
+      Lighthouse-19_10: -4325183166857003300
+      Lighthouse-19_11: 2912297109681896180
+      Lighthouse-19_12: -987493514962432598
+      Lighthouse-19_13: 1380702901907101202
+      Lighthouse-19_2: 538860596961384523
+      Lighthouse-19_3: 2466415042964157865
+      Lighthouse-19_4: -5360036173611833257
+      Lighthouse-19_5: 5825523584106463179
+      Lighthouse-19_6: 3961003227515036172
+      Lighthouse-19_7: -5564178236938445037
+      Lighthouse-19_8: -5694336043198814011
+      Lighthouse-19_9: 8861187040806838070
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
