@@ -2,70 +2,80 @@ using UnityEngine;
 
 public class GrowBeam : MonoBehaviour
 {
-    [Header("הגדרות פתיחה")]
-    [Tooltip("הזמן בשניות שלוקח לאור להגיע עד למטה")]
+    [Header("מיקום ומעקב")]
+    [Tooltip("גרור לפה את האובייקט שאתה רוצה שהאור יעקוב אחריו (למשל הבוס)")]
+    public Transform targetToFollow;
+    [Tooltip("המרחק של האור מהאובייקט (בד״כ נרצה שה-Y יהיה גבוה יותר)")]
+    public Vector3 offset = new Vector3(0, 5, 0);
+
+    [Header("אנימציית פתיחה")]
     public float growTime = 1.5f;
 
-    [Header("הגדרות תנועה (Sway)")]
-    [Tooltip("כמה מהר האור זז ימינה ושמאלה")]
-    public float swaySpeed = 1.0f; 
-    [Tooltip("המרחק המקסימלי שהאור זז מהמרכז")]
+    [Header("אנימציית תזוזה (Sway)")]
+    public float swaySpeed = 1.0f;
     public float swayDistance = 0.5f;
-    [Tooltip("הוסף גיוון כדי שלא כל האורות יזוזו באותו סנכרון")]
     public float randomOffset = 0f;
 
     private LineRenderer line;
-    private Vector3 startPoint; // התקרה
-    private Vector3 endPointBase; // הרצפה (המיקום המקורי)
-    private float initialWidthMultiplier; 
+    private Vector3 startPointLocal; // נקודה עליונה (לוקאלית)
+    private Vector3 endPointLocalBase; // נקודה תחתונה מקורית (לוקאלית)
+    private float initialWidthMultiplier;
     private float timer;
 
     void Awake()
     {
         line = GetComponent<LineRenderer>();
         
-        // שמירת המיקומים המקוריים
-        startPoint = line.GetPosition(0); 
-        endPointBase = line.GetPosition(1);
+        // מוודאים שהקו עובד במרחב לוקאלי כדי שיזוז עם האובייקט
+        line.useWorldSpace = false;
+
+        // שומרים את הנקודות כפי שציירת אותן בסצנה
+        startPointLocal = line.GetPosition(0);
+        endPointLocalBase = line.GetPosition(1);
         initialWidthMultiplier = line.widthMultiplier;
 
-        // אם לא הגדרת אופסט ידני, ניצור אחד רנדומלי כדי שזה ייראה טבעי
         if (randomOffset == 0) randomOffset = Random.Range(0f, 10f);
     }
 
     void OnEnable()
     {
         timer = 0f;
-        line.SetPosition(1, startPoint);
-        line.widthMultiplier = 0f; 
+        line.SetPosition(1, startPointLocal);
+        line.widthMultiplier = 0f;
     }
 
     void Update()
     {
-        // 1. חישוב הנדנוד (תמיד קורה, גם בזמן הגדילה וגם אחרי)
-        // משתמשים ב-Sinus בשילוב עם הזמן כדי לקבל מספר שעולה ויורד בין -1 ל 1
+        // --- חלק 1: מעקב אחרי האובייקט ---
+        if (targetToFollow != null)
+        {
+            // מזיזים את כל האובייקט של האור למיקום של המטרה + האופסט
+            transform.position = targetToFollow.position + offset;
+        }
+
+        // --- חלק 2: חישוב הנדנוד ---
         float swayX = Mathf.Sin((Time.time + randomOffset) * swaySpeed) * swayDistance;
         
-        // יצירת נקודת יעד חדשה שהיא המקור + הסטייה של הנדנוד
-        Vector3 targetWithSway = endPointBase + new Vector3(swayX, 0, 0);
+        // הנדנוד מחושב ביחס למיקום הלוקאלי
+        Vector3 targetLocalPos = endPointLocalBase + new Vector3(swayX, 0, 0);
 
-        // 2. חישוב הגדילה (הפתיחה של האור)
+        // --- חלק 3: גדילה ועדכון הקו ---
         if (timer < growTime)
         {
             timer += Time.deltaTime;
             float progress = timer / growTime;
             float smoothProgress = Mathf.SmoothStep(0f, 1f, progress);
 
-            // אינטרפולציה (הדרגה) בין ההתחלה ליעד המתנדנד
-            Vector3 currentPos = Vector3.Lerp(startPoint, targetWithSway, smoothProgress);
-            
+            // אינטרפולציה בין התקרה לרצפה המתנדנדת
+            Vector3 currentPos = Vector3.Lerp(startPointLocal, targetLocalPos, smoothProgress);
+
             line.SetPosition(1, currentPos);
             line.widthMultiplier = Mathf.Lerp(0f, initialWidthMultiplier, smoothProgress);
         }
         else
         {
-            // גם כשהגדילה הסתיימה, ממשיכים לעדכן את המיקום לפי הנדנוד
-            line.SetPosition(1, targetWithSway);
+            // סיום הגדילה - רק נדנוד
+            line.SetPosition(1, targetLocalPos);
             line.widthMultiplier = initialWidthMultiplier;
         }
     }
