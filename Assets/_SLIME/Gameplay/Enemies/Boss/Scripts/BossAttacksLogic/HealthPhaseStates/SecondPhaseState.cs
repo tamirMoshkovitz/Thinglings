@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using _SLIME.Boss;
 using _SLIME.GameLoop;
@@ -8,7 +7,6 @@ public class SecondPhaseState : State
 {
     private readonly BaseBossConfigurations _secondPhaseConfigurations;
     private readonly BossBrain _bossBrain;
-    public static event Action SecondPhaseStarted;
 
     public SecondPhaseState(StateMachine stateMachine, BossBrain bossBrain, BaseBossConfigurations secondPhaseConfigurations) : base(stateMachine)
     {
@@ -23,7 +21,6 @@ public class SecondPhaseState : State
         EnterHealth = _bossBrain.currentHealth;
         BossBrain.bossConfigurations = _secondPhaseConfigurations;
         _bossBrain.SavePhaseCheckpoint(BossPhaseType.SecondPhase);
-        SecondPhaseStarted?.Invoke();
     }
     
     public override void LogicUpdate()

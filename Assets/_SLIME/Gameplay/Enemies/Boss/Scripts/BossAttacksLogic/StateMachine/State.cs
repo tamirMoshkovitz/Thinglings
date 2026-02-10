@@ -16,6 +16,7 @@ public class State
     // this is enumerator because we dont wont the phase to start before water attack finished
     public virtual IEnumerator Enter()
     {
+        Debug.Log("Entering State: " + this.GetType().Name);
         active = true;
         DoChecks();
         yield break;
