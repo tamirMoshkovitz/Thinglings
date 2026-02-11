@@ -54,6 +54,8 @@ namespace _SLIME.Projectiles
 
         }
         
+        
+        
         public void Deflect(SpellSlimeAttributes attributes)
         {
             if(_currentState != SpellState.Flying) return;
