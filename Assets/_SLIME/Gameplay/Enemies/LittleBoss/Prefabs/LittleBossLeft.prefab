@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 447582257755379418}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.12, y: -0.18, z: 0}
+  m_LocalPosition: {x: 0.12, y: -0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46,7 +46,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8116216961035543745
 Transform:
   m_ObjectHideFlags: 0
@@ -131,6 +131,13 @@ MonoBehaviour:
       spawnPoint: {fileID: 9211790113479302608}
       parent: {fileID: 0}
       animator: {fileID: 8302531227514783361}
+  entrySFX:
+    Guid:
+      Data1: 894348427
+      Data2: 1171169034
+      Data3: 293989805
+      Data4: 1898506358
+    Path: event:/Lil Boss Transform
 --- !u!50 &9053672311103651051
 Rigidbody2D:
   serializedVersion: 5

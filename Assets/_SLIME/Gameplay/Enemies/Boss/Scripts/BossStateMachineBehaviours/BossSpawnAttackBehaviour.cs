@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _SLIME.Slime;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace _SLIME.Boss
@@ -34,7 +35,8 @@ namespace _SLIME.Boss
     [Serializable]
     public struct SpawnDeps
     {
-        public Transform spawnPoint;
+        [FormerlySerializedAs("spawnPoint")] public Transform spawnPointFirstPhases;
+        public Transform spawnPointTunnelPhase;
     }
     
     public class BossSpawnAttackBehaviour : BossBaseBehaviour

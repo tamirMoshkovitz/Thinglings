@@ -162,7 +162,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcycleLogic
   icicleAnimator: {fileID: 2035072208797090170}
   animatorVariants: []
-  IcicleBreakSFX:
+  particlePrefab: {fileID: 0}
+  fallDelay: 0.5
+  icicleBreakSfx:
     Guid:
       Data1: 753019380
       Data2: 1146157109

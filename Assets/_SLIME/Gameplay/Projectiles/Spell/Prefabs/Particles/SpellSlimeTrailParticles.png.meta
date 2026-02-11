@@ -262,7 +262,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpellSlimeTrailParticles_6
+      name: SpellSlimeTrailParticles_Empty
       rect:
         serializedVersion: 2
         x: 93
@@ -270,7 +270,7 @@ TextureImporter:
         width: 12
         height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -304,8 +304,8 @@ TextureImporter:
       SpellSlimeTrailParticles_3: -8600827663948657401
       SpellSlimeTrailParticles_4: -225043070958565416
       SpellSlimeTrailParticles_5: 6909904574913089670
-      SpellSlimeTrailParticles_6: 1629012691336449838
       SpellSlimeTrailParticles_9: 6800197717888498626
+      SpellSlimeTrailParticles_Empty: 1629012691336449838
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
