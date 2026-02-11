@@ -6,6 +6,7 @@ namespace _SLIME.Boss
 {
     public class BulletHellLogic : ISpellAttackLogic
     {
+        private static readonly int Do8Spells = Animator.StringToHash("Do8Spells");
         private const int TotalShots = 8;
 
         private readonly OneSpellShotLogic _oneSpellShotLogic;
@@ -45,6 +46,7 @@ namespace _SLIME.Boss
 
         public void Attack(SpellSettings spellSets)
         {
+            _data.animator.SetTrigger(Do8Spells);
             _spellSets = spellSets;
             _spellSets.attackAccuracyRange = Vector2.one;
             _spellSets.attackSpeedRange = new Vector2(spellSets.attackSpeedRange.x, spellSets.attackSpeedRange.x);
