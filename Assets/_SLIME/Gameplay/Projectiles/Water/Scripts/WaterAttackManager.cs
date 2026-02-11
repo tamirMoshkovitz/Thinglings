@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using _SLIME.Boss;
 using _SLIME.Core.Audio.FMOD.Scripts;
 using _SLIME.Envierment.Earthquake.Scriptables;
@@ -8,6 +9,7 @@ using _SLIME.Slime;
 using FMODUnity;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class WaterAttackManager : MonoBehaviour
 {
@@ -35,15 +37,14 @@ public class WaterAttackManager : MonoBehaviour
     [Header("Earthquake Effect")]
     [SerializeField] private EarthquakeUtil earthquakeUtil;
     [SerializeField] private Camera camera;
-    [SerializeField] private Animator iciclesAnimator;
+    [SerializeField] private List<GameObject> iciclesParticles;
 
     [Header("SFX")]
     [SerializeField] private EventReference watterAttackSFX;
     
-    private readonly int _stalactites = Animator.StringToHash("Broken Stalactites");
-
     private bool _isLeftZoneActive;
     private bool _isRightZoneActive;
+    private bool _attacked;
     private int waterAttackResult = BossWon;
     
     private Coroutine _attackRoutine;
@@ -67,6 +68,7 @@ public class WaterAttackManager : MonoBehaviour
     private void OnDisable()
     {
         TunnelPhaseState.BossDead -= OnBossDead;
+        _attacked = false;
     }
 
     private void CheckSynchronization()
@@ -80,21 +82,14 @@ public class WaterAttackManager : MonoBehaviour
                 _attackRoutine = StartCoroutine(AttackSequence());
             }
         }
-        // else
-        // {
-        //     if (_attackRoutine != null)
-        //     {
-        //         StopCoroutine(_attackRoutine);
-        //         _attackRoutine = null;
-        //         GameEvents.WaterAttackEnded?.Invoke();
-        //     }
-        //     
-        //     CanAttack = false;
-        // }
     }
 
     private IEnumerator AttackSequence()
     {
+        if (_attacked) yield break;
+        _attacked = true;
+
+        StartCoroutine(TriggerEarthquake());
         SFXPlayer.Play(watterAttackSFX);
         Debug.Log("water attack started");
 
@@ -106,7 +101,6 @@ public class WaterAttackManager : MonoBehaviour
         SlimeEvents.SlimeInWaterPosition?.Invoke(slimeToPlaceDuration);
         yield return new WaitForSeconds(slimeToPlaceDuration);
         TriggerBoth(CreaturesInsideTrigger);
-        StartCoroutine(TriggerEarthquake());
         yield return AttackModeCoroutine();
 
         yield return new WaitForSeconds(1f);
@@ -160,12 +154,15 @@ public class WaterAttackManager : MonoBehaviour
 
     private void spawnSpell(Vector3 from)
     {
-        Instantiate(waterSpellPrefab, from, Quaternion.identity);
+        Vector3 spawnPosition = from + Vector3.up * Random.Range(-.5f, .5f);
+        Instantiate(waterSpellPrefab, spawnPosition, Quaternion.identity);
     }
 
     private IEnumerator TriggerEarthquake()
     {
-        yield return earthquakeUtil.EarthquakeCoroutine(camera, iciclesAnimator, _stalactites);
+        yield return earthquakeUtil.EarthquakeCoroutine(camera, null, 0);
+
+        StartCoroutine(ActivateIcicleFall());
     }
 
     private void OnBossDead()
@@ -173,11 +170,6 @@ public class WaterAttackManager : MonoBehaviour
         waterAttackResult = SlimeWon;
         GameEvents.SlimeWon?.Invoke();
     }
-
-    // private bool IsLastWaterAttack()
-    // {
-    //     return BossCheckpointManager.Instance.CurrentSavedPhase == BossPhaseType.TunnelPhase;
-    // }
 
     private float TimeToMagicOut
     {
@@ -210,6 +202,18 @@ public class WaterAttackManager : MonoBehaviour
                     return spawnInterval / 2f;
             }
             return spawnInterval;
+        }
+    }
+
+    private IEnumerator ActivateIcicleFall()
+    {
+        if (BossCheckpointManager.Instance.CurrentSavedPhase == BossPhaseType.TunnelPhase)
+            yield break;
+        
+        for (int i = 0; i < iciclesParticles.Count; i++)
+        {
+            yield return new WaitForSeconds(Random.Range(0f, 1f));
+            iciclesParticles[i].SetActive(true);
         }
     }
 }

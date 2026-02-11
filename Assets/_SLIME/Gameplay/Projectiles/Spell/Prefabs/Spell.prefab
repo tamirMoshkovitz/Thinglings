@@ -14812,9 +14812,6 @@ MonoBehaviour:
       Data4: 1229598122
     Path: event:/Spell bounce
   deflectCooldownDuration: 0.5
-  drawDeflectGizmos: 1
-  deflectGizmoColor: {r: 0, g: 1, b: 1, a: 1}
-  deflectGizmoLength: 5
 --- !u!212 &2692822774988583523
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -43986,7 +43983,7 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9219921866110431799}
   m_Enabled: 1
-  m_SortingLayerID: 327413617
-  m_SortingLayer: 3
+  m_SortingLayerID: -1155970319
+  m_SortingLayer: 7
   m_SortingOrder: 6
   m_SortAtRoot: 0
