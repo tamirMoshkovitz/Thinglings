@@ -6834,6 +6834,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2217689477968833607, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2476002557906034204, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -6902,9 +6906,25 @@ PrefabInstance:
       propertyPath: handWarningSfx.Guid.Data4
       value: -368852886
       objectReference: {fileID: 0}
+    - target: {fileID: 2648364949158028446, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0822251
+      objectReference: {fileID: 0}
+    - target: {fileID: 2648364949158028446, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.0961765
+      objectReference: {fileID: 0}
+    - target: {fileID: 2648364949158028446, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 25.1755
+      objectReference: {fileID: 0}
+    - target: {fileID: 2648364949158028446, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -11.5177
+      objectReference: {fileID: 0}
     - target: {fileID: 3506938469841010841, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3684073104497281697, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
       propertyPath: m_Sprite
@@ -6929,6 +6949,14 @@ PrefabInstance:
     - target: {fileID: 3900303270651239191, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
       propertyPath: easeInDuration
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3978028081360082037, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000185150128584516, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4080245919577685454, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
       propertyPath: m_Name
@@ -7194,6 +7222,22 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: -1155970319
       objectReference: {fileID: 0}
+    - target: {fileID: 5882525247556772855, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0168
+      objectReference: {fileID: 0}
+    - target: {fileID: 5882525247556772855, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.006
+      objectReference: {fileID: 0}
+    - target: {fileID: 5882525247556772855, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -22.2982
+      objectReference: {fileID: 0}
+    - target: {fileID: 5882525247556772855, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.2318
+      objectReference: {fileID: 0}
     - target: {fileID: 5924123516969566730, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
       propertyPath: handAttackSfx.Path
       value: event:/Hands
@@ -7253,6 +7297,22 @@ PrefabInstance:
     - target: {fileID: 6240477444846149644, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6310923384266415748, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0570707
+      objectReference: {fileID: 0}
+    - target: {fileID: 6310923384266415748, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.0179
+      objectReference: {fileID: 0}
+    - target: {fileID: 6310923384266415748, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -23.131
+      objectReference: {fileID: 0}
+    - target: {fileID: 6310923384266415748, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.351
       objectReference: {fileID: 0}
     - target: {fileID: 6471518564937305708, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
       propertyPath: handAttackSfx.Path
@@ -7506,6 +7566,22 @@ PrefabInstance:
       propertyPath: handWarningSfx.Guid.Data4
       value: -368852886
       objectReference: {fileID: 0}
+    - target: {fileID: 7587772227272390576, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587772227272390576, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.0498
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587772227272390576, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 26.1889
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587772227272390576, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -11.9022
+      objectReference: {fileID: 0}
     - target: {fileID: 7816031414073406358, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
       propertyPath: handAttackSfx.Path
       value: event:/Hands
@@ -7742,6 +7818,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 2044851790}
+    - target: {fileID: 9143033226677140594, guid: dd39355eecb8f6a4da5d3bbbc8f34fdb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

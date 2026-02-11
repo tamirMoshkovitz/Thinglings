@@ -156,5 +156,6 @@ public class PeekingCreature : MonoBehaviour
         
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(startPos, endPos);
+        
     }
 }
