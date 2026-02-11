@@ -3,6 +3,7 @@ using _SLIME.BaseScripts;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace _SLIME.Projectiles
 {
@@ -21,7 +22,7 @@ namespace _SLIME.Projectiles
 
             _slimeAttributes = new SpellSlimeAttributes {
                 deflectionPower = power,
-                direction = (screenCenter - transform.position).normalized,
+                direction = ((screenCenter + Vector3.up * Random.Range(-1.25f, 1.25f)) - transform.position ).normalized,
                 layerMask = slimeProjectileLayer
             };
         }

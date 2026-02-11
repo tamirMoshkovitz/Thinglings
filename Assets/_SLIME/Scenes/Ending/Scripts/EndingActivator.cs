@@ -1,3 +1,4 @@
+using System.Collections;
 using _SLIME.BaseScripts;
 using _SLIME.GameLoop;
 using UnityEngine;
@@ -37,6 +38,12 @@ namespace _SLIME.Scenes.Ending.Scripts
 
         private void ActivateEnd()
         {
+            StartCoroutine(ActivateEndCoroutine());
+        }
+
+        private IEnumerator ActivateEndCoroutine()
+        {
+            yield return new WaitForSeconds(10f);
             if (_isTunnel && _isSlimeWon)
                 transitionToEnd.SetActive(true);
         }

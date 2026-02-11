@@ -63,6 +63,7 @@ namespace _SLIME.Slime
         public void LockMovement()
         {
             _movementLocked = true;
+            _rigidbody.linearVelocity = Vector2.zero;
         }
 
         public void UnlockMovement()
