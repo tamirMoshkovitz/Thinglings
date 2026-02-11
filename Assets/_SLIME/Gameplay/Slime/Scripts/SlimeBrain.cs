@@ -90,6 +90,8 @@ namespace _SLIME.Slime
 
             SlimeEvents.SlimeInWaterPosition += SnapSlimesToWaterPosition;
             GameEvents.WaterAttackEnded += UnlockMovement;
+
+            SlimeEvents.RiseToLight += LockMovement;
         }
         
         private void OnDisable()
@@ -105,6 +107,8 @@ namespace _SLIME.Slime
 
             SlimeEvents.SlimeInWaterPosition -= SnapSlimesToWaterPosition;
             GameEvents.WaterAttackEnded -= UnlockMovement;
+            
+            SlimeEvents.RiseToLight -= LockMovement;
         }
 
         private void Update()
