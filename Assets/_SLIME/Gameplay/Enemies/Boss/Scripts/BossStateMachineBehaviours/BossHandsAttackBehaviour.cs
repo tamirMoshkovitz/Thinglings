@@ -106,6 +106,7 @@ namespace _SLIME.Boss
                     if (handToFire != null)
                     {
                         handToFire.Activate();
+                        attacksLaunched++;
                         totalSpecialHandsPreformed++;
                         _nextSpecialIsTop = !_nextSpecialIsTop; // Alternate the special toggle
                         Data.centerDetector.ResetTrigger();

@@ -16,7 +16,7 @@ MonoBehaviour:
     handWarningDuration: 1
     handAttackDuration: 1
     handCooldown: 1.5
-    totalHandsToUse: 5
+    totalHandsToUse: 4
     useBothHands: 0
     maxSpecialHands: 2
   spawnAttackSettings:
@@ -100,6 +100,13 @@ MonoBehaviour:
     farBeamSpeed: 0
     midBeamSpeed: 0
     closeBeamSpeed: 0
+    beamSpeedMultiplier: 0
+    beamSpeedCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
     angleFromMainBeam: {x: 45, y: 200.21394}
     mainBeamAngleFromSlimes: {x: 15, y: 20}
     minBeamAngleDistance: 45
