@@ -199,7 +199,7 @@ public class WaterAttackManager : MonoBehaviour
                 case BossPhaseType.SecondPhase:
                     return spawnInterval / 1.2f;
                 case BossPhaseType.TunnelPhase:
-                    return spawnInterval / 2f;
+                    return spawnInterval / 2.2f;
             }
             return spawnInterval;
         }
