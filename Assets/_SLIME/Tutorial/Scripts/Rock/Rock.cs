@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using _SLIME.BaseScripts;
+using _SLIME.Core.ControllerRumble.Scripts;
 using _SLIME.Slime;
 using DG.Tweening;
 using FMODUnity;
@@ -127,7 +128,7 @@ namespace _SLIME.Tutorial
             _isShaking = true;
             rockShakeSFX.Play();
             
-            Gamepad.current?.SetMotorSpeeds(rumbleConfiguration.StretchRumbleLowFrequency / 2f, rumbleConfiguration.StretchRumbleHighFrequency / 2f);
+            GamepadWrapper.SetMotorSpeeds(rumbleConfiguration.StretchRumbleLowFrequency / 2f, rumbleConfiguration.StretchRumbleHighFrequency / 2f);
             while (_isShaking)
             {
                 _currentShakeTween = transform.DOShakePosition(
@@ -159,7 +160,7 @@ namespace _SLIME.Tutorial
 
         private void DisableControllerShake()
         {
-            Gamepad.current?.SetMotorSpeeds(0f,0f);
+            GamepadWrapper.SetMotorSpeeds(0f,0f);
         }
         
         private void UpdateAudioIntensity()
