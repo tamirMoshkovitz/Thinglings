@@ -327,6 +327,8 @@ MonoBehaviour:
   upLaserCollider: {fileID: 0}
   downLaserCollider: {fileID: 0}
   laserSfx: {fileID: 0}
+  camera: {fileID: 0}
+  earthquakeUtil: {fileID: 11400000, guid: 7526dd723c1fc4f9d9617e2db913d571, type: 2}
 --- !u!114 &1443141744385729026
 MonoBehaviour:
   m_ObjectHideFlags: 0
