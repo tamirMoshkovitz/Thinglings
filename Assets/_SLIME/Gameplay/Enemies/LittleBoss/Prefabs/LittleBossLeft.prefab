@@ -131,6 +131,13 @@ MonoBehaviour:
       spawnPoint: {fileID: 9211790113479302608}
       parent: {fileID: 0}
       animator: {fileID: 8302531227514783361}
+  entrySFX:
+    Guid:
+      Data1: 894348427
+      Data2: 1171169034
+      Data3: 293989805
+      Data4: 1898506358
+    Path: event:/Lil Boss Transform
 --- !u!50 &9053672311103651051
 Rigidbody2D:
   serializedVersion: 5
