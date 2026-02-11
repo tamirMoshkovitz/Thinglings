@@ -21,7 +21,7 @@ public class DestroyOffGameobjectAfterTime : MonoBehaviour
         }
     }
 
-    public void TurnOff()
+    public virtual void TurnOff()
     {
         Destroy(gameObject);
     }
