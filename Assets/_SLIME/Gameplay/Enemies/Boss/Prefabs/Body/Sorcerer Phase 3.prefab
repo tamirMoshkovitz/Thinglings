@@ -2468,12 +2468,14 @@ MonoBehaviour:
   - {fileID: 3356779864848594892}
   centerDetector: {fileID: 0}
   spawnDeps:
-    spawnPoint: {fileID: 6277622836994866927}
+    spawnPointFirstPhases: {fileID: 6277622836994866927}
+    spawnPointTunnelPhase: {fileID: 0}
   slimesConnected: 0
   bossHealthBar: {fileID: 8012225047142575334}
   bossHealthBarCanvas: {fileID: 5519303131640546136}
   currentHealth: 0
   animator: {fileID: 3415021212920339011}
+  tunnelOverrideController: {fileID: 0}
   laserAttackGameObjectPhase1: {fileID: 2278798387015869023}
   laserAttackGameObjectPhase2: {fileID: 7551634847714725460}
   lightHouseAttackGameObject: {fileID: 6071447459894499204}
@@ -2486,6 +2488,26 @@ MonoBehaviour:
       Data3: -2037420620
       Data4: 1826308944
     Path: event:/Boss Hit
+  bossHitMumbleSFX:
+  - Guid:
+      Data1: 248717703
+      Data2: 1146682669
+      Data3: -2108100958
+      Data4: 2106022016
+    Path: event:/Boss mumble 1
+  - Guid:
+      Data1: -1520882257
+      Data2: 1135963270
+      Data3: 1562434206
+      Data4: 1797044798
+    Path: event:/Boss mumble 2
+  - Guid:
+      Data1: 494740885
+      Data2: 1080823049
+      Data3: 2043720634
+      Data4: 1396181012
+    Path: event:/Boss mumble 3
+  mumbleDelay: 0.2
   spawner: {fileID: 0}
 --- !u!114 &8143361525770054893
 MonoBehaviour:
@@ -2501,6 +2523,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FloatingMagic
   floatDistance: 1.5
   duration: 5
+  useFigureEight: 0
+  easeInDuration: 1.5
 --- !u!50 &325307980611295425
 Rigidbody2D:
   serializedVersion: 5
@@ -3668,6 +3692,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FloatingMagic
   floatDistance: 0.5
   duration: 2
+  useFigureEight: 0
+  easeInDuration: 1.5
 --- !u!1 &8306384689038028959
 GameObject:
   m_ObjectHideFlags: 0

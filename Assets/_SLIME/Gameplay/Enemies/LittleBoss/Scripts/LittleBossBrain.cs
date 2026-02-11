@@ -1,7 +1,9 @@
 using System;
 using _SLIME.BaseScripts;
 using _SLIME.Boss;
+using _SLIME.Core.Audio.FMOD.Scripts;
 using _SLIME.Slime;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -28,6 +30,9 @@ namespace _SLIME.LittleBoss
         [Header("State References")]
         [SerializeField] private LittleBossStatesRef reference;
 
+        [Header("SFX")]
+        [SerializeField] private EventReference entrySFX;
+
         public LittleBossMovementRef MovRef => reference.movRef;
         public LittleBossIdleRef IdleRef => reference.idleRef;
         public LittleBossSpellAttackRef SpellRef => reference.spellRef;
@@ -44,6 +49,7 @@ namespace _SLIME.LittleBoss
         {
             foreach (var state in animator.GetBehaviours<LittleBossBaseState>())
                 state.Init(this);
+            SFXPlayer.Play(entrySFX);
         }
         
         private void OnDisable()

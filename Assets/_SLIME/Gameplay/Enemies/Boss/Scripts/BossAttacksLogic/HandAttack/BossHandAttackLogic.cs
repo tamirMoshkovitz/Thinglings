@@ -30,6 +30,7 @@ namespace _SLIME.Boss
         
         [Header("Audio")]
         [SerializeField] private EventReference handAttackSfx;
+        [SerializeField] private EventReference handWarningSfx;
 
         public bool IsAttacking { get; private set; }
 
@@ -63,6 +64,7 @@ namespace _SLIME.Boss
             if (warningVisual)
             {
                 warningVisual.SetActive(true);
+                SFXPlayer.Play(handWarningSfx);
 
                 if (_warningAnimator)
                 {

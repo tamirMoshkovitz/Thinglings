@@ -1221,7 +1221,7 @@ PrefabInstance:
       objectReference: {fileID: 1160895089}
     - target: {fileID: 3911525347668114702, guid: d19131542a3dd490abec89de45f4dbdc, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3911525347668114702, guid: d19131542a3dd490abec89de45f4dbdc, type: 3}
       propertyPath: m_SortingLayerID
@@ -1397,7 +1397,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8828280969786548607, guid: d19131542a3dd490abec89de45f4dbdc, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8828280969786548607, guid: d19131542a3dd490abec89de45f4dbdc, type: 3}
       propertyPath: m_SortingLayerID
@@ -3123,26 +3123,6 @@ PrefabInstance:
     - target: {fileID: 6611787403505574154, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204412528599819272, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
-      propertyPath: hitSFX.Path
-      value: event:/Boss Hit
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204412528599819272, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
-      propertyPath: hitSFX.Guid.Data1
-      value: -839277203
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204412528599819272, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
-      propertyPath: hitSFX.Guid.Data2
-      value: 1144975663
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204412528599819272, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
-      propertyPath: hitSFX.Guid.Data3
-      value: -2037420620
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204412528599819272, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
-      propertyPath: hitSFX.Guid.Data4
-      value: 1826308944
       objectReference: {fileID: 0}
     - target: {fileID: 8652294172338131306, guid: 8a190944f649b4f5585831ecb259c671, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5572,7 +5552,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9087709951949478032, guid: 9282f6fc0abe4479b9c557861dd0467c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

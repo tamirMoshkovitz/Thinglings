@@ -2473,6 +2473,26 @@ MonoBehaviour:
       Data3: -2037420620
       Data4: 1826308944
     Path: event:/Boss Hit
+  bossHitMumbleSFX:
+  - Guid:
+      Data1: 248717703
+      Data2: 1146682669
+      Data3: -2108100958
+      Data4: 2106022016
+    Path: event:/Boss mumble 1
+  - Guid:
+      Data1: -1520882257
+      Data2: 1135963270
+      Data3: 1562434206
+      Data4: 1797044798
+    Path: event:/Boss mumble 2
+  - Guid:
+      Data1: 494740885
+      Data2: 1080823049
+      Data3: 2043720634
+      Data4: 1396181012
+    Path: event:/Boss mumble 3
+  mumbleDelay: 0.2
   spawner: {fileID: 0}
 --- !u!114 &3900303270651239191
 MonoBehaviour:

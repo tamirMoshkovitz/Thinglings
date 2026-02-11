@@ -1,8 +1,11 @@
 using _SLIME.Boss;
+using _SLIME.Core.Audio.FMOD.Scripts;
+using FMODUnity;
 using UnityEngine;
 
 public class BossWaterAttackBehaviour : BossBaseBehaviour
 {
+    [SerializeField] private EventReference waterAttackTransitionSFX; 
     private float _firstFloatDistance;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
@@ -12,6 +15,8 @@ public class BossWaterAttackBehaviour : BossBaseBehaviour
         Data.BossWaterState();
         Data.firstFloatDistance = Data.floatingAttributes.floatDistance;
         Data.floatingAttributes.floatDistance = 0f;
+        
+        SFXPlayer.Play(waterAttackTransitionSFX);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
