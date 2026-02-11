@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
+using _SLIME.Envierment.Earthquake.Scriptables;
 using _SLIME.Slime;
+using DG.Tweening;
 using UnityEngine;
 
 namespace _SLIME.Laser
@@ -17,6 +19,10 @@ namespace _SLIME.Laser
         [SerializeField] private Collider2D upLaserCollider;
         [SerializeField] private Collider2D downLaserCollider;
         [SerializeField] private ControlledSfx laserSfx;
+        
+        [Header("camera shake")]
+        [SerializeField] private Camera camera;
+        [SerializeField] private EarthquakeUtil earthquakeUtil;
         public bool IsRotating { get; private set; }
         
         public bool HasFinishedAction { get; set;}
@@ -47,6 +53,7 @@ namespace _SLIME.Laser
         {
             rightLaserCollider.enabled = true;
             laserSfx.Play();
+            StartCoroutine(earthquakeUtil.EarthquakeCoroutine(camera, null, 0));
         }
             
         public void EnableLeftLaserColliders() // called by animation event

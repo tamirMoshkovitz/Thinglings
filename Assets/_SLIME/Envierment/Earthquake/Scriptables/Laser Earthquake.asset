@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08ad70bb014449809bf88e69971f98b7, type: 3}
+  m_Name: Laser Earthquake
+  m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Envierment.Earthquake.Scriptables.EarthquakeConfig
+  duration: 7
+  strength: {x: 0.2, y: 0.2, z: 0.2}
+  vibrato: 200
+  randomness: 90
+  snapping: 0
+  fadeOut: 1
+  ease: 13
+  animationDelay: 0
+  earthquakeSFX:
+    Guid:
+      Data1: 1299206949
+      Data2: 1234044202
+      Data3: 1604856962
+      Data4: 442271025
+    Path: event:/null event

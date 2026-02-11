@@ -254,7 +254,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1018,8 +1018,8 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  m_MeshMetrics[0]: 1
-  m_MeshMetrics[1]: 1
+  'm_MeshMetrics[0]': 1
+  'm_MeshMetrics[1]': 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2
@@ -1377,8 +1377,8 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  m_MeshMetrics[0]: 1
-  m_MeshMetrics[1]: 1
+  'm_MeshMetrics[0]': 1
+  'm_MeshMetrics[1]': 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2
@@ -1537,7 +1537,7 @@ PrefabInstance:
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: caveShakeStateDeps.iciclesAnimator
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2060107735}
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: spellHitStateDeps.pointToSpawnSpell
       value: 
@@ -2036,8 +2036,8 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  m_MeshMetrics[0]: 1
-  m_MeshMetrics[1]: 1
+  'm_MeshMetrics[0]': 1
+  'm_MeshMetrics[1]': 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2
@@ -2462,6 +2462,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7432202590636286244, guid: 3c95784a567e14788b826fb71e15f1a2, type: 3}
   m_PrefabInstance: {fileID: 2033659488}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &2060107735 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3508755996155414569, guid: 360b175a27bd442d69d4f7cc2c2b7616, type: 3}
+  m_PrefabInstance: {fileID: 1091334697}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &2094794323
 Mesh:
   m_ObjectHideFlags: 0
@@ -2619,8 +2624,8 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  m_MeshMetrics[0]: 1
-  m_MeshMetrics[1]: 1
+  'm_MeshMetrics[0]': 1
+  'm_MeshMetrics[1]': 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2

@@ -35,10 +35,10 @@ MonoBehaviour:
     - 5
     - 5
   rockStateSet:
-    startCameraSize: 5
-    zoomOutAmount: 1.25
+    startCameraSize: 10
+    zoomOutAmount: 0
     zoomEase: 1
-    zoomSpeed: 1.5
+    zoomSpeed: 1
   riseToBossStateSet:
     topThresholdPercent: 30
     moveSpeed: 7
