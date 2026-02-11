@@ -3005,6 +3005,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2704096229157842897, guid: 828d0fa3a22fd49af9ac88f0fb4a17c9, type: 3}
+      propertyPath: rumbleConfiguration
+      value: 
+      objectReference: {fileID: 11400000, guid: 5f485f8d6660e4091aede26db1cfced1, type: 2}
     - target: {fileID: 3644255917672106840, guid: 828d0fa3a22fd49af9ac88f0fb4a17c9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

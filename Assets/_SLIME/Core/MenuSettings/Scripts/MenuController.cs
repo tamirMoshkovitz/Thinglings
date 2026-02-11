@@ -1,5 +1,6 @@
 using System.Collections;
 using _SLIME.BaseScripts;
+using _SLIME.Core.ControllerRumble.Scripts;
 using _SLIME.GameLoop;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -71,7 +72,7 @@ namespace _SLIME.Core.MenuSettings.Scripts
             _optionsMenuPanel.SetActive(true);
             Time.timeScale = 0f; 
             IsGamePaused = true;
-            
+            GamepadWrapper.ResetHaptics();
         }
 
         private void ResumeGame()

@@ -20,11 +20,13 @@ namespace _SLIME.Tutorial
 
     public class TutorialBoss : ProjectMonoBehavior, IHealth
     {
+        private static readonly int Hurt = Animator.StringToHash("hurt");
         public static event Action BossHit;
         [SerializeField] private TutorialScriptable tutorialScriptable;
         [SerializeField] private List<GameObject> bossRenderersToFlash = new List<GameObject>();
         [SerializeField] private EventReference hitSFX;
         [SerializeField] private List<EventReference> bossHitMumbleSFX = new();
+        [SerializeField] private Animator animator;
 
         private TutorialBossFlashSettings _flashSettings;
         private List<Renderer> _renderers = new List<Renderer>();
@@ -61,6 +63,7 @@ namespace _SLIME.Tutorial
 
         private void TriggerFlash()
         {
+            animator.SetTrigger(Hurt);
             if (_flashRoutine != null) StopCoroutine(_flashRoutine);
             
             ResetFlash();

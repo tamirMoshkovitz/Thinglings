@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using _SLIME.BaseScripts;
+using _SLIME.Core.ControllerRumble.Scripts;
+using _SLIME.Slime;
 using DG.Tweening;
 using FMODUnity;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,6 +29,7 @@ namespace _SLIME.Tutorial
         public static event Action JoystickMoved;
         [SerializeField] private TutorialScriptable tutorialScriptable;
         [SerializeField] private ControlledSfx rockShakeSFX;
+        [SerializeField] private ConrollerRumbleConfiguration rumbleConfiguration;
         
 
         private RockShakeSettings rockShakeSettings;
@@ -48,6 +52,7 @@ namespace _SLIME.Tutorial
             StopShake();
             JoystickMoved -= OnJoystickMoved;
             SetAudioIntensity(1f);
+            DisableControllerShake();
         }
 
         public void OnRockTransform()
@@ -64,6 +69,11 @@ namespace _SLIME.Tutorial
         private void Awake()
         {
             rockShakeSettings = tutorialScriptable.RockShakeSettings;
+        }
+
+        private void OnDestroy()
+        {
+            DisableControllerShake();
         }
 
         private void Update()
@@ -118,6 +128,7 @@ namespace _SLIME.Tutorial
             _isShaking = true;
             rockShakeSFX.Play();
             
+            GamepadWrapper.SetMotorSpeeds(rumbleConfiguration.StretchRumbleLowFrequency / 2f, rumbleConfiguration.StretchRumbleHighFrequency / 2f);
             while (_isShaking)
             {
                 _currentShakeTween = transform.DOShakePosition(
@@ -143,6 +154,13 @@ namespace _SLIME.Tutorial
             _accumulatedShakeTime = 0f;
            transform.DOKill();
            transform.localPosition = Vector3.zero;
+
+           DisableControllerShake();
+        }
+
+        private void DisableControllerShake()
+        {
+            GamepadWrapper.SetMotorSpeeds(0f,0f);
         }
         
         private void UpdateAudioIntensity()

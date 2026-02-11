@@ -1,3 +1,4 @@
+using _SLIME.Core.ControllerRumble.Scripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,7 +24,7 @@ namespace _SLIME.Slime
             if (Mathf.Abs(lowFrequency - _prevLow) > _configuration.RumbleChangeThreshold ||
                 Mathf.Abs(highFrequency - _prevHigh) > _configuration.RumbleChangeThreshold)
             {
-                Gamepad.current?.SetMotorSpeeds(lowFrequency, highFrequency);
+                GamepadWrapper.SetMotorSpeeds(lowFrequency, highFrequency);
                 _prevLow = lowFrequency;
                 _prevHigh = highFrequency;
             }
@@ -44,12 +45,12 @@ namespace _SLIME.Slime
 
         public void OnDestroy()
         {
-            Gamepad.current?.ResetHaptics();
+            GamepadWrapper.ResetHaptics();
         } 
 
         public void OnResumeGame()
         {
-            Gamepad.current?.ResumeHaptics();
+            GamepadWrapper.ResumeHaptics();
         }
 
         private void TearRumble(float lowFrequency, float highFrequency)
@@ -57,7 +58,7 @@ namespace _SLIME.Slime
             StopRumble();
             if (_configuration.AddTearRumble)
             {
-                Gamepad.current?.SetMotorSpeeds(lowFrequency, highFrequency);
+                GamepadWrapper.SetMotorSpeeds(lowFrequency, highFrequency);
             }
         }
 
@@ -68,8 +69,8 @@ namespace _SLIME.Slime
 
         private void StopRumble()
         {
-            Gamepad.current?.ResetHaptics();
-            Gamepad.current?.SetMotorSpeeds(0f, 0f);
+            GamepadWrapper.ResetHaptics();
+            GamepadWrapper.SetMotorSpeeds(0f, 0f);
         }
 
         private float CalculateStretchRumble(float baseFrequency)
