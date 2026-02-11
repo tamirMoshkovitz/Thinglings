@@ -148,6 +148,29 @@ namespace _SLIME.Slime
             EndChangeSides(otherSlimeTransform.position);
         }
 
+        public IEnumerator SnapToWater(Vector3 position, float duration)
+        {
+            float elapsed = 0f;
+            Vector3 oldPosition = _gameObject.transform.position;
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                Vector3 newPos = Vector3.Lerp(oldPosition, position, elapsed / duration);
+                _gameObject.transform.position = newPos;
+                yield return null;
+            }
+        }
+
+        public void LockMovement()
+        {
+            _movement.LockMovement();
+        }
+
+        public void UnlockMovement()
+        {
+            _movement.UnlockMovement();
+        }
+
         private void StartChangeSides()
         {
             _soulSprite.gameObject.SetActive(true);

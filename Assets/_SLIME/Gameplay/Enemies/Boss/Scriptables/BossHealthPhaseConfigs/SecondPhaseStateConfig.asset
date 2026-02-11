@@ -23,7 +23,7 @@ MonoBehaviour:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
     projectileBeforeSpawnPrefab: {fileID: 4899053137042385202, guid: c35248b870a664833961bec195804c32, type: 3}
     attacksToCast: 1000
-    hitThreshold: 100
+    hitThreshold: 140
     spawnSettings:
       delayBetweenAttacks: {x: 1, y: 2}
       bothSlimesAliveProbabilities:
@@ -100,6 +100,13 @@ MonoBehaviour:
     farBeamSpeed: 0
     midBeamSpeed: 0
     closeBeamSpeed: 0
+    beamSpeedMultiplier: 0
+    beamSpeedCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
     angleFromMainBeam: {x: 45, y: 200.21394}
     mainBeamAngleFromSlimes: {x: 15, y: 20}
     minBeamAngleDistance: 45

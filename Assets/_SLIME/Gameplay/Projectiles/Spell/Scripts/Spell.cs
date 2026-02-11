@@ -14,16 +14,16 @@ namespace _SLIME.Projectiles
     
     public class Spell : ProjectMonoBehavior
     {
-        private static readonly int Hit = Animator.StringToHash("Hit");
-        private static readonly int BossMove = Animator.StringToHash("BossMove");
-        private static readonly int PlayerMove = Animator.StringToHash("SlimeMove");
+        protected static readonly int Hit = Animator.StringToHash("Hit");
+        protected static readonly int BossMove = Animator.StringToHash("BossMove");
+        protected static readonly int PlayerMove = Animator.StringToHash("SlimeMove");
 
-        [SerializeField] private SpellComp comp;
+        [SerializeField] protected SpellComp comp;
 
         [SerializeField]
         private BaseBossConfigurations[] bossConfigurations;
         private SpellBossAttributes _bossAttributes;
-        private SpellState _currentState;
+        protected SpellState _currentState;
         
         [MinMaxSlider(0.1f, 10f)]
         [SerializeField] private Vector2 spellScaleFactor;
@@ -39,7 +39,7 @@ namespace _SLIME.Projectiles
     
         private float _lastHitTime = float.MinValue;
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             SFXPlayer.Play(spawnSfX);
         }
@@ -82,7 +82,7 @@ namespace _SLIME.Projectiles
          
         }
         
-        private void Shoot()
+        protected virtual void Shoot()
         {
             _currentState = SpellState.Flying;
             comp.rb.linearVelocity = _bossAttributes.direction.normalized
@@ -92,7 +92,7 @@ namespace _SLIME.Projectiles
         }
 
        
-        public void OnSpawnFinished()
+        public virtual void OnSpawnFinished()
         {
             if (_currentState != SpellState.Spawning) return;
             Shoot();
@@ -112,13 +112,13 @@ namespace _SLIME.Projectiles
             {
                 HandleImpact(h);
             }
-            else if (other.CompareTag("Wall")) 
+            else if (other.CompareTag("Wall") || other.CompareTag("Water Boss Collider")) 
             {
                 HandleImpact(null); 
             }
         }
 
-        private void HandleImpact(IHealth target)
+        protected virtual void HandleImpact(IHealth target)
         {
             // If a deflect was just done in the last 0.05s, ignore this hit
             if (Time.time - _lastDeflectTime <= 0.001f) return;

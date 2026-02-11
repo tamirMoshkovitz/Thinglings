@@ -13,5 +13,6 @@ namespace _SLIME.Slime
         public static Action SlimeConnectionGotHitByIcicle;
         public static Action AddCameraShake;
         public static Action RemoveCameraShake;
+        public static Action<float> SlimeInWaterPosition;
     }
 }
