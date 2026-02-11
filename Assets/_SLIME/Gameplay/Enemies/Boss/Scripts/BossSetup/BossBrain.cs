@@ -11,6 +11,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using EventType = _SLIME.UI.EventType;
+using Random = UnityEngine.Random;
 
 public enum BossStates
 {
@@ -53,7 +54,12 @@ namespace _SLIME.Boss
         [SerializeField] public PlayerInCenterDetector centerDetector;
         
         [Header("Spawn Setup")]
-        public SpawnDeps spawnDeps;
+        [SerializeField] private SpawnDeps spawnDeps;
+
+        public Transform SpawnPoint =>
+            CurrentPhase == BossPhaseType.TunnelPhase
+                ? spawnDeps.spawnPointTunnelPhase
+                : spawnDeps.spawnPointFirstPhases;
         [HideInInspector] public bool slimesConnected = false;
         
         [Header("Health Setup")] 
@@ -84,6 +90,7 @@ namespace _SLIME.Boss
         
         [Header("SFX")]
         [SerializeField] private EventReference hitSFX;
+        [SerializeField] private List<EventReference> bossHitMumbleSFX = new();
         
         public static BossStates BossState = BossStates.FarState;
         private static readonly int CloseHit = Animator.StringToHash("CloseHit");
@@ -190,9 +197,9 @@ namespace _SLIME.Boss
         private void OnSlimeConnected() => slimesConnected = true;
         private void OnSlimeTears() => slimesConnected = false;
 
-        public void TakeDamage(float damage) 
+        public void TakeDamage(float damage)
         {
-            SFXPlayer.Play(hitSFX);
+            PlayHitSFX();
             float denominator = bossConfigurations.PhaseSettings.targetHitsToKill * bossConfigurations.PhaseSettings.expectedAvgSpeedOfSpells;
             if (denominator == 0) denominator = 1;
 
@@ -310,7 +317,12 @@ namespace _SLIME.Boss
             }
         }
 
-        
+        private void PlayHitSFX()
+        {
+            SFXPlayer.Play(hitSFX);
+            int randomMumble = Random.Range(0, bossHitMumbleSFX.Count);
+            SFXPlayer.Play(bossHitMumbleSFX[randomMumble]);
+        }
 
         
     }

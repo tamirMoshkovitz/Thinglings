@@ -947,6 +947,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 671653929157809193}
+  - {fileID: 2389249089140577609}
   m_Father: {fileID: 3025898858781400177}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2186003916061129083
@@ -2452,7 +2453,8 @@ MonoBehaviour:
   - {fileID: 3798593013616023887}
   centerDetector: {fileID: 0}
   spawnDeps:
-    spawnPoint: {fileID: 671653929157809193}
+    spawnPointFirstPhases: {fileID: 671653929157809193}
+    spawnPointTunnelPhase: {fileID: 2389249089140577609}
   slimesConnected: 0
   bossHealthBar: {fileID: 5992212930740002942}
   bossHealthBarCanvas: {fileID: 8106823647819976640}
@@ -2471,6 +2473,26 @@ MonoBehaviour:
       Data3: -2037420620
       Data4: 1826308944
     Path: event:/Boss Hit
+  bossHitMumbleSFX:
+  - Guid:
+      Data1: 248717703
+      Data2: 1146682669
+      Data3: -2108100958
+      Data4: 2106022016
+    Path: event:/Boss mumble 1
+  - Guid:
+      Data1: -1520882257
+      Data2: 1135963270
+      Data3: 1562434206
+      Data4: 1797044798
+    Path: event:/Boss mumble 2
+  - Guid:
+      Data1: 494740885
+      Data2: 1080823049
+      Data3: 2043720634
+      Data4: 1396181012
+    Path: event:/Boss mumble 3
+  mumbleDelay: 0.2
   spawner: {fileID: 0}
 --- !u!114 &3900303270651239191
 MonoBehaviour:
@@ -3355,6 +3377,37 @@ Transform:
   - {fileID: 3897229222284831937}
   - {fileID: 2298989712318403827}
   m_Father: {fileID: 5680451759678679108}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6429768062454104464
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2389249089140577609}
+  m_Layer: 12
+  m_Name: SpawnPointTunnelPhase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2389249089140577609
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6429768062454104464}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.91, y: 3.31, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5738476046550801874}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6581341346731506244
 GameObject:
