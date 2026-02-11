@@ -53,6 +53,10 @@ namespace _SLIME.Slime
         [SerializeField] private Renderer rightSlimeSoulSprite;
         [SerializeField] private ControlledSfx slimeTearSFX;
         [SerializeField] private EventReference deadSlimeSFX;
+        
+        [Header("Water attack postions")]
+        [SerializeField] private Transform leftWater;
+        [SerializeField] private Transform rightWater;
         #endregion
         
         private SlimeData _slimeData;
@@ -83,6 +87,11 @@ namespace _SLIME.Slime
             
             SlimeEvents.SlimeTears += OnSlimeTears;
             SlimeEvents.SlimeGetHit += OnSlimeGetHit;
+
+            SlimeEvents.SlimeInWaterPosition += SnapSlimesToWaterPosition;
+            GameEvents.WaterAttackEnded += UnlockMovement;
+
+            SlimeEvents.RiseToLight += LockMovement;
         }
         
         private void OnDisable()
@@ -95,6 +104,11 @@ namespace _SLIME.Slime
             
             SlimeEvents.SlimeTears -= OnSlimeTears;
             SlimeEvents.SlimeGetHit -= OnSlimeGetHit;
+
+            SlimeEvents.SlimeInWaterPosition -= SnapSlimesToWaterPosition;
+            GameEvents.WaterAttackEnded -= UnlockMovement;
+            
+            SlimeEvents.RiseToLight -= LockMovement;
         }
 
         private void Update()
@@ -313,6 +327,24 @@ namespace _SLIME.Slime
         {
             if (_rightSide.IsDead && _leftSide.IsDead) return;
             StartCoroutine(ControlSwitchCoroutine(0.1f, true));
+        }
+
+        private void SnapSlimesToWaterPosition(float duration)
+        {
+            LockMovement();
+            StartCoroutine(_leftSide.SnapToWater(leftWater.position, duration));
+            StartCoroutine(_rightSide.SnapToWater(rightWater.position, duration));
+        }
+
+        private void LockMovement()
+        {
+            _leftSide.LockMovement();
+            _rightSide.LockMovement();
+        }
+        private void UnlockMovement()
+        {
+            _leftSide.UnlockMovement();
+            _rightSide.UnlockMovement();
         }
     }
 }

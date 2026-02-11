@@ -580,9 +580,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaterAttackManager
   initialDelay: 1
   timeToAttackMode: 2
-  timeToMagicOut: 1
+  timeToMagicOut: 5
+  waterSpellPrefab: {fileID: 9219921866110431799, guid: 5af8d893675044575aac7a9c575fb094, type: 3}
+  spawnInterval: 0.25
+  rightWaterMark: {fileID: 2252901034959996679}
+  leftWaterMark: {fileID: 845557119862882403}
   animator: {fileID: 5484916734938945817}
   bossBrain: {fileID: 0}
+  earthquakeUtil: {fileID: 0}
+  camera: {fileID: 0}
+  iciclesAnimator: {fileID: 0}
+  watterAttackSFX:
+    Guid:
+      Data1: -557510135
+      Data2: 1286959871
+      Data3: 455723695
+      Data4: 1728858159
+    Path: event:/Water Attack
 --- !u!95 &5484916734938945817
 Animator:
   serializedVersion: 7

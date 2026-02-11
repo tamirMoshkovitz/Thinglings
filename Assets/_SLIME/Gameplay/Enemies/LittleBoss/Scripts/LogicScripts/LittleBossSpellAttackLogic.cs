@@ -81,7 +81,6 @@ namespace _SLIME.LittleBoss
 
         public void UpdateLogic()
         {
-            if (_currentActiveLogic == null) return;
             if (!_currentActiveLogic.IsActive) return;
 
             _currentActiveLogic.UpdateAttack();

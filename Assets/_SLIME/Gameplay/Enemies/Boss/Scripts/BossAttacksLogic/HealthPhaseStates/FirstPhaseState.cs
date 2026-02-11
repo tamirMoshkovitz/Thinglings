@@ -1,17 +1,25 @@
 using System.Collections;
 using _SLIME.Boss;
+using _SLIME.Core.MenuSettings.Scripts;
 using _SLIME.GameLoop;
 using UnityEngine;
 
 public class FirstPhaseState : State
 {
-    private readonly BaseBossConfigurations _firstPhaseConfigurations;
     private readonly BossBrain _bossBrain;
+    private readonly BaseBossConfigurations _firstPhaseConfigurations;
 
-    public FirstPhaseState(StateMachine stateMachine, BossBrain bossBrain, BaseBossConfigurations firstPhaseConfigurations) : base(stateMachine)
+    public FirstPhaseState(StateMachine stateMachine, BossBrain bossBrain) : base(stateMachine)
     {
         _bossBrain = bossBrain;
-        _firstPhaseConfigurations = firstPhaseConfigurations;
+        BossConfigStruct config = MenuController.gameMode switch
+        {
+            GameMode.Easy => bossBrain.bossConfigEasy,
+            GameMode.Medium => bossBrain.bossConfigMedium,
+            GameMode.Hard => bossBrain.bossConfigHard,
+            _ => bossBrain.bossConfigEasy
+        };
+        _firstPhaseConfigurations = config.firstPhaseConfigurations;
     }
     
     public override IEnumerator Enter()

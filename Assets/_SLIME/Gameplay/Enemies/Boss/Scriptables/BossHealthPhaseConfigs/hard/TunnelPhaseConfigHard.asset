@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0d89350894c6ed44a9dc92bb198fbcf, type: 3}
-  m_Name: TunnelPhaseConfig 1
+  m_Name: TunnelPhaseConfigHard
   m_EditorClassIdentifier: Assembly-CSharp::BaseBossSettings
   handsAttackSettings:
     handWarningDuration: 1
@@ -18,11 +18,11 @@ MonoBehaviour:
     handCooldown: 1
     totalHandsToUse: 4
     useBothHands: 0
-    phaseSpeedMultiplier: 1
+    maxSpecialHands: 0
   spawnAttackSettings:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
     projectileBeforeSpawnPrefab: {fileID: 4899053137042385202, guid: c35248b870a664833961bec195804c32, type: 3}
-    attacksToCast: 6
+    attacksToCast: 1000
     hitThreshold: 100
     spawnSettings:
       delayBetweenAttacks: {x: 1, y: 1.5}
@@ -47,11 +47,12 @@ MonoBehaviour:
     spellSettings:
       attackAccuracyRange: {x: 0.9, y: 1}
       attackSpeedRange: {x: 20, y: 25}
+      targetMiddleProbability: 0
     specialAttacksSettings:
       threeShotsAngle: 22.5
-      fourShotsWaitBetweenShots: 0.2
-      bulletHellTotalAngle: 45
-      bulletHellWaitBetweenShots: 0.2
+      fourShotsWaitBetweenShots: 0.7
+      bulletHellTotalAngle: 60
+      bulletHellWaitBetweenShots: 0.1
       bulletHellMiddleDensityPower: 1.7
   laserAttackSettings:
     rotationCurve:
@@ -103,27 +104,59 @@ MonoBehaviour:
     minWaitTime: 2
     maxWaitTime: 4
     loopSpawning: 1
+    accuracyOffset: 0
+    minIcicleCount: 0
+    maxIcicleCount: 0
+    playerTargetChance: 0
+    minSpacingBetweenIcicles: 0
+    minDelayBetweenIcicles: 0
+    maxDelayBetweenIcicles: 0
   waterAttackSettings:
     waterDamage: 0
   lightHouseSettings:
     attackDuration: {x: 10, y: 10}
-    farBeamSpeed: 100
-    midBeamSpeed: 130
-    closeBeamSpeed: 170
+    farBeamSpeed: 70
+    midBeamSpeed: 90
+    closeBeamSpeed: 120
+    beamSpeedMultiplier: 1.5
+    beamSpeedCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
     angleFromMainBeam: {x: 45, y: 200.21394}
     mainBeamAngleFromSlimes: {x: 15, y: 20}
     minBeamAngleDistance: 45
     timeToCheckForMainBeanSwitch: 20
     directionFlipTransitionDuration: 1
     directionFlipDeadZone: 8
-    floatBossDistance: 6
+    floatBossDistance: 8
     floatBossDuration: 3
   bossCoreSettings:
-    maxHealth: 300
+    maxHealth: 400
   bossPhaseSettings:
     lowerHealthThreshold: 0
-    targetHitsToKill: 6
-    expectedAvgSpeedOfSpells: 40
+    targetHitsToKill: 4
+    expectedAvgSpeedOfSpells: 30
   littleBossMovementSettings:
     duration: 1
     easeCurve:
@@ -154,32 +187,33 @@ MonoBehaviour:
     timeUntilAttack: 0.5
   littleBossSpellAttackSettings:
     spellSettings:
-      attackAccuracyRange: {x: 0.9, y: 1}
+      attackAccuracyRange: {x: 0.7, y: 0.9}
       attackSpeedRange: {x: 20, y: 25}
+      targetMiddleProbability: 0
     spawnSettings:
       bothSlimesAliveProbabilities:
-        oneShot: 1
+        oneShot: 0
         twoShots: 0
         threeShot: 0
         fourShots: 0
-        bulletHell: 0
+        bulletHell: 1
       notConnectedProbabilities:
         oneShot: 1
         twoShots: 0
         threeShot: 0
         fourShots: 0
-        bulletHell: 0
+        bulletHell: 1
       oneSlimeAliveProbabilities:
         oneShot: 1
         twoShots: 0
         threeShot: 0
         fourShots: 0
-        bulletHell: 0
+        bulletHell: 1
     specialAttacksSettings:
       threeShotsAngle: 22.5
       fourShotsWaitBetweenShots: 0.4
       bulletHellTotalAngle: 45
-      bulletHellWaitBetweenShots: 0.2
+      bulletHellWaitBetweenShots: 0.1
       bulletHellMiddleDensityPower: 1.7
   littleBossHealthSettings:
     health: 1

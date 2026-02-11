@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using _SLIME.Boss;
+using _SLIME.Core.MenuSettings.Scripts;
 using _SLIME.GameLoop;
 using UnityEngine;
 
@@ -10,10 +11,17 @@ public class SecondPhaseState : State
     private readonly BossBrain _bossBrain;
     public static event Action SecondPhaseStarted;
 
-    public SecondPhaseState(StateMachine stateMachine, BossBrain bossBrain, BaseBossConfigurations secondPhaseConfigurations) : base(stateMachine)
+    public SecondPhaseState(StateMachine stateMachine, BossBrain bossBrain) : base(stateMachine)
     {
         _bossBrain = bossBrain;
-        _secondPhaseConfigurations = secondPhaseConfigurations;
+        BossConfigStruct config = MenuController.gameMode switch
+        {
+            GameMode.Easy => bossBrain.bossConfigEasy,
+            GameMode.Medium => bossBrain.bossConfigMedium,
+            GameMode.Hard => bossBrain.bossConfigHard,
+            _ => bossBrain.bossConfigEasy
+        };
+        _secondPhaseConfigurations = config.secondPhaseConfigurations;
     }
     
     public override IEnumerator Enter()

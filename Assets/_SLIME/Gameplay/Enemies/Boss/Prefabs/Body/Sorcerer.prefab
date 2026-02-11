@@ -2390,8 +2390,6 @@ GameObject:
   - component: {fileID: 852368871082504193}
   - component: {fileID: 3900303270651239191}
   - component: {fileID: 8472648192577018365}
-  - component: {fileID: 9103429533422412572}
-  - component: {fileID: 3912262349276972923}
   m_Layer: 0
   m_Name: Sorcerer
   m_TagString: Boss
@@ -2430,9 +2428,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossController
   mainCamera: {fileID: 0}
   floatingAttributes: {fileID: 3900303270651239191}
-  firstPhaseConfigurations: {fileID: 11400000, guid: b06ef5967efb6aa42b959252fb25c5b8, type: 2}
-  secondPhaseConfigurations: {fileID: 11400000, guid: d95a59b0b761e204b806107d420b8920, type: 2}
-  tunnelPhaseConfigurations: {fileID: 11400000, guid: d9463016bfec97445b1961299cab3382, type: 2}
+  bossConfigEasy:
+    firstPhaseConfigurations: {fileID: 11400000, guid: b06ef5967efb6aa42b959252fb25c5b8, type: 2}
+    secondPhaseConfigurations: {fileID: 11400000, guid: d95a59b0b761e204b806107d420b8920, type: 2}
+    thirdPhaseConfigurations: {fileID: 11400000, guid: d9463016bfec97445b1961299cab3382, type: 2}
+  bossConfigMedium:
+    firstPhaseConfigurations: {fileID: 11400000, guid: 9bf3676e635fc4de38fa7d4f7507380f, type: 2}
+    secondPhaseConfigurations: {fileID: 11400000, guid: f5afc2a08c22f47a1bf0e9290c40c314, type: 2}
+    thirdPhaseConfigurations: {fileID: 11400000, guid: 1af5edc7921f74e84bb0c790f87ed679, type: 2}
+  bossConfigHard:
+    firstPhaseConfigurations: {fileID: 11400000, guid: 29ef33b5bf8974337b56ab14418753c2, type: 2}
+    secondPhaseConfigurations: {fileID: 11400000, guid: b7ba3164a1eec4e1a9d3ebbdad368bc8, type: 2}
+    thirdPhaseConfigurations: {fileID: 11400000, guid: 4061f276be0324e8aa741ea7ec45828e, type: 2}
   waterStateBrain: {fileID: 0}
   bossCloseColliders: {fileID: 4060849710957457534}
   bossFarColliders: {fileID: 5776473476575897784}
@@ -2492,7 +2499,6 @@ MonoBehaviour:
       Data3: 2043720634
       Data4: 1396181012
     Path: event:/Boss mumble 3
-  mumbleDelay: 0.2
   spawner: {fileID: 0}
 --- !u!114 &3900303270651239191
 MonoBehaviour:
@@ -2537,40 +2543,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &9103429533422412572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4080245919577685454}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44d873abedb8e0d46a7df483545a42ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HitFlashEffect
-  _closeStateParents:
-  - {fileID: 1813331546449406860}
-  _farStateParents:
-  - {fileID: 1813331546449406860}
-  - {fileID: 2775281664255911021}
-  - {fileID: 2881394077465375035}
-  _flashColor: {r: 1, g: 1, b: 1, a: 1}
-  _shaderPropertyName: _Flash
-  _flashDuration: 0.2
-  _maxIntensity: 1
---- !u!114 &3912262349276972923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4080245919577685454}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb684316143bf4f388a4183afb1d73cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::_SLIME.DevScripts.BossFullDebugger
 --- !u!1 &4219784540214292159
 GameObject:
   m_ObjectHideFlags: 0

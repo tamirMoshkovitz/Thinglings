@@ -1,20 +1,28 @@
 using System;
 using System.Collections;
 using _SLIME.Boss;
+using _SLIME.Core.MenuSettings.Scripts;
 using _SLIME.GameLoop;
 using UnityEngine;
 
 public class TunnelPhaseState : State
 {
-    private readonly BaseBossConfigurations _tunnelBossConfiguration;
     private readonly BossBrain _bossBrain;
+    private readonly BaseBossConfigurations _tunnelBossConfiguration;
     public static event Action TunnelPhaseStarted;
     public static event Action BossDead;
 
-    public TunnelPhaseState(StateMachine stateMachine, BossBrain bossBrain, BaseBossConfigurations thirdPhaseConfigurations) : base(stateMachine)
+    public TunnelPhaseState(StateMachine stateMachine, BossBrain bossBrain) : base(stateMachine)
     {
         _bossBrain = bossBrain;
-        _tunnelBossConfiguration = thirdPhaseConfigurations;
+        BossConfigStruct config = MenuController.gameMode switch
+        {
+            GameMode.Easy => bossBrain.bossConfigEasy,
+            GameMode.Medium => bossBrain.bossConfigMedium,
+            GameMode.Hard => bossBrain.bossConfigHard,
+            _ => bossBrain.bossConfigEasy
+        };
+        _tunnelBossConfiguration = config.thirdPhaseConfigurations;
     }
     
     public override IEnumerator Enter()

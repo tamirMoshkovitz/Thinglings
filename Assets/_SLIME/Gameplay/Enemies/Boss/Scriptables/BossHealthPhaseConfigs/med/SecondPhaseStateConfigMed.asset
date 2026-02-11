@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0d89350894c6ed44a9dc92bb198fbcf, type: 3}
-  m_Name: SecondPhaseStateConfig 1
+  m_Name: SecondPhaseStateConfigMed
   m_EditorClassIdentifier: Assembly-CSharp::BaseBossSettings
   handsAttackSettings:
     handWarningDuration: 1
-    handAttackDuration: 1.5
-    handCooldown: 1
-    totalHandsToUse: 3
+    handAttackDuration: 1
+    handCooldown: 1.5
+    totalHandsToUse: 5
     useBothHands: 0
-    phaseSpeedMultiplier: 1.12
+    maxSpecialHands: 3
   spawnAttackSettings:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
     projectileBeforeSpawnPrefab: {fileID: 4899053137042385202, guid: c35248b870a664833961bec195804c32, type: 3}
-    attacksToCast: 6
-    hitThreshold: 150
+    attacksToCast: 1000
+    hitThreshold: 100
     spawnSettings:
       delayBetweenAttacks: {x: 1, y: 2}
       bothSlimesAliveProbabilities:
@@ -45,11 +45,11 @@ MonoBehaviour:
         fourShots: 0
         bulletHell: 0
     spellSettings:
-      attackAccuracyRange: {x: 0.90000004, y: 1}
+      attackAccuracyRange: {x: 0.75, y: 0.9}
       attackSpeedRange: {x: 15, y: 19}
       targetMiddleProbability: 0
     specialAttacksSettings:
-      threeShotsAngle: 22.5
+      threeShotsAngle: 45
       fourShotsWaitBetweenShots: 0.4
       bulletHellTotalAngle: 45
       bulletHellWaitBetweenShots: 0.2
@@ -61,30 +61,12 @@ MonoBehaviour:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 0.11204482
-        outSlope: 0.11204482
+        inSlope: 0
+        outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
-        outWeight: 0.34100455
-      - serializedVersion: 3
-        time: 0.6731589
-        value: 0.33547437
-        inSlope: 1.1129844
-        outSlope: 1.1129844
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.862288
-        value: 0.659469
-        inSlope: 1.553316
-        outSlope: 1.553316
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.4147413
-        outWeight: 0.7967811
+        outWeight: 0
       - serializedVersion: 3
         time: 1
         value: 1
@@ -97,7 +79,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    rotationDuration: 3
+    rotationDuration: 8
     totalLoops: 1
     withSlimeDetection: 1
   icicleSpawnSettings:
@@ -105,6 +87,12 @@ MonoBehaviour:
     maxWaitTime: 10
     loopSpawning: 1
     accuracyOffset: 5
+    minIcicleCount: 3
+    maxIcicleCount: 5
+    playerTargetChance: 0.7
+    minSpacingBetweenIcicles: 4
+    minDelayBetweenIcicles: 1
+    maxDelayBetweenIcicles: 3
   waterAttackSettings:
     waterDamage: 0
   lightHouseSettings:
@@ -121,9 +109,9 @@ MonoBehaviour:
     floatBossDistance: 0
     floatBossDuration: 0
   bossCoreSettings:
-    maxHealth: 700
+    maxHealth: 800
   bossPhaseSettings:
-    lowerHealthThreshold: 300
+    lowerHealthThreshold: 400
     targetHitsToKill: 5
     expectedAvgSpeedOfSpells: 35
   littleBossMovementSettings:
