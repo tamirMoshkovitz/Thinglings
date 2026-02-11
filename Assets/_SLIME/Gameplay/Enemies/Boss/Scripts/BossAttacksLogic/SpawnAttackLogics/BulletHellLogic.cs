@@ -46,7 +46,7 @@ namespace _SLIME.Boss
 
         public void Attack(SpellSettings spellSets)
         {
-            _data.animator.SetTrigger(Do8Spells);
+            if(_data != null) _data.animator.SetTrigger(Do8Spells);
             _spellSets = spellSets;
             _spellSets.attackAccuracyRange = Vector2.one;
             _spellSets.attackSpeedRange = new Vector2(spellSets.attackSpeedRange.x, spellSets.attackSpeedRange.x);

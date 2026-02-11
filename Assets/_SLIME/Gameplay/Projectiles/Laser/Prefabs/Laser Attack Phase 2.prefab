@@ -531,6 +531,8 @@ MonoBehaviour:
   upLaserCollider: {fileID: 8859114410329758775}
   downLaserCollider: {fileID: 6523442106124508074}
   laserSfx: {fileID: 5296170136901531545, guid: d1e392667eb1840fdb9f99f8955f233e, type: 3}
+  camera: {fileID: 0}
+  earthquakeUtil: {fileID: 11400000, guid: 7526dd723c1fc4f9d9617e2db913d571, type: 2}
 --- !u!50 &3107913833878844164
 Rigidbody2D:
   serializedVersion: 5
