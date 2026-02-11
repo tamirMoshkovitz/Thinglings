@@ -1,5 +1,6 @@
 using System.Collections;
 using _SLIME.BaseScripts;
+using _SLIME.Core.ControllerRumble.Scripts;
 using _SLIME.GameLoop;
 using _SLIME.Slime;
 using UnityEngine;
@@ -69,6 +70,7 @@ namespace _SLIME.Scenes.Ending.Scripts
         private IEnumerator RiseSlimes()
         {
             SlimeEvents.RiseToLight?.Invoke();
+            GamepadWrapper.isEndScene = true;
             
             Vector3 firstSlimeStartPos = firstSlime.transform.position;
             Vector3 secondSlimeStartPos = secondSlime.transform.position;

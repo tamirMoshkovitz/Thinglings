@@ -5,6 +5,8 @@ namespace _SLIME.Core.ControllerRumble.Scripts
 {
     public static class GamepadWrapper
     {
+
+        public static bool isEndScene;
         public static void ResetHaptics()
         {
             Gamepad.current?.ResetHaptics();
@@ -12,7 +14,7 @@ namespace _SLIME.Core.ControllerRumble.Scripts
 
         public static void SetMotorSpeeds(float lowFrequency, float highFrequency)
         {
-            if (MenuController.IsGamePaused)
+            if (MenuController.IsGamePaused || isEndScene)
             {
                 Gamepad.current?.SetMotorSpeeds(0f, 0f);
                 return;
