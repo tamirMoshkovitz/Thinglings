@@ -32,7 +32,7 @@ namespace _SLIME.Boss
         private static readonly int DoLightHouse = Animator.StringToHash("DoLightHouse");
         private static readonly int DoLittleBosses = Animator.StringToHash("DoLittleBosses");
         
-        private Dictionary<BossAttackType, float> _lastUsedTime = new();
+        private static readonly Dictionary<BossAttackType, float> LastUsedTime = new();
         
         
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -44,7 +44,7 @@ namespace _SLIME.Boss
             if (availableAttacks == null || availableAttacks.Count == 0) return;
             
             BossAttackType selectedAttack = SelectLeastRecentlyUsed(availableAttacks);
-            _lastUsedTime[selectedAttack] = Time.time;
+            LastUsedTime[selectedAttack] = Time.time;
             PreformSelectedAttack(animator, selectedAttack);
         }
 
@@ -53,11 +53,11 @@ namespace _SLIME.Boss
         {
             if (attacks.Count == 1) return attacks[0];
             
-            float oldestTime = _lastUsedTime.TryGetValue(attacks[0], out float t) ? t : float.MinValue;
+            float oldestTime = LastUsedTime.TryGetValue(attacks[0], out float t) ? t : float.MinValue;
             var candidates = new List<BossAttackType> { attacks[0] };
             for (int i = 1; i < attacks.Count; i++)
             {
-                float lastTime = _lastUsedTime.TryGetValue(attacks[i], out float lt) ? lt : float.MinValue;
+                float lastTime = LastUsedTime.TryGetValue(attacks[i], out float lt) ? lt : float.MinValue;
                 if (lastTime < oldestTime)
                 {
                     oldestTime = lastTime;
