@@ -21,18 +21,9 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 77c4c2ed35c564daa8bed164eda650fd, type: 3}
+      value: {fileID: 21300000, guid: 494cc47fe716a407294bc0f4e7b50099, type: 3}
     attribute: m_Sprite
     path: 
-    classID: 212
-    script: {fileID: 0}
-    flags: 2
-  - serializedVersion: 2
-    curve:
-    - time: 0
-      value: {fileID: 21300000, guid: 70c9a09c5459349ac84aff72c58731c4, type: 3}
-    attribute: m_Sprite
-    path: Rock shadow
     classID: 212
     script: {fileID: 0}
     flags: 2
@@ -52,18 +43,8 @@ AnimationClip:
       isPPtrCurve: 1
       isIntCurve: 0
       isSerializeReferenceCurve: 0
-    - serializedVersion: 2
-      path: 2296353130
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-      isIntCurve: 0
-      isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 77c4c2ed35c564daa8bed164eda650fd, type: 3}
-    - {fileID: 21300000, guid: 70c9a09c5459349ac84aff72c58731c4, type: 3}
+    - {fileID: 21300000, guid: 494cc47fe716a407294bc0f4e7b50099, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
