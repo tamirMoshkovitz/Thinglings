@@ -11,10 +11,13 @@ namespace _SLIME.Tutorial
         public float requiredStretch;
         public float timeToGoDown;
     }
+
+    
     
     public class Logo : ProjectMonoBehavior
     {
         private static readonly int StretchPower = Animator.StringToHash("StretchPower");
+       
         private const int MaxNumber = 8;
         private const int MinNumber = 0;
         
@@ -73,6 +76,8 @@ namespace _SLIME.Tutorial
             UpdateAnimator();
             
         }
+
+       
         
         private void DecreaseNumber()
         {

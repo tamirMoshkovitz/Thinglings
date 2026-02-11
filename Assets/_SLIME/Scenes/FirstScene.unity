@@ -129,13 +129,15 @@ GameObject:
   m_Component:
   - component: {fileID: 50617921}
   - component: {fileID: 50617920}
+  - component: {fileID: 50617922}
+  - component: {fileID: 50617923}
   m_Layer: 0
   m_Name: Settings screen icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &50617920
 Animator:
   serializedVersion: 7
@@ -148,7 +150,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: d3c287c3ac57341d4b867b8320c2266e, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -167,14 +169,89 @@ Transform:
   m_GameObject: {fileID: 50617919}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.96547, y: 6.82584, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -14.08, y: 16.5, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1871747812}
   - {fileID: 1081990175}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &50617922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50617919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51e3a78e32234d64b499ee296ace1b4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Tutorial.OptionsRock
+  optionsAnimator: {fileID: 50617920}
+--- !u!114 &50617923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50617919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: e06cbcf537904410c9b97a8f448197a0, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 06c0dc47-2a3c-4111-a94d-e20050b6ede3
+    m_ActionName: 'Slime/Move Right[/DualShock4GamepadHID/rightStick,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ecc01ad2-5f25-4ae9-a41a-274b99e48f6a
+    m_ActionName: 'Slime/Move Left[/DualShock4GamepadHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 50617922}
+        m_TargetAssemblyTypeName: _SLIME.Tutorial.OptionsRock, Assembly-CSharp
+        m_MethodName: optionsPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0e17f753-7789-4b39-b78d-5d56453ff518
+    m_ActionName: 'UI/Pause[/DualShock4GamepadHID/start,/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a3ebb7d9-9810-44a6-bdda-2d282c42f84c
+    m_ActionName: 'UI/Move[/DualShock4GamepadHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 324269ea-f549-4456-8501-38067511784e
+    m_ActionName: 'UI/Select[/DualShock4GamepadHID/buttonSouth,/Keyboard/enter]'
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: UI
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &127195865 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7281183245925732594, guid: 30d9b14e0fc3f244fbef396bf75f24af, type: 3}
@@ -1435,6 +1512,10 @@ PrefabInstance:
       propertyPath: caveShakeStateDeps.camera
       value: 
       objectReference: {fileID: 230139385}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: logoStateDeps.optionsRock
+      value: 
+      objectReference: {fileID: 50617919}
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: riseToBossStateDeps.Arrow1
       value: 
@@ -2727,6 +2808,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1747876577721774579, guid: e8a5e0b4c6ca0498c99c225405d73a00, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747876577721774579, guid: e8a5e0b4c6ca0498c99c225405d73a00, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionId
+      value: a3ebb7d9-9810-44a6-bdda-2d282c42f84c
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747876577721774579, guid: e8a5e0b4c6ca0498c99c225405d73a00, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
+      value: 324269ea-f549-4456-8501-38067511784e
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747876577721774579, guid: e8a5e0b4c6ca0498c99c225405d73a00, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionName
+      value: 'UI/Move[/DualShock4GamepadHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747876577721774579, guid: e8a5e0b4c6ca0498c99c225405d73a00, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
+      value: 'UI/Select[/DualShock4GamepadHID/buttonSouth,/Keyboard/enter]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6505946974763779168, guid: e8a5e0b4c6ca0498c99c225405d73a00, type: 3}
+      propertyPath: optionsAnimator
+      value: 
+      objectReference: {fileID: 50617920}
     - target: {fileID: 8676457833987604576, guid: e8a5e0b4c6ca0498c99c225405d73a00, type: 3}
       propertyPath: m_Name
       value: logo

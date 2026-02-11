@@ -9,12 +9,13 @@ namespace _SLIME.Tutorial
     public struct LogoStateDeps
     {
         public GameObject logo;
+        public GameObject optionsRock;
     }
     
     [Serializable]
     public struct LogoStateSet
     {
-      
+       
     }
 
     public class LogoStateLogic : ITutorialStateLogic
@@ -48,6 +49,7 @@ namespace _SLIME.Tutorial
                 yield return null;
             }
             _logoStateDeps.logo.SetActive(false);
+            _logoStateDeps.optionsRock.SetActive(false);
             MenuController.gameTime = GameTime.Game;
         }
 
