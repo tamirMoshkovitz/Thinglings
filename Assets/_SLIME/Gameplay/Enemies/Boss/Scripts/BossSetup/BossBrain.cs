@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _SLIME.BaseScripts;
 using _SLIME.Core.Audio.FMOD.Scripts;
+using _SLIME.Core.MenuSettings.Scripts;
 using _SLIME.GameLoop;
 using _SLIME.Slime;
 using _SLIME.UI;
@@ -24,21 +25,21 @@ public enum BossStates
 
 namespace _SLIME.Boss
 {
+    
     public class BossBrain : ProjectMonoBehavior, IHealth
     {
         private static readonly int Die = Animator.StringToHash("Die");
         
         [Header("Camera Setup")] 
         public Camera mainCamera;
-        
-        [Header("Boss Data Setup")]
-        public static BaseBossConfigurations bossConfigurations;
+
+        [Header("Boss Data Setup")] public static BaseBossConfigurations bossConfigurations;
 
         public FloatingMagic floatingAttributes;
-        
-        [SerializeField] BaseBossConfigurations firstPhaseConfigurations;
-        [SerializeField] BaseBossConfigurations secondPhaseConfigurations;
-        [SerializeField] BaseBossConfigurations tunnelPhaseConfigurations;
+
+        public BossConfigStruct bossConfigEasy;
+        public BossConfigStruct bossConfigMedium;
+        public BossConfigStruct bossConfigHard;
         
         public GameObject waterStateBrain;
         public GameObject bossCloseColliders;
@@ -133,9 +134,9 @@ namespace _SLIME.Boss
             
             StateMachine = new StateMachine(this);
             
-            FirstPhaseState = new FirstPhaseState(StateMachine, this, firstPhaseConfigurations);
-            SecondPhaseState = new SecondPhaseState(StateMachine, this, secondPhaseConfigurations);
-            TunnelPhaseState = new TunnelPhaseState(StateMachine, this, tunnelPhaseConfigurations);
+            FirstPhaseState = new FirstPhaseState(StateMachine, this);
+            SecondPhaseState = new SecondPhaseState(StateMachine, this);
+            TunnelPhaseState = new TunnelPhaseState(StateMachine, this);
 
             BossPhaseType savedPhase = BossPhaseType.FirstPhase;
             
@@ -144,21 +145,28 @@ namespace _SLIME.Boss
                 savedPhase = BossCheckpointManager.Instance.CurrentSavedPhase;
             }
 
+            BossConfigStruct config = MenuController.gameMode switch
+            {
+                GameMode.Easy => bossConfigEasy,
+                GameMode.Medium => bossConfigMedium,
+                GameMode.Hard => bossConfigHard,
+                _ => bossConfigEasy
+            };
+
             switch (savedPhase)
             {
-
                 case BossPhaseType.FirstPhase:
-                    bossConfigurations = firstPhaseConfigurations;
+                    bossConfigurations = config.firstPhaseConfigurations;
                     currentHealth = bossConfigurations.CoreSettings.maxHealth;
                     StateMachine.Initialize(FirstPhaseState);
                     break;
                 case BossPhaseType.SecondPhase:
-                    bossConfigurations = secondPhaseConfigurations;
+                    bossConfigurations = config.secondPhaseConfigurations;
                     currentHealth = bossConfigurations.CoreSettings.maxHealth;
                     StateMachine.Initialize(SecondPhaseState);
                     break;
                 case BossPhaseType.TunnelPhase:
-                    bossConfigurations = tunnelPhaseConfigurations;
+                    bossConfigurations = config.thirdPhaseConfigurations;
                     currentHealth = bossConfigurations.CoreSettings.maxHealth;
                     StateMachine.Initialize(TunnelPhaseState);
                     break;
@@ -173,7 +181,7 @@ namespace _SLIME.Boss
             }
 
             
-            if (bossHealthBar) bossHealthBar.fillAmount = currentHealth / firstPhaseConfigurations.CoreSettings.maxHealth;
+            if (bossHealthBar) bossHealthBar.fillAmount = currentHealth / config.firstPhaseConfigurations.CoreSettings.maxHealth;
         }
 
        
@@ -215,7 +223,14 @@ namespace _SLIME.Boss
         {
             finalDamage = Mathf.RoundToInt(finalDamage);
             currentHealth -= finalDamage;
-            if (bossHealthBar) bossHealthBar.fillAmount = currentHealth / firstPhaseConfigurations.CoreSettings.maxHealth;
+            BossConfigStruct config = MenuController.gameMode switch
+            {
+                GameMode.Easy => bossConfigEasy,
+                GameMode.Medium => bossConfigMedium,
+                GameMode.Hard => bossConfigHard,
+                _ => bossConfigEasy
+            };
+            if (bossHealthBar) bossHealthBar.fillAmount = currentHealth / config.firstPhaseConfigurations.CoreSettings.maxHealth;
 
             if (BossState != BossStates.WaterState && bossHealthBar.gameObject.activeInHierarchy)
             {
@@ -307,12 +322,18 @@ namespace _SLIME.Boss
             if (BossCheckpointManager.Instance)
             {
                 BossCheckpointManager.Instance.SaveCheckpoint(phaseToSave);
-                
+                BossConfigStruct config = MenuController.gameMode switch
+                {
+                    GameMode.Easy => bossConfigEasy,
+                    GameMode.Medium => bossConfigMedium,
+                    GameMode.Hard => bossConfigHard,
+                    _ => bossConfigEasy
+                };
                 switch (phaseToSave)
                 {
-                    case BossPhaseType.FirstPhase: bossConfigurations = firstPhaseConfigurations; break;
-                    case BossPhaseType.SecondPhase: bossConfigurations = secondPhaseConfigurations; break;
-                    case BossPhaseType.TunnelPhase: bossConfigurations = tunnelPhaseConfigurations; break;
+                    case BossPhaseType.FirstPhase: bossConfigurations = config.firstPhaseConfigurations; break;
+                    case BossPhaseType.SecondPhase: bossConfigurations = config.secondPhaseConfigurations; break;
+                    case BossPhaseType.TunnelPhase: bossConfigurations = config.thirdPhaseConfigurations; break;
                 }
             }
         }

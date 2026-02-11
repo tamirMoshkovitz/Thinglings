@@ -78,7 +78,7 @@ namespace _SLIME.Projectiles
            
             
             SFXPlayer.Play(shootSFX);
-
+            
          
         }
         
@@ -116,6 +116,7 @@ namespace _SLIME.Projectiles
             {
                 HandleImpact(null); 
             }
+            
         }
 
         protected virtual void HandleImpact(IHealth target)

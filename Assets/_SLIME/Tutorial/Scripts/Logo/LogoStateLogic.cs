@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using _SLIME.Core.MenuSettings.Scripts;
 using UnityEngine;
 
 namespace _SLIME.Tutorial
@@ -41,12 +42,13 @@ namespace _SLIME.Tutorial
 
         public IEnumerator Start()
         {
+            MenuController.gameTime = GameTime.Start;
             while (!_finished)
             {
                 yield return null;
             }
             _logoStateDeps.logo.SetActive(false);
-            
+            MenuController.gameTime = GameTime.Game;
         }
 
     }

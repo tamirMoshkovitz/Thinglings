@@ -17,5 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_SLIME/Scenes/ManagerScene.unity
     guid: 2b62b59bdb207490eb645752b5329dac
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 25d6dbb4fb66a4aaa83247f5e51472f3, type: 2}
   m_UseUCBPForAssetBundles: 0
