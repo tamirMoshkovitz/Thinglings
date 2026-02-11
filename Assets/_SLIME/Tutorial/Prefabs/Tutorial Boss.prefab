@@ -693,6 +693,26 @@ MonoBehaviour:
       Data3: -2037420620
       Data4: 1826308944
     Path: event:/Boss Hit
+  bossHitMumbleSFX:
+  - Guid:
+      Data1: 248717703
+      Data2: 1146682669
+      Data3: -2108100958
+      Data4: 2106022016
+    Path: event:/Boss mumble 1
+  - Guid:
+      Data1: -1520882257
+      Data2: 1135963270
+      Data3: 1562434206
+      Data4: 1797044798
+    Path: event:/Boss mumble 2
+  - Guid:
+      Data1: 494740885
+      Data2: 1080823049
+      Data3: 2043720634
+      Data4: 1396181012
+    Path: event:/Boss mumble 3
+  mumbleDelay: 0.2
 --- !u!50 &7321007187848175317
 Rigidbody2D:
   serializedVersion: 5
@@ -825,6 +845,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FloatingMagic
   floatDistance: 0.5
   duration: 2
+  useFigureEight: 0
+  easeInDuration: 1.5
 --- !u!1 &6463571764560901836
 GameObject:
   m_ObjectHideFlags: 0

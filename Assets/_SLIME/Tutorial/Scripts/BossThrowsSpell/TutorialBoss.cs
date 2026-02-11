@@ -24,6 +24,7 @@ namespace _SLIME.Tutorial
         [SerializeField] private TutorialScriptable tutorialScriptable;
         [SerializeField] private List<GameObject> bossRenderersToFlash = new List<GameObject>();
         [SerializeField] private EventReference hitSFX;
+        [SerializeField] private List<EventReference> bossHitMumbleSFX = new();
 
         private TutorialBossFlashSettings _flashSettings;
         private List<Renderer> _renderers = new List<Renderer>();
@@ -53,7 +54,7 @@ namespace _SLIME.Tutorial
 
         public void TakeDamage(float damage = 0F)
         {
-            SFXPlayer.Play(hitSFX);
+            PlayHitSFX();
             TriggerFlash();
             BossHit?.Invoke();
         }
@@ -99,6 +100,13 @@ namespace _SLIME.Tutorial
             {
                 r.material.SetVector(_flashPropertyID, Vector3.zero);
             }
+        }
+        
+        private void PlayHitSFX()
+        {
+            SFXPlayer.Play(hitSFX);
+            int randomMumble = UnityEngine.Random.Range(0, bossHitMumbleSFX.Count);
+            SFXPlayer.Play(bossHitMumbleSFX[randomMumble]);
         }
     }
 }
