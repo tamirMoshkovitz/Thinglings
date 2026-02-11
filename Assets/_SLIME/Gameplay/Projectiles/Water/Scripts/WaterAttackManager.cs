@@ -154,7 +154,7 @@ public class WaterAttackManager : MonoBehaviour
 
     private void spawnSpell(Vector3 from)
     {
-        Vector3 spawnPosition = from + Vector3.up * Random.Range(-.5f, .5f);
+        Vector3 spawnPosition = from + Vector3.up * Random.Range(-.75f, .75f);
         Instantiate(waterSpellPrefab, spawnPosition, Quaternion.identity);
     }
 
