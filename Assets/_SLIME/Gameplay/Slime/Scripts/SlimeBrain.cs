@@ -68,6 +68,7 @@ namespace _SLIME.Slime
         private bool _isMoveLeftCancelled = true, _isMoveRightCancelled = true;
         private Coroutine _controlSwitchCoroutine;
         private bool _hasLoadedDeathScene = false;
+        private bool _isRisingToLight;
 
         public SlimeData Data => _slimeData;
         
@@ -92,6 +93,7 @@ namespace _SLIME.Slime
             GameEvents.WaterAttackEnded += UnlockMovement;
 
             SlimeEvents.RiseToLight += LockMovement;
+            SlimeEvents.RiseToLight += OnRisingToLight;
         }
         
         private void OnDisable()
@@ -109,10 +111,13 @@ namespace _SLIME.Slime
             GameEvents.WaterAttackEnded -= UnlockMovement;
             
             SlimeEvents.RiseToLight -= LockMovement;
+            SlimeEvents.RiseToLight -= OnRisingToLight;
         }
 
         private void Update()
         {
+            if (_isRisingToLight) return;
+            
             UpdateSlimeControls();
             UpdateSlimeData();
             CheckDeath();
@@ -345,6 +350,11 @@ namespace _SLIME.Slime
         {
             _leftSide.UnlockMovement();
             _rightSide.UnlockMovement();
+        }
+
+        private void OnRisingToLight()
+        {
+            _isRisingToLight = true;
         }
     }
 }
