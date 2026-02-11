@@ -423,6 +423,25 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &-6757067861073846058
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2829591bf9e045528d545a410d2c3f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Boss.BossDeathSFX
+  deathSFX:
+    Guid:
+      Data1: -1461326222
+      Data2: 1333273320
+      Data3: 1839950757
+      Data4: -737973404
+    Path: event:/Boss final death
 --- !u!114 &-6705658317829805186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2577,7 +2596,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -1741202761471160443}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -6757067861073846058}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
