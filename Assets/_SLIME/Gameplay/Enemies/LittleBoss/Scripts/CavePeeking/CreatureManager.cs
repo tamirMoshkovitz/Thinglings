@@ -1,29 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using _SLIME.Boss; // Ensure this namespace is active
 using UnityEngine;
-// using _SLIME.Boss; // Uncomment if you have this namespace
 using Random = UnityEngine.Random;
 
 public class CreatureManager : MonoBehaviour
 {
     [Header("References")]
-    // public BossBrain bossBrain; // Uncomment
+    public BossBrain bossBrain; 
 
     [Header("Pool of Creatures")]
     public List<PeekingCreature> allCreatures = new List<PeekingCreature>();
 
     [Header("Atmospheric Depth (Color by Distance)")]
-    public int farSortingOrder = 0;   // Order for background
-    public int closeSortingOrder = 20; // Order for foreground
-    public Color farColor = new Color(0.4f, 0.4f, 0.4f, 1f); // Darker/Dimmed
-    public Color closeColor = Color.white; // Bright/Clear
-    [Range(0f, 1f)] public float hiddenDimFactor = 0.3f; // How much darker is the "hidden" state?
+    public int farSortingOrder = 0;   
+    public int closeSortingOrder = 20; 
+    public Color farColor = new Color(0.4f, 0.4f, 0.4f, 1f); 
+    public Color closeColor = Color.white; 
+    [Range(0f, 1f)] public float hiddenDimFactor = 0.3f; 
 
     [Header("Timing Ranges")]
     public Vector2 spawnDelayRange = new Vector2(1f, 4f); 
     public Vector2 phaseTwoEndTargetRange = new Vector2(0.5f, 1f);
     
     [Header("Progression")]
+    [Tooltip("X axis = Health Lost (0 to 1), Y axis = Interpolation (0 to 1).")]
     public AnimationCurve difficultyCurve = AnimationCurve.Linear(0,0,1,1);
     
     [Header("Tunnel Phase")]
@@ -49,29 +50,57 @@ public class CreatureManager : MonoBehaviour
     
     private void OnEnable()
     {
-        // TunnelPhaseState.TunnelPhaseStarted += OnPhaseChangeToTunnel; // Uncomment
+        TunnelPhaseState.TunnelPhaseStarted += OnPhaseChangeToTunnel;
     }
     
     private void OnDisable()
     {
-        // TunnelPhaseState.TunnelPhaseStarted -= OnPhaseChangeToTunnel; // Uncomment
+        TunnelPhaseState.TunnelPhaseStarted -= OnPhaseChangeToTunnel;
     }
     
     void Update()
     {
+        // 1. Update the difficulty (Spawn Rate) dynamically
         UpdateSpawnRateBasedOnHealth();
 
+        // 2. Handle Spawning
         if (Time.time >= _nextSpawnTime)
         {
             TryTriggerCreature();
+            
+            // Pick next time based on CURRENT spawnDelayRange (which might have changed)
             float delay = Random.Range(spawnDelayRange.x, spawnDelayRange.y);
             _nextSpawnTime = Time.time + delay;
         }
     }
 
     /// <summary>
-    /// Calculates colors for all creatures based on their Sorting Order
+    /// Linearly interpolates the spawn delay based on Boss Health.
     /// </summary>
+    void UpdateSpawnRateBasedOnHealth()
+    {
+        // Stop updating based on HP if we are in the tunnel phase (scripted event)
+        if (_inTunnelPhase) return;
+
+        // Safety checks
+        if (!bossBrain || BossBrain.bossConfigurations == null) return;
+
+        // Get Health Data
+        float maxHp = BossBrain.bossConfigurations.CoreSettings.maxHealth;
+        float lowerThreshold = BossBrain.bossConfigurations.PhaseSettings.lowerHealthThreshold;
+        float currentHp = bossBrain.currentHealth;
+
+        // Calculate progress (0 = Full HP, 1 = Threshold HP)
+        // InverseLerp handles the fact that HP is decreasing (High to Low)
+        float healthProgress = Mathf.InverseLerp(maxHp, lowerThreshold, currentHp);
+
+        // Evaluate curve (allows for non-linear difficulty spikes)
+        float curvedProgress = difficultyCurve.Evaluate(healthProgress);
+
+        // Smoothly adjust the spawn delay range
+        spawnDelayRange = Vector2.Lerp(_initialSpawnDelayRange, phaseTwoEndTargetRange, curvedProgress);
+    }
+
     [ContextMenu("Apply Depth Colors")]
     public void ApplyDepthColors()
     {
@@ -81,29 +110,16 @@ public class CreatureManager : MonoBehaviour
         {
             if (creature == null) continue;
 
-            // Ask the creature what its sorting order will be (based on its parent)
             int order = creature.GetTargetSortingOrder();
-
-            // Calculate interpolation value (0 to 1)
             float t = Mathf.InverseLerp(farSortingOrder, closeSortingOrder, order);
 
-            // Determine the "Peak" brightness for this specific creature
             Color myVisibleColor = Color.Lerp(farColor, closeColor, t);
-
-            // Determine the "Hidden" brightness (just a darker version of visible)
             Color myHiddenColor = myVisibleColor * hiddenDimFactor;
-            // Ensure alpha is 1 (optional, depends if you want fade-out)
             myHiddenColor.a = 1f; 
 
-            // Assign to creature
             creature.visibleColor = myVisibleColor;
             creature.hiddenColor = myHiddenColor;
         }
-    }
-
-    void UpdateSpawnRateBasedOnHealth()
-    {
-        // ... (Keep your original logic here) ...
     }
 
     void TryTriggerCreature()
@@ -126,6 +142,8 @@ public class CreatureManager : MonoBehaviour
     private void OnPhaseChangeToTunnel()
     {
         _inTunnelPhase = true;
+        // Stop any existing tween to avoid conflict
+        StopAllCoroutines(); 
         StartCoroutine(LerpSpawnRate(tunnelPhaseTransitionDuration, tunnelPhaseTargetRange));
     }
 
@@ -138,9 +156,13 @@ public class CreatureManager : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float t = elapsed / duration;
-            spawnDelayRange = Vector2.Lerp(startRange, targetRange, t); // Simplified lerp
+            // Ease out for smoother transition
+            float easedT = 1 - (1 - t) * (1 - t); 
+        
+            spawnDelayRange = Vector2.Lerp(startRange, targetRange, easedT);
             yield return null;
         }
+
         spawnDelayRange = targetRange;
     }
     
@@ -149,6 +171,6 @@ public class CreatureManager : MonoBehaviour
     {
         allCreatures.Clear();
         allCreatures.AddRange(FindObjectsOfType<PeekingCreature>(true));
-        ApplyDepthColors(); // Preview colors in editor immediately
+        ApplyDepthColors(); 
     }
 }
