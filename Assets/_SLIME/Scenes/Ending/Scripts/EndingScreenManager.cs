@@ -39,6 +39,7 @@ namespace _SLIME.Scenes.Ending.Scripts
         {
             StartCoroutine(EndingCoroutine());
             GameEvents.FmodPhaseSix?.Invoke();
+            _collider.enabled = false;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
