@@ -6,7 +6,7 @@ public class ArtConfigurations : TabbedScriptableObject
 {
     [Serializable]
     public class ParallaxSettings 
-    {
+    { 
         [Header("Depth Configuration")]
         [Tooltip("Defines how sensitivity changes with Z depth.\n" +
                  "X-Axis = Z Position\n" +
