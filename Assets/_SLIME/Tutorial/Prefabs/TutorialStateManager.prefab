@@ -127,23 +127,15 @@ MonoBehaviour:
   spellHitStateDeps:
     slimeInput: {fileID: 0}
     spellPrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
+    spellBeforeSpawnPrefab: {fileID: 4899053137042385202, guid: c35248b870a664833961bec195804c32, type: 3}
     pointToSpawnSpell: {fileID: 0}
     slime1: {fileID: 0}
     slime2: {fileID: 0}
     mainCamera: {fileID: 0}
-  learnSlimeAboutSpellsStateDeps:
-    slime1: {fileID: 0}
-    slime2: {fileID: 0}
-    bossHitPoint: {fileID: 0}
-    leftSpellSpawnPoint: {fileID: 0}
-    rightSpellSpawnPoint: {fileID: 0}
-    spellPrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
-    slimeInput: {fileID: 0}
   bossThrowsSpellStateDeps:
     slime1: {fileID: 0}
     slime2: {fileID: 0}
-    leftSpellSpawnPoint: {fileID: 0}
-    rightSpellSpawnPoint: {fileID: 0}
+    spellSpawnPoint: {fileID: 0}
     spellPrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
     spellBeforeSpawnPrefab: {fileID: 4899053137042385202, guid: c35248b870a664833961bec195804c32, type: 3}
     animatorForSketch: {fileID: 0}

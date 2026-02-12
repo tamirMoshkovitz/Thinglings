@@ -30,8 +30,7 @@ namespace _SLIME.Tutorial
         [Tab("LearnSlimeToConnect")]
         [SerializeField] private LearnSlimeToConnectStateSet learnSlimeToConnectStateSet;
         
-        [Tab("LearnSlimeAboutSpells")]
-        [SerializeField] private LearnSlimeAboutSpellsStateSet learnSlimeAboutSpellsStateSet;
+        
         
         [Tab("BossThrowsSpell")]
         [SerializeField] private BossThrowsSpellStateSet bossThrowsSpellStateSet;
@@ -56,7 +55,7 @@ namespace _SLIME.Tutorial
         public SlimeTearsStateSet SlimeTearsStateSet => slimeTearsStateSet;
         public SpellHitStateSet SpellHitStateSet => spellHitStateSet;
         public LearnSlimeToConnectStateSet LearnSlimeToConnectStateSet => learnSlimeToConnectStateSet;
-        public LearnSlimeAboutSpellsStateSet LearnSlimeAboutSpellsStateSet => learnSlimeAboutSpellsStateSet;
+        
         public BossThrowsSpellStateSet BossThrowsSpellStateSet => bossThrowsSpellStateSet;
         public CaveShakeStateSet CaveShakeStateSet => caveShakeStateSet;
         public SceneMoveToFinalBattleStateSet SceneMoveToFinalBattleStateSet => sceneMoveToFinalBattleStateSet;

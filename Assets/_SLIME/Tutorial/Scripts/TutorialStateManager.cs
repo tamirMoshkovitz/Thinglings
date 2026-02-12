@@ -70,7 +70,6 @@ namespace _SLIME.Tutorial
                 TutorialState.SlimeTear => SlimeTearCoroutine(),
                 TutorialState.SpellHit => SpellHitCoroutine(),
                 TutorialState.LearnSlimeToConnect => LearnSlimeToConnectCoroutine(),
-                TutorialState.LearnSlimeAboutSpells => LearnSlimeAboutSpellsCoroutine(),
                 TutorialState.BossThrowsSpell => BossThrowsSpellCoroutine(),
                 TutorialState.CaveShake => CaveShakeCoroutine(),
                 TutorialState.SceneMoveToFinalBattle => SceneMoveToFinalBattleCoroutine(),
@@ -175,19 +174,7 @@ namespace _SLIME.Tutorial
         #endregion
 
         
-        // TODO: FOR NOW THIS STATE IS NOT ACTIVE, AND MAYBE FOREVER
-        #region LearnSlimeAboutSpells
-        [SerializeField] private LearnSlimeAboutSpellsStateDeps learnSlimeAboutSpellsStateDeps;
-        
-        private IEnumerator LearnSlimeAboutSpellsCoroutine()
-        {
-            CurrentState = TutorialState.LearnSlimeAboutSpells;
-            var logic = new LearnSlimeAboutSpellsLogic(learnSlimeAboutSpellsStateDeps, tutorialScriptable.LearnSlimeAboutSpellsStateSet);
-            _allLogics.Add(logic);
-            yield return logic.Start();
-            StartCoroutine(BossThrowsSpellCoroutine());
-        }
-        #endregion
+      
         
         #region BossThrowsSpell
         [SerializeField] private BossThrowsSpellStateDeps bossThrowsSpellStateDeps;

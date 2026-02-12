@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using _SLIME.Projectiles;
+using _SLIME.Boss;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,10 +12,11 @@ namespace _SLIME.Tutorial
     {
         public Transform slime1;
         public Transform slime2;
-        public Transform leftSpellSpawnPoint;
-        public Transform rightSpellSpawnPoint;
+        public Transform spellSpawnPoint;
         public GameObject spellPrefab;
+        public GameObject spellBeforeSpawnPrefab;
         public Animator animatorForSketch;
+        public Animator bossAnimator;
         public Image bossHealthBar;
         public GameObject bossHealthBarCanvas;
     }
@@ -30,11 +32,15 @@ namespace _SLIME.Tutorial
     
     public class BossThrowsSpellLogic : ITutorialStateLogic
     {
+        private static readonly int AttackMode = Animator.StringToHash("Attack mode");
         private const int HitsToComplete = 3;
         private static readonly int SpellReturn = Animator.StringToHash("spell return");
+        private static readonly int Idle = Animator.StringToHash("idle");
         private BossThrowsSpellStateDeps _deps;
         private BossThrowsSpellStateSet _set;
         private int _hitCount;
+        private readonly OneSpellShotLogic _spellLogic;
+        private readonly SpellSettings _spellSettings;
         
         public BossThrowsSpellLogic(BossThrowsSpellStateDeps bossThrowsSpellStateDeps,
             BossThrowsSpellStateSet bossThrowsSpellStateSet)
@@ -43,6 +49,19 @@ namespace _SLIME.Tutorial
             _set = bossThrowsSpellStateSet;
             _hitCount = 0;
             TutorialBoss.BossHit += OnBossHit;
+
+            _spellSettings = new SpellSettings
+            {
+                attackAccuracyRange = Vector2.one,
+                attackSpeedRange = new Vector2(_set.spellSpeed, _set.spellSpeed),
+                targetMiddleProbability = 1f
+            };
+            
+            _spellLogic = new OneSpellShotLogic(
+                _deps.spellPrefab,
+                _deps.spellBeforeSpawnPrefab,
+                _deps.spellSpawnPoint,
+                _deps.spellSpawnPoint);
         }
         
         public void OnDisable()
@@ -58,33 +77,41 @@ namespace _SLIME.Tutorial
             
             _deps.animatorForSketch.SetTrigger(SpellReturn);
             yield return ThrowSpellsUntilBossHit();
+            _spellLogic.Reset();
         }
         
         private IEnumerator ThrowSpellsUntilBossHit()
         {
-            bool useLeftSpawn = true;
             float timeSinceLastSpell = 0f;
             
             while (_hitCount < HitsToComplete)
             {
+                // Update active attack logic if there is one (like BossSpawnAttackBehaviour line 93)
+                if (_spellLogic.IsActive)
+                {
+                    _spellLogic.UpdateAttack();
+                    yield return null;
+                    continue;
+                }
+                
                 timeSinceLastSpell += Time.deltaTime;
                 
                 if (timeSinceLastSpell >= _set.timeBetweenSpells)
                 {
-                    Vector3 centerBetweenSlimes = (_deps.slime1.position + _deps.slime2.position) / 2f;
-                    Transform spawnPoint = useLeftSpawn ? _deps.leftSpellSpawnPoint : _deps.rightSpellSpawnPoint;
-                    useLeftSpawn = !useLeftSpawn;
-                    
-                    SpawnSpell(spawnPoint, centerBetweenSlimes);
+                    _deps.bossAnimator.SetTrigger(AttackMode);
+                    _spellLogic.Attack(_spellSettings);
                     timeSinceLastSpell = 0f;
                 }
                 
                 yield return null;
             }
-            
+
+            _spellLogic.Reset();
+            _deps.bossAnimator.SetTrigger(Idle);
             _deps.animatorForSketch.gameObject.SetActive(false);
             if (_deps.bossHealthBarCanvas != null)
                 _deps.bossHealthBarCanvas.SetActive(false);
+            
         }
         
         private void UpdateBossHealthBar(int hitIndex)
@@ -92,22 +119,6 @@ namespace _SLIME.Tutorial
             if (_deps.bossHealthBar == null || _set.bossHealthBarThresholds == null) return;
             if (hitIndex < 0 || hitIndex >= _set.bossHealthBarThresholds.Length) return;
             _deps.bossHealthBar.fillAmount = _set.bossHealthBarThresholds[hitIndex];
-        }
-        
-        private void SpawnSpell(Transform spawnPoint, Vector3 targetPosition)
-        {
-            // Spawn spell
-            GameObject spellGO = GameObject.Instantiate(_deps.spellPrefab, spawnPoint.position, Quaternion.identity);
-            
-            // Calculate direction to target
-            Vector3 direction = (targetPosition - spawnPoint.position).normalized;
-            
-            Spell spell = spellGO.GetComponentInChildren<Spell>(); 
-            spell.BossSetup(new SpellBossAttributes
-            {
-                direction = direction,
-                moveSpeed = _set.spellSpeed,
-            });
         }
         
         private void OnBossHit()

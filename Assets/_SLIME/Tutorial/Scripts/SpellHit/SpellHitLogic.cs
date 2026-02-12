@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using _SLIME.Projectiles;
+using _SLIME.Boss;
 using DG.Tweening;
 using UnityEngine;
 
@@ -11,9 +12,9 @@ namespace _SLIME.Tutorial
     {
         public UnityEngine.InputSystem.PlayerInput slimeInput;
         public GameObject spellPrefab;
+        public GameObject spellBeforeSpawnPrefab;
         public Transform pointToSpawnSpell;
-        public Transform slime1;
-        public Transform slime2;
+        public Animator bossAnimator;
         public Camera mainCamera;
     }
     
@@ -30,12 +31,13 @@ namespace _SLIME.Tutorial
     
     public class SpellHitLogic : ITutorialStateLogic
     {
+        private static readonly int AttackMode = Animator.StringToHash("Attack mode");
+        private static readonly int Idle = Animator.StringToHash("idle");
         private SpellHitStateDeps _spellHitStateDeps;
         private SpellHitStateSet _spellHitStateSet;
         private bool _slimeGetHit = false;
-        private GameObject _currentSpell;
-        private Vector2 _currentDirection;
-        private Vector3 _currentSpawnPosition;
+        private readonly OneSpellShotLogic _spellLogic;
+        private readonly SpellSettings _spellSettings;
         
         public SpellHitLogic(SpellHitStateDeps spellHitStateDeps,
             SpellHitStateSet spellHitStateSet)
@@ -43,11 +45,25 @@ namespace _SLIME.Tutorial
             _spellHitStateDeps = spellHitStateDeps;
             _spellHitStateSet = spellHitStateSet;
             _SLIME.Slime.SlimeEvents.SlimeGetHit += OnSlimeGetHit;
+            
+            _spellSettings = new SpellSettings
+            {
+                attackAccuracyRange = Vector2.one,
+                attackSpeedRange = new Vector2(spellHitStateSet.spellSpeed, spellHitStateSet.spellSpeed),
+                targetMiddleProbability = 0f
+            };
+            
+            _spellLogic = new OneSpellShotLogic(
+                _spellHitStateDeps.spellPrefab,
+                _spellHitStateDeps.spellBeforeSpawnPrefab,
+                _spellHitStateDeps.pointToSpawnSpell,
+                _spellHitStateDeps.pointToSpawnSpell);
         }
         
         public void OnDisable()
         {
             _SLIME.Slime.SlimeEvents.SlimeGetHit -= OnSlimeGetHit;
+            _spellLogic.Reset();
         }
         
         public IEnumerator Start()
@@ -56,19 +72,27 @@ namespace _SLIME.Tutorial
             
             yield return new WaitForSeconds(_spellHitStateSet.waitTimeBeforeSpawn);
             
-            SpawnAndLaunchSpell();
+            _spellLogic.Attack(_spellSettings);
             
             while (!_slimeGetHit)
             {
-                // Check if current spell was destroyed without hitting
-                if (_currentSpell == null)
+                // Update active attack logic if there is one (like BossSpawnAttackBehaviour line 93)
+                if (_spellLogic.IsActive)
                 {
-                    // Spell was destroyed without hitting slime, spawn a new one
-                    SpawnAndLaunchSpell();
+                    _spellLogic.UpdateAttack();
                 }
+                else if (!_slimeGetHit)
+                {
+                    _spellHitStateDeps.bossAnimator.SetTrigger(AttackMode);
+                    // Spell was spawned but slime wasn't hit, spawn another one
+                    _spellLogic.Attack(_spellSettings);
+                }
+                
                 yield return null;
             }
-            
+
+            _spellLogic.Reset();
+            _spellHitStateDeps.bossAnimator.SetTrigger(Idle);
             ShakeCamera();
             
             // EnableSlimeInput();
@@ -84,38 +108,9 @@ namespace _SLIME.Tutorial
             _spellHitStateDeps.slimeInput.enabled = true;
         }
         
-        private void SpawnAndLaunchSpell()
-        {
-            _currentSpawnPosition = _spellHitStateDeps.pointToSpawnSpell.position;
-            _currentSpell = GameObject.Instantiate(_spellHitStateDeps.spellPrefab, 
-                _currentSpawnPosition, Quaternion.identity);
-            
-            Vector3 slime1Pos = _spellHitStateDeps.slime1.position;
-            Vector3 slime2Pos = _spellHitStateDeps.slime2.position;
-            
-            Vector3 spawnTarget = slime1Pos.x < slime2Pos.x ? slime1Pos : slime2Pos;
-            _currentDirection = (spawnTarget - _currentSpawnPosition).normalized;
-
-            Spell spell = _currentSpell.GetComponentInChildren<Spell>();
-            spell.BossSetup(new SpellBossAttributes
-            {
-                direction = _currentDirection,
-                moveSpeed = _spellHitStateSet.spellSpeed,
-            });
-
-        }
-        
         private void OnSlimeGetHit()
         {
             _slimeGetHit = true;
-        }
-        
-        private IEnumerator WaitForSlimeGetHit()
-        {
-            while (!_slimeGetHit)
-            {
-                yield return null;
-            }
         }
         
         private void ShakeCamera()

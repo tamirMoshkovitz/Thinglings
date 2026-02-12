@@ -1325,6 +1325,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 360b175a27bd442d69d4f7cc2c2b7616, type: 3}
+--- !u!95 &1091334698 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3977164221452572183, guid: 360b175a27bd442d69d4f7cc2c2b7616, type: 3}
+  m_PrefabInstance: {fileID: 1091334697}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1160895089
 Mesh:
   m_ObjectHideFlags: 0
@@ -1624,6 +1629,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 819180596}
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: spellHitStateDeps.bossAnimator
+      value: 
+      objectReference: {fileID: 1091334698}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: bossThrowsSpellStateDeps.slime1
       value: 
       objectReference: {fileID: 544429298}
@@ -1654,11 +1663,15 @@ PrefabInstance:
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: spellHitStateDeps.pointToSpawnSpell
       value: 
-      objectReference: {fileID: 1485754810}
+      objectReference: {fileID: 638330842}
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: slimeTearsStateDeps.sorcererAnimator
       value: 
       objectReference: {fileID: 174396333}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: bossThrowsSpellStateDeps.bossAnimator
+      value: 
+      objectReference: {fileID: 1091334698}
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: learnSlimeAboutSpellsStateDeps.slime1
       value: 
@@ -1688,6 +1701,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 174396333}
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
+      propertyPath: bossThrowsSpellStateDeps.spellSpawnPoint
+      value: 
+      objectReference: {fileID: 638330842}
+    - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: learnSlimeAboutSpellsStateDeps.slimeInput
       value: 
       objectReference: {fileID: 819180596}
@@ -1714,7 +1731,7 @@ PrefabInstance:
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: bossThrowsSpellStateDeps.leftSpellSpawnPoint
       value: 
-      objectReference: {fileID: 1485754810}
+      objectReference: {fileID: 0}
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: sceneMoveToFinalBattleStateDeps.tutorialBoss
       value: 
@@ -1734,7 +1751,7 @@ PrefabInstance:
     - target: {fileID: 4430746721087837042, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: learnSlimeAboutSpellsStateDeps.rightSpellSpawnPoint
       value: 
-      objectReference: {fileID: 1485754810}
+      objectReference: {fileID: 0}
     - target: {fileID: 5273071452591367334, guid: 5fc0ddfd64ea34598ba3cfd0e7473ff7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1886,11 +1903,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d015c3b456644bdcb44e25e27c8181f, type: 3}
---- !u!4 &1485754810 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1615405329674240530, guid: 360b175a27bd442d69d4f7cc2c2b7616, type: 3}
-  m_PrefabInstance: {fileID: 1091334697}
-  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1535232051
 Mesh:
   m_ObjectHideFlags: 0
