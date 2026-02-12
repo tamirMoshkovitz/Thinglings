@@ -15,6 +15,8 @@ namespace _SLIME.Scenes.Ending.Scripts
         [SerializeField] private Transform cameraEndingPosition;
         [SerializeField] private GameObject firstSlime;
         [SerializeField] private GameObject secondSlime;
+        [SerializeField] private GameObject rightArrow;
+        [SerializeField] private GameObject leftArrow;
         [SerializeField] private Camera camera;
         [SerializeField] private float phaseDelay = 1f;
         [SerializeField] private float slimeRiseDuration = 4f;
@@ -61,8 +63,15 @@ namespace _SLIME.Scenes.Ending.Scripts
             _collider.enabled = true;
             _animator.SetTrigger(StartEnding);
 
+            float timer = 0;
             while (!_enteredGradientTrigger)
             {
+                if (timer >= 7f && !rightArrow.activeSelf)
+                {
+                    rightArrow.SetActive(true); 
+                    leftArrow.SetActive(true);
+                }
+                timer += Time.deltaTime;
                 yield return null;
             }
         }
