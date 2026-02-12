@@ -40,7 +40,6 @@ public class TunnelPhaseState : State
         }
 
         _bossBrain.SavePhaseCheckpoint(BossPhaseType.TunnelPhase);
-        
         TunnelPhaseStarted?.Invoke();
         GameEvents.FmodPhaseFive?.Invoke();
         GameEvents.TunnelPhaseStarted?.Invoke();
