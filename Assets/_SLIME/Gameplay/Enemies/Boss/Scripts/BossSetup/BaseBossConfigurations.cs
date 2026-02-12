@@ -66,6 +66,19 @@ public class BaseBossConfigurations : TabbedScriptableObject
     [Serializable]
     public struct LaserAttackSettings
     {
+        [Serializable]
+        public struct LaserRotationVariant
+        {
+            [Tooltip("Animation curve for laser rotation over time")]
+            public AnimationCurve rotationCurve;
+            
+            [Tooltip("Duration for which the lasers remain active")]
+            public float rotationDuration;
+            
+            [Tooltip("Total laser rotations loops (full 360 degrees) during the attack")]
+            public int totalLoops;
+        }
+        
         [Header("Laser Attack")]
         
         [Tooltip("Animation curve for laser rotation over time")]
@@ -76,6 +89,9 @@ public class BaseBossConfigurations : TabbedScriptableObject
         
         [Tooltip("Total laser rotations loops (full 360 degrees) during the attack")]
         public int totalLoops;
+
+        [Tooltip("Optional list of curve variants. If populated, a random entry will be used each attack.")]
+        public List<LaserRotationVariant> rotationVariants;
 
         public bool withSlimeDetection;
     }

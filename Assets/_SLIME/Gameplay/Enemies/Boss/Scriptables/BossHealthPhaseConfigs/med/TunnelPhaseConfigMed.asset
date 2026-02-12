@@ -25,35 +25,35 @@ MonoBehaviour:
     attacksToCast: 1000
     hitThreshold: 100
     spawnSettings:
-      delayBetweenAttacks: {x: 1, y: 1.5}
+      delayBetweenAttacks: {x: 0.4, y: 0.7}
       bothSlimesAliveProbabilities:
         oneShot: 0
-        twoShots: 0.1
-        threeShot: 0.4
-        fourShots: 0
-        bulletHell: 0.5
+        twoShots: 0
+        threeShot: 0.37300435
+        fourShots: 0.26415095
+        bulletHell: 0.3628447
       notConnectedProbabilities:
         oneShot: 0
-        twoShots: 0.5
-        threeShot: 0
+        twoShots: 0
+        threeShot: 0.43510738
         fourShots: 0
-        bulletHell: 0.5
+        bulletHell: 0.56489265
       oneSlimeAliveProbabilities:
-        oneShot: 0.25
+        oneShot: 0
         twoShots: 0
         threeShot: 0
-        fourShots: 0.5
-        bulletHell: 0.25
+        fourShots: 0
+        bulletHell: 1
     spellSettings:
-      attackAccuracyRange: {x: 0.9, y: 1}
-      attackSpeedRange: {x: 20, y: 25}
+      attackAccuracyRange: {x: 1, y: 1}
+      attackSpeedRange: {x: 25, y: 37}
       targetMiddleProbability: 0
     specialAttacksSettings:
-      threeShotsAngle: 22.5
-      fourShotsWaitBetweenShots: 0.7
-      bulletHellTotalAngle: 60
+      threeShotsAngle: 17.5
+      fourShotsWaitBetweenShots: 0.05
+      bulletHellTotalAngle: 75
       bulletHellWaitBetweenShots: 0.1
-      bulletHellMiddleDensityPower: 1.7
+      bulletHellMiddleDensityPower: 1.4
   laserAttackSettings:
     rotationCurve:
       serializedVersion: 2
@@ -99,6 +99,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     rotationDuration: 3
     totalLoops: 1
+    rotationVariants: []
     withSlimeDetection: 1
   icicleSpawnSettings:
     minWaitTime: 2
@@ -115,10 +116,10 @@ MonoBehaviour:
     waterDamage: 0
   lightHouseSettings:
     attackDuration: {x: 10, y: 10}
-    farBeamSpeed: 70
-    midBeamSpeed: 90
-    closeBeamSpeed: 120
-    beamSpeedMultiplier: 1.5
+    farBeamSpeed: 100
+    midBeamSpeed: 120
+    closeBeamSpeed: 140
+    beamSpeedMultiplier: 1.6
     beamSpeedCurve:
       serializedVersion: 2
       m_Curve:
@@ -146,17 +147,17 @@ MonoBehaviour:
     angleFromMainBeam: {x: 45, y: 200.21394}
     mainBeamAngleFromSlimes: {x: 15, y: 20}
     minBeamAngleDistance: 45
-    timeToCheckForMainBeanSwitch: 20
+    timeToCheckForMainBeanSwitch: 5
     directionFlipTransitionDuration: 1
     directionFlipDeadZone: 8
     floatBossDistance: 8
     floatBossDuration: 3
   bossCoreSettings:
-    maxHealth: 400
+    maxHealth: 600
   bossPhaseSettings:
     lowerHealthThreshold: 0
-    targetHitsToKill: 4
-    expectedAvgSpeedOfSpells: 30
+    targetHitsToKill: 11
+    expectedAvgSpeedOfSpells: 50
   littleBossMovementSettings:
     duration: 1
     easeCurve:
@@ -194,21 +195,21 @@ MonoBehaviour:
       bothSlimesAliveProbabilities:
         oneShot: 0
         twoShots: 0
-        threeShot: 0
+        threeShot: 0.28418037
         fourShots: 0
-        bulletHell: 1
+        bulletHell: 0.7158196
       notConnectedProbabilities:
-        oneShot: 1
+        oneShot: 0
         twoShots: 0
-        threeShot: 0
+        threeShot: 0.90826523
         fourShots: 0
-        bulletHell: 1
+        bulletHell: 0.0917348
       oneSlimeAliveProbabilities:
-        oneShot: 1
+        oneShot: 0
         twoShots: 0
-        threeShot: 0
+        threeShot: 0.16805325
         fourShots: 0
-        bulletHell: 1
+        bulletHell: 0.83194673
     specialAttacksSettings:
       threeShotsAngle: 22.5
       fourShotsWaitBetweenShots: 0.4

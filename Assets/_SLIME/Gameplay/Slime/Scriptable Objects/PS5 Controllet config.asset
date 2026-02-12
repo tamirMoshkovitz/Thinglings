@@ -15,8 +15,8 @@ MonoBehaviour:
   controllerRumbleConfiguration:
     addTearRumble: 1
     tearRumbleDuration: 0.2
-    tearRumbleLowFrequency: 0.125
-    tearRumbleHighFrequency: 0.5
-    stretchRumbleLowFrequency: 0.005
-    stretchRumbleHighFrequency: 0.05
+    tearRumbleLowFrequency: 0.945
+    tearRumbleHighFrequency: 0.85
+    stretchRumbleLowFrequency: 0.01
+    stretchRumbleHighFrequency: 0.1
     rumbleChangeThreshold: 0.0001

@@ -3962,7 +3962,7 @@ Transform:
   m_GameObject: {fileID: 2188459070008625439}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.37, z: 0}
+  m_LocalPosition: {x: 0.05, y: 1.9, z: 0}
   m_LocalScale: {x: 0.55, y: 0.55, z: 0.55}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -5393,7 +5393,7 @@ MonoBehaviour:
   edgeColliderSensor: {fileID: 6874304855154268082}
   controlSwitchDelay: 0.15
   controlSwitchThreshold: 0.67
-  controlSwitchDuration: 0.67
+  controlSwitchDuration: 0.25
   bossHitPoint: {fileID: 0}
   bossHitPointEyeRight: {fileID: 0}
   bossHitPointEyeLeft: {fileID: 0}
@@ -13735,7 +13735,7 @@ Transform:
   m_GameObject: {fileID: 5076426147426406105}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.05, y: 1.9199991, z: 0}
+  m_LocalPosition: {x: 0.05, y: 1.9, z: 0}
   m_LocalScale: {x: 0.55, y: 0.55, z: 0.55}
   m_ConstrainProportionsScale: 1
   m_Children: []
