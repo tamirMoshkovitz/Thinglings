@@ -2341,7 +2341,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 38.898384, y: 22.222221}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -3004,6 +3004,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5840742489186536323, guid: 828d0fa3a22fd49af9ac88f0fb4a17c9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 8115644005664255767, guid: d1a103600fd5847f3ae33dfdcad37022, type: 3}
     - target: {fileID: 5840742489186536323, guid: 828d0fa3a22fd49af9ac88f0fb4a17c9, type: 3}
       propertyPath: m_Enabled
       value: 1
