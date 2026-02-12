@@ -45,12 +45,12 @@ namespace _SLIME.Core.MenuSettings.Scripts
 
 
         private FMOD.Studio.VCA _masterVca;
-        private FMOD.Studio.Bus _masterBus;
+        private FMOD.Studio.Bus _sfxBus;
 
         void Awake()
         {
             _masterVca = FMODUnity.RuntimeManager.GetVCA("vca:/Master");
-            _masterBus = FMODUnity.RuntimeManager.GetBus("bus:/");
+            _sfxBus = FMODUnity.RuntimeManager.GetBus("bus:/SFX");
             _lastGameTime = gameTime;
         }
         
@@ -86,7 +86,7 @@ namespace _SLIME.Core.MenuSettings.Scripts
 
         private void SetMusicPause(bool pause)
         {
-            _masterBus.setPaused(pause);
+            _sfxBus.setPaused(pause);
         }
 
       

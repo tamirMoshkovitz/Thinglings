@@ -48,15 +48,21 @@ namespace _SLIME.Slime
         
         public void FixedUpdate()
         {
-            if (!_movementLocked)
+            if (_movementLocked)
             {
-                Vector2 newVel = MoveInput * _moveSpeed;
-                _rigidbody.linearVelocity = newVel;
+                _rigidbody.linearVelocity = Vector2.zero;
+                return;
             }
+            Vector2 newVel = MoveInput * _moveSpeed;
+            _rigidbody.linearVelocity = newVel;
         }
         
         public void OnMove(InputAction.CallbackContext context)
         {
+            if (_movementLocked)
+            {
+                MoveInput = Vector2.zero;
+            }
             MoveInput = _parent.IsDead ? Vector2.zero : context.ReadValue<Vector2>();
         }
 
@@ -64,6 +70,7 @@ namespace _SLIME.Slime
         {
             _movementLocked = true;
             _rigidbody.linearVelocity = Vector2.zero;
+            MoveInput = Vector2.zero;
         }
 
         public void UnlockMovement()

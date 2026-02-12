@@ -98,6 +98,9 @@ namespace _SLIME.Scenes.Ending.Scripts
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
+            
+            firstSlime.gameObject.SetActive(false);
+            secondSlime.gameObject.SetActive(false);
         }
         
         private IEnumerator ShowText()

@@ -89,6 +89,8 @@ public class WaterAttackManager : MonoBehaviour
         if (_attacked) yield break;
         _attacked = true;
 
+        float slimeToPlaceDuration = .75f;
+        SlimeEvents.SlimeInWaterPosition?.Invoke(slimeToPlaceDuration);
         StartCoroutine(TriggerEarthquake());
         SFXPlayer.Play(watterAttackSFX);
         Debug.Log("water attack started");
@@ -97,8 +99,6 @@ public class WaterAttackManager : MonoBehaviour
 
         GameEvents.FmodPhaseFour?.Invoke();
 
-        float slimeToPlaceDuration = .75f;
-        SlimeEvents.SlimeInWaterPosition?.Invoke(slimeToPlaceDuration);
         yield return new WaitForSeconds(slimeToPlaceDuration);
         TriggerBoth(CreaturesInsideTrigger);
         yield return AttackModeCoroutine();
