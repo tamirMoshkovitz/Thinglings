@@ -638,6 +638,10 @@ PrefabInstance:
       propertyPath: m_Distance
       value: 0.38726273
       objectReference: {fileID: 0}
+    - target: {fileID: 2948719119373563179, guid: d19131542a3dd490abec89de45f4dbdc, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: 6813a57aba3a141128fd89be1fb8ac14, type: 2}
     - target: {fileID: 3424774940278121126, guid: d19131542a3dd490abec89de45f4dbdc, type: 3}
       propertyPath: m_Distance
       value: 0.4218919
@@ -758,6 +762,10 @@ PrefabInstance:
       propertyPath: m_Distance
       value: 0.3427165
       objectReference: {fileID: 0}
+    - target: {fileID: 5638132142207919089, guid: d19131542a3dd490abec89de45f4dbdc, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: 984060a02cb1c4114881f911e1298a3b, type: 2}
     - target: {fileID: 5770468431943715506, guid: d19131542a3dd490abec89de45f4dbdc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.71
