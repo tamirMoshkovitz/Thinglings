@@ -50,6 +50,8 @@ namespace _SLIME.Scenes.Ending.Scripts
         
         private IEnumerator EndingCoroutine()
         {
+            yield return new WaitForSeconds(5f);
+            _collider.enabled = true;
             yield return WaitForSlimesToRise();
             yield return RiseSlimes();
             yield return new WaitForSeconds(phaseDelay);
