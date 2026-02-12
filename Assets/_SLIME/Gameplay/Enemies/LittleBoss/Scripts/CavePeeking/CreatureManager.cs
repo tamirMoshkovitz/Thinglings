@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using _SLIME.Boss; // Ensure this namespace is active
+using _SLIME.Boss; 
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -35,17 +35,22 @@ public class CreatureManager : MonoBehaviour
     public bool useGlobalHoldTime = false;
     public float globalHoldTime = 2.0f;
 
+    [Header("State (Read Only)")]
+    [SerializeField] private bool _inTunnelPhase = false;
+
     private float _nextSpawnTime;
     private Vector2 _initialSpawnDelayRange;
-    private bool _inTunnelPhase = false;
+    private Coroutine _activeTransition;
 
     private void Start()
     {
         _initialSpawnDelayRange = spawnDelayRange;
         _nextSpawnTime = Time.time + Random.Range(spawnDelayRange.x, spawnDelayRange.y);
-
-        // Calculate colors immediately on start
+        
         ApplyDepthColors();
+
+        // FIX: Check if we are ALREADY in the Tunnel Phase because we might have missed the event
+        CheckInitialBossState();
     }
     
     private void OnEnable()
@@ -57,94 +62,56 @@ public class CreatureManager : MonoBehaviour
     {
         TunnelPhaseState.TunnelPhaseStarted -= OnPhaseChangeToTunnel;
     }
+
+    private void CheckInitialBossState()
+    {
+        if (bossBrain == null) return;
+
+        // Verify if the current state of the FSM is already the TunnelPhaseState
+        // You may need to adjust 'CurrentState' based on your BossBrain implementation
+        if (bossBrain.StateMachine.CurrentState is TunnelPhaseState)
+        {
+            OnPhaseChangeToTunnel();
+        }
+    }
     
     void Update()
     {
-        // 1. Update the difficulty (Spawn Rate) dynamically
-        UpdateSpawnRateBasedOnHealth();
+        if (!_inTunnelPhase)
+        {
+            UpdateSpawnRateBasedOnHealth();
+        }
 
-        // 2. Handle Spawning
         if (Time.time >= _nextSpawnTime)
         {
             TryTriggerCreature();
-            
-            // Pick next time based on CURRENT spawnDelayRange (which might have changed)
             float delay = Random.Range(spawnDelayRange.x, spawnDelayRange.y);
             _nextSpawnTime = Time.time + delay;
         }
     }
 
-    /// <summary>
-    /// Linearly interpolates the spawn delay based on Boss Health.
-    /// </summary>
     void UpdateSpawnRateBasedOnHealth()
     {
-        // Stop updating based on HP if we are in the tunnel phase (scripted event)
-        if (_inTunnelPhase) return;
-
-        // Safety checks
         if (!bossBrain || BossBrain.bossConfigurations == null) return;
 
-        // Get Health Data
         float maxHp = BossBrain.bossConfigurations.CoreSettings.maxHealth;
         float lowerThreshold = BossBrain.bossConfigurations.PhaseSettings.lowerHealthThreshold;
         float currentHp = bossBrain.currentHealth;
 
-        // Calculate progress (0 = Full HP, 1 = Threshold HP)
-        // InverseLerp handles the fact that HP is decreasing (High to Low)
         float healthProgress = Mathf.InverseLerp(maxHp, lowerThreshold, currentHp);
-
-        // Evaluate curve (allows for non-linear difficulty spikes)
         float curvedProgress = difficultyCurve.Evaluate(healthProgress);
 
-        // Smoothly adjust the spawn delay range
         spawnDelayRange = Vector2.Lerp(_initialSpawnDelayRange, phaseTwoEndTargetRange, curvedProgress);
-    }
-
-    [ContextMenu("Apply Depth Colors")]
-    public void ApplyDepthColors()
-    {
-        if (allCreatures == null) return;
-
-        foreach (var creature in allCreatures)
-        {
-            if (creature == null) continue;
-
-            int order = creature.GetTargetSortingOrder();
-            float t = Mathf.InverseLerp(farSortingOrder, closeSortingOrder, order);
-
-            Color myVisibleColor = Color.Lerp(farColor, closeColor, t);
-            Color myHiddenColor = myVisibleColor * hiddenDimFactor;
-            myHiddenColor.a = 1f; 
-
-            creature.visibleColor = myVisibleColor;
-            creature.hiddenColor = myHiddenColor;
-        }
-    }
-
-    void TryTriggerCreature()
-    {
-        if (allCreatures.Count == 0) return;
-
-        List<PeekingCreature> available = allCreatures.FindAll(c => c.gameObject.activeInHierarchy && !c.IsBusy);
-
-        if (available.Count > 0)
-        {
-            PeekingCreature selected = available[Random.Range(0, available.Count)];
-            
-            if (useGlobalHoldTime) 
-                selected.peekStayTime = globalHoldTime;
-
-            selected.Peek();
-        }
     }
 
     private void OnPhaseChangeToTunnel()
     {
-        _inTunnelPhase = true;
-        // Stop any existing tween to avoid conflict
-        StopAllCoroutines(); 
-        StartCoroutine(LerpSpawnRate(tunnelPhaseTransitionDuration, tunnelPhaseTargetRange));
+        if (_inTunnelPhase) return;
+        
+        _inTunnelPhase = true; 
+
+        if (_activeTransition != null) StopCoroutine(_activeTransition);
+        _activeTransition = StartCoroutine(LerpSpawnRate(tunnelPhaseTransitionDuration, tunnelPhaseTargetRange));
     }
 
     private IEnumerator LerpSpawnRate(float duration, Vector2 targetRange)
@@ -156,16 +123,45 @@ public class CreatureManager : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float t = elapsed / duration;
-            // Ease out for smoother transition
-            float easedT = 1 - (1 - t) * (1 - t); 
+            float smoothT = t * t * (3f - 2f * t); 
         
-            spawnDelayRange = Vector2.Lerp(startRange, targetRange, easedT);
+            spawnDelayRange = Vector2.Lerp(startRange, targetRange, smoothT);
             yield return null;
         }
 
         spawnDelayRange = targetRange;
+        _activeTransition = null;
     }
-    
+
+    [ContextMenu("Apply Depth Colors")]
+    public void ApplyDepthColors()
+    {
+        if (allCreatures == null) return;
+        foreach (var creature in allCreatures)
+        {
+            if (creature == null) continue;
+            int order = creature.GetTargetSortingOrder();
+            float t = Mathf.InverseLerp(farSortingOrder, closeSortingOrder, order);
+            Color myVisibleColor = Color.Lerp(farColor, closeColor, t);
+            Color myHiddenColor = myVisibleColor * hiddenDimFactor;
+            myHiddenColor.a = 1f; 
+            creature.visibleColor = myVisibleColor;
+            creature.hiddenColor = myHiddenColor;
+        }
+    }
+
+    void TryTriggerCreature()
+    {
+        if (allCreatures.Count == 0) return;
+        List<PeekingCreature> available = allCreatures.FindAll(c => c.gameObject.activeInHierarchy && !c.IsBusy);
+        if (available.Count > 0)
+        {
+            PeekingCreature selected = available[Random.Range(0, available.Count)];
+            if (useGlobalHoldTime) selected.peekStayTime = globalHoldTime;
+            selected.Peek();
+        }
+    }
+
     [ContextMenu("Auto-Fill Creatures")]
     void AutoFill()
     {
