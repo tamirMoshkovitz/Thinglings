@@ -1,8 +1,11 @@
+using System;
+using UnityEngine;
+
 namespace _SLIME.Gameplay.Projectiles.Icicle.Scripts
 {
-    public class DisableOffGameobjectAfterTime : DestroyOffGameobjectAfterTime
+    public class DisableOffGameobjectAfterTime : MonoBehaviour
     {
-        public override void TurnOff()
+        public void Start()
         {
             gameObject.SetActive(false);
         }

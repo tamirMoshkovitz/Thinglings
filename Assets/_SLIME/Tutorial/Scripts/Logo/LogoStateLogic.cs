@@ -48,9 +48,9 @@ namespace _SLIME.Tutorial
             {
                 yield return null;
             }
+            MenuController.gameTime = GameTime.Game;
             _logoStateDeps.logo.SetActive(false);
             _logoStateDeps.optionsRock.SetActive(false);
-            MenuController.gameTime = GameTime.Game;
         }
 
     }
