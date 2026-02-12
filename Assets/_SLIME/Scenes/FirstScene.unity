@@ -2980,10 +2980,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2704096229157842897, guid: 828d0fa3a22fd49af9ac88f0fb4a17c9, type: 3}
-      propertyPath: rumbleConfiguration
-      value: 
-      objectReference: {fileID: 11400000, guid: 5f485f8d6660e4091aede26db1cfced1, type: 2}
     - target: {fileID: 3644255917672106840, guid: 828d0fa3a22fd49af9ac88f0fb4a17c9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3022,18 +3018,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3644255917672106840, guid: 828d0fa3a22fd49af9ac88f0fb4a17c9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5840742489186536323, guid: 828d0fa3a22fd49af9ac88f0fb4a17c9, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 8115644005664255767, guid: d1a103600fd5847f3ae33dfdcad37022, type: 3}
-    - target: {fileID: 5840742489186536323, guid: 828d0fa3a22fd49af9ac88f0fb4a17c9, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9020028306944103060, guid: 828d0fa3a22fd49af9ac88f0fb4a17c9, type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
