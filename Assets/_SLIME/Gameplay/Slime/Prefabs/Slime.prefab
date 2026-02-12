@@ -5312,7 +5312,9 @@ MonoBehaviour:
     sparkShader: {fileID: 4335512739167136317, guid: f08e8f374fd0e410d93a5674edbcaeee, type: 3}
     slime1: {fileID: 590626563016348507}
     slime2: {fileID: 793601271816119973}
-  controllerRumbleConfiguration: {fileID: 11400000, guid: 5f485f8d6660e4091aede26db1cfced1, type: 2}
+  PS4Configuration: {fileID: 11400000, guid: 5f485f8d6660e4091aede26db1cfced1, type: 2}
+  PS5Configuration: {fileID: 11400000, guid: 5b508516180534390a9647bb4e97a83a, type: 2}
+  XBOXConfiguration: {fileID: 11400000, guid: a7e9ffd8afc48475e9beed5e2eecffc8, type: 2}
   slimeStretchCameraShakeConfiguration: {fileID: 11400000, guid: a1cf7dba4bdbc4a818d462a52dfeab15, type: 2}
   mainCamera: {fileID: 0}
   shotTearConnectionDelay: 0.3
@@ -5326,6 +5328,8 @@ MonoBehaviour:
       Data3: -401581939
       Data4: 1213437849
     Path: event:/Slime Dead
+  leftWater: {fileID: 0}
+  rightWater: {fileID: 0}
 --- !u!114 &5495671162430005579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5383,6 +5387,18 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ecc01ad2-5f25-4ae9-a41a-274b99e48f6a
     m_ActionName: 'Slime/Move Left[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0e17f753-7789-4b39-b78d-5d56453ff518
+    m_ActionName: 'UI/Pause[/DualShock4GamepadHID/start,/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a3ebb7d9-9810-44a6-bdda-2d282c42f84c
+    m_ActionName: 'UI/Move[/DualShock4GamepadHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 324269ea-f549-4456-8501-38067511784e
+    m_ActionName: 'UI/Select[/DualShock4GamepadHID/buttonSouth,/Keyboard/enter]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Slime
