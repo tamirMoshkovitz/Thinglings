@@ -1,5 +1,6 @@
 using System.Collections;
 using _SLIME.BaseScripts;
+using _SLIME.Core.MenuSettings.Scripts;
 using _SLIME.GameLoop;
 using _SLIME.Projectiles;
 using Unity.VisualScripting;
@@ -43,7 +44,9 @@ namespace _SLIME.Slime
         [SerializeField] private SparkPowerDep sparkPowerDep;
         
         [Header("Feel Manager Settings")]
-        [SerializeField] private ConrollerRumbleConfiguration controllerRumbleConfiguration;
+        [SerializeField] private ConrollerRumbleConfiguration PS4Configuration;
+        [SerializeField] private ConrollerRumbleConfiguration PS5Configuration;
+        [SerializeField] private ConrollerRumbleConfiguration XBOXConfiguration;
         [SerializeField] private SlimeStretchCameraShakeConfiguration slimeStretchCameraShakeConfiguration;
         [SerializeField] private Camera mainCamera;
         [SerializeField] private float  shotTearConnectionDelay = .3f;
@@ -193,7 +196,7 @@ namespace _SLIME.Slime
             } , _slimeData, sparkPowerDep);
             _slimeConnections = new SlimeConnections(slimeConfiguration,_slimeData, conenctionsComponent );
             
-            _feelManager = new SlimeFeelManager(this, controllerRumbleConfiguration,
+            _feelManager = new SlimeFeelManager(this, ControllerConfiguration,
                 slimeStretchCameraShakeConfiguration, mainCamera, shotTearConnectionDelay, slimeTearSFX);
         }
 
@@ -355,6 +358,22 @@ namespace _SLIME.Slime
         private void OnRisingToLight()
         {
             _isRisingToLight = true;
+        }
+
+        public ConrollerRumbleConfiguration ControllerConfiguration
+        {
+            get
+            {
+                switch (MenuController.controller)
+                {
+                    case Controller.XBOX:
+                        return XBOXConfiguration;
+                    case Controller.PS5:
+                        return PS5Configuration;
+                    default:
+                        return PS4Configuration;
+                }
+            }
         }
     }
 }

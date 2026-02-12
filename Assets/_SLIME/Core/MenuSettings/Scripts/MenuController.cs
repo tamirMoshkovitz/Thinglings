@@ -43,14 +43,14 @@ namespace _SLIME.Core.MenuSettings.Scripts
         private GameTime _lastGameTime;
         public static bool IsGamePaused = false;
 
-        
-        FMOD.Studio.VCA masterVca;
-        FMOD.Studio.Bus masterBus;
+
+        private FMOD.Studio.VCA _masterVca;
+        private FMOD.Studio.Bus _masterBus;
 
         void Awake()
         {
-            masterVca = FMODUnity.RuntimeManager.GetVCA("vca:/Master");
-            masterBus = FMODUnity.RuntimeManager.GetBus("bus:/");
+            _masterVca = FMODUnity.RuntimeManager.GetVCA("vca:/Master");
+            _masterBus = FMODUnity.RuntimeManager.GetBus("bus:/");
             _lastGameTime = gameTime;
         }
         
@@ -86,7 +86,7 @@ namespace _SLIME.Core.MenuSettings.Scripts
 
         private void SetMusicPause(bool pause)
         {
-            masterBus.setPaused(pause);
+            _masterBus.setPaused(pause);
         }
 
       
@@ -103,7 +103,7 @@ namespace _SLIME.Core.MenuSettings.Scripts
         
         public void ChangeVolume(float value)
         {
-            masterVca.setVolume(value);
+            _masterVca.setVolume(value);
             gameVolume.GetComponentInChildren<Slider>().value = value;
             startVolume.GetComponentInChildren<Slider>().value = value;
         }
