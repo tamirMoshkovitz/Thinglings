@@ -8,7 +8,10 @@ namespace _SLIME.Utils
     {
         private void Awake()
         {
+        #if !UNITY_EDITOR
             Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked; // optional, but common
+        #endif
         }
 
         private void OnDestroy()
