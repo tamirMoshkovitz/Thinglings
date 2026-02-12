@@ -448,13 +448,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2829591bf9e045528d545a410d2c3f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Boss.BossDeathSFX
-  deathSFX:
+  beforeDeathSFX:
     Guid:
       Data1: -1520882257
       Data2: 1135963270
       Data3: 1562434206
       Data4: 1797044798
     Path: event:/Boss mumble 2
+  deathSFX:
+    Guid:
+      Data1: -1461326222
+      Data2: 1333273320
+      Data3: 1839950757
+      Data4: -737973404
+    Path: event:/Boss final death
 --- !u!114 &-6705658317829805186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3505,13 +3512,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03fead77c37a60b429cf37b707a1ea19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  bossDeathSFX:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
 --- !u!1102 &7723102324138256807
 AnimatorState:
   serializedVersion: 6
@@ -3773,13 +3773,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03fead77c37a60b429cf37b707a1ea19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaterAttackExitBehaviour
-  bossDeathSFX:
-    Guid:
-      Data1: -1461326222
-      Data2: 1333273320
-      Data3: 1839950757
-      Data4: -737973404
-    Path: event:/Boss final death
 --- !u!1101 &8704294534748087535
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

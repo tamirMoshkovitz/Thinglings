@@ -1,17 +1,15 @@
 using _SLIME.Boss;
-using _SLIME.Core.Audio.FMOD.Scripts;
-using FMODUnity;
 using UnityEngine;
 
 namespace _SLIME.Gameplay.Enemies.Boss.Scripts.BossStateMachineBehaviours
 {
     public class WaterAttackExitBehaviour : BossBaseBehaviour
     {
-        [SerializeField] private EventReference bossDeathSFX;
-        override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        {
-            SFXPlayer.Play(bossDeathSFX);
-        }
+        // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+        //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        //{
+        //    
+        //}
 
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
         //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
