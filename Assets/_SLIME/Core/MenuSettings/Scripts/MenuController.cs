@@ -45,10 +45,12 @@ namespace _SLIME.Core.MenuSettings.Scripts
 
         
         FMOD.Studio.VCA masterVca;
+        FMOD.Studio.Bus masterBus;
 
         void Awake()
         {
             masterVca = FMODUnity.RuntimeManager.GetVCA("vca:/Master");
+            masterBus = FMODUnity.RuntimeManager.GetBus("bus:/");
             _lastGameTime = gameTime;
         }
         
@@ -64,8 +66,6 @@ namespace _SLIME.Core.MenuSettings.Scripts
             }
         }
 
-        
-
 
         private void PauseGame()
         {
@@ -73,6 +73,7 @@ namespace _SLIME.Core.MenuSettings.Scripts
             Time.timeScale = 0f; 
             IsGamePaused = true;
             GamepadWrapper.ResetHaptics();
+            SetMusicPause(true);
         }
 
         private void ResumeGame()
@@ -80,7 +81,12 @@ namespace _SLIME.Core.MenuSettings.Scripts
             _optionsMenuPanel.SetActive(false); 
             Time.timeScale = 1f; 
             IsGamePaused = false;
-            
+            SetMusicPause(false);
+        }
+
+        private void SetMusicPause(bool pause)
+        {
+            masterBus.setPaused(pause);
         }
 
       
