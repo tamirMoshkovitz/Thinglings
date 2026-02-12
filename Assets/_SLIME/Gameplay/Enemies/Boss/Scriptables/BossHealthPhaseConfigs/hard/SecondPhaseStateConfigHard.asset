@@ -13,43 +13,43 @@ MonoBehaviour:
   m_Name: SecondPhaseStateConfigHard
   m_EditorClassIdentifier: Assembly-CSharp::BaseBossSettings
   handsAttackSettings:
-    handWarningDuration: 1
-    handAttackDuration: 1
-    handCooldown: 1.5
-    totalHandsToUse: 5
+    handWarningDuration: 0.5
+    handAttackDuration: 0.5
+    handCooldown: 1
+    totalHandsToUse: 7
     useBothHands: 0
-    maxSpecialHands: 3
+    maxSpecialHands: 6
   spawnAttackSettings:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
     projectileBeforeSpawnPrefab: {fileID: 4899053137042385202, guid: c35248b870a664833961bec195804c32, type: 3}
     attacksToCast: 1000
-    hitThreshold: 100
+    hitThreshold: 300
     spawnSettings:
-      delayBetweenAttacks: {x: 1, y: 2}
+      delayBetweenAttacks: {x: 0.2, y: 0.7}
       bothSlimesAliveProbabilities:
-        oneShot: 0.5
+        oneShot: 0
         twoShots: 0
-        threeShot: 0.5
-        fourShots: 0
-        bulletHell: 0
+        threeShot: 0.08492823
+        fourShots: 0.29066986
+        bulletHell: 0.6244019
       notConnectedProbabilities:
-        oneShot: 0.5
-        twoShots: 0.5
-        threeShot: 0
-        fourShots: 0
-        bulletHell: 0
+        oneShot: 0
+        twoShots: 0
+        threeShot: 0.55581397
+        fourShots: 0.2891473
+        bulletHell: 0.15503877
       oneSlimeAliveProbabilities:
-        oneShot: 0.5
-        twoShots: 0.5
+        oneShot: 0
+        twoShots: 0
         threeShot: 0
-        fourShots: 0
-        bulletHell: 0
+        fourShots: 0.6052632
+        bulletHell: 0.39473686
     spellSettings:
       attackAccuracyRange: {x: 0.75, y: 0.9}
-      attackSpeedRange: {x: 15, y: 19}
+      attackSpeedRange: {x: 25, y: 33}
       targetMiddleProbability: 0
     specialAttacksSettings:
-      threeShotsAngle: 45
+      threeShotsAngle: 22.5
       fourShotsWaitBetweenShots: 0.4
       bulletHellTotalAngle: 45
       bulletHellWaitBetweenShots: 0.2
@@ -81,18 +81,134 @@ MonoBehaviour:
       m_RotationOrder: 4
     rotationDuration: 8
     totalLoops: 1
+    rotationVariants:
+    - rotationCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.5129621
+          value: 0.79239595
+          inSlope: 1.2259364
+          outSlope: 1.2259364
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.6854306
+          value: 0.5526669
+          inSlope: -2.2032895
+          outSlope: -2.2032895
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.77054536
+          value: 0.44405878
+          inSlope: 0.09028185
+          outSlope: 0.09028185
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.7950212
+          value: 0.65716
+          inSlope: 12.795445
+          outSlope: 12.795445
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.81479603
+          value: 0.84473836
+          inSlope: 3.2206159
+          outSlope: 3.2206159
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 2
+          outSlope: 2
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 0
+      rotationDuration: 10
+      totalLoops: 1
+    - rotationCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.4216629
+          value: 0.92055416
+          inSlope: 0.30876532
+          outSlope: 0.30876532
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.8067865
+          value: 0.6422879
+          inSlope: 1.4967015
+          outSlope: 1.4967015
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      rotationDuration: 7
+      totalLoops: 1
     withSlimeDetection: 1
   icicleSpawnSettings:
-    minWaitTime: 5
-    maxWaitTime: 10
+    minWaitTime: 3
+    maxWaitTime: 7
     loopSpawning: 1
-    accuracyOffset: 5
-    minIcicleCount: 3
-    maxIcicleCount: 5
-    playerTargetChance: 0.7
+    accuracyOffset: 3
+    minIcicleCount: 5
+    maxIcicleCount: 10
+    playerTargetChance: 1
     minSpacingBetweenIcicles: 4
-    minDelayBetweenIcicles: 1
-    maxDelayBetweenIcicles: 3
+    minDelayBetweenIcicles: 0.1
+    maxDelayBetweenIcicles: 1
   waterAttackSettings:
     waterDamage: 0
   lightHouseSettings:
@@ -100,6 +216,13 @@ MonoBehaviour:
     farBeamSpeed: 0
     midBeamSpeed: 0
     closeBeamSpeed: 0
+    beamSpeedMultiplier: 0
+    beamSpeedCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
     angleFromMainBeam: {x: 45, y: 200.21394}
     mainBeamAngleFromSlimes: {x: 15, y: 20}
     minBeamAngleDistance: 45
@@ -109,11 +232,11 @@ MonoBehaviour:
     floatBossDistance: 0
     floatBossDuration: 0
   bossCoreSettings:
-    maxHealth: 800
+    maxHealth: 1600
   bossPhaseSettings:
-    lowerHealthThreshold: 400
-    targetHitsToKill: 5
-    expectedAvgSpeedOfSpells: 35
+    lowerHealthThreshold: 800
+    targetHitsToKill: 11
+    expectedAvgSpeedOfSpells: 38
   littleBossMovementSettings:
     duration: 1
     easeCurve:

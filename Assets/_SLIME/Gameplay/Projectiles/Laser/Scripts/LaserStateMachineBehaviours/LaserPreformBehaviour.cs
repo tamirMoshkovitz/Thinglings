@@ -15,11 +15,24 @@ namespace _SLIME.Laser
             var logic = animator.GetComponent<LaserAttackLogic>();
             if (logic != null)
             {
-                logic.PlayRotation(
-                    BossBrain.bossConfigurations.LaserAttack.rotationCurve,
-                    BossBrain.bossConfigurations.LaserAttack.rotationDuration,
-                    BossBrain.bossConfigurations.LaserAttack.totalLoops
-                );
+                var variants = BossBrain.bossConfigurations.LaserAttack.rotationVariants;
+                if (variants != null && variants.Count > 0)
+                {
+                    var variant = variants[Random.Range(0, variants.Count)];
+                    logic.PlayRotation(
+                        variant.rotationCurve,
+                        variant.rotationDuration,
+                        variant.totalLoops
+                    );
+                }
+                else
+                {
+                    logic.PlayRotation(
+                        BossBrain.bossConfigurations.LaserAttack.rotationCurve,
+                        BossBrain.bossConfigurations.LaserAttack.rotationDuration,
+                        BossBrain.bossConfigurations.LaserAttack.totalLoops
+                    );
+                }
             }
         }
 

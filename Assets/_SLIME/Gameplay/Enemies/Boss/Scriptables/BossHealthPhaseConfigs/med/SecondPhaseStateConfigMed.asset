@@ -13,43 +13,43 @@ MonoBehaviour:
   m_Name: SecondPhaseStateConfigMed
   m_EditorClassIdentifier: Assembly-CSharp::BaseBossSettings
   handsAttackSettings:
-    handWarningDuration: 1
-    handAttackDuration: 1
-    handCooldown: 1.5
+    handWarningDuration: 0.8
+    handAttackDuration: 0.8
+    handCooldown: 1.3
     totalHandsToUse: 5
     useBothHands: 0
-    maxSpecialHands: 3
+    maxSpecialHands: 4
   spawnAttackSettings:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
     projectileBeforeSpawnPrefab: {fileID: 4899053137042385202, guid: c35248b870a664833961bec195804c32, type: 3}
     attacksToCast: 1000
-    hitThreshold: 100
+    hitThreshold: 200
     spawnSettings:
-      delayBetweenAttacks: {x: 1, y: 2}
+      delayBetweenAttacks: {x: 0.6, y: 0.9}
       bothSlimesAliveProbabilities:
-        oneShot: 0.5
-        twoShots: 0
-        threeShot: 0.5
+        oneShot: 0
+        twoShots: 0.27588704
+        threeShot: 0.7241129
         fourShots: 0
         bulletHell: 0
       notConnectedProbabilities:
-        oneShot: 0.5
-        twoShots: 0.5
+        oneShot: 0
+        twoShots: 0
         threeShot: 0
-        fourShots: 0
-        bulletHell: 0
+        fourShots: 0.24850298
+        bulletHell: 0.751497
       oneSlimeAliveProbabilities:
-        oneShot: 0.5
-        twoShots: 0.5
-        threeShot: 0
+        oneShot: 0
+        twoShots: 0
+        threeShot: 0.4092792
         fourShots: 0
-        bulletHell: 0
+        bulletHell: 0.5907208
     spellSettings:
-      attackAccuracyRange: {x: 0.75, y: 0.9}
-      attackSpeedRange: {x: 15, y: 19}
+      attackAccuracyRange: {x: 0.92368424, y: 0.9526316}
+      attackSpeedRange: {x: 24, y: 28}
       targetMiddleProbability: 0
     specialAttacksSettings:
-      threeShotsAngle: 45
+      threeShotsAngle: 30
       fourShotsWaitBetweenShots: 0.4
       bulletHellTotalAngle: 45
       bulletHellWaitBetweenShots: 0.2
@@ -68,6 +68,51 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
+        time: 0.25475737
+        value: 0.40445465
+        inSlope: 0.55951476
+        outSlope: 0.55951476
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5286541
+        value: 0.24590269
+        inSlope: 2.2350357
+        outSlope: 2.2350357
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.675033
+        value: 0.63752925
+        inSlope: 0.8184167
+        outSlope: 0.8184167
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.7461692
+        value: 0.57819617
+        inSlope: -1.4200692
+        outSlope: -1.4200692
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.8847829
+        value: 0.5747958
+        inSlope: 0.88695747
+        outSlope: 0.88695747
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
         time: 1
         value: 1
         inSlope: 2
@@ -81,6 +126,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     rotationDuration: 8
     totalLoops: 1
+    rotationVariants: []
     withSlimeDetection: 1
   icicleSpawnSettings:
     minWaitTime: 5
@@ -100,6 +146,13 @@ MonoBehaviour:
     farBeamSpeed: 0
     midBeamSpeed: 0
     closeBeamSpeed: 0
+    beamSpeedMultiplier: 0
+    beamSpeedCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
     angleFromMainBeam: {x: 45, y: 200.21394}
     mainBeamAngleFromSlimes: {x: 15, y: 20}
     minBeamAngleDistance: 45
@@ -109,11 +162,11 @@ MonoBehaviour:
     floatBossDistance: 0
     floatBossDuration: 0
   bossCoreSettings:
-    maxHealth: 800
+    maxHealth: 1200
   bossPhaseSettings:
-    lowerHealthThreshold: 400
-    targetHitsToKill: 5
-    expectedAvgSpeedOfSpells: 35
+    lowerHealthThreshold: 600
+    targetHitsToKill: 10
+    expectedAvgSpeedOfSpells: 40
   littleBossMovementSettings:
     duration: 1
     easeCurve:

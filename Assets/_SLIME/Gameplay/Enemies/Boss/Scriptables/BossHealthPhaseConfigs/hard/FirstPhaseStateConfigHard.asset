@@ -13,44 +13,44 @@ MonoBehaviour:
   m_Name: FirstPhaseStateConfigHard
   m_EditorClassIdentifier: Assembly-CSharp::BaseBossSettings
   handsAttackSettings:
-    handWarningDuration: 1
-    handAttackDuration: 1
-    handCooldown: 1.5
-    totalHandsToUse: 5
+    handWarningDuration: 0.7
+    handAttackDuration: 0.7
+    handCooldown: 1.4
+    totalHandsToUse: 6
     useBothHands: 0
-    maxSpecialHands: 2
+    maxSpecialHands: 5
   spawnAttackSettings:
     projectilePrefab: {fileID: 9219921866110431799, guid: 829a8dd44eaa959469b571aa335aa3e0, type: 3}
     projectileBeforeSpawnPrefab: {fileID: 4899053137042385202, guid: c35248b870a664833961bec195804c32, type: 3}
     attacksToCast: 1000
-    hitThreshold: 100
+    hitThreshold: 300
     spawnSettings:
-      delayBetweenAttacks: {x: 1, y: 1.5}
+      delayBetweenAttacks: {x: 0.5, y: 1}
       bothSlimesAliveProbabilities:
-        oneShot: 1
+        oneShot: 0
         twoShots: 0
-        threeShot: 0
-        fourShots: 0
+        threeShot: 0.7017544
+        fourShots: 0.29824564
         bulletHell: 0
       notConnectedProbabilities:
-        oneShot: 1
+        oneShot: 0
         twoShots: 0
-        threeShot: 0
-        fourShots: 0
+        threeShot: 0.7352941
+        fourShots: 0.2647059
         bulletHell: 0
       oneSlimeAliveProbabilities:
-        oneShot: 1
+        oneShot: 0
         twoShots: 0
-        threeShot: 0
-        fourShots: 0
+        threeShot: 0.6640106
+        fourShots: 0.33598936
         bulletHell: 0
     spellSettings:
       attackAccuracyRange: {x: 0.7, y: 0.8}
-      attackSpeedRange: {x: 14, y: 18}
+      attackSpeedRange: {x: 18, y: 25}
       targetMiddleProbability: 0.2
     specialAttacksSettings:
       threeShotsAngle: 22.5
-      fourShotsWaitBetweenShots: 0.5
+      fourShotsWaitBetweenShots: 0.2
       bulletHellTotalAngle: 45
       bulletHellWaitBetweenShots: 0.2
       bulletHellMiddleDensityPower: 1.7
@@ -68,6 +68,87 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
+        time: 0.25933707
+        value: 0.8172137
+        inSlope: 2.3008795
+        outSlope: 2.3008795
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.44946525
+      - serializedVersion: 3
+        time: 0.3005077
+        value: 0.87711877
+        inSlope: 1.3655081
+        outSlope: 1.3655081
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.3590447
+        value: 0.8835639
+        inSlope: -1.0883192
+        outSlope: -1.0883192
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.4900186
+        value: 0.6004117
+        inSlope: -2.0505402
+        outSlope: -2.0505402
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.55905896
+        value: 0.54758453
+        inSlope: -2.1556137
+        outSlope: -2.1556137
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.6208565
+        value: 0.4916473
+        inSlope: -2.2395682
+        outSlope: -2.2395682
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.72788286
+        value: 0.21864025
+        inSlope: -1.1051067
+        outSlope: -1.1051067
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.76666665
+        value: 0.1738865
+        inSlope: 0.1477456
+        outSlope: 0.1477456
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.8001331
+        value: 0.20713058
+        inSlope: 1.1386665
+        outSlope: 1.1386665
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
         time: 1
         value: 1
         inSlope: 2
@@ -79,17 +160,169 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    rotationDuration: 4
+    rotationDuration: 10
     totalLoops: 1
+    rotationVariants:
+    - rotationCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.25933707
+          value: 0.8172137
+          inSlope: 2.3008795
+          outSlope: 2.3008795
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.44946525
+        - serializedVersion: 3
+          time: 0.3005077
+          value: 0.87711877
+          inSlope: 1.3655081
+          outSlope: 1.3655081
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.3590447
+          value: 0.8835639
+          inSlope: -1.0883192
+          outSlope: -1.0883192
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.4900186
+          value: 0.6004117
+          inSlope: -2.0505402
+          outSlope: -2.0505402
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.55905896
+          value: 0.54758453
+          inSlope: -2.1556137
+          outSlope: -2.1556137
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.6208565
+          value: 0.4916473
+          inSlope: -2.2395682
+          outSlope: -2.2395682
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.72788286
+          value: 0.21864025
+          inSlope: -1.1051067
+          outSlope: -1.1051067
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.76666665
+          value: 0.1738865
+          inSlope: 0.1477456
+          outSlope: 0.1477456
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.8001331
+          value: 0.20713058
+          inSlope: 1.1386665
+          outSlope: 1.1386665
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 2
+          outSlope: 2
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      rotationDuration: 10
+      totalLoops: 1
+    - rotationCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.4216629
+          value: 0.92055416
+          inSlope: 0.30876532
+          outSlope: 0.30876532
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.8067865
+          value: 0.6422879
+          inSlope: 1.4967015
+          outSlope: 1.4967015
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      rotationDuration: 7
+      totalLoops: 1
     withSlimeDetection: 0
   icicleSpawnSettings:
-    minWaitTime: 5
-    maxWaitTime: 10
+    minWaitTime: 3
+    maxWaitTime: 7
     loopSpawning: 1
-    accuracyOffset: 5
-    minIcicleCount: 2
-    maxIcicleCount: 4
-    playerTargetChance: 0.5
+    accuracyOffset: 3
+    minIcicleCount: 5
+    maxIcicleCount: 10
+    playerTargetChance: 0.636
     minSpacingBetweenIcicles: 4
     minDelayBetweenIcicles: 1
     maxDelayBetweenIcicles: 2
@@ -100,6 +333,13 @@ MonoBehaviour:
     farBeamSpeed: 0
     midBeamSpeed: 0
     closeBeamSpeed: 0
+    beamSpeedMultiplier: 0
+    beamSpeedCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
     angleFromMainBeam: {x: 45, y: 200.21394}
     mainBeamAngleFromSlimes: {x: 15, y: 20}
     minBeamAngleDistance: 45
@@ -109,11 +349,11 @@ MonoBehaviour:
     floatBossDistance: 0
     floatBossDuration: 0
   bossCoreSettings:
-    maxHealth: 1200
+    maxHealth: 2400
   bossPhaseSettings:
-    lowerHealthThreshold: 800
-    targetHitsToKill: 5
-    expectedAvgSpeedOfSpells: 30
+    lowerHealthThreshold: 1600
+    targetHitsToKill: 11
+    expectedAvgSpeedOfSpells: 35
   littleBossMovementSettings:
     duration: 1
     easeCurve:
