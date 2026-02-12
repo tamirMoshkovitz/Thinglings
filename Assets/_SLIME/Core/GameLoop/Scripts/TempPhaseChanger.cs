@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 using _SLIME.BaseScripts;
 using _SLIME.Boss;
 using _SLIME.GameLoop;
@@ -43,21 +43,8 @@ public class TempPhaseChanger : MonoBehaviour
     [SerializeField] private List<GameObject> objectsToActivateInSecondPhase = new List<GameObject>();
     [SerializeField] private List<GameObject> objectsToActivateInTunnelPhase = new List<GameObject>();
 
-    // State Machine Flags
-    private bool _conditionMet;
-    private bool _isFading;          // Step 1
-    private bool _isRampingMovement; // Step 2
-
-    // Timers
-    private float _fadeTimer;
-    private float _movementTimer;
-
-    // Cache for Reset
-    private float _initialSpeed;
-    private float _initialSensitivityX;
-    private float _initialSensitivityY;
-    
-    // Fade Cache
+    // Sequence Control
+    private Coroutine _phaseSequenceCoroutine;
     private SpriteRenderer[] _fadeRenderers;
     private readonly Dictionary<SpriteRenderer, float> _initialAlphas = new Dictionary<SpriteRenderer, float>();
 
@@ -72,26 +59,10 @@ public class TempPhaseChanger : MonoBehaviour
     {
         SecondPhaseState.SecondPhaseStarted -= OnSecondPhaseStarted;
         TunnelPhaseState.TunnelPhaseStarted -= OnTunnelPhaseStarted;
-
         GameEvents.SlimeWon -= OnSlimeWon;
-    }
-
-    private void OnSecondPhaseStarted()
-    {
-        creatureManager.SetActive(true);
-        foreach (var obj in objectsToActivateInSecondPhase)
-        {
-            if (obj) obj.SetActive(true);
-        }
-    }
-
-    private void OnTunnelPhaseStarted()
-    {
-        _conditionMet = true;
-        foreach (var obj in objectsToActivateInTunnelPhase)
-        {
-            if (obj) obj.SetActive(true);
-        }
+        
+        // Safety: Reset values when script is disabled to prevent SO data corruption
+        ResetToDefaultState();
     }
 
     private void Start()
@@ -109,152 +80,103 @@ public class TempPhaseChanger : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void OnSecondPhaseStarted()
     {
-        if (_conditionMet)
+        if(creatureManager) creatureManager.SetActive(true);
+        foreach (var obj in objectsToActivateInSecondPhase)
         {
-            StartFadeSequence();
-            _conditionMet = false;
-        }
-
-        // Handle Sequence
-        if (_isFading)
-        {
-            HandleFadeTransition();
-        }
-        else if (_isRampingMovement)
-        {
-            HandleMovementTransition();
+            if (obj) obj.SetActive(true);
         }
     }
-    
 
+    private void OnTunnelPhaseStarted()
+    {
+        foreach (var obj in objectsToActivateInTunnelPhase)
+        {
+            if (obj) obj.SetActive(true);
+        }
+
+        if (_phaseSequenceCoroutine != null) StopCoroutine(_phaseSequenceCoroutine);
+        _phaseSequenceCoroutine = StartCoroutine(TunnelPhaseSequence());
+    }
+
+    private IEnumerator TunnelPhaseSequence()
+    {
+        // --- STEP 1: FADE TRANSITION ---
+        if (layerToFade && _fadeRenderers != null && _fadeRenderers.Length > 0)
+        {
+            float timer = 0f;
+            while (timer < fadeDuration)
+            {
+                timer += Time.deltaTime;
+                float progress = Mathf.Clamp01(timer / fadeDuration);
+                float curveValue = fadeCurve.Evaluate(progress);
+
+                foreach (var sr in _fadeRenderers)
+                {
+                    if (!sr || !_initialAlphas.ContainsKey(sr)) continue;
+                    float startAlpha = _initialAlphas[sr];
+                    Color c = sr.color;
+                    c.a = Mathf.Lerp(startAlpha, targetAlpha, curveValue);
+                    sr.color = c;
+                }
+                yield return null;
+            }
+            layerToFade.SetActive(false);
+        }
+
+        if (artConfigurations != null)
+        {
+            float timer = 0f;
+            float startSpeed = artConfigurations.tunnelMovementSettings.movementSpeed;
+            float startX = artConfigurations.parallaxSettings.sensitivityMultiplierX;
+            float startY = artConfigurations.parallaxSettings.sensitivityMultiplierY;
+
+            while (timer < transitionDuration)
+            {
+                timer += Time.deltaTime;
+                float progress = Mathf.Clamp01(timer / transitionDuration);
+                float curveValue = accelerationCurve.Evaluate(progress);
+
+                // Lerp Speed
+                artConfigurations.tunnelMovementSettings.movementSpeed = Mathf.Lerp(startSpeed, targetSpeed, curveValue);
+                
+                // Lerp Sensitivities (Directly to target)
+                artConfigurations.parallaxSettings.sensitivityMultiplierX = Mathf.Lerp(startX, -targetSensitivityX, curveValue);
+                artConfigurations.parallaxSettings.sensitivityMultiplierY = Mathf.Lerp(startY, -targetSensitivityY, curveValue);
+                
+                yield return null;
+            }
+        }
+        
+        _phaseSequenceCoroutine = null;
+    }
 
     private void OnSlimeWon()
     {
+        if (_phaseSequenceCoroutine != null) StopCoroutine(_phaseSequenceCoroutine);
         StartCoroutine(StopTunnelMovement());
     }
 
     private IEnumerator StopTunnelMovement()
     {
         float timer = 0f;
-        float initialSpeed = artConfigurations.tunnelMovementSettings.movementSpeed;
+        float currentSpeed = artConfigurations.tunnelMovementSettings.movementSpeed;
 
-        while (timer <= fadeDuration)
+        while (timer < fadeDuration)
         {
-            artConfigurations.tunnelMovementSettings.movementSpeed = Mathf.Lerp(initialSpeed, 0f, fadeCurve.Evaluate(timer));
             timer += Time.deltaTime;
+            float progress = Mathf.Clamp01(timer / fadeDuration);
+            artConfigurations.tunnelMovementSettings.movementSpeed = Mathf.Lerp(currentSpeed, 0f, fadeCurve.Evaluate(progress));
             yield return null;
         }
+        
         artConfigurations.parallaxSettings.sensitivityMultiplierX = -0.1f;
         artConfigurations.parallaxSettings.sensitivityMultiplierY = -0.1f;
-        _initialSpeed = 0f;
-        creatureManager.SetActive(false);
-    }
-    
-
-    private void StartFadeSequence()
-    {
-        if (layerToFade && _fadeRenderers != null && _fadeRenderers.Length > 0)
-        {
-            _isFading = true;
-            _fadeTimer = 0f;
-        }
-        else
-        {
-            StartMovementSequence();
-        }
+        if(creatureManager) creatureManager.SetActive(false);
     }
 
-    private void StartMovementSequence()
-    {
-        _isRampingMovement = true;
-        _movementTimer = 0f;
-        if (artConfigurations)
-        {
-            _initialSpeed = artConfigurations.tunnelMovementSettings.movementSpeed;
-            _initialSensitivityX = artConfigurations.parallaxSettings.sensitivityMultiplierX;
-            _initialSensitivityY = artConfigurations.parallaxSettings.sensitivityMultiplierY;
-        }
-    }
-
-    private void HandleFadeTransition()
-    {
-        _fadeTimer += Time.deltaTime;
-        float progress = Mathf.Clamp01(_fadeTimer / fadeDuration);
-        
-        float curveValue = fadeCurve.Evaluate(progress);
-
-        if (_fadeRenderers != null)
-        {
-            foreach (var sr in _fadeRenderers)
-            {
-                if (!sr || !_initialAlphas.ContainsKey(sr)) continue;
-
-                float startAlpha = _initialAlphas[sr];
-                float newAlpha = Mathf.Lerp(startAlpha, targetAlpha, curveValue);
-                
-                Color c = sr.color;
-                c.a = newAlpha;
-                sr.color = c;
-            }
-        }
-        
-        if (progress >= 1f)
-        {
-            _isFading = false;
-            layerToFade.SetActive(false);
-            StartMovementSequence();
-        }
-    }
-
-    private void HandleMovementTransition()
-    {
-        _movementTimer += Time.deltaTime;
-        float progress = Mathf.Clamp01(_movementTimer / transitionDuration);
-
-        float curveValue = accelerationCurve.Evaluate(progress);
-
-        float newSpeed = Mathf.Lerp(_initialSpeed, targetSpeed, curveValue);
-        
-        float newSensitivityX = Mathf.Lerp(-_initialSensitivityX, targetSensitivityX, curveValue);
-        float newSensitivityY = Mathf.Lerp(-_initialSensitivityY, targetSensitivityY, curveValue);
-        
-        if (artConfigurations)
-        {
-            artConfigurations.tunnelMovementSettings.movementSpeed = newSpeed;
-            artConfigurations.parallaxSettings.sensitivityMultiplierX = -newSensitivityX;
-            artConfigurations.parallaxSettings.sensitivityMultiplierY = -newSensitivityY;
-        }
-
-        if (progress >= 1f)
-        {
-            _isRampingMovement = false;
-        }
-    }
-    
-    public void ResetPhase()
-    {
-        _conditionMet = false;
-        _isFading = false;
-        _isRampingMovement = false;
-        _fadeTimer = 0f;
-        _movementTimer = 0f;
-        
-        ResetSpeed();
-    }
-    
-    private void OnApplicationQuit()
-    {
-        ResetSpeed();
-    }
-    
-    private void OnDestroy()
-    {
-        ResetSpeed();
-    }
-
-    private void ResetSpeed()
+    private void ResetToDefaultState()
     {
         if (artConfigurations != null)
         {
@@ -263,15 +185,20 @@ public class TempPhaseChanger : MonoBehaviour
             artConfigurations.parallaxSettings.sensitivityMultiplierY = -0.1f;
         }
 
-        if (_fadeRenderers == null) return;
-        foreach (var sr in _fadeRenderers)
+        if (_fadeRenderers != null)
         {
-            if (sr != null && _initialAlphas.ContainsKey(sr))
+            foreach (var sr in _fadeRenderers)
             {
-                Color c = sr.color;
-                c.a = _initialAlphas[sr];
-                sr.color = c;
+                if (sr != null && _initialAlphas.ContainsKey(sr))
+                {
+                    Color c = sr.color;
+                    c.a = _initialAlphas[sr];
+                    sr.color = c;
+                }
             }
         }
     }
+
+    private void OnApplicationQuit() => ResetToDefaultState();
+    private void OnDestroy() => ResetToDefaultState();
 }
