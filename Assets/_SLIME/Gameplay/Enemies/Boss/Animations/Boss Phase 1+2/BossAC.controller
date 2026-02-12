@@ -448,6 +448,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2829591bf9e045528d545a410d2c3f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Boss.BossDeathSFX
+  beforeDeathSFX:
+    Guid:
+      Data1: -1520882257
+      Data2: 1135963270
+      Data3: 1562434206
+      Data4: 1797044798
+    Path: event:/Boss mumble 2
   deathSFX:
     Guid:
       Data1: -1461326222

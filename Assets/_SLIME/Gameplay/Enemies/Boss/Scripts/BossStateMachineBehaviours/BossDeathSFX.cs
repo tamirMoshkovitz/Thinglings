@@ -7,10 +7,12 @@ namespace _SLIME.Boss
 {
     public class BossDeathSFX: BossBaseBehaviour
     {
+        [SerializeField] private EventReference beforeDeathSFX;
         [SerializeField] private EventReference deathSFX;
         
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex, AnimatorControllerPlayable controller)
         {
+            SFXPlayer.Play(beforeDeathSFX);
             SFXPlayer.Play(deathSFX);
         }
     }
