@@ -353,7 +353,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0.54901963}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -473,9 +473,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Core.MenuSettings.Scripts.SmartToggle
   baseSprite: {fileID: 21300000, guid: 8c1dd439ded6942cb9edc6a663b60c17, type: 3}
   activeSprite: {fileID: 21300000, guid: 6664920c3af2a4e39971d75b2df8a774, type: 3}
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
-  activeColor: {r: 1, g: 1, b: 1, a: 1}
-  highlightColor: {r: 0.54901963, g: 0.42352942, b: 0.42352942, a: 1}
+  normalColor: {r: 0.54901963, g: 0.42352942, b: 0.42352942, a: 1}
+  activeColor: {r: 1, g: 1, b: 1, a: 0.54901963}
+  highlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &377724470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1122,9 +1122,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Core.MenuSettings.Scripts.SmartToggle
   baseSprite: {fileID: 21300000, guid: 2a8db16c81a1d49c2a506bf4733a7ace, type: 3}
   activeSprite: {fileID: 21300000, guid: 88be5dda648d6491287e71acfd8d107f, type: 3}
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
-  activeColor: {r: 1, g: 1, b: 1, a: 1}
-  highlightColor: {r: 0.5471698, g: 0.42070132, b: 0.42070132, a: 1}
+  normalColor: {r: 0.54901963, g: 0.42352942, b: 0.42352942, a: 1}
+  activeColor: {r: 1, g: 1, b: 1, a: 0.54901963}
+  highlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &736635073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1477,7 +1477,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0.54901963}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1959,9 +1959,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Core.MenuSettings.Scripts.SmartToggle
   baseSprite: {fileID: 21300000, guid: c2239e98e35184674afbb13afea37a5f, type: 3}
   activeSprite: {fileID: 21300000, guid: 3350c58330db74439ab775d3d17f989b, type: 3}
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
-  activeColor: {r: 1, g: 1, b: 1, a: 1}
-  highlightColor: {r: 0.54901963, g: 0.42352942, b: 0.42352942, a: 1}
+  normalColor: {r: 0.54901963, g: 0.42352942, b: 0.42352942, a: 1}
+  activeColor: {r: 1, g: 1, b: 1, a: 0.54901963}
+  highlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1149963706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2350,9 +2350,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Core.MenuSettings.Scripts.SmartToggle
   baseSprite: {fileID: 21300000, guid: 4d0d2c12d104c43c59688d15fa7c7e2d, type: 3}
   activeSprite: {fileID: 21300000, guid: 07a18ba09685b49bb80cb8b9988fc8a6, type: 3}
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
-  activeColor: {r: 1, g: 1, b: 1, a: 1}
-  highlightColor: {r: 0.54901963, g: 0.42352942, b: 0.42352942, a: 1}
+  normalColor: {r: 0.54901963, g: 0.42352942, b: 0.42352942, a: 1}
+  activeColor: {r: 1, g: 1, b: 1, a: 0.54901963}
+  highlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!222 &1243187995
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2784,9 +2784,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Core.MenuSettings.Scripts.SmartToggle
   baseSprite: {fileID: 21300000, guid: 0a159e3bd0e584928aa6179d51f3ad46, type: 3}
   activeSprite: {fileID: 21300000, guid: d98a74a171cc04f19a9ab29597aa059c, type: 3}
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
-  activeColor: {r: 1, g: 1, b: 1, a: 1}
-  highlightColor: {r: 0.54901963, g: 0.42352942, b: 0.42352942, a: 1}
+  normalColor: {r: 0.54901963, g: 0.42352942, b: 0.42352942, a: 1}
+  activeColor: {r: 1, g: 1, b: 1, a: 0.54901963}
+  highlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!222 &1558553835
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3415,9 +3415,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Core.MenuSettings.Scripts.SmartToggle
   baseSprite: {fileID: 21300000, guid: 5484263be0e354e878cc7a2922bb3867, type: 3}
   activeSprite: {fileID: 21300000, guid: 3cfd40ac70429488dbc7aa816691dc64, type: 3}
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
-  activeColor: {r: 1, g: 1, b: 1, a: 1}
-  highlightColor: {r: 0.54901963, g: 0.42352942, b: 0.42352942, a: 1}
+  normalColor: {r: 0.54901963, g: 0.42352942, b: 0.42352942, a: 1}
+  activeColor: {r: 1, g: 1, b: 1, a: 0.54901963}
+  highlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &2096221515
 MonoBehaviour:
   m_ObjectHideFlags: 0
