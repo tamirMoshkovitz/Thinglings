@@ -4,6 +4,8 @@ using _SLIME.Core.ControllerRumble.Scripts;
 using _SLIME.GameLoop;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 namespace _SLIME.Core.MenuSettings.Scripts
@@ -37,9 +39,9 @@ namespace _SLIME.Core.MenuSettings.Scripts
         [SerializeField] private GameObject startVolume;
         public static GameMode gameMode = GameMode.Easy;
         public static Controller controller = Controller.PS4;
-        [SerializeField] private EventSystem eventSystem;
         
-        public static GameTime gameTime = GameTime.Game;
+        
+        public static GameTime gameTime = GameTime.Start;
         private GameTime _lastGameTime;
         public static bool IsGamePaused = false;
 
@@ -51,6 +53,7 @@ namespace _SLIME.Core.MenuSettings.Scripts
         {
             _masterVca = FMODUnity.RuntimeManager.GetVCA("vca:/Master");
             _sfxBus = FMODUnity.RuntimeManager.GetBus("bus:/SFX");
+            InputSystem.settings.updateMode = InputSettings.UpdateMode.ProcessEventsInDynamicUpdate;
             _lastGameTime = gameTime;
         }
         
@@ -62,6 +65,7 @@ namespace _SLIME.Core.MenuSettings.Scripts
             }
             else
             {
+                UpdatePanelsForCurrentGameTimeIfNeeded();
                 PauseGame();
             }
         }
@@ -109,14 +113,59 @@ namespace _SLIME.Core.MenuSettings.Scripts
         }
         
         
-        void Update()
+        private void UpdatePanelsForCurrentGameTimeIfNeeded()
         {
-            if(gameTime == _lastGameTime) return;
-            _lastGameTime = gameTime;
-            gameMenuPanel.SetActive(gameTime == GameTime.Game);
-            startMenuPanel.SetActive(gameTime == GameTime.Start);
-            eventSystem.SetSelectedGameObject(
-                gameTime == GameTime.Game ? gameVolume : startVolume);
+          
+            bool isGame = (gameTime == GameTime.Game);
+            gameMenuPanel.SetActive(isGame);
+            startMenuPanel.SetActive(!isGame);
+
+            GameObject targetObj = isGame ? gameVolume : startVolume;
+            StartCoroutine(SelectButtonSafely(targetObj));
+        }
+        
+        // פונקציית עזר לביצוע הבחירה בצורה בטוחה
+        IEnumerator SelectButtonSafely(GameObject btn)
+        {
+            // חובה: קודם כל מנקים את הבחירה הנוכחית!
+            // זה מכריח את יוניטי "להתאפס" ומפחית באגים ב-Build
+            EventSystem.current.SetSelectedGameObject(null);
+            yield return null;
+            
+            var inputModule = EventSystem.current.GetComponent<InputSystemUIInputModule>();
+            
+            inputModule.enabled = false;
+            while (inputModule.enabled)
+            {
+                yield return null; // חובה לחכות כדי שהכיבוי ייתפס
+            }
+            inputModule.enabled = true;
+            while (inputModule.enabled == false)
+            {
+                yield return null; // חובה לחכות כדי שהכיבוי ייתפס
+            }
+            
+            yield return null; // חובה לחכות כדי שההדלקה תיתפס
+        
+        
+            _optionsMenuPanel.SetActive(true);
+            // מחכים פריים אחד כדי שהפאנל יסיים להיפתח
+            while (_optionsMenuPanel.activeInHierarchy == false)
+            { 
+                yield return null;
+            }
+            if (btn != null && btn.activeInHierarchy)
+            {
+                Debug.Log(btn.name);
+                btn.GetComponent<Selectable>().Select(); 
+        
+                // ליתר ביטחון, מוודאים שזה נתפס גם במערכת הראשית
+                btn.GetComponent<Selectable>().OnSelect(null);
+            }
+            
+            
+            
+            
         }
         
        

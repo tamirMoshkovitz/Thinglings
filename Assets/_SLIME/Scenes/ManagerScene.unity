@@ -226,8 +226,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1417357478}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 18, y: 44}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -696,7 +696,7 @@ RectTransform:
   m_Father: {fileID: 1055116004}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -879,7 +879,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 573519861}
-  - component: {fileID: 573519862}
   m_Layer: 5
   m_Name: InStartScene
   m_TagString: Untagged
@@ -911,18 +910,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &573519862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 573519860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f92678a846164b6fb5913513ab1d4dd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Gameplay.Projectiles.Icicle.Scripts.DisableOffGameobjectAfterTime
 --- !u!1 &643181236
 GameObject:
   m_ObjectHideFlags: 0
@@ -1057,7 +1044,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &699050883
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1766,7 +1753,6 @@ MonoBehaviour:
   gameMenuPanel: {fileID: 699050882}
   startMenuPanel: {fileID: 573519860}
   startVolume: {fileID: 375789228}
-  eventSystem: {fileID: 1524752623}
 --- !u!114 &1007150923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2196,7 +2182,7 @@ RectTransform:
   m_Father: {fileID: 919163362}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2439,8 +2425,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1609186875}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 18, y: 44}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2548,7 +2534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventSystem
-  m_FirstSelected: {fileID: 901091587}
+  m_FirstSelected: {fileID: 375789228}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1524752624
@@ -2888,14 +2874,13 @@ GameObject:
   - component: {fileID: 1626361036}
   - component: {fileID: 1626361040}
   - component: {fileID: 1626361039}
-  - component: {fileID: 1626361041}
   m_Layer: 5
   m_Name: OptionsMenuPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1626361036
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2955,18 +2940,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1626361035}
   m_CullTransparentMesh: 1
---- !u!114 &1626361041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1626361035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f92678a846164b6fb5913513ab1d4dd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::_SLIME.Gameplay.Projectiles.Icicle.Scripts.DisableOffGameobjectAfterTime
 --- !u!1 &1710295456
 GameObject:
   m_ObjectHideFlags: 0
