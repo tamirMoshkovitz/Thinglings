@@ -111,6 +111,11 @@ namespace _SLIME.Core.MenuSettings.Scripts
             gameVolume.GetComponentInChildren<Slider>().value = value;
             startVolume.GetComponentInChildren<Slider>().value = value;
         }
+
+        public void ExitGame()
+        {
+            Application.Quit();
+        }
         
         
         private void UpdatePanelsForCurrentGameTimeIfNeeded()
