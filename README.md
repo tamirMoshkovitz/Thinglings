@@ -4,6 +4,8 @@ A 2D co-op action game built for the Digital Game course (2026), a collaboration
 
 Two beings, born by accident, must bond and tear apart to survive their creator's wrath.
 
+**[Watch Trailer!](https://www.youtube.com/watch?v=B7y1mJhw8cs)**
+
 **[Download from itch.io](https://firefliesjar.itch.io/thinglings)** · Windows & macOS
 
 ## About
@@ -28,4 +30,6 @@ The game's controls and mechanics were shaped iteratively through the developmen
 **Sound Design** — Ilay Bekin
 
 Guidance: Idan Rooze, Eli Babajanov, Dani Bacon, Noa Dveyrin
+
+<img width="2940" height="1652" alt="image" src="https://github.com/user-attachments/assets/62709ee9-dc22-4c55-ae4f-77d23ece2a2a" />
 
