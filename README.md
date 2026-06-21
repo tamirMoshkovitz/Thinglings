@@ -12,15 +12,20 @@ Two slime halves connected by a physics-based tether - players stretch and manip
 
 The game's controls and mechanics were shaped iteratively through the development process and multiple playtests, resulting in a feel that is unique to the project.
 
-## Built With
-
-- Unity 2022 LTS · URP
-- FMOD Studio
-- DOTween
-
 ## Contributions
 
 - Component-based player architecture
 - Player movement and behavior (partial)
 - Feel and feedback component system
 - FMOD audio integration: procedural music and SFX
+
+## Credits
+
+**Art** — Tehila Naor, Halel Sarfaty
+
+**Programming** — Elad Firer, Omer Elhadad, Tamir Moshkovitz
+
+**Sound Design** — Ilay Bekin
+
+Guidance: Idan Rooze, Eli Babajanov, Dani Bacon, Noa Dveyrin
+
